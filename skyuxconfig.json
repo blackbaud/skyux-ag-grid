@@ -5,11 +5,6 @@
   "plugins": [
     "@skyux-sdk/builder-plugin-skyux"
   ],
-  "appSettings": {
-    "myLibrary": {
-      "name": "My Library"
-    }
-  },
   "testSettings": {
     "unit": {
       "browserSet": "paranoid"
