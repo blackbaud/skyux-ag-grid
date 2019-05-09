@@ -61,6 +61,8 @@
     "@skyux/router": "3.1.1",
     "@skyux/theme": "3.5.0",
     "@types/core-js": "2.5.0",
+    "ag-grid-angular": "20.2.0",
+    "ag-grid-community": "20.2.0",
     "codelyzer": "4.5.0",
     "rxjs": "6.5.1",
     "rxjs-compat": "6.5.1",
