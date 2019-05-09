@@ -1,0 +1,33 @@
+<main>
+  <sky-toolbar>
+    <sky-toolbar-item>
+      <sky-radio-group>
+        <sky-radio
+          name="measurementSelection"
+          [(ngModel)]="sizingMode"
+          (ngModelChange)="sizeGrid()"
+          value="fit">
+          <sky-radio-label>
+            Size to fit
+          </sky-radio-label>
+        </sky-radio>
+        <sky-radio
+          name="measurementSelection"
+          [(ngModel)]="sizingMode"
+          (ngModelChange)="sizeGrid()"
+          value="auto">
+          <sky-radio-label>
+            Size automatically
+          </sky-radio-label>
+        </sky-radio>
+      </sky-radio-group>
+    </sky-toolbar-item>
+  </sky-toolbar>
+  <ag-grid-angular
+    class="ag-theme-balham"
+    [gridOptions]="gridOptions"
+    [rowData]="gridData"
+    domLayout="autoHeight"
+  >
+  </ag-grid-angular>
+</main>

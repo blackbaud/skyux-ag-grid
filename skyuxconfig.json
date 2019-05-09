@@ -1,4 +1,5 @@
 {
+  "name": "skyux-ag-grid",
   "$schema": "./node_modules/@skyux/config/skyuxconfig-schema.json",
   "mode": "easy",
   "compileMode": "aot",

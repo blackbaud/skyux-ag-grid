@@ -1,11 +1,13 @@
 import { GridOptions } from 'ag-grid-community';
 
-export const SkyuxGridOptions: GridOptions = {
+export const SKYUX_GRID_OPTIONS: GridOptions = {
   defaultColDef: {
     sortable: true,
     resizable: true,
     minWidth: 100
   },
+  rowSelection: 'multiple',
+  rowMultiSelectWithClick: true,
   suppressCellSelection: true,
   rowHeight: 37,
   headerHeight: 37,

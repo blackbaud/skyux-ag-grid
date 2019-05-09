@@ -15,6 +15,8 @@ $secondary-font-size: 15px;
 $secondary-font-weight: 400;
 $secondary-foreground-color: $sky-text-color-deemphasized;
 $primary-color: $sky-highlight-color-info;
+$selected-color: #F1EEF6;
+$hover-color: #E9E4F1;
 
 /* other variables */
 $standard-border: 1px solid $border-color;
@@ -48,7 +50,7 @@ ag-grid-angular {
     border-style: dotted;
   }
 
-  .grid-number {
+  .skyux-grid-number {
     text-align: right;
   }
 }
