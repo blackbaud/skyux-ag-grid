@@ -1,0 +1,105 @@
+@import '~@skyux/theme/scss/mixins';
+
+/* base grid theme property variables */
+$odd-row-background-color: #FFFFFF;
+$background-color: $sky-color-gray-01;
+$hover-color: none;
+$border-color: $sky-border-color-neutral-medium;
+$row-height: 38px;
+$header-height: 37px;
+$font-family: "Blackbaud Sans";
+$header-background-color: #FFFFFF;
+$font-size: 15px;
+$row-border-width: 1px;
+$secondary-font-size: 15px;
+$secondary-font-weight: 400;
+$secondary-foreground-color: $sky-text-color-deemphasized;
+$primary-color: $sky-highlight-color-info;
+
+/* other variables */
+$standard-border: 1px solid $border-color;
+
+@import "~ag-grid-community/src/styles/ag-grid.scss";
+@import "~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss";
+
+ag-grid-angular {
+  width: 100%;
+  height: 100%;
+}
+.ag-theme-balham {
+  .ag-root {
+    border: none;
+    border-left: $standard-border;
+    border-right: $standard-border;
+  }
+
+  .ag-header-cell::after {
+    display: none;
+  }
+
+  .ag-header-cell {
+    border-right: $standard-border;
+  }
+
+
+  .ag-row {
+    // don't shorthand these because it will overwrite the other grid border settings
+    border-color: $border-color;
+    border-style: dotted;
+  }
+
+  .grid-number {
+    text-align: right;
+  }
+}
+
+.ag-theme-balham.grid-edit-mode {
+  .ag-row {
+    border-style: solid;
+  }
+
+  .ag-cell {
+    border-right: $standard-border;
+    border-block-end: none;
+    border-block-start: none;
+  }
+
+  .editable {
+    background-color: #FFFFFF;
+  }
+
+  .uneditable {
+    background-color: $sky-background-color-neutral-light;
+  }
+
+  /* fine tune focus cell borders */
+  .ag-row {
+    .ag-cell-focus.ag-cell-inline-editing {
+      margin-top: $row-border-width * -1;
+      box-shadow: 0 0 8px rgba($sky-highlight-color-info, 0.6);
+      border: 1px solid $sky-highlight-color-info;
+    }
+
+    .ag-cell-focus.ag-cell-not-inline-editing {
+      border: none;
+      border-right: $standard-border;
+      box-shadow: none;
+    }
+  }
+
+  .ag-row.ag-row-first {
+    .ag-cell-focus.ag-cell-inline-editing {
+      margin-top: 0;
+    }
+  }
+
+  .ag-row.ag-row-last {
+    .ag-cell-focus.ag-cell-inline-editing {
+      height: $row-height - 1;
+    }
+  }
+
+  .ag-cell-inline-editing {
+    border-radius: 0;
+  }
+}
