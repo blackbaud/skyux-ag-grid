@@ -3,28 +3,33 @@ import {
 } from '@angular/core';
 
 import {
-  SkyuxCheckboxWrapperComponent
-} from './skyux-checkbox-wrapper.component';
-
-import {
   SkyuxCheckboxGridCellComponent
-} from '../skyux-checkbox-grid-cell.component';
+} from './skyux-checkbox-grid-cell.component';
+
+// import {
+//   SkyuxCheckboxGridCellComponent
+// } from '../skyux-checkbox-grid-cell.component';
 
 import {
   SkyCheckboxModule
 } from '@skyux/forms';
 
+import {
+  FormsModule
+} from '@angular/forms';
+
+
 @NgModule({
   imports: [
-    SkyCheckboxModule
+    SkyCheckboxModule,
+    FormsModule
   ],
   declarations: [
-    SkyuxCheckboxWrapperComponent,
     SkyuxCheckboxGridCellComponent
   ],
   exports: [
     SkyuxCheckboxGridCellComponent
   ]
 })
-export class SkyuxCheckboxWrapperModule {
+export class SkyuxCheckboxGridCellModule {
 }

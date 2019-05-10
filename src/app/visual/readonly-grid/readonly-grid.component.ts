@@ -24,10 +24,6 @@ import {
   SKYUX_GRID_OPTIONS
 } from '../../public/skyux-grid-options';
 
-import {
-  SkyuxCheckboxGridCellComponent
-} from '../../public/cell-renderers/skyux-checkbox-cell-renderer/skyux-checkbox-grid-cell.component';
-
 @Component({
   selector: 'readonly-grid-visual',
   templateUrl: './readonly-grid.component.html',
@@ -44,7 +40,7 @@ export class ReadonlyGridComponent implements OnInit {
     {
       field: 'selected',
       headerName: '',
-      cellRendererFramework: SkyuxCheckboxGridCellComponent,
+      cellRenderer: 'skyuxCheckboxComponent',
       width: 50,
       minWidth: 50,
       maxWidth: 50

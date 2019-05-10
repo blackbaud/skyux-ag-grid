@@ -1,0 +1,9 @@
+<div [style.width.px]="columnWidth">
+  <sky-datepicker #datepicker>
+    <input
+      skyDatepickerInput
+      [(ngModel)]="currentDate"
+      (ngModelChange)="onDateChange($event)"
+    />
+  </sky-datepicker>
+</div>

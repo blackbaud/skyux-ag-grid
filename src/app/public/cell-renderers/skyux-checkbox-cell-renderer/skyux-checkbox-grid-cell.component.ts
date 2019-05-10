@@ -26,6 +26,10 @@ export class SkyuxCheckboxGridCellComponent implements ICellRendererAngularComp 
     this.rowNode = this.params.node;
   }
 
+  public updateRow() {
+    this.rowNode.setSelected(this.checked);
+  }
+
   public refresh(): boolean {
     return false;
   }

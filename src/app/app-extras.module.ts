@@ -7,15 +7,10 @@ import {
 } from 'ag-grid-angular';
 
 import {
-  ReadonlyGridComponent
-} from './visual/readonly-grid/readonly-grid.component';
-
-import {
   SkyAppLinkModule
 } from '@skyux/router';
 
 import {
-  SkyCheckboxModule,
   SkyRadioModule
 } from '@skyux/forms';
 
@@ -24,28 +19,47 @@ import {
 } from './public/cell-renderers/skyux-checkbox-cell-renderer/skyux-checkbox-grid-cell.component';
 
 import {
-  SkyuxCheckboxWrapperModule
-} from './public/cell-renderers/skyux-checkbox-cell-renderer/skyux-checkbox-wrapper/skyux-checkbox-wrapper.module';
+  SkyuxNumericCellEditorComponent
+} from './public/cell-editors/skyux-numeric-cell-editor/skyux-numeric-cell-editor.component';
+
+import {
+  SkyuxDatepickerCellEditorComponent
+} from './public/cell-editors/skyux-datepicker-cell-editor/skyux-datepicker-cell-editor.component';
+
+import {
+  SkyuxCheckboxGridCellModule
+} from './public/cell-renderers/skyux-checkbox-cell-renderer/skyux-checkbox-grid-cell.module';
+
+import {
+  SkyuxDatepickerCellEditorModule
+} from './public/cell-editors/skyux-datepicker-cell-editor/skyux-datepicker-cell-editor.module';
 
 import {
   SkyToolbarModule
 } from '@skyux/layout';
 
+import {
+  FormsModule
+} from '@angular/forms';
+
 @NgModule({
-  declarations: [],
+  declarations: [SkyuxNumericCellEditorComponent],
   imports: [
-    AgGridModule.withComponents([SkyuxCheckboxGridCellComponent]),
-    SkyuxCheckboxWrapperModule
+    AgGridModule.withComponents([
+      SkyuxCheckboxGridCellComponent,
+      SkyuxNumericCellEditorComponent,
+      SkyuxDatepickerCellEditorComponent
+    ]),
+    SkyuxCheckboxGridCellModule,
+    SkyuxDatepickerCellEditorModule,
+    FormsModule
   ],
   exports: [
     AgGridModule,
     SkyAppLinkModule,
-    SkyCheckboxModule,
     SkyRadioModule,
     SkyToolbarModule
   ],
-  entryComponents: [
-    ReadonlyGridComponent
-  ]
+  entryComponents: []
 })
 export class AppExtrasModule { }

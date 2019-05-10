@@ -55,7 +55,7 @@ ag-grid-angular {
   }
 }
 
-.ag-theme-balham.grid-edit-mode {
+.ag-theme-balham.skyux-grid-edit-mode {
   .ag-row {
     border-style: solid;
   }
@@ -66,11 +66,11 @@ ag-grid-angular {
     border-block-start: none;
   }
 
-  .editable {
+  .skyux-editable-cell {
     background-color: #FFFFFF;
   }
 
-  .uneditable {
+  .skyux-uneditable-cell {
     background-color: $sky-background-color-neutral-light;
   }
 
