@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   ViewChild
@@ -16,7 +17,7 @@ import {
   selector: 'skyux-datepicker-cell-editor',
   templateUrl: './skyux-datepicker-cell-editor.component.html'
 })
-export class SkyuxDatepickerCellEditorComponent implements ICellEditorAngularComp {
+export class SkyuxDatepickerCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
   private params: ICellEditorParams;
 
   @ViewChild('datepicker', {read: ElementRef})

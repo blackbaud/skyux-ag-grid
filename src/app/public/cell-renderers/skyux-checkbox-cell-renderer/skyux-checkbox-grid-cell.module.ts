@@ -6,10 +6,6 @@ import {
   SkyuxCheckboxGridCellComponent
 } from './skyux-checkbox-grid-cell.component';
 
-// import {
-//   SkyuxCheckboxGridCellComponent
-// } from '../skyux-checkbox-grid-cell.component';
-
 import {
   SkyCheckboxModule
 } from '@skyux/forms';
@@ -17,7 +13,6 @@ import {
 import {
   FormsModule
 } from '@angular/forms';
-
 
 @NgModule({
   imports: [

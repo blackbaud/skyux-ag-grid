@@ -23,7 +23,6 @@ import {
 
 const _cloneDeep = require('lodash.clonedeep');
 
-
 @Component({
   selector: 'editable-grid-visual',
   templateUrl: './editable-grid.component.html',
