@@ -20,7 +20,8 @@ import {
 } from './skyux-datepicker-cell-editor.module';
 
 import {
-  Column
+  Column,
+  RowNode
 } from 'ag-grid-community';
 
 describe('Datepicker editor component', () => {
@@ -52,6 +53,8 @@ describe('Datepicker editor component', () => {
     it('initializes the SkyuxDatepickerCellEditorComponent properties', () => {
       let date = new Date('1/1/19');
       let columnWidth = 200;
+      let rowNode: RowNode = new RowNode();
+      rowNode.rowHeight = 37;
       let column: Column = new Column(
         {
           colId: 'col'
@@ -61,15 +64,17 @@ describe('Datepicker editor component', () => {
         true);
       column.setActualWidth(columnWidth);
 
-      let cellEditorParams = { value: date, column };
+      let cellEditorParams = { value: date, column, node: rowNode };
 
       expect(component.currentDate).toBeUndefined();
       expect(component.columnWidth).toBeUndefined();
+      expect(component.rowHeight).toBeUndefined();
 
       component.agInit(cellEditorParams);
 
       expect(component.currentDate).toEqual(date);
       expect(component.columnWidth).toEqual(columnWidth);
+      expect(component.rowHeight).toEqual(38);
     });
   });
 

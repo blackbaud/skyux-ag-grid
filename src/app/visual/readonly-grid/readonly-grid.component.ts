@@ -90,7 +90,8 @@ export class ReadonlyGridComponent implements OnInit {
   }
 
   public dateFormatter(params: any) {
-      return params.value.toLocaleDateString();
+    let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return params.value.toLocaleDateString('en-US', dateConfig);
   }
 
   public statusRenderer(cellRendererParams: any) {

@@ -148,7 +148,8 @@ export class EditableGridComponent implements OnInit {
   }
 
   public dateFormatter(params: any) {
-    return params.value ? params.value.toLocaleDateString() : undefined;
+    let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return params.value ? params.value.toLocaleDateString('en-us', dateConfig) : undefined;
   }
 
   public calculateRowTotal(row: EditableGridRow) {
