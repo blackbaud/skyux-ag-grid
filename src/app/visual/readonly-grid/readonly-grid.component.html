@@ -5,7 +5,7 @@
         name="measurementSelection"
         [(ngModel)]="sizingMode"
         (ngModelChange)="sizeGrid()"
-        value="fit">
+        [value]="fitGridSizing">
         <sky-radio-label>
           Size to fit
         </sky-radio-label>
@@ -14,7 +14,7 @@
         name="measurementSelection"
         [(ngModel)]="sizingMode"
         (ngModelChange)="sizeGrid()"
-        value="auto">
+        [value]="autoGridSizing">
         <sky-radio-label>
           Size automatically
         </sky-radio-label>

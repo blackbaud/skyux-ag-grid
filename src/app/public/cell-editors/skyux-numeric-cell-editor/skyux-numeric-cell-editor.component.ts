@@ -9,10 +9,6 @@ import {
   ICellEditorAngularComp
 } from 'ag-grid-angular';
 
-import {
-  ICellEditorParams
-} from 'ag-grid-community';
-
 @Component({
   selector: 'app-ag-numeric-editor',
   templateUrl: './skyux-numeric-cell-editor.component.html',
@@ -20,11 +16,11 @@ import {
 })
 export class SkyuxNumericCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
   public value: number;
-  private params: ICellEditorParams;
+  private params: any;
 
   @ViewChild('numericInput', {read: ViewContainerRef}) public input: any;
 
-  public agInit(params: ICellEditorParams): void {
+  public agInit(params: any): void {
     this.params = params;
     this.value = this.params.value;
   }

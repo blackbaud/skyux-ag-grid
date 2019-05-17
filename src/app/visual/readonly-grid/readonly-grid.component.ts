@@ -15,6 +15,7 @@ import {
 } from 'ag-grid-community';
 
 import {
+  GridSizingMode,
   READONLY_GRID_DATA,
   ReadonlyGridRow,
   RowStatusNames
@@ -35,7 +36,9 @@ export class ReadonlyGridComponent implements OnInit {
   public gridOptions: GridOptions = SKYUX_GRID_OPTIONS;
   public gridApi: GridApi;
   public columnApi: ColumnApi;
-  public sizingMode: string = 'fit';
+  public readonly fitGridSizing: GridSizingMode = GridSizingMode.FIT;
+  public readonly autoGridSizing: GridSizingMode = GridSizingMode.FIT;
+  public sizingMode: GridSizingMode = this.fitGridSizing;
   public columnDefs: ColDef[] = [
     {
       field: 'selected',
@@ -79,7 +82,7 @@ export class ReadonlyGridComponent implements OnInit {
   public ngOnInit() {
     this.gridOptions.columnDefs = this.columnDefs;
     this.gridOptions.onGridReady = (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); };
-    this.gridOptions.onGridSizeChanged = () => { this.onGridSizeChanged(); };
+    this.gridOptions.onGridSizeChanged = () => { this.sizeGrid(); };
     this.gridOptions.onRowSelected = (rowSelectedEvent: RowSelectedEvent) => {
       rowSelectedEvent.data.selected = rowSelectedEvent.node.isSelected();
       this.gridApi.refreshCells({rowNodes: [rowSelectedEvent.node]});
@@ -115,14 +118,10 @@ export class ReadonlyGridComponent implements OnInit {
   }
 
   public sizeGrid() {
-    if (this.sizingMode === 'fit') {
+    if (this.sizingMode === GridSizingMode.FIT) {
       this.gridApi.sizeColumnsToFit();
     } else {
       this.columnApi.autoSizeColumns(['name', 'value', 'startDate', 'endDate', 'comment', 'status']);
     }
-  }
-
-  public onGridSizeChanged() {
-    this.sizeGrid();
   }
 }
