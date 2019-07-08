@@ -59,7 +59,7 @@ export class EditableGridComponent implements OnInit {
         colId: 'name',
         field: 'name',
         headerName: 'Goal Name',
-        cellClass: 'skyux-uneditable-cell',
+        cellClass: 'sky-uneditable-cell',
         minWidth: 220
       },
       {
@@ -67,7 +67,7 @@ export class EditableGridComponent implements OnInit {
         field: 'value1',
         headerName: 'Update 1',
         editable: this.editMode,
-        cellClass: 'skyux-editable-cell skyux-grid-number',
+        cellClass: 'sky-editable-cell sky-grid-number',
         onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
         cellEditor: 'skyuxNumericEditorComponent'
       },
@@ -76,7 +76,7 @@ export class EditableGridComponent implements OnInit {
         field: 'value2',
         headerName: 'Update 2',
         editable: this.editMode,
-        cellClass: 'skyux-editable-cell skyux-grid-number',
+        cellClass: 'sky-editable-cell sky-grid-number',
         onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
         cellEditor: 'skyuxNumericEditorComponent'
       },
@@ -85,7 +85,7 @@ export class EditableGridComponent implements OnInit {
         field: 'value3',
         headerName: 'Update 3',
         editable: this.editMode,
-        cellClass: 'skyux-editable-cell skyux-grid-number',
+        cellClass: 'sky-editable-cell sky-grid-number',
         onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
         cellEditor: 'skyuxNumericEditorComponent'
       },
@@ -93,13 +93,13 @@ export class EditableGridComponent implements OnInit {
         colId: 'total',
         field: 'total',
         headerName: 'Current Total',
-        cellClass: 'skyux-uneditable-cell skyux-grid-number'
+        cellClass: 'sky-uneditable-cell sky-grid-number'
       },
       {
         colId: 'target',
         field: 'target',
         headerName: 'Target Value',
-        cellClass: 'skyux-uneditable-cell skyux-grid-number'
+        cellClass: 'sky-uneditable-cell sky-grid-number'
       },
       {
         colId: 'completedDate',
@@ -107,7 +107,7 @@ export class EditableGridComponent implements OnInit {
         headerName: 'Completed Date',
         editable: this.editMode,
         valueFormatter: this.dateFormatter,
-        cellClass: 'skyux-editable-cell',
+        cellClass: 'sky-editable-cell',
         cellEditor: 'skyuxDatepickerEditorComponent',
         minWidth: 160
       },
@@ -117,7 +117,7 @@ export class EditableGridComponent implements OnInit {
         headerName: 'Due Date',
         valueFormatter: this.dateFormatter,
         sort: 'asc',
-        cellClass: 'skyux-uneditable-cell',
+        cellClass: 'sky-uneditable-cell',
         minWidth: 160
       }];
   }
