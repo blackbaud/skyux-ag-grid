@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   ViewEncapsulation
@@ -27,7 +28,8 @@ const _cloneDeep = require('lodash.clonedeep');
   selector: 'editable-grid-visual',
   templateUrl: './editable-grid.component.html',
   styleUrls: ['../../public/styles/ag-grid-styles.scss', './editable-grid.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditableGridComponent implements OnInit {
   public gridData: EditableGridRow[] = EDITABLE_GRID_DATA;

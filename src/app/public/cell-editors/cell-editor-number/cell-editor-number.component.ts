@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ViewChild,
   ViewContainerRef
@@ -12,7 +13,8 @@ import {
 @Component({
   selector: 'sky-cell-editor-numeric',
   templateUrl: './cell-editor-number.component.html',
-  styleUrls: ['./cell-editor-number.component.scss']
+  styleUrls: ['./cell-editor-number.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyCellEditorNumberComponent implements ICellEditorAngularComp, AfterViewInit {
   public value: number;

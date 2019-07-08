@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   ViewChild
@@ -12,7 +13,8 @@ import {
 @Component({
   selector: 'sky-cell-editor-datepicker',
   templateUrl: './cell-editor-datepicker.component.html',
-  styleUrls: ['./cell-editor-datepicker.component.scss']
+  styleUrls: ['./cell-editor-datepicker.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
   private params: any;

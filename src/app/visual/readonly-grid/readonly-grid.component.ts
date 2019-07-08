@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   ViewEncapsulation
@@ -29,7 +30,8 @@ import {
   selector: 'readonly-grid-visual',
   templateUrl: './readonly-grid.component.html',
   styleUrls: ['../../public/styles/ag-grid-styles.scss', './readonly-grid.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReadonlyGridComponent implements OnInit {
   public gridData: ReadonlyGridRow[] = READONLY_GRID_DATA;

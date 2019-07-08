@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component
 } from '@angular/core';
 
@@ -13,7 +14,8 @@ import {
 @Component({
   selector: 'sky-cell-renderer-row-selector',
   templateUrl: './cell-renderer-row-selector.component.html',
-  styleUrls: ['./cell-renderer-row-selector.component.scss']
+  styleUrls: ['./cell-renderer-row-selector.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyCellRendererRowSelectorComponent implements ICellRendererAngularComp {
   private params: any;
