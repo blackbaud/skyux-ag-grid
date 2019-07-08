@@ -50,7 +50,7 @@ ag-grid-angular {
     border-style: dotted;
   }
 
-  .sky-grid-number {
+  .sky-cell-number {
     text-align: right;
   }
 }
@@ -66,11 +66,11 @@ ag-grid-angular {
     border-block-start: none;
   }
 
-  .sky-editable-cell {
+  .sky-cell-editable {
     background-color: #FFFFFF;
   }
 
-  .sky-uneditable-cell {
+  .sky-cell-uneditable {
     background-color: $sky-background-color-neutral-light;
   }
 

@@ -3,16 +3,16 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyCheckboxGridCellComponent
-} from './cell-renderers/checkbox-cell-renderer/checkbox-grid-cell.component';
+  SkyCellRendererRowSelectorComponent
+} from './cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.component';
 
 import {
-  SkyNumericCellEditorComponent
-} from './cell-editors/numeric-cell-editor/numeric-cell-editor.component';
+  SkyCellEditorNumberComponent
+} from './cell-editors/cell-editor-number/cell-editor-number.component';
 
 import {
   SkyDatepickerCellEditorComponent
-} from './cell-editors/datepicker-cell-editor/datepicker-cell-editor.component';
+} from './cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
 
 export const SKY_GRID_OPTIONS: GridOptions = {
   defaultColDef: {
@@ -38,8 +38,8 @@ export const SKY_GRID_OPTIONS: GridOptions = {
   singleClickEdit: true,
   suppressDragLeaveHidesColumns: true,
   frameworkComponents: {
-    'skyuxCheckboxComponent': SkyCheckboxGridCellComponent,
-    'skyuxNumericEditorComponent': SkyNumericCellEditorComponent,
+    'skyuxCheckboxComponent': SkyCellRendererRowSelectorComponent,
+    'skyuxNumericEditorComponent': SkyCellEditorNumberComponent,
     'skyuxDatepickerEditorComponent': SkyDatepickerCellEditorComponent
   }
 };

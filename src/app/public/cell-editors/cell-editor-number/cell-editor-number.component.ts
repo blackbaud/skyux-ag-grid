@@ -10,11 +10,11 @@ import {
 } from 'ag-grid-angular';
 
 @Component({
-  selector: 'sky-numeric-cell-editor',
-  templateUrl: './numeric-cell-editor.component.html',
-  styleUrls: ['./numeric-cell-editor.component.scss']
+  selector: 'sky-cell-editor-numeric',
+  templateUrl: './cell-editor-number.component.html',
+  styleUrls: ['./cell-editor-number.component.scss']
 })
-export class SkyNumericCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
+export class SkyCellEditorNumberComponent implements ICellEditorAngularComp, AfterViewInit {
   public value: number;
   private params: any;
 

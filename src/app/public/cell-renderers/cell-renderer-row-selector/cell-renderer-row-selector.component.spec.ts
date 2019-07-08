@@ -12,31 +12,31 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyCheckboxGridCellComponent
-} from './checkbox-grid-cell.component';
+  SkyCellRendererRowSelectorComponent
+} from './cell-renderer-row-selector.component';
 
 import {
-  SkyuxCheckboxGridCellModule
-} from './checkbox-grid-cell.module';
+  SkyCellRendererRowSelectorModule
+} from './cell-renderer-row-selector.module';
 
 import {
   RowNode
 } from 'ag-grid-community';
 
 describe('Checkbox cell component', () => {
-  let fixture: ComponentFixture<SkyCheckboxGridCellComponent>;
-  let component: SkyCheckboxGridCellComponent;
+  let fixture: ComponentFixture<SkyCellRendererRowSelectorComponent>;
+  let component: SkyCellRendererRowSelectorComponent;
   let nativeElement: HTMLElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         SkyAppTestModule,
-        SkyuxCheckboxGridCellModule
+        SkyCellRendererRowSelectorModule
       ]
     });
 
-    fixture = TestBed.createComponent(SkyCheckboxGridCellComponent);
+    fixture = TestBed.createComponent(SkyCellRendererRowSelectorComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
   });

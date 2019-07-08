@@ -11,11 +11,11 @@ import {
 } from 'ag-grid-community';
 
 @Component({
-  selector: 'sky-checkbox-cell',
-  templateUrl: './checkbox-grid-cell.component.html',
-  styleUrls: ['./checkbox-grid-cell.component.scss']
+  selector: 'sky-cell-renderer-row-selector',
+  templateUrl: './cell-renderer-row-selector.component.html',
+  styleUrls: ['./cell-renderer-row-selector.component.scss']
 })
-export class SkyCheckboxGridCellComponent implements ICellRendererAngularComp {
+export class SkyCellRendererRowSelectorComponent implements ICellRendererAngularComp {
   private params: any;
   public checked: boolean;
   public rowNode: RowNode;

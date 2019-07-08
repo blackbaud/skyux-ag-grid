@@ -55,7 +55,7 @@ export class ReadonlyGridComponent implements OnInit {
     {
       field: 'value',
       headerName: 'Current Value',
-      cellClass: 'sky-grid-number'
+      cellClass: 'sky-cell-number'
     },
     {
       field: 'startDate',

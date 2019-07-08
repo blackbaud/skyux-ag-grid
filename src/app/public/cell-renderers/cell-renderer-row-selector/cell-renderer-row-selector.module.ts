@@ -3,8 +3,8 @@ import {
 } from '@angular/core';
 
 import {
-  SkyCheckboxGridCellComponent
-} from './checkbox-grid-cell.component';
+  SkyCellRendererRowSelectorComponent
+} from './cell-renderer-row-selector.component';
 
 import {
   SkyCheckboxModule
@@ -20,11 +20,11 @@ import {
     FormsModule
   ],
   declarations: [
-    SkyCheckboxGridCellComponent
+    SkyCellRendererRowSelectorComponent
   ],
   exports: [
-    SkyCheckboxGridCellComponent
+    SkyCellRendererRowSelectorComponent
   ]
 })
-export class SkyuxCheckboxGridCellModule {
+export class SkyCellRendererRowSelectorModule {
 }

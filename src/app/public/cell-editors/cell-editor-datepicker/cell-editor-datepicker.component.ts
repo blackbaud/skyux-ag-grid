@@ -10,9 +10,9 @@ import {
 } from 'ag-grid-angular';
 
 @Component({
-  selector: 'sky-datepicker-cell-editor',
-  templateUrl: './datepicker-cell-editor.component.html',
-  styleUrls: ['./datepicker-cell-editor.component.scss']
+  selector: 'sky-cell-editor-datepicker',
+  templateUrl: './cell-editor-datepicker.component.html',
+  styleUrls: ['./cell-editor-datepicker.component.scss']
 })
 export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
   private params: any;

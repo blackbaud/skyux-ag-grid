@@ -15,24 +15,24 @@ import {
 } from '@skyux/forms';
 
 import {
-  SkyCheckboxGridCellComponent
-} from './public/cell-renderers/checkbox-cell-renderer/checkbox-grid-cell.component';
+  SkyCellRendererRowSelectorComponent
+} from './public/cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.component';
 
 import {
-  SkyNumericCellEditorComponent
-} from './public/cell-editors/numeric-cell-editor/numeric-cell-editor.component';
+  SkyCellEditorNumberComponent
+} from './public/cell-editors/cell-editor-number/cell-editor-number.component';
 
 import {
   SkyDatepickerCellEditorComponent
-} from './public/cell-editors/datepicker-cell-editor/datepicker-cell-editor.component';
+} from './public/cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
 
 import {
-  SkyuxCheckboxGridCellModule
-} from './public/cell-renderers/checkbox-cell-renderer/checkbox-grid-cell.module';
+  SkyCellRendererRowSelectorModule
+} from './public/cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.module';
 
 import {
-  SkyuxDatepickerCellEditorModule
-} from './public/cell-editors/datepicker-cell-editor/datepicker-cell-editor.module';
+  SkyCellEditorDatepickerModule
+} from './public/cell-editors/cell-editor-datepicker/cell-editor-datepicker.module';
 
 import {
   SkyToolbarModule
@@ -43,15 +43,15 @@ import {
 } from '@angular/forms';
 
 @NgModule({
-  declarations: [SkyNumericCellEditorComponent],
+  declarations: [SkyCellEditorNumberComponent],
   imports: [
     AgGridModule.withComponents([
-      SkyCheckboxGridCellComponent,
-      SkyNumericCellEditorComponent,
+      SkyCellRendererRowSelectorComponent,
+      SkyCellEditorNumberComponent,
       SkyDatepickerCellEditorComponent
     ]),
-    SkyuxCheckboxGridCellModule,
-    SkyuxDatepickerCellEditorModule,
+    SkyCellRendererRowSelectorModule,
+    SkyCellEditorDatepickerModule,
     FormsModule
   ],
   exports: [

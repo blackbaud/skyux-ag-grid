@@ -12,12 +12,12 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyuxNumericCellEditorComponent
-} from './numeric-cell-editor.component';
+  SkyCellEditorNumberComponent
+} from './cell-editor-number.component';
 
 describe('Numeric editor component', () => {
-  let fixture: ComponentFixture<SkyuxNumericCellEditorComponent>;
-  let component: SkyuxNumericCellEditorComponent;
+  let fixture: ComponentFixture<SkyCellEditorNumberComponent>;
+  let component: SkyCellEditorNumberComponent;
   let nativeElement: HTMLElement;
 
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('Numeric editor component', () => {
       ]
     });
 
-    fixture = TestBed.createComponent(SkyuxNumericCellEditorComponent);
+    fixture = TestBed.createComponent(SkyCellEditorNumberComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
   });

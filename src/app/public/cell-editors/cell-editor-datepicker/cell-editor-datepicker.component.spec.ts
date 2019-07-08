@@ -13,11 +13,11 @@ import {
 
 import {
   SkyDatepickerCellEditorComponent
-} from './datepicker-cell-editor.component';
+} from './cell-editor-datepicker.component';
 
 import {
-  SkyuxDatepickerCellEditorModule
-} from './datepicker-cell-editor.module';
+  SkyCellEditorDatepickerModule
+} from './cell-editor-datepicker.module';
 
 import {
   Column,
@@ -33,7 +33,7 @@ describe('Datepicker editor component', () => {
     TestBed.configureTestingModule({
       imports: [
         SkyAppTestModule,
-        SkyuxDatepickerCellEditorModule
+        SkyCellEditorDatepickerModule
       ]
     });
 

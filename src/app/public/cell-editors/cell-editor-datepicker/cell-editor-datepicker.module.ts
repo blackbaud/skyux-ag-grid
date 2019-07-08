@@ -4,7 +4,7 @@ import {
 
 import {
   SkyDatepickerCellEditorComponent
-} from './datepicker-cell-editor.component';
+} from './cell-editor-datepicker.component';
 
 import {
   SkyDatepickerModule
@@ -26,5 +26,5 @@ import {
     SkyDatepickerCellEditorComponent
   ]
 })
-export class SkyuxDatepickerCellEditorModule {
+export class SkyCellEditorDatepickerModule {
 }
