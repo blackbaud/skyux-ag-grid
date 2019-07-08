@@ -130,8 +130,8 @@ describe('EditableGridComponent', () => {
 
       fixture.detectChanges();
 
-      staticGrid = nativeElement.querySelector('ag-grid-angular:not(.skyux-grid-edit-mode)');
-      editableGrid = nativeElement.querySelector('ag-grid-angular.skyux-grid-edit-mode');
+      staticGrid = nativeElement.querySelector('ag-grid-angular:not(.sky-grid-edit-mode)');
+      editableGrid = nativeElement.querySelector('ag-grid-angular.sky-grid-edit-mode');
 
       expect(component.editMode).toBeFalsy();
       expect(staticGrid).toBeVisible();
@@ -140,8 +140,8 @@ describe('EditableGridComponent', () => {
       component.setEditMode(true);
       fixture.detectChanges();
 
-      staticGrid = nativeElement.querySelector('ag-grid-angular:not(.skyux-grid-edit-mode)');
-      editableGrid = nativeElement.querySelector('ag-grid-angular.skyux-grid-edit-mode');
+      staticGrid = nativeElement.querySelector('ag-grid-angular:not(.sky-grid-edit-mode)');
+      editableGrid = nativeElement.querySelector('ag-grid-angular.sky-grid-edit-mode');
 
       expect(component.editMode).toBeTruthy();
       expect(staticGrid).toBeNull();
@@ -160,8 +160,8 @@ describe('EditableGridComponent', () => {
 
       fixture.detectChanges();
 
-      staticGrid = nativeElement.querySelector('ag-grid-angular:not(.skyux-grid-edit-mode)');
-      editableGrid = nativeElement.querySelector('ag-grid-angular.skyux-grid-edit-mode');
+      staticGrid = nativeElement.querySelector('ag-grid-angular:not(.sky-grid-edit-mode)');
+      editableGrid = nativeElement.querySelector('ag-grid-angular.sky-grid-edit-mode');
 
       expect(component.editMode).toBeTruthy();
       expect(staticGrid).toBeNull();
@@ -170,8 +170,8 @@ describe('EditableGridComponent', () => {
       component.setEditMode(false);
       fixture.detectChanges();
 
-      staticGrid = nativeElement.querySelector('ag-grid-angular:not(.skyux-grid-edit-mode)');
-      editableGrid = nativeElement.querySelector('ag-grid-angular.skyux-grid-edit-mode');
+      staticGrid = nativeElement.querySelector('ag-grid-angular:not(.sky-grid-edit-mode)');
+      editableGrid = nativeElement.querySelector('ag-grid-angular.sky-grid-edit-mode');
 
       expect(component.editMode).toBeFalsy();
       expect(staticGrid).toBeVisible();

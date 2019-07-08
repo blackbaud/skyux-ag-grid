@@ -10,7 +10,7 @@ import {
 } from 'ag-grid-angular';
 
 @Component({
-  selector: 'skyux-datepicker-cell-editor',
+  selector: 'sky-datepicker-cell-editor',
   templateUrl: './datepicker-cell-editor.component.html',
   styleUrls: ['./datepicker-cell-editor.component.scss']
 })

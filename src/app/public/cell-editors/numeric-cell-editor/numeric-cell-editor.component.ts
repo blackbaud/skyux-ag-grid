@@ -10,7 +10,7 @@ import {
 } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-ag-numeric-editor',
+  selector: 'sky-numeric-cell-editor',
   templateUrl: './numeric-cell-editor.component.html',
   styleUrls: ['./numeric-cell-editor.component.scss']
 })

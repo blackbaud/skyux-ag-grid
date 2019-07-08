@@ -11,7 +11,7 @@ import {
 } from 'ag-grid-community';
 
 @Component({
-  selector: 'skyux-checkbox-cell',
+  selector: 'sky-checkbox-cell',
   templateUrl: './checkbox-grid-cell.component.html',
   styleUrls: ['./checkbox-grid-cell.component.scss']
 })
