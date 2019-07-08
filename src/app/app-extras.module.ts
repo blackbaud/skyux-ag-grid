@@ -15,15 +15,15 @@ import {
 } from '@skyux/forms';
 
 import {
-  SkyuxCheckboxGridCellComponent
+  SkyCheckboxGridCellComponent
 } from './public/cell-renderers/checkbox-cell-renderer/checkbox-grid-cell.component';
 
 import {
-  SkyuxNumericCellEditorComponent
+  SkyNumericCellEditorComponent
 } from './public/cell-editors/numeric-cell-editor/numeric-cell-editor.component';
 
 import {
-  SkyuxDatepickerCellEditorComponent
+  SkyDatepickerCellEditorComponent
 } from './public/cell-editors/datepicker-cell-editor/datepicker-cell-editor.component';
 
 import {
@@ -43,12 +43,12 @@ import {
 } from '@angular/forms';
 
 @NgModule({
-  declarations: [SkyuxNumericCellEditorComponent],
+  declarations: [SkyNumericCellEditorComponent],
   imports: [
     AgGridModule.withComponents([
-      SkyuxCheckboxGridCellComponent,
-      SkyuxNumericCellEditorComponent,
-      SkyuxDatepickerCellEditorComponent
+      SkyCheckboxGridCellComponent,
+      SkyNumericCellEditorComponent,
+      SkyDatepickerCellEditorComponent
     ]),
     SkyuxCheckboxGridCellModule,
     SkyuxDatepickerCellEditorModule,

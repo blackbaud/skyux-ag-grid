@@ -14,7 +14,7 @@ import {
   templateUrl: './datepicker-cell-editor.component.html',
   styleUrls: ['./datepicker-cell-editor.component.scss']
 })
-export class SkyuxDatepickerCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
+export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
   private params: any;
 
   @ViewChild('datepicker', {read: ElementRef})

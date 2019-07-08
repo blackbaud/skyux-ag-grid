@@ -14,7 +14,7 @@ import {
   templateUrl: './numeric-cell-editor.component.html',
   styleUrls: ['./numeric-cell-editor.component.scss']
 })
-export class SkyuxNumericCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
+export class SkyNumericCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
   public value: number;
   private params: any;
 

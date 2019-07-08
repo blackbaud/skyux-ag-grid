@@ -18,7 +18,7 @@ import {
 } from './editable-grid-data';
 
 import {
-  SKYUX_GRID_OPTIONS
+  SKY_GRID_OPTIONS
 } from '../../public/grid-options';
 
 const _cloneDeep = require('lodash.clonedeep');
@@ -32,7 +32,7 @@ const _cloneDeep = require('lodash.clonedeep');
 export class EditableGridComponent implements OnInit {
   public gridData: EditableGridRow[] = EDITABLE_GRID_DATA;
   public uneditedGridData: EditableGridRow[];
-  public gridOptions: GridOptions = SKYUX_GRID_OPTIONS;
+  public gridOptions: GridOptions = SKY_GRID_OPTIONS;
   public gridApi: GridApi;
   public editMode: boolean = false;
   public columnDefs: ColDef[];

@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 
 import {
-  SkyuxDatepickerCellEditorComponent
+  SkyDatepickerCellEditorComponent
 } from './datepicker-cell-editor.component';
 
 import {
@@ -20,10 +20,10 @@ import {
     FormsModule
   ],
   declarations: [
-    SkyuxDatepickerCellEditorComponent
+    SkyDatepickerCellEditorComponent
   ],
   exports: [
-    SkyuxDatepickerCellEditorComponent
+    SkyDatepickerCellEditorComponent
   ]
 })
 export class SkyuxDatepickerCellEditorModule {

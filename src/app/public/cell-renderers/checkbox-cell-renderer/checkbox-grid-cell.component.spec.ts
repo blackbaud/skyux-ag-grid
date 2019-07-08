@@ -12,7 +12,7 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyuxCheckboxGridCellComponent
+  SkyCheckboxGridCellComponent
 } from './checkbox-grid-cell.component';
 
 import {
@@ -24,8 +24,8 @@ import {
 } from 'ag-grid-community';
 
 describe('Checkbox cell component', () => {
-  let fixture: ComponentFixture<SkyuxCheckboxGridCellComponent>;
-  let component: SkyuxCheckboxGridCellComponent;
+  let fixture: ComponentFixture<SkyCheckboxGridCellComponent>;
+  let component: SkyCheckboxGridCellComponent;
   let nativeElement: HTMLElement;
 
   beforeEach(() => {
@@ -36,7 +36,7 @@ describe('Checkbox cell component', () => {
       ]
     });
 
-    fixture = TestBed.createComponent(SkyuxCheckboxGridCellComponent);
+    fixture = TestBed.createComponent(SkyCheckboxGridCellComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
   });

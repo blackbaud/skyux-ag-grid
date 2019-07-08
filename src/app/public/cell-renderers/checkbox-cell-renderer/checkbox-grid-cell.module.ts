@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 
 import {
-  SkyuxCheckboxGridCellComponent
+  SkyCheckboxGridCellComponent
 } from './checkbox-grid-cell.component';
 
 import {
@@ -20,10 +20,10 @@ import {
     FormsModule
   ],
   declarations: [
-    SkyuxCheckboxGridCellComponent
+    SkyCheckboxGridCellComponent
   ],
   exports: [
-    SkyuxCheckboxGridCellComponent
+    SkyCheckboxGridCellComponent
   ]
 })
 export class SkyuxCheckboxGridCellModule {

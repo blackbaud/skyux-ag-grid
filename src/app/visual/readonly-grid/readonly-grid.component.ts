@@ -22,7 +22,7 @@ import {
 } from './readonly-grid-data';
 
 import {
-  SKYUX_GRID_OPTIONS
+  SKY_GRID_OPTIONS
 } from '../../public/grid-options';
 
 @Component({
@@ -33,7 +33,7 @@ import {
 })
 export class ReadonlyGridComponent implements OnInit {
   public gridData: ReadonlyGridRow[] = READONLY_GRID_DATA;
-  public gridOptions: GridOptions = SKYUX_GRID_OPTIONS;
+  public gridOptions: GridOptions = SKY_GRID_OPTIONS;
   public gridApi: GridApi;
   public columnApi: ColumnApi;
   public readonly fitGridSizing: GridSizingMode = GridSizingMode.FIT;
