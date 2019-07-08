@@ -37,7 +37,7 @@ export class ReadonlyGridComponent implements OnInit {
   public gridApi: GridApi;
   public columnApi: ColumnApi;
   public readonly fitGridSizing: GridSizingMode = GridSizingMode.FIT;
-  public readonly autoGridSizing: GridSizingMode = GridSizingMode.FIT;
+  public readonly autoGridSizing: GridSizingMode = GridSizingMode.AUTO;
   public sizingMode: GridSizingMode = this.fitGridSizing;
   public columnDefs: ColDef[] = [
     {

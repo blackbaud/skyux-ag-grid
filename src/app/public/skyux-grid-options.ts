@@ -23,6 +23,7 @@ export const SKYUX_GRID_OPTIONS: GridOptions = {
   rowSelection: 'multiple',
   rowMultiSelectWithClick: true,
   suppressCellSelection: true,
+  enterMovesDownAfterEdit: true,
   rowHeight: 37,
   headerHeight: 37,
   icons: {

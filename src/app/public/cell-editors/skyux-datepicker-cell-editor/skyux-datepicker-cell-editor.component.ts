@@ -24,7 +24,6 @@ export class SkyuxDatepickerCellEditorComponent implements ICellEditorAngularCom
   public rowHeight: number;
 
   public agInit(params: any) {
-    console.log(params);
     this.params = params;
     this.currentDate = this.params.value;
     this.columnWidth = this.params.column.getActualWidth();
