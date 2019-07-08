@@ -13,11 +13,11 @@ import {
 
 import {
   SkyuxDatepickerCellEditorComponent
-} from './skyux-datepicker-cell-editor.component';
+} from './datepicker-cell-editor.component';
 
 import {
   SkyuxDatepickerCellEditorModule
-} from './skyux-datepicker-cell-editor.module';
+} from './datepicker-cell-editor.module';
 
 import {
   Column,

@@ -23,12 +23,12 @@ import {
 
 import {
   SKYUX_GRID_OPTIONS
-} from '../../public/skyux-grid-options';
+} from '../../public/grid-options';
 
 @Component({
   selector: 'readonly-grid-visual',
   templateUrl: './readonly-grid.component.html',
-  styleUrls: ['../../public/styles/skyux-ag-grid-styles.scss', './readonly-grid.component.scss'],
+  styleUrls: ['../../public/styles/ag-grid-styles.scss', './readonly-grid.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ReadonlyGridComponent implements OnInit {

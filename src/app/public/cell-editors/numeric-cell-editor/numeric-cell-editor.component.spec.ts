@@ -13,7 +13,7 @@ import {
 
 import {
   SkyuxNumericCellEditorComponent
-} from './skyux-numeric-cell-editor.component';
+} from './numeric-cell-editor.component';
 
 describe('Numeric editor component', () => {
   let fixture: ComponentFixture<SkyuxNumericCellEditorComponent>;

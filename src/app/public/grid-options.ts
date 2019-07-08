@@ -4,15 +4,15 @@ import {
 
 import {
   SkyuxCheckboxGridCellComponent
-} from './cell-renderers/skyux-checkbox-cell-renderer/skyux-checkbox-grid-cell.component';
+} from './cell-renderers/checkbox-cell-renderer/checkbox-grid-cell.component';
 
 import {
   SkyuxNumericCellEditorComponent
-} from './cell-editors/skyux-numeric-cell-editor/skyux-numeric-cell-editor.component';
+} from './cell-editors/numeric-cell-editor/numeric-cell-editor.component';
 
 import {
   SkyuxDatepickerCellEditorComponent
-} from './cell-editors/skyux-datepicker-cell-editor/skyux-datepicker-cell-editor.component';
+} from './cell-editors/datepicker-cell-editor/datepicker-cell-editor.component';
 
 export const SKYUX_GRID_OPTIONS: GridOptions = {
   defaultColDef: {

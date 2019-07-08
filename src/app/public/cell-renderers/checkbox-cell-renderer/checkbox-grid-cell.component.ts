@@ -12,8 +12,8 @@ import {
 
 @Component({
   selector: 'skyux-checkbox-cell',
-  templateUrl: './skyux-checkbox-grid-cell.component.html',
-  styleUrls: ['./skyux-checkbox-grid-cell.component.scss']
+  templateUrl: './checkbox-grid-cell.component.html',
+  styleUrls: ['./checkbox-grid-cell.component.scss']
 })
 export class SkyuxCheckboxGridCellComponent implements ICellRendererAngularComp {
   private params: any;

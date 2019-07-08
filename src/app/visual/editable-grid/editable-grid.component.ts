@@ -19,14 +19,14 @@ import {
 
 import {
   SKYUX_GRID_OPTIONS
-} from '../../public/skyux-grid-options';
+} from '../../public/grid-options';
 
 const _cloneDeep = require('lodash.clonedeep');
 
 @Component({
   selector: 'editable-grid-visual',
   templateUrl: './editable-grid.component.html',
-  styleUrls: ['../../public/styles/skyux-ag-grid-styles.scss', './editable-grid.component.scss'],
+  styleUrls: ['../../public/styles/ag-grid-styles.scss', './editable-grid.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class EditableGridComponent implements OnInit {

@@ -16,23 +16,23 @@ import {
 
 import {
   SkyuxCheckboxGridCellComponent
-} from './public/cell-renderers/skyux-checkbox-cell-renderer/skyux-checkbox-grid-cell.component';
+} from './public/cell-renderers/checkbox-cell-renderer/checkbox-grid-cell.component';
 
 import {
   SkyuxNumericCellEditorComponent
-} from './public/cell-editors/skyux-numeric-cell-editor/skyux-numeric-cell-editor.component';
+} from './public/cell-editors/numeric-cell-editor/numeric-cell-editor.component';
 
 import {
   SkyuxDatepickerCellEditorComponent
-} from './public/cell-editors/skyux-datepicker-cell-editor/skyux-datepicker-cell-editor.component';
+} from './public/cell-editors/datepicker-cell-editor/datepicker-cell-editor.component';
 
 import {
   SkyuxCheckboxGridCellModule
-} from './public/cell-renderers/skyux-checkbox-cell-renderer/skyux-checkbox-grid-cell.module';
+} from './public/cell-renderers/checkbox-cell-renderer/checkbox-grid-cell.module';
 
 import {
   SkyuxDatepickerCellEditorModule
-} from './public/cell-editors/skyux-datepicker-cell-editor/skyux-datepicker-cell-editor.module';
+} from './public/cell-editors/datepicker-cell-editor/datepicker-cell-editor.module';
 
 import {
   SkyToolbarModule

@@ -4,7 +4,7 @@ import {
 
 import {
   SkyuxCheckboxGridCellComponent
-} from './skyux-checkbox-grid-cell.component';
+} from './checkbox-grid-cell.component';
 
 import {
   SkyCheckboxModule

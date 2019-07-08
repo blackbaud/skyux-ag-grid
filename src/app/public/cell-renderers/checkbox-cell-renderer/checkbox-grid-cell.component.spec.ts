@@ -13,11 +13,11 @@ import {
 
 import {
   SkyuxCheckboxGridCellComponent
-} from './skyux-checkbox-grid-cell.component';
+} from './checkbox-grid-cell.component';
 
 import {
   SkyuxCheckboxGridCellModule
-} from './skyux-checkbox-grid-cell.module';
+} from './checkbox-grid-cell.module';
 
 import {
   RowNode

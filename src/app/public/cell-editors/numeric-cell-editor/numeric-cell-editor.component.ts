@@ -11,8 +11,8 @@ import {
 
 @Component({
   selector: 'app-ag-numeric-editor',
-  templateUrl: './skyux-numeric-cell-editor.component.html',
-  styleUrls: ['./skyux-numeric-cell-editor.component.scss']
+  templateUrl: './numeric-cell-editor.component.html',
+  styleUrls: ['./numeric-cell-editor.component.scss']
 })
 export class SkyuxNumericCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
   public value: number;
