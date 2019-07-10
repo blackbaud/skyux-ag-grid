@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -118,4 +119,9 @@ describe('ReadonlyGridComponent', () => {
       expect(component.columnApi.autoSizeColumns).toHaveBeenCalled();
     });
   });
+
+  it('should pass accessibility', async(() => {
+    fixture.detectChanges();
+    expect(fixture.nativeElement).toBeAccessible();
+  }));
 });

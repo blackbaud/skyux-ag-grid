@@ -17,6 +17,7 @@ import {
 })
 export class SkyCellEditorNumberComponent implements ICellEditorAngularComp {
   public value: number;
+  public label: string;
   private params: any;
 
   @ViewChild('skyCellEditorNumeric', {read: ElementRef})
@@ -25,6 +26,7 @@ export class SkyCellEditorNumberComponent implements ICellEditorAngularComp {
   public agInit(params: any): void {
     this.params = params;
     this.value = this.params.value;
+    this.label = this.params.label;
   }
 
   public getValue(): any {

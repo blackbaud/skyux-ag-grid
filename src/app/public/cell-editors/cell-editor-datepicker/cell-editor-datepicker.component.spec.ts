@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -24,7 +25,7 @@ import {
   RowNode
 } from 'ag-grid-community';
 
-describe('Datepicker editor component', () => {
+describe('SkyCellEditorDatepickerComponent', () => {
   let fixture: ComponentFixture<SkyDatepickerCellEditorComponent>;
   let component: SkyDatepickerCellEditorComponent;
   let nativeElement: HTMLElement;
@@ -92,4 +93,9 @@ describe('Datepicker editor component', () => {
       expect(component.isPopup()).toBeTruthy();
     });
   });
+
+  it('should pass accessibility', async(() => {
+    fixture.detectChanges();
+    expect(nativeElement).toBeAccessible();
+  }));
 });

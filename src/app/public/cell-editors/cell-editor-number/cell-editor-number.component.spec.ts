@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -15,7 +16,7 @@ import {
   SkyCellEditorNumberComponent
 } from './cell-editor-number.component';
 
-describe('Numeric editor component', () => {
+describe('SkyCellEditorNumericComponent', () => {
   let fixture: ComponentFixture<SkyCellEditorNumberComponent>;
   let component: SkyCellEditorNumberComponent;
   let nativeElement: HTMLElement;
@@ -74,4 +75,12 @@ describe('Numeric editor component', () => {
       expect(component.getValue()).toBeUndefined();
     });
   });
+
+  it('should pass accessibility', async(() => {
+    component.label = 'grid number editor';
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
+  }));
 });

@@ -1,22 +1,25 @@
 <sky-toolbar>
   <sky-toolbar-item>
-    <sky-radio-group>
+    <sky-radio-group
+      ariaLabel="Grid size options"
+      name="gridSizeMode"
+      [(ngModel)]="sizingMode"
+      (ngModelChange)="sizeGrid()"
+    >
       <sky-radio
-        name="measurementSelection"
-        [(ngModel)]="sizingMode"
-        (ngModelChange)="sizeGrid()"
-        [value]="fitGridSizing">
-        <sky-radio-label>
-          Size to fit
+        labelledBy="grid-fit-page"
+        [value]="fitGridSizing"
+      >
+        <sky-radio-label id="grid-fit-page">
+          Size to fit page
         </sky-radio-label>
       </sky-radio>
       <sky-radio
-        name="measurementSelection"
-        [(ngModel)]="sizingMode"
-        (ngModelChange)="sizeGrid()"
-        [value]="autoGridSizing">
-        <sky-radio-label>
-          Size automatically
+        labelledBy="grid-fit-columns"
+        [value]="autoGridSizing"
+      >
+        <sky-radio-label id="grid-fit-columns">
+          Size automatically based on content
         </sky-radio-label>
       </sky-radio>
     </sky-radio-group>

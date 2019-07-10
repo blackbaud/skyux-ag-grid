@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -83,4 +84,9 @@ describe('Checkbox cell component', () => {
       expect(component.refresh()).toBeFalsy();
     });
   });
+
+  it('should pass accessibility', async(() => {
+    fixture.detectChanges();
+    expect(nativeElement).toBeAccessible();
+  }));
 });

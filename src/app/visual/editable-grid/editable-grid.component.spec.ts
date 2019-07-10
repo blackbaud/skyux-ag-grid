@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -321,4 +322,9 @@ describe('EditableGridComponent', () => {
       expect(component.gridApi.sizeColumnsToFit).toHaveBeenCalled();
     });
   });
+
+  it('should pass accessibility', async(() => {
+    fixture.detectChanges();
+      expect(fixture.nativeElement).toBeAccessible();
+  }));
 });
