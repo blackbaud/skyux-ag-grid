@@ -90,7 +90,7 @@ describe('EditableGridComponent', () => {
 
   describe('#cancelEdits', () => {
     it('calls setEditMode and sets the gridData to the uneditedGridData', () => {
-
+      component.editMode = true;
       component.gridData = [{
         name: 'Goal',
         value1: 10,
@@ -115,7 +115,7 @@ describe('EditableGridComponent', () => {
 
       component.cancelEdits();
 
-      expect(component.setEditMode).toHaveBeenCalled();
+      expect(component.setEditMode).toHaveBeenCalledWith(false);
       expect(component.gridData).toEqual(component.uneditedGridData);
     });
   });
@@ -183,6 +183,7 @@ describe('EditableGridComponent', () => {
 
   describe('#saveData', () => {
     it('stops editing, sets edit mode, updates uneditedGridData, and alerts the user', () => {
+      component.editMode = true;
       component.gridApi = gridApi;
       component.gridData = [{
         name: 'Goal',

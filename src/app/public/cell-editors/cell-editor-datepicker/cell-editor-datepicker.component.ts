@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -9,6 +8,9 @@ import {
 import {
   ICellEditorAngularComp
 } from 'ag-grid-angular';
+import {
+  SkyDatepickerInputDirective
+} from '@skyux/datetime';
 
 @Component({
   selector: 'sky-cell-editor-datepicker',
@@ -16,11 +18,15 @@ import {
   styleUrls: ['./cell-editor-datepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp, AfterViewInit {
+export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp {
   private params: any;
 
-  @ViewChild('datepicker', {read: ElementRef})
-  public skyDatepicker: ElementRef;
+  @ViewChild('skyCellEditorDatepickerInput', {read: ElementRef})
+  public datepickerInput: ElementRef;
+
+  @ViewChild(SkyDatepickerInputDirective)
+  public inputDirective: SkyDatepickerInputDirective;
+
   public currentDate: Date;
   public columnWidth: number;
   public rowHeight: number;
@@ -32,19 +38,16 @@ export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp,
     this.rowHeight = this.params.node.rowHeight + 1;
   }
 
-  public ngAfterViewInit() {
-    this.skyDatepicker.nativeElement.querySelector('.sky-dropdown-button-type-calendar').click();
+  public afterGuiAttached() {
+    this.datepickerInput.nativeElement.focus();
   }
 
   public getValue(): Date {
+    this.inputDirective.writeValue(this.datepickerInput.nativeElement.value);
     return this.currentDate;
   }
 
   public isPopup() {
     return true;
-  }
-
-  public onDateChange(newDate: Date) {
-    this.currentDate = newDate;
   }
 }

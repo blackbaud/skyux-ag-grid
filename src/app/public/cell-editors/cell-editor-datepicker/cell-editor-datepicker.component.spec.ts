@@ -87,19 +87,6 @@ describe('Datepicker editor component', () => {
     });
   });
 
-  describe('#onDateChange', () => {
-    it ('sets currentDate to the changed date input', () => {
-      let newDate = new Date('1/31/19');
-      component.currentDate = new Date('1/1/19');
-
-      expect(component.currentDate).not.toEqual(newDate);
-
-      component.onDateChange(newDate);
-
-      expect(component.currentDate).toEqual(newDate);
-    });
-  });
-
   describe('#isPopup', () => {
     it ('returns true', () => {
       expect(component.isPopup()).toBeTruthy();

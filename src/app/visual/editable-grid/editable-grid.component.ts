@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   ViewEncapsulation
@@ -28,8 +28,7 @@ const _cloneDeep = require('lodash.clonedeep');
   selector: 'editable-grid-visual',
   templateUrl: './editable-grid.component.html',
   styleUrls: ['../../public/styles/ag-grid-styles.scss', './editable-grid.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  encapsulation: ViewEncapsulation.None
 })
 export class EditableGridComponent implements OnInit {
   public gridData: EditableGridRow[] = EDITABLE_GRID_DATA;
@@ -38,6 +37,10 @@ export class EditableGridComponent implements OnInit {
   public gridApi: GridApi;
   public editMode: boolean = false;
   public columnDefs: ColDef[];
+
+  constructor(
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   public ngOnInit() {
     this.setColumnDefs();
@@ -121,7 +124,8 @@ export class EditableGridComponent implements OnInit {
         sort: 'asc',
         cellClass: 'sky-cell-uneditable',
         minWidth: 160
-      }];
+      }
+    ];
   }
 
   public cancelEdits() {
@@ -133,6 +137,7 @@ export class EditableGridComponent implements OnInit {
     this.editMode = editable;
     this.setColumnDefs();
     this.gridApi.setColumnDefs(this.columnDefs);
+    this.changeDetector.markForCheck();
   }
 
   public saveData() {

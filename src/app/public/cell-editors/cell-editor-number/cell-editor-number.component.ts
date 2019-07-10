@@ -1,9 +1,8 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ViewChild,
-  ViewContainerRef
+  ElementRef,
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -14,13 +13,14 @@ import {
   selector: 'sky-cell-editor-numeric',
   templateUrl: './cell-editor-number.component.html',
   styleUrls: ['./cell-editor-number.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class SkyCellEditorNumberComponent implements ICellEditorAngularComp, AfterViewInit {
+export class SkyCellEditorNumberComponent implements ICellEditorAngularComp {
   public value: number;
   private params: any;
 
-  @ViewChild('numericInput', {read: ViewContainerRef}) public input: any;
+  @ViewChild('skyCellEditorNumeric', {read: ElementRef})
+  public input: ElementRef;
 
   public agInit(params: any): void {
     this.params = params;
@@ -31,9 +31,7 @@ export class SkyCellEditorNumberComponent implements ICellEditorAngularComp, Aft
     return this.value;
   }
 
-  public ngAfterViewInit() {
-    setTimeout(() => {
-      this.input.element.nativeElement.focus();
-    });
+  public afterGuiAttached() {
+    this.input.nativeElement.focus();
   }
 }

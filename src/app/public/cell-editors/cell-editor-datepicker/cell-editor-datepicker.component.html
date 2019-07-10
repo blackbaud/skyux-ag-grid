@@ -3,11 +3,11 @@
   [style.height.px]="rowHeight"
   class="sky-cell-editor-datepicker"
 >
-  <sky-datepicker #datepicker>
+  <sky-datepicker>
     <input
+      #skyCellEditorDatepickerInput
       skyDatepickerInput
       [(ngModel)]="currentDate"
-      (ngModelChange)="onDateChange($event)"
     />
   </sky-datepicker>
 </div>
