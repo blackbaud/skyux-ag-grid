@@ -11,8 +11,10 @@ import {
   GridApi,
   GridReadyEvent,
   GridOptions,
+  ICellRendererParams,
   RowNode,
-  RowSelectedEvent
+  RowSelectedEvent,
+  ValueFormatterParams
 } from 'ag-grid-community';
 
 import {
@@ -91,12 +93,12 @@ export class ReadonlyGridComponent implements OnInit {
     };
   }
 
-  public dateFormatter(params: any) {
+  public dateFormatter(params: ValueFormatterParams) {
     let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return params.value.toLocaleDateString('en-US', dateConfig);
   }
 
-  public statusRenderer(cellRendererParams: any) {
+  public statusRenderer(cellRendererParams: ICellRendererParams) {
     const iconClassMap = {
       [RowStatusNames.BEHIND]: 'fa-warning',
       [RowStatusNames.CURRENT]: 'fa-clock-o',

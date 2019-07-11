@@ -1,6 +1,6 @@
 <input
   #skyCellEditorNumeric
-  [attr.aria-label]="label"
+  [attr.aria-label]="getAriaLabel()"
   class="ag-cell-edit-input"
   type="number"
   [(ngModel)]="value"/>

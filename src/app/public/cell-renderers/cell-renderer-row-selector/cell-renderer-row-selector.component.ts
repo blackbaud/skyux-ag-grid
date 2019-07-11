@@ -11,6 +11,10 @@ import {
   RowNode
 } from 'ag-grid-community';
 
+import {
+  ICellRendererParams
+} from 'ag-grid-community';
+
 @Component({
   selector: 'sky-cell-renderer-row-selector',
   templateUrl: './cell-renderer-row-selector.component.html',
@@ -18,11 +22,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyCellRendererRowSelectorComponent implements ICellRendererAngularComp {
-  private params: any;
+  private params: ICellRendererParams;
   public checked: boolean;
   public rowNode: RowNode;
 
-  public agInit(params: any): void {
+  public agInit(params: ICellRendererParams): void {
     this.params = params;
     this.checked = this.params.value;
     this.rowNode = this.params.node;

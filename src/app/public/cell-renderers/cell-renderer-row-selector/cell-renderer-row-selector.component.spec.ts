@@ -21,6 +21,7 @@ import {
 } from './cell-renderer-row-selector.module';
 
 import {
+  ICellRendererParams,
   RowNode
 } from 'ag-grid-community';
 
@@ -54,12 +55,31 @@ describe('Checkbox cell component', () => {
       let checked = true;
       let rowNode: RowNode = new RowNode();
 
-      let cellEditorParams = { value: checked, node: rowNode };
+      let cellRendererParams: ICellRendererParams = {
+        value: checked,
+        node: rowNode,
+        getValue: undefined,
+        setValue: undefined,
+        valueFormatted: undefined,
+        formatValue: undefined,
+        data: undefined,
+        colDef: undefined,
+        column: undefined,
+        $scope: undefined,
+        api: undefined,
+        columnApi: undefined,
+        rowIndex: undefined,
+        context: undefined,
+        refreshCell: undefined,
+        eGridCell: undefined,
+        eParentOfValue: undefined,
+        addRenderedRowListener: undefined
+      };
 
       expect(component.checked).toBeUndefined();
       expect(component.rowNode).toBeUndefined();
 
-      component.agInit(cellEditorParams);
+      component.agInit(cellRendererParams);
 
       expect(component.checked).toEqual(checked);
       expect(component.rowNode).toEqual(rowNode);

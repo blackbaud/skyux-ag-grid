@@ -22,6 +22,7 @@ import {
 
 import {
   Column,
+  ICellEditorParams,
   RowNode
 } from 'ag-grid-community';
 
@@ -65,7 +66,26 @@ describe('SkyCellEditorDatepickerComponent', () => {
         true);
       column.setActualWidth(columnWidth);
 
-      let cellEditorParams = { value: date, column, node: rowNode };
+      let cellEditorParams: ICellEditorParams = {
+        value: date,
+        column,
+        node: rowNode,
+        keyPress: undefined,
+        charPress: undefined,
+        colDef: undefined,
+        columnApi: undefined,
+        data: undefined,
+        rowIndex: undefined,
+        api: undefined,
+        cellStartedEdit: undefined,
+        onKeyDown: undefined,
+        context: undefined,
+        $scope: undefined,
+        stopEditing: undefined,
+        eGridCell: undefined,
+        parseValue: undefined,
+        formatValue: undefined
+      };
 
       expect(component.currentDate).toBeUndefined();
       expect(component.columnWidth).toBeUndefined();

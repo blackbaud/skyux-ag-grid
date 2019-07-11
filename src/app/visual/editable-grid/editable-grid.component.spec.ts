@@ -24,7 +24,8 @@ import {
   CellValueChangedEvent,
   GridApi,
   GridReadyEvent,
-  RowNode
+  RowNode,
+  ValueFormatterParams
 } from 'ag-grid-community';
 
 import {
@@ -267,14 +268,26 @@ describe('EditableGridComponent', () => {
   });
 
   describe('#dateFormatter', () => {
+    let dateFormatterParams: ValueFormatterParams = {
+      value: undefined,
+      node: undefined,
+      data: undefined,
+      colDef: undefined,
+      column: undefined,
+      api: undefined,
+      columnApi: undefined,
+      context: undefined
+    };
+
     it('returns undefined for undefined dates', () => {
-      const formattedDate = component.dateFormatter({ value: undefined });
+      const formattedDate = component.dateFormatter(dateFormatterParams);
 
       expect(formattedDate).toBeUndefined();
     });
 
     it('returns a defined date in MM/DD/YYYY format', () => {
-      const formattedDate = component.dateFormatter({ value: new Date('December 31, 2019') });
+      dateFormatterParams.value = new Date('December 31, 2019');
+      const formattedDate = component.dateFormatter(dateFormatterParams);
 
       expect(formattedDate).toEqual('12/31/2019');
     });

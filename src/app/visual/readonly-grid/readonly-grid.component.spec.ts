@@ -28,7 +28,9 @@ import {
 import {
   ColumnApi,
   GridApi,
-  GridReadyEvent
+  GridReadyEvent,
+  ICellRendererParams,
+  ValueFormatterParams
 } from 'ag-grid-community';
 
 describe('ReadonlyGridComponent', () => {
@@ -65,7 +67,17 @@ describe('ReadonlyGridComponent', () => {
 
   describe('#dateFormatter', () => {
     it('returns a date in MM/DD/YYYY format', () => {
-      const formattedDate = component.dateFormatter({ value: new Date('December 31, 2019') });
+      let dateFormatterParams: ValueFormatterParams = {
+        value: new Date('December 31, 2019'),
+        node: undefined,
+        data: undefined,
+        colDef: undefined,
+        column: undefined,
+        api: undefined,
+        columnApi: undefined,
+        context: undefined
+      };
+      const formattedDate = component.dateFormatter(dateFormatterParams);
 
       expect(formattedDate).toEqual('12/31/2019');
     });
@@ -73,7 +85,27 @@ describe('ReadonlyGridComponent', () => {
 
   describe('#statusRenderer', () => {
     it('returns a div wrapped icon with the correct classes for a status that is Current', () => {
-      const statusHtml = fixture.componentInstance.statusRenderer({ value: RowStatusNames.CURRENT });
+      let cellRendererParams: ICellRendererParams = {
+        value: RowStatusNames.CURRENT,
+        node: undefined,
+        getValue: undefined,
+        setValue: undefined,
+        valueFormatted: undefined,
+        formatValue: undefined,
+        data: undefined,
+        colDef: undefined,
+        column: undefined,
+        $scope: undefined,
+        api: undefined,
+        columnApi: undefined,
+        rowIndex: undefined,
+        context: undefined,
+        refreshCell: undefined,
+        eGridCell: undefined,
+        eParentOfValue: undefined,
+        addRenderedRowListener: undefined
+      };
+      const statusHtml = fixture.componentInstance.statusRenderer(cellRendererParams);
 
       expect(statusHtml).toContain('<div class="status current">');
       expect(statusHtml).toContain('<i class="fa fa-clock-o"></i> Current');

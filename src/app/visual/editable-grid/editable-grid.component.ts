@@ -10,7 +10,8 @@ import {
   ColDef,
   GridApi,
   GridReadyEvent,
-  GridOptions
+  GridOptions,
+  ValueFormatterParams
 } from 'ag-grid-community';
 
 import {
@@ -154,7 +155,7 @@ export class EditableGridComponent implements OnInit {
     }
   }
 
-  public dateFormatter(params: any) {
+  public dateFormatter(params: ValueFormatterParams) {
     let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return params.value ? params.value.toLocaleDateString('en-us', dateConfig) : undefined;
   }

@@ -16,6 +16,10 @@ import {
   SkyCellEditorNumberComponent
 } from './cell-editor-number.component';
 
+import {
+  ICellEditorParams
+} from 'ag-grid-community';
+
 describe('SkyCellEditorNumericComponent', () => {
   let fixture: ComponentFixture<SkyCellEditorNumberComponent>;
   let component: SkyCellEditorNumberComponent;
@@ -44,7 +48,26 @@ describe('SkyCellEditorNumericComponent', () => {
     it('initializes the SkyuxNumericCellEditorComponent properties', () => {
       let value = 15;
 
-      let cellEditorParams = { value };
+      let cellEditorParams: ICellEditorParams = {
+        value,
+        colDef: { headerName: 'Test number cell'},
+        rowIndex: 1,
+        column: undefined,
+        node: undefined,
+        keyPress: undefined,
+        charPress: undefined,
+        columnApi: undefined,
+        data: undefined,
+        api: undefined,
+        cellStartedEdit: undefined,
+        onKeyDown: undefined,
+        context: undefined,
+        $scope: undefined,
+        stopEditing: undefined,
+        eGridCell: undefined,
+        parseValue: undefined,
+        formatValue: undefined
+      };
 
       expect(component.value).toBeUndefined();
 
@@ -77,7 +100,6 @@ describe('SkyCellEditorNumericComponent', () => {
   });
 
   it('should pass accessibility', async(() => {
-    component.label = 'grid number editor';
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement).toBeAccessible();

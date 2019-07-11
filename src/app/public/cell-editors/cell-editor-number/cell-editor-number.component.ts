@@ -9,6 +9,10 @@ import {
   ICellEditorAngularComp
 } from 'ag-grid-angular';
 
+import {
+  ICellEditorParams
+} from 'ag-grid-community';
+
 @Component({
   selector: 'sky-cell-editor-numeric',
   templateUrl: './cell-editor-number.component.html',
@@ -17,23 +21,29 @@ import {
 })
 export class SkyCellEditorNumberComponent implements ICellEditorAngularComp {
   public value: number;
-  public label: string;
-  private params: any;
+  private params: ICellEditorParams;
+  private columnHeader: string;
+  private rowNumber: number;
 
   @ViewChild('skyCellEditorNumeric', {read: ElementRef})
   public input: ElementRef;
 
-  public agInit(params: any): void {
+  public agInit(params: ICellEditorParams): void {
     this.params = params;
     this.value = this.params.value;
-    this.label = this.params.label;
+    this.columnHeader = this.params.colDef.headerName;
+    this.rowNumber = this.params.rowIndex + 1;
   }
 
-  public getValue(): any {
+  public getValue(): number {
     return this.value;
   }
 
   public afterGuiAttached() {
     this.input.nativeElement.focus();
+  }
+
+  public getAriaLabel() {
+    return `Editable ${this.columnHeader} for row ${this.rowNumber}`;
   }
 }

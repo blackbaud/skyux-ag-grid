@@ -8,9 +8,14 @@ import {
 import {
   ICellEditorAngularComp
 } from 'ag-grid-angular';
+
 import {
   SkyDatepickerInputDirective
 } from '@skyux/datetime';
+
+import {
+  ICellEditorParams
+} from 'ag-grid-community';
 
 @Component({
   selector: 'sky-cell-editor-datepicker',
@@ -19,7 +24,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp {
-  private params: any;
+  private params: ICellEditorParams;
 
   @ViewChild('skyCellEditorDatepickerInput', {read: ElementRef})
   public datepickerInput: ElementRef;
@@ -31,7 +36,7 @@ export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp 
   public columnWidth: number;
   public rowHeight: number;
 
-  public agInit(params: any) {
+  public agInit(params: ICellEditorParams) {
     this.params = params;
     this.currentDate = this.params.value;
     this.columnWidth = this.params.column.getActualWidth();
