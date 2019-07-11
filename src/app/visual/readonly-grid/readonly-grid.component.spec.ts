@@ -55,6 +55,7 @@ describe('ReadonlyGridComponent', () => {
   });
 
   it('renders an ag-grid', () => {
+    spyOn(component, 'sizeGrid');
     fixture.detectChanges();
 
     let grid = nativeElement.querySelector('ag-grid-angular');
@@ -101,6 +102,7 @@ describe('ReadonlyGridComponent', () => {
   describe('#sizeGrid', () => {
     it('calls sizeColumnsToFit on the gridApi when sizingMode is fit', () => {
       component.gridApi = gridApi;
+      component.columnApi = columnApi;
       component.sizingMode = GridSizingMode.FIT;
       spyOn(component.gridApi, 'sizeColumnsToFit');
 
@@ -109,7 +111,8 @@ describe('ReadonlyGridComponent', () => {
       expect(component.gridApi.sizeColumnsToFit).toHaveBeenCalled();
     });
 
-    it('calls sizeColumnsToFit on the columnApi when sizingMode is auto', () => {
+    it('calls autoSizeColumns on the columnApi when sizingMode is auto', () => {
+      component.gridApi = gridApi;
       component.columnApi = columnApi;
       component.sizingMode = GridSizingMode.AUTO;
       spyOn(component.columnApi, 'autoSizeColumns');
@@ -121,6 +124,7 @@ describe('ReadonlyGridComponent', () => {
   });
 
   it('should pass accessibility', async(() => {
+    spyOn(component, 'sizeGrid');
     fixture.detectChanges();
     expect(fixture.nativeElement).toBeAccessible();
   }));

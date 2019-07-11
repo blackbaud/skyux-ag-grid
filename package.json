@@ -21,8 +21,10 @@
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",
-    "ag-grid-angular": "^20.2.0",
-    "ag-grid-community": "^20.2.0"
+    "ag-grid-angular": "^20.0.0",
+    "ag-grid-community": "^20.0.0",
+    "@skyux/forms": "^3.0.0",
+    "@skyux/datetime": "^3.0.0"
   },
   "dependencies": {},
   "devDependencies": {
@@ -48,9 +50,9 @@
     "@skyux/avatar": "3.0.0",
     "@skyux/config": "3.5.0",
     "@skyux/core": "3.5.2",
-    "@skyux/datetime": "3.2.3",
+    "@skyux/datetime": "3.3.0",
     "@skyux/errors": "3.0.0",
-    "@skyux/forms": "3.1.1",
+    "@skyux/forms": "3.2.1",
     "@skyux/http": "3.2.0",
     "@skyux/i18n": "3.6.1",
     "@skyux/indicators": "3.0.3",

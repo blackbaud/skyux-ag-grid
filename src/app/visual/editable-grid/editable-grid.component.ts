@@ -49,7 +49,7 @@ export class EditableGridComponent implements OnInit {
     this.gridOptions.onGridReady = (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); };
     this.gridOptions.rowSelection = 'none';
     this.gridOptions.suppressCellSelection = false;
-    this.gridOptions.onGridSizeChanged = () => { this.onGridSizeChanged(); };
+    this.gridOptions.onGridSizeChanged = () => { this.sizeGrid(); };
 
     this.gridData.forEach((row: EditableGridRow) => {
       row.total = this.calculateRowTotal(row);
@@ -177,10 +177,12 @@ export class EditableGridComponent implements OnInit {
   public onGridReady(gridReadyEvent: GridReadyEvent) {
     this.gridApi = gridReadyEvent.api;
 
-    this.gridApi.sizeColumnsToFit();
+    this.sizeGrid();
   }
 
-  public onGridSizeChanged() {
-    this.gridApi.sizeColumnsToFit();
+  public sizeGrid() {
+    if (this.gridApi) {
+      this.gridApi.sizeColumnsToFit();
+    }
   }
 }

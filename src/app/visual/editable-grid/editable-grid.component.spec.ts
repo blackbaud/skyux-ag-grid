@@ -53,6 +53,7 @@ describe('EditableGridComponent', () => {
   });
 
   it('renders an ag-grid with update rows', () => {
+    spyOn(component, 'sizeGrid');
     fixture.detectChanges();
 
     let grid = nativeElement.querySelector('ag-grid-angular');
@@ -62,6 +63,7 @@ describe('EditableGridComponent', () => {
 
   describe('#setColumnDefs', () => {
     it('sets value and completed date columns to editable and all others to uneditable when editMode is true', () => {
+      spyOn(component, 'sizeGrid');
       const editableColumns = ['value1', 'value2', 'value3', 'completedDate'];
       component.editMode = true;
       fixture.detectChanges();
@@ -78,6 +80,7 @@ describe('EditableGridComponent', () => {
     });
 
     it('sets all columns to uneditable if editMode is false', () => {
+      spyOn(component, 'sizeGrid');
       component.editMode = false;
       fixture.detectChanges();
 
@@ -126,6 +129,7 @@ describe('EditableGridComponent', () => {
       let staticGrid: HTMLElement;
       let editableGrid: HTMLElement;
       component.gridApi = gridApi;
+      spyOn(component, 'sizeGrid');
       spyOn(component, 'setColumnDefs');
       spyOn(component.gridApi, 'setColumnDefs');
 
@@ -156,11 +160,11 @@ describe('EditableGridComponent', () => {
       let editableGrid: HTMLElement;
       component.gridApi = gridApi;
       component.editMode = true;
+      spyOn(component, 'sizeGrid');
       spyOn(component, 'setColumnDefs');
       spyOn(component.gridApi, 'setColumnDefs');
 
       fixture.detectChanges();
-
       staticGrid = nativeElement.querySelector('ag-grid-angular:not(.sky-grid-edit-mode)');
       editableGrid = nativeElement.querySelector('ag-grid-angular.sky-grid-edit-mode');
 
@@ -192,6 +196,7 @@ describe('EditableGridComponent', () => {
         target: 40,
         dueDate: new Date('1/31/2019')
       }];
+      spyOn(component, 'sizeGrid');
       spyOn(component, 'setEditMode');
       spyOn(component.gridApi, 'stopEditing');
       spyOn(window, 'alert');
@@ -204,6 +209,7 @@ describe('EditableGridComponent', () => {
       expect(component.gridData).not.toEqual(component.uneditedGridData);
 
       component.saveData();
+      fixture.detectChanges();
 
       expect(component.gridApi.stopEditing).toHaveBeenCalled();
       expect(component.gridData).toEqual(component.uneditedGridData);
@@ -312,19 +318,20 @@ describe('EditableGridComponent', () => {
     });
   });
 
-  describe('#onGridSizeChanged', () => {
+  describe('#sizeGrid', () => {
     it('calls sizeColumnsToFit on the gridApi', () => {
       component.gridApi = gridApi;
       spyOn(component.gridApi, 'sizeColumnsToFit');
 
-      component.onGridSizeChanged();
+      component.sizeGrid();
 
       expect(component.gridApi.sizeColumnsToFit).toHaveBeenCalled();
     });
   });
 
   it('should pass accessibility', async(() => {
+    spyOn(component, 'sizeGrid');
     fixture.detectChanges();
-      expect(fixture.nativeElement).toBeAccessible();
+      expect(nativeElement).toBeAccessible();
   }));
 });

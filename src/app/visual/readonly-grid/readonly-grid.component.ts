@@ -121,10 +121,12 @@ export class ReadonlyGridComponent implements OnInit {
   }
 
   public sizeGrid() {
-    if (this.sizingMode === GridSizingMode.FIT) {
-      this.gridApi.sizeColumnsToFit();
-    } else {
-      this.columnApi.autoSizeColumns(['name', 'value', 'startDate', 'endDate', 'comment', 'status']);
+    if (this.gridApi && this.columnApi) {
+      if (this.sizingMode === GridSizingMode.FIT) {
+        this.gridApi.sizeColumnsToFit();
+      } else {
+        this.columnApi.autoSizeColumns(['name', 'value', 'startDate', 'endDate', 'comment', 'status']);
+      }
     }
   }
 }
