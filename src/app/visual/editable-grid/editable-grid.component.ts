@@ -113,7 +113,7 @@ export class EditableGridComponent implements OnInit {
         headerName: 'Completed Date',
         editable: this.editMode,
         valueFormatter: this.dateFormatter,
-        cellClass: 'sky-cell-editable',
+        cellClass: 'sky-cell-editable sky-cell-date',
         cellEditor: 'skyuxDatepickerEditorComponent',
         minWidth: 160
       },

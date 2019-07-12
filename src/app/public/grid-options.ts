@@ -20,11 +20,12 @@ export const SKY_GRID_OPTIONS: GridOptions = {
     resizable: true,
     minWidth: 100
   },
-  rowSelection: 'multiple',
-  rowMultiSelectWithClick: true,
-  suppressCellSelection: true,
   enterMovesDownAfterEdit: true,
-  rowHeight: 37,
+  frameworkComponents: {
+    'skyuxCheckboxComponent': SkyCellRendererRowSelectorComponent,
+    'skyuxNumericEditorComponent': SkyCellEditorNumberComponent,
+    'skyuxDatepickerEditorComponent': SkyDatepickerCellEditorComponent
+  },
   headerHeight: 37,
   icons: {
     sortDescending: '<i class="fa fa-caret-down"></i>',
@@ -35,11 +36,11 @@ export const SKY_GRID_OPTIONS: GridOptions = {
     columnMoveRight: '<i class="fa fa-arrows"></i>',
     columnMovePin: '<i class="fa fa-arrows"></i>'
   },
+  rowHeight: 37,
+  rowMultiSelectWithClick: true,
+  rowSelection: 'multiple',
   singleClickEdit: true,
-  suppressDragLeaveHidesColumns: true,
-  frameworkComponents: {
-    'skyuxCheckboxComponent': SkyCellRendererRowSelectorComponent,
-    'skyuxNumericEditorComponent': SkyCellEditorNumberComponent,
-    'skyuxDatepickerEditorComponent': SkyDatepickerCellEditorComponent
-  }
+  sortingOrder: ['desc', 'asc', 'null'],
+  suppressCellSelection: true,
+  suppressDragLeaveHidesColumns: true
 };

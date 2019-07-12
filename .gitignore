@@ -29,3 +29,8 @@ dist
 
 # IntelliJ files
 .idea
+
+# SKY UX visual directory
+screenshots-baseline-local
+screenshots-diff-local
+BrowserStackLocal
