@@ -47,7 +47,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
   it('renders a skyux datepicker', () => {
     component.columnWidth = 300;
     component.rowHeight = 37;
-    component.currentDate = new Date('7/12/19');
+    component.currentDate = new Date('7/12/2019');
     fixture.detectChanges();
 
     const element = nativeElement.querySelector('sky-datepicker');
@@ -57,7 +57,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
   it('opens a datepicker calendar', () => {
     component.columnWidth = 300;
     component.rowHeight = 37;
-    component.currentDate = new Date('7/12/19');
+    component.currentDate = new Date('7/12/2019');
     fixture.detectChanges();
     const calendarButton = nativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
     calendarButton.click();
@@ -68,7 +68,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
 
   describe('#agInit', () => {
     it('initializes the SkyuxDatepickerCellEditorComponent properties', () => {
-      const date = new Date('1/1/19');
+      const date = new Date('1/1/2019');
       const columnWidth = 200;
       const rowNode: RowNode = new RowNode();
       rowNode.rowHeight = 37;
@@ -116,8 +116,8 @@ describe('SkyCellEditorDatepickerComponent', () => {
 
   describe('#getValue', () => {
     it('updates value from input and returns currentDate', (done) => {
-      const previousDate = new Date('1/1/19');
-      const elementDateValue = '12/1/19';
+      const previousDate = new Date('1/1/2019');
+      const elementDateValue = '12/1/2019';
       const elementDate = new Date(elementDateValue);
       component.columnWidth = 300;
       component.rowHeight = 37;
@@ -137,7 +137,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     it('focuses on the datepicker input after it attaches to the DOM', () => {
       component.columnWidth = 300;
       component.rowHeight = 37;
-      component.currentDate = new Date('7/12/19');
+      component.currentDate = new Date('7/12/2019');
       fixture.detectChanges();
       const input = nativeElement.querySelector('input');
       spyOn(input, 'focus');
