@@ -45,19 +45,34 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   it('renders a skyux datepicker', () => {
+    component.columnWidth = 300;
+    component.rowHeight = 37;
+    component.currentDate = new Date('7/12/19');
     fixture.detectChanges();
 
-    let element = nativeElement.querySelector('sky-datepicker');
+    const element = nativeElement.querySelector('sky-datepicker');
     expect(element).toBeVisible();
+  });
+
+  it('opens a datepicker calendar', () => {
+    component.columnWidth = 300;
+    component.rowHeight = 37;
+    component.currentDate = new Date('7/12/19');
+    fixture.detectChanges();
+    const calendarButton = nativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
+    calendarButton.click();
+
+    const calendar = nativeElement.querySelector('sky-datepicker-calendar');
+    expect(calendar).toBeVisible();
   });
 
   describe('#agInit', () => {
     it('initializes the SkyuxDatepickerCellEditorComponent properties', () => {
-      let date = new Date('1/1/19');
-      let columnWidth = 200;
-      let rowNode: RowNode = new RowNode();
+      const date = new Date('1/1/19');
+      const columnWidth = 200;
+      const rowNode: RowNode = new RowNode();
       rowNode.rowHeight = 37;
-      let column: Column = new Column(
+      const column: Column = new Column(
         {
           colId: 'col'
         },
@@ -66,7 +81,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
         true);
       column.setActualWidth(columnWidth);
 
-      let cellEditorParams: ICellEditorParams = {
+      const cellEditorParams: ICellEditorParams = {
         value: date,
         column,
         node: rowNode,
@@ -100,22 +115,60 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   describe('#getValue', () => {
-    it('returns currentDate', () => {
-      let currentDate = new Date('1/1/19');
-      component.currentDate = currentDate;
+    it('updates value from input and returns currentDate', (done) => {
+      const previousDate = new Date('1/1/19');
+      const elementDateValue = '12/1/19';
+      const elementDate = new Date(elementDateValue);
+      component.columnWidth = 300;
+      component.rowHeight = 37;
+      component.currentDate = previousDate;
+      fixture.detectChanges();
 
-      expect(component.getValue()).toEqual(currentDate);
+      component.datepickerInput.nativeElement.value = elementDateValue;
+      fixture.detectChanges();
+
+      setTimeout(() => { done(); }, 4000);
+
+      expect(component.getValue()).toEqual(elementDate);
+    });
+  });
+
+  describe('#afterGuiAttached', () => {
+    it('focuses on the datepicker input after it attaches to the DOM', () => {
+      component.columnWidth = 300;
+      component.rowHeight = 37;
+      component.currentDate = new Date('7/12/19');
+      fixture.detectChanges();
+      const input = nativeElement.querySelector('input');
+      spyOn(input, 'focus');
+
+      component.afterGuiAttached();
+
+      expect(input).toBeVisible();
+      expect(input.focus).toHaveBeenCalled();
     });
   });
 
   describe('#isPopup', () => {
-    it ('returns true', () => {
+    it('returns true', () => {
       expect(component.isPopup()).toBeTruthy();
     });
   });
 
   it('should pass accessibility', async(() => {
+    component.columnWidth = 300;
+    component.rowHeight = 37;
     fixture.detectChanges();
+    expect(nativeElement).toBeAccessible();
+  }));
+
+  it('should pass accessibility with calendar open', async(() => {
+    component.columnWidth = 300;
+    component.rowHeight = 37;
+    fixture.detectChanges();
+    const calendarButton = nativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
+    calendarButton.click();
+
     expect(nativeElement).toBeAccessible();
   }));
 });

@@ -94,6 +94,19 @@ describe('SkyCellEditorNumericComponent', () => {
       expect(component.getValue()).toBe(value);
     });
 
+    describe('#afterGuiAttached', () => {
+      it('focuses on the input after it attaches to the DOM', () => {
+        fixture.detectChanges();
+        const input = nativeElement.querySelector('input');
+        spyOn(input, 'focus');
+
+        component.afterGuiAttached();
+
+        expect(input).toBeVisible();
+        expect(input.focus).toHaveBeenCalled();
+      });
+    });
+
     it('returns undefined if the value is not set', () => {
       expect(component.getValue()).toBeUndefined();
     });

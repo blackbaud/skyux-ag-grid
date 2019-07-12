@@ -1,34 +1,9 @@
-<sky-toolbar>
-  <sky-toolbar-item>
-    <sky-radio-group
-      ariaLabel="Grid size options"
-      name="gridSizeMode"
-      [(ngModel)]="sizingMode"
-      (ngModelChange)="sizeGrid()"
-    >
-      <sky-radio
-        labelledBy="grid-fit-page"
-        [value]="fitGridSizing"
-      >
-        <sky-radio-label id="grid-fit-page">
-          Size to fit page
-        </sky-radio-label>
-      </sky-radio>
-      <sky-radio
-        labelledBy="grid-fit-columns"
-        [value]="autoGridSizing"
-      >
-        <sky-radio-label id="grid-fit-columns">
-          Size automatically based on content
-        </sky-radio-label>
-      </sky-radio>
-    </sky-radio-group>
-  </sky-toolbar-item>
-</sky-toolbar>
-<ag-grid-angular
-  class="ag-theme-balham"
-  [gridOptions]="gridOptions"
-  [rowData]="gridData"
-  domLayout="autoHeight"
->
-</ag-grid-angular>
+<div class="readonly-grid">
+  <ag-grid-angular
+    class="ag-theme-balham"
+    [gridOptions]="gridOptions"
+    [rowData]="gridData"
+    domLayout="autoHeight"
+  >
+  </ag-grid-angular>
+</div>

@@ -86,7 +86,6 @@ export class ReadonlyGridComponent implements OnInit {
   public ngOnInit() {
     this.gridOptions.columnDefs = this.columnDefs;
     this.gridOptions.onGridReady = (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); };
-    this.gridOptions.onGridSizeChanged = () => { this.sizeGrid(); };
     this.gridOptions.onRowSelected = (rowSelectedEvent: RowSelectedEvent) => {
       rowSelectedEvent.data.selected = rowSelectedEvent.node.isSelected();
       this.gridApi.refreshCells({rowNodes: [rowSelectedEvent.node]});
@@ -113,22 +112,12 @@ export class ReadonlyGridComponent implements OnInit {
     this.gridApi = gridReadyEvent.api;
     this.columnApi = gridReadyEvent.columnApi;
 
-    this.sizeGrid();
+    this.columnApi.autoSizeColumns(['name', 'value', 'startDate', 'endDate', 'comment', 'status']);
 
     this.gridApi.forEachNode((rowNode: RowNode) => {
       if (rowNode.data.selected) {
         rowNode.setSelected(true);
       }
     });
-  }
-
-  public sizeGrid() {
-    if (this.gridApi && this.columnApi) {
-      if (this.sizingMode === GridSizingMode.FIT) {
-        this.gridApi.sizeColumnsToFit();
-      } else {
-        this.columnApi.autoSizeColumns(['name', 'value', 'startDate', 'endDate', 'comment', 'status']);
-      }
-    }
   }
 }
