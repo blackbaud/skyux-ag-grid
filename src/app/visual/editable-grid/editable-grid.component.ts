@@ -75,7 +75,7 @@ export class EditableGridComponent implements OnInit {
         editable: this.editMode,
         cellClass: 'sky-cell-editable sky-cell-number',
         onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        cellEditor: 'skyuxNumericEditorComponent'
+        cellEditor: 'skyCellEditorNumberComponent'
       },
       {
         colId: 'value2',
@@ -84,7 +84,7 @@ export class EditableGridComponent implements OnInit {
         editable: this.editMode,
         cellClass: 'sky-cell-editable sky-cell-number',
         onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        cellEditor: 'skyuxNumericEditorComponent'
+        cellEditor: 'skyCellEditorNumberComponent'
       },
       {
         colId: 'value3',
@@ -93,7 +93,7 @@ export class EditableGridComponent implements OnInit {
         editable: this.editMode,
         cellClass: 'sky-cell-editable sky-cell-number',
         onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        cellEditor: 'skyuxNumericEditorComponent'
+        cellEditor: 'skyCellEditorNumberComponent'
       },
       {
         colId: 'total',
@@ -114,7 +114,7 @@ export class EditableGridComponent implements OnInit {
         editable: this.editMode,
         valueFormatter: this.dateFormatter,
         cellClass: 'sky-cell-editable sky-cell-date',
-        cellEditor: 'skyuxDatepickerEditorComponent',
+        cellEditor: 'skyCellEditorDatepickerComponent',
         minWidth: 160
       },
       {

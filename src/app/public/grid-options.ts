@@ -22,9 +22,9 @@ export const SKY_GRID_OPTIONS: GridOptions = {
   },
   enterMovesDownAfterEdit: true,
   frameworkComponents: {
-    'skyuxCheckboxComponent': SkyCellRendererRowSelectorComponent,
-    'skyuxNumericEditorComponent': SkyCellEditorNumberComponent,
-    'skyuxDatepickerEditorComponent': SkyCellEditorDatepickerComponent
+    'skyCellRendererRowSelectorComponent': SkyCellRendererRowSelectorComponent,
+    'skyCellEditorNumberComponent': SkyCellEditorNumberComponent,
+    'skyCellEditorDatepickerComponent': SkyCellEditorDatepickerComponent
   },
   headerHeight: 37,
   icons: {

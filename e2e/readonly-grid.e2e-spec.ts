@@ -8,7 +8,7 @@ import {
   by
 } from 'protractor';
 
-describe('Editable grid', () => {
+describe('Readonly grid', () => {
 
   beforeEach(() => {
     SkyHostBrowser.get('visual/readonly-grid');

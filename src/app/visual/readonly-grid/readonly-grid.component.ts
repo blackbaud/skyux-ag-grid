@@ -47,10 +47,11 @@ export class ReadonlyGridComponent implements OnInit {
     {
       field: 'selected',
       headerName: '',
-      cellRenderer: 'skyuxCheckboxComponent',
+      cellRenderer: 'skyCellRendererRowSelectorComponent',
       width: 50,
       minWidth: 50,
-      maxWidth: 50
+      maxWidth: 50,
+      sortable: false
     },
     {
       field: 'name',
@@ -74,7 +75,8 @@ export class ReadonlyGridComponent implements OnInit {
     },
     {
       field: 'comment',
-      headerName: 'Comment'
+      headerName: 'Comment',
+      minWidth: 400
     },
     {
       field: 'status',
