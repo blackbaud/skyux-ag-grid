@@ -21,8 +21,8 @@
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",
-    "ag-grid-angular": "^20.0.0",
-    "ag-grid-community": "^20.0.0",
+    "ag-grid-angular": "^21.0.0",
+    "ag-grid-community": "^21.0.0",
     "@skyux/forms": "^3.0.0",
     "@skyux/datetime": "^3.0.0"
   },
@@ -66,8 +66,8 @@
     "@skyux/router": "3.1.1",
     "@skyux/theme": "3.5.0",
     "@types/core-js": "2.5.0",
-    "ag-grid-angular": "20.2.0",
-    "ag-grid-community": "20.2.0",
+    "ag-grid-angular": "21.0.1",
+    "ag-grid-community": "21.0.1",
     "codelyzer": "4.5.0",
     "lodash.clonedeep": "4.5.0",
     "rxjs": "6.5.1",
