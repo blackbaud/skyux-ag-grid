@@ -11,7 +11,7 @@ import {
 } from './cell-editors/cell-editor-number/cell-editor-number.component';
 
 import {
-  SkyDatepickerCellEditorComponent
+  SkyCellEditorDatepickerComponent
 } from './cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
 
 export const SKY_GRID_OPTIONS: GridOptions = {
@@ -24,7 +24,7 @@ export const SKY_GRID_OPTIONS: GridOptions = {
   frameworkComponents: {
     'skyuxCheckboxComponent': SkyCellRendererRowSelectorComponent,
     'skyuxNumericEditorComponent': SkyCellEditorNumberComponent,
-    'skyuxDatepickerEditorComponent': SkyDatepickerCellEditorComponent
+    'skyuxDatepickerEditorComponent': SkyCellEditorDatepickerComponent
   },
   headerHeight: 37,
   icons: {

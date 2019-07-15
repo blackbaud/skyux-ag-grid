@@ -23,7 +23,7 @@ import {
   styleUrls: ['./cell-editor-datepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyDatepickerCellEditorComponent implements ICellEditorAngularComp {
+export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp {
   private params: ICellEditorParams;
 
   @ViewChild('skyCellEditorDatepickerInput', {read: ElementRef})

@@ -23,7 +23,7 @@ import {
 } from './public/cell-editors/cell-editor-number/cell-editor-number.component';
 
 import {
-  SkyDatepickerCellEditorComponent
+  SkyCellEditorDatepickerComponent
 } from './public/cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
 
 import {
@@ -35,24 +35,24 @@ import {
 } from './public/cell-editors/cell-editor-datepicker/cell-editor-datepicker.module';
 
 import {
+  SkyCellEditorNumberModule
+} from './public/cell-editors/cell-editor-number/cell-editor-number.module';
+
+import {
   SkyToolbarModule
 } from '@skyux/layout';
 
-import {
-  FormsModule
-} from '@angular/forms';
-
 @NgModule({
-  declarations: [SkyCellEditorNumberComponent],
+  declarations: [],
   imports: [
     AgGridModule.withComponents([
       SkyCellRendererRowSelectorComponent,
       SkyCellEditorNumberComponent,
-      SkyDatepickerCellEditorComponent
+      SkyCellEditorDatepickerComponent
     ]),
     SkyCellRendererRowSelectorModule,
     SkyCellEditorDatepickerModule,
-    FormsModule
+    SkyCellEditorNumberModule
   ],
   exports: [
     AgGridModule,

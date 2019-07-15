@@ -13,7 +13,7 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyDatepickerCellEditorComponent
+  SkyCellEditorDatepickerComponent
 } from './cell-editor-datepicker.component';
 
 import {
@@ -27,8 +27,8 @@ import {
 } from 'ag-grid-community';
 
 describe('SkyCellEditorDatepickerComponent', () => {
-  let fixture: ComponentFixture<SkyDatepickerCellEditorComponent>;
-  let component: SkyDatepickerCellEditorComponent;
+  let fixture: ComponentFixture<SkyCellEditorDatepickerComponent>;
+  let component: SkyCellEditorDatepickerComponent;
   let nativeElement: HTMLElement;
 
   beforeEach(() => {
@@ -39,7 +39,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
       ]
     });
 
-    fixture = TestBed.createComponent(SkyDatepickerCellEditorComponent);
+    fixture = TestBed.createComponent(SkyCellEditorDatepickerComponent);
     nativeElement = fixture.nativeElement as HTMLElement;
     component = fixture.componentInstance;
   });
