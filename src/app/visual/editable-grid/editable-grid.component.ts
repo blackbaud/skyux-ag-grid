@@ -10,8 +10,7 @@ import {
   ColDef,
   GridApi,
   GridReadyEvent,
-  GridOptions,
-  ValueFormatterParams
+  GridOptions
 } from 'ag-grid-community';
 
 import {
@@ -20,8 +19,9 @@ import {
 } from './editable-grid-data';
 
 import {
-  SKY_GRID_OPTIONS
-} from '../../public/grid-options';
+  SkyAgGridService
+} from '../../public/ag-grid.service';
+import { SkyCellEditorType } from '../../public/types';
 
 const _cloneDeep = require('lodash.clonedeep');
 
@@ -34,23 +34,26 @@ const _cloneDeep = require('lodash.clonedeep');
 export class EditableGridComponent implements OnInit {
   public gridData: EditableGridRow[] = EDITABLE_GRID_DATA;
   public uneditedGridData: EditableGridRow[];
-  public gridOptions: GridOptions = SKY_GRID_OPTIONS;
+  public gridOptions: GridOptions;
   public gridApi: GridApi;
   public editMode: boolean = false;
   public columnDefs: ColDef[];
 
   constructor(
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private agGridService: SkyAgGridService
   ) { }
 
   public ngOnInit() {
     this.setColumnDefs();
 
-    this.gridOptions.columnDefs = this.columnDefs;
-    this.gridOptions.onGridReady = (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); };
-    this.gridOptions.rowSelection = 'none';
-    this.gridOptions.suppressCellSelection = false;
-    this.gridOptions.onGridSizeChanged = () => { this.sizeGrid(); };
+    this.gridOptions = {
+      rowSelection: 'none',
+      suppressCellSelection: false,
+      onGridReady: (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); },
+      onGridSizeChanged: () => { this.sizeGrid(); }
+    };
+    this.gridOptions = this.agGridService.getGridOptions(this.gridOptions);
 
     this.gridData.forEach((row: EditableGridRow) => {
       row.total = this.calculateRowTotal(row);
@@ -61,71 +64,61 @@ export class EditableGridComponent implements OnInit {
 
   public setColumnDefs() {
     this.columnDefs = [
-      {
+      this.agGridService.getColumnDefinition({
         colId: 'name',
         field: 'name',
         headerName: 'Goal Name',
-        cellClass: 'sky-cell-uneditable',
         minWidth: 220
-      },
-      {
+      }),
+      this.agGridService.getColumnDefinition({
         colId: 'value1',
         field: 'value1',
         headerName: 'Update 1',
         editable: this.editMode,
-        cellClass: 'sky-cell-editable sky-cell-number',
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        cellEditor: 'skyCellEditorNumberComponent'
-      },
-      {
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent)
+      }, { cellEditorType: SkyCellEditorType.Number }),
+      this.agGridService.getColumnDefinition({
         colId: 'value2',
         field: 'value2',
         headerName: 'Update 2',
         editable: this.editMode,
-        cellClass: 'sky-cell-editable sky-cell-number',
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        cellEditor: 'skyCellEditorNumberComponent'
-      },
-      {
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent)
+      }, { cellEditorType: SkyCellEditorType.Number }),
+      this.agGridService.getColumnDefinition({
         colId: 'value3',
         field: 'value3',
         headerName: 'Update 3',
         editable: this.editMode,
-        cellClass: 'sky-cell-editable sky-cell-number',
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        cellEditor: 'skyCellEditorNumberComponent'
-      },
-      {
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent)
+      }, { cellEditorType: SkyCellEditorType.Number }),
+      this.agGridService.getColumnDefinition({
         colId: 'total',
         field: 'total',
         headerName: 'Current Total',
-        cellClass: 'sky-cell-uneditable sky-cell-number'
-      },
-      {
+        type: 'number'
+      }),
+      this.agGridService.getColumnDefinition({
         colId: 'target',
         field: 'target',
         headerName: 'Target Value',
-        cellClass: 'sky-cell-uneditable sky-cell-number'
-      },
-      {
+        type: 'number'
+      }),
+      this.agGridService.getColumnDefinition({
         colId: 'completedDate',
         field: 'completedDate',
         headerName: 'Completed Date',
         editable: this.editMode,
-        valueFormatter: this.dateFormatter,
-        cellClass: 'sky-cell-editable sky-cell-date',
-        cellEditor: 'skyCellEditorDatepickerComponent',
+        type: 'date',
         minWidth: 160
-      },
-      {
+      }, { cellEditorType: SkyCellEditorType.Datepicker }),
+      this.agGridService.getColumnDefinition({
         colId: 'dueDate',
         field: 'dueDate',
         headerName: 'Due Date',
-        valueFormatter: this.dateFormatter,
+        type: 'date',
         sort: 'asc',
-        cellClass: 'sky-cell-uneditable',
         minWidth: 160
-      }
+      })
     ];
   }
 
@@ -153,11 +146,6 @@ export class EditableGridComponent implements OnInit {
       cellValueChangedData.data.total = this.calculateRowTotal(cellValueChangedData.data);
       this.gridApi.refreshCells({rowNodes: [cellValueChangedData.node]});
     }
-  }
-
-  public dateFormatter(params: ValueFormatterParams) {
-    let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return params.value ? params.value.toLocaleDateString('en-us', dateConfig) : undefined;
   }
 
   public calculateRowTotal(row: EditableGridRow) {

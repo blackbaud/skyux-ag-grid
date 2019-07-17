@@ -42,6 +42,10 @@ import {
   SkyToolbarModule
 } from '@skyux/layout';
 
+import {
+  SkyAgGridService
+} from './public/ag-grid.service';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -59,6 +63,9 @@ import {
     SkyAppLinkModule,
     SkyRadioModule,
     SkyToolbarModule
+  ],
+  providers: [
+    SkyAgGridService
   ],
   entryComponents: []
 })

@@ -13,8 +13,7 @@ import {
   GridOptions,
   ICellRendererParams,
   RowNode,
-  RowSelectedEvent,
-  ValueFormatterParams
+  RowSelectedEvent
 } from 'ag-grid-community';
 
 import {
@@ -23,10 +22,13 @@ import {
   ReadonlyGridRow,
   RowStatusNames
 } from './readonly-grid-data';
+import {
+  SkyAgGridService
+} from '../../public/ag-grid.service';
 
 import {
-  SKY_GRID_OPTIONS
-} from '../../public/grid-options';
+  SkyCellRendererType
+} from '../../public/types';
 
 @Component({
   selector: 'readonly-grid-visual',
@@ -37,66 +39,62 @@ import {
 })
 export class ReadonlyGridComponent implements OnInit {
   public gridData: ReadonlyGridRow[] = READONLY_GRID_DATA;
-  public gridOptions: GridOptions = SKY_GRID_OPTIONS;
+  public gridOptions: GridOptions;
   public gridApi: GridApi;
   public columnApi: ColumnApi;
   public readonly fitGridSizing: GridSizingMode = GridSizingMode.FIT;
   public readonly autoGridSizing: GridSizingMode = GridSizingMode.AUTO;
   public sizingMode: GridSizingMode = this.fitGridSizing;
   public columnDefs: ColDef[] = [
-    {
+    this.agGridService.getColumnDefinition({
       field: 'selected',
       headerName: '',
-      cellRenderer: 'skyCellRendererRowSelectorComponent',
       width: 50,
       minWidth: 50,
       maxWidth: 50,
       sortable: false
-    },
-    {
+    }, { cellRendererType: SkyCellRendererType.RowSelector }),
+    this.agGridService.getColumnDefinition({
       field: 'name',
       headerName: 'Goal Name'
-    },
-    {
+    }),
+    this.agGridService.getColumnDefinition({
       field: 'value',
       headerName: 'Current Value',
-      cellClass: 'sky-cell-number'
-    },
-    {
+      type: 'number'
+    }),
+    this.agGridService.getColumnDefinition({
       field: 'startDate',
       headerName: 'Start Date',
-      valueFormatter: this.dateFormatter,
+      type: 'date',
       sort: 'asc'
-    },
-    {
+    }),
+    this.agGridService.getColumnDefinition({
       field: 'endDate',
       headerName: 'End Date',
-      valueFormatter: this.dateFormatter
-    },
-    {
+      type: 'date'
+    }),
+    this.agGridService.getColumnDefinition({
       field: 'comment',
       headerName: 'Comment',
       minWidth: 400
-    },
-    {
+    }),
+    this.agGridService.getColumnDefinition({
       field: 'status',
       headerName: 'Status',
       sortable: false,
       cellRenderer: this.statusRenderer
-    }];
+    })];
+
+  constructor(private agGridService: SkyAgGridService) { }
 
   public ngOnInit() {
-    this.gridOptions.columnDefs = this.columnDefs;
+    this.gridOptions = this.agGridService.getGridOptions();
     this.gridOptions.onGridReady = (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); };
     this.gridOptions.onRowSelected = (rowSelectedEvent: RowSelectedEvent) => {
       rowSelectedEvent.data.selected = rowSelectedEvent.node.isSelected();
       this.gridApi.refreshCells({rowNodes: [rowSelectedEvent.node]});
     };
-  }
-
-  public dateFormatter(params: ValueFormatterParams) {
-    let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return params.value.toLocaleDateString('en-US', dateConfig);
   }
 
   public statusRenderer(cellRendererParams: ICellRendererParams) {

@@ -1,25 +1,24 @@
 @import '~@skyux/theme/scss/mixins';
 
 /* base grid theme property variables */
-$odd-row-background-color: #FFFFFF;
-$background-color: $sky-color-gray-01;
-$hover-color: none;
-$border-color: $sky-border-color-neutral-medium;
-$row-height: 38px;
-$header-height: 37px;
-$font-family: "Blackbaud Sans";
-$header-background-color: #FFFFFF;
-$font-size: 15px;
-$row-border-width: 1px;
-$secondary-font-size: 15px;
-$secondary-font-weight: 400;
-$secondary-foreground-color: $sky-text-color-deemphasized;
-$primary-color: $sky-highlight-color-info;
-$selected-color: #F1EEF6;
-$hover-color: #E9E4F1;
+$odd-row-background-color: #FFFFFF !default;
+$background-color: $sky-color-gray-01 !default;
+$border-color: $sky-border-color-neutral-medium !default;
+$row-height: 38px !default;
+$header-height: 37px !default;
+$font-family: "Blackbaud Sans" !default;
+$header-background-color: #FFFFFF !default;
+$font-size: 15px !default;
+$row-border-width: 1px !default;
+$secondary-font-size: 15px !default;
+$secondary-font-weight: 400 !default;
+$secondary-foreground-color: $sky-text-color-deemphasized !default;
+$primary-color: $sky-highlight-color-info !default;
+$selected-color: #F1EEF6 !default;
+$hover-color: #E9E4F1 !default;
 
 /* other variables */
-$standard-border: 1px solid $border-color;
+$standard-border: 1px solid $border-color !default;
 
 @import "~ag-grid-community/src/styles/ag-grid.scss";
 @import "~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss";
