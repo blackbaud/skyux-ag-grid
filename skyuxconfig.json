@@ -10,5 +10,8 @@
     "unit": {
       "browserSet": "paranoid"
     }
+  },
+  "app": {
+    "styles": ["src/app/public/styles/ag-grid-styles.scss"]
   }
 }

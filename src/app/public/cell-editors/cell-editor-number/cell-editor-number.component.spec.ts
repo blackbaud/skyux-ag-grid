@@ -20,7 +20,7 @@ import {
   ICellEditorParams
 } from 'ag-grid-community';
 
-describe('SkyCellEditorNumericComponent', () => {
+describe('SkyCellEditorNumberComponent', () => {
   let fixture: ComponentFixture<SkyCellEditorNumberComponent>;
   let component: SkyCellEditorNumberComponent;
   let nativeElement: HTMLElement;

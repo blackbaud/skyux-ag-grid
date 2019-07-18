@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 
 import {
+  CellClassParams,
   CellValueChangedEvent,
   ColDef,
   GridApi,
@@ -20,15 +21,18 @@ import {
 
 import {
   SkyAgGridService
-} from '../../public/ag-grid.service';
-import { SkyCellEditorType } from '../../public/types';
+} from '../../public';
+
+import {
+  SkyCellType
+} from '../../public';
 
 const _cloneDeep = require('lodash.clonedeep');
 
 @Component({
   selector: 'editable-grid-visual',
   templateUrl: './editable-grid.component.html',
-  styleUrls: ['../../public/styles/ag-grid-styles.scss', './editable-grid.component.scss'],
+  styleUrls: ['./editable-grid.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class EditableGridComponent implements OnInit {
@@ -64,61 +68,65 @@ export class EditableGridComponent implements OnInit {
 
   public setColumnDefs() {
     this.columnDefs = [
-      this.agGridService.getColumnDefinition({
+      {
         colId: 'name',
         field: 'name',
         headerName: 'Goal Name',
         minWidth: 220
-      }),
-      this.agGridService.getColumnDefinition({
+      },
+      {
         colId: 'value1',
         field: 'value1',
         headerName: 'Update 1',
         editable: this.editMode,
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent)
-      }, { cellEditorType: SkyCellEditorType.Number }),
-      this.agGridService.getColumnDefinition({
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
+        type: SkyCellType.Number
+      },
+      {
         colId: 'value2',
         field: 'value2',
         headerName: 'Update 2',
         editable: this.editMode,
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent)
-      }, { cellEditorType: SkyCellEditorType.Number }),
-      this.agGridService.getColumnDefinition({
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
+        type: SkyCellType.Number
+      },
+      {
         colId: 'value3',
         field: 'value3',
         headerName: 'Update 3',
         editable: this.editMode,
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent)
-      }, { cellEditorType: SkyCellEditorType.Number }),
-      this.agGridService.getColumnDefinition({
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
+        type: SkyCellType.Number
+      },
+      {
         colId: 'total',
         field: 'total',
         headerName: 'Current Total',
-        type: 'number'
-      }),
-      this.agGridService.getColumnDefinition({
+        type: SkyCellType.Number,
+        cellClass: this.totalCellClass
+      },
+      {
         colId: 'target',
         field: 'target',
         headerName: 'Target Value',
-        type: 'number'
-      }),
-      this.agGridService.getColumnDefinition({
+        type: SkyCellType.Number
+      },
+      {
         colId: 'completedDate',
         field: 'completedDate',
         headerName: 'Completed Date',
         editable: this.editMode,
-        type: 'date',
+        type: SkyCellType.Date,
         minWidth: 160
-      }, { cellEditorType: SkyCellEditorType.Datepicker }),
-      this.agGridService.getColumnDefinition({
+      },
+      {
         colId: 'dueDate',
         field: 'dueDate',
         headerName: 'Due Date',
-        type: 'date',
+        type: SkyCellType.Date,
         sort: 'asc',
         minWidth: 160
-      })
+      }
     ];
   }
 
@@ -139,6 +147,19 @@ export class EditableGridComponent implements OnInit {
     this.uneditedGridData = _cloneDeep(this.gridData);
     this.setEditMode(false);
     alert('save your data here!');
+  }
+
+  public totalCellClass(params: CellClassParams) {
+    const difference = params.data.target - params.data.total;
+    const thresholdOne = params.data.target / 3;
+    const thresholdTwo = thresholdOne * 2;
+    if (difference >= thresholdTwo) {
+      return 'red';
+    } else if (difference >= thresholdOne) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
   }
 
   public onUpdateCellValueChanged(cellValueChangedData: CellValueChangedEvent) {

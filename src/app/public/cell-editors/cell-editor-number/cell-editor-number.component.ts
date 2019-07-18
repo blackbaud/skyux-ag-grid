@@ -14,7 +14,7 @@ import {
 } from 'ag-grid-community';
 
 @Component({
-  selector: 'sky-cell-editor-numeric',
+  selector: 'sky-cell-editor-number',
   templateUrl: './cell-editor-number.component.html',
   styleUrls: ['./cell-editor-number.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default

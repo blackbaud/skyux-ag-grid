@@ -8,12 +8,9 @@ import {
 import {
   ColumnApi,
   ColDef,
-  GridApi,
   GridReadyEvent,
   GridOptions,
-  ICellRendererParams,
-  RowNode,
-  RowSelectedEvent
+  ICellRendererParams
 } from 'ag-grid-community';
 
 import {
@@ -24,77 +21,73 @@ import {
 } from './readonly-grid-data';
 import {
   SkyAgGridService
-} from '../../public/ag-grid.service';
+} from '../../public';
 
 import {
-  SkyCellRendererType
-} from '../../public/types';
+  SkyCellType
+} from '../../public';
 
 @Component({
   selector: 'readonly-grid-visual',
   templateUrl: './readonly-grid.component.html',
-  styleUrls: ['../../public/styles/ag-grid-styles.scss', './readonly-grid.component.scss'],
+  styleUrls: ['./readonly-grid.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReadonlyGridComponent implements OnInit {
   public gridData: ReadonlyGridRow[] = READONLY_GRID_DATA;
   public gridOptions: GridOptions;
-  public gridApi: GridApi;
   public columnApi: ColumnApi;
   public readonly fitGridSizing: GridSizingMode = GridSizingMode.FIT;
   public readonly autoGridSizing: GridSizingMode = GridSizingMode.AUTO;
   public sizingMode: GridSizingMode = this.fitGridSizing;
   public columnDefs: ColDef[] = [
-    this.agGridService.getColumnDefinition({
+    {
       field: 'selected',
       headerName: '',
-      width: 50,
-      minWidth: 50,
       maxWidth: 50,
-      sortable: false
-    }, { cellRendererType: SkyCellRendererType.RowSelector }),
-    this.agGridService.getColumnDefinition({
+      sortable: false,
+      type: SkyCellType.RowSelector
+    },
+    {
       field: 'name',
       headerName: 'Goal Name'
-    }),
-    this.agGridService.getColumnDefinition({
+    },
+    {
       field: 'value',
       headerName: 'Current Value',
-      type: 'number'
-    }),
-    this.agGridService.getColumnDefinition({
+      type: SkyCellType.Number
+    },
+    {
       field: 'startDate',
       headerName: 'Start Date',
-      type: 'date',
+      type: SkyCellType.Date,
       sort: 'asc'
-    }),
-    this.agGridService.getColumnDefinition({
+    },
+    {
       field: 'endDate',
       headerName: 'End Date',
-      type: 'date'
-    }),
-    this.agGridService.getColumnDefinition({
+      type: SkyCellType.Date
+    },
+    {
       field: 'comment',
       headerName: 'Comment',
       minWidth: 400
-    }),
-    this.agGridService.getColumnDefinition({
+    },
+    {
       field: 'status',
       headerName: 'Status',
       sortable: false,
       cellRenderer: this.statusRenderer
-    })];
+    }];
 
   constructor(private agGridService: SkyAgGridService) { }
 
   public ngOnInit() {
-    this.gridOptions = this.agGridService.getGridOptions();
-    this.gridOptions.onGridReady = (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); };
-    this.gridOptions.onRowSelected = (rowSelectedEvent: RowSelectedEvent) => {
-      rowSelectedEvent.data.selected = rowSelectedEvent.node.isSelected();
-      this.gridApi.refreshCells({rowNodes: [rowSelectedEvent.node]});
+    this.gridOptions = {
+      onGridReady: (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); }
     };
+    this.gridOptions = this.agGridService.getGridOptions(this.gridOptions);
   }
 
   public statusRenderer(cellRendererParams: ICellRendererParams) {
@@ -109,15 +102,8 @@ export class ReadonlyGridComponent implements OnInit {
   }
 
   public onGridReady(gridReadyEvent: GridReadyEvent) {
-    this.gridApi = gridReadyEvent.api;
     this.columnApi = gridReadyEvent.columnApi;
 
     this.columnApi.autoSizeColumns(['name', 'value', 'startDate', 'endDate', 'comment', 'status']);
-
-    this.gridApi.forEachNode((rowNode: RowNode) => {
-      if (rowNode.data.selected) {
-        rowNode.setSelected(true);
-      }
-    });
   }
 }

@@ -4,7 +4,6 @@ import {
 
 import {
   CellClassParams,
-  ColDef,
   GridOptions,
   ValueFormatterParams
 } from 'ag-grid-community';
@@ -22,133 +21,118 @@ import {
 } from './cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
 
 import {
-  SkyCellEditorType,
-  SkyCellRendererType,
-  SkyColumnDefinitionConfig
+  SkyCellClass,
+  SkyCellType
 } from './types';
-
-type CellClassFunction = ((cellClassParams: CellClassParams) => string | string[]);
-type CellClass = string | string[] | CellClassFunction;
-
-function dateFormatter(params: ValueFormatterParams) {
-    let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return params.value ? params.value.toLocaleDateString('en-us', dateConfig) : undefined;
-}
-
-const SKY_GRID_OPTIONS: GridOptions = {
-  columnTypes: {
-    number: {
-      cellClass: 'purple'
-    },
-    date: {
-      valueFormatter: dateFormatter
-    }
-  },
-  defaultColDef: {
-    sortable: true,
-    resizable: true,
-    minWidth: 100,
-    cellClass: 'blah'
-  },
-  enterMovesDownAfterEdit: true,
-  frameworkComponents: {
-    [SkyCellRendererType.RowSelector]: SkyCellRendererRowSelectorComponent,
-    [SkyCellEditorType.Number]: SkyCellEditorNumberComponent,
-    [SkyCellEditorType.Datepicker]: SkyCellEditorDatepickerComponent
-  },
-  headerHeight: 37,
-  icons: {
-    sortDescending: '<i class="fa fa-caret-down"></i>',
-    sortAscending: '<i class="fa fa-caret-up"></i>',
-    columnMoveMove: '<i class="fa fa-arrows"></i>',
-    columnMoveHide: '<i class="fa fa-arrows"></i>',
-    columnMoveLeft: '<i class="fa fa-arrows"></i>',
-    columnMoveRight: '<i class="fa fa-arrows"></i>',
-    columnMovePin: '<i class="fa fa-arrows"></i>'
-  },
-  rowHeight: 37,
-  rowMultiSelectWithClick: true,
-  rowSelection: 'multiple',
-  singleClickEdit: true,
-  sortingOrder: ['desc', 'asc', 'null'],
-  suppressCellSelection: true,
-  suppressDragLeaveHidesColumns: true
-};
 
 @Injectable()
 export class SkyAgGridService {
 
-  public getGridOptions(options?: GridOptions): GridOptions {
+  public getGridOptions(options: GridOptions = {}): GridOptions {
+    const defaultGridOptions = this.getDefaultGridOptions();
     let mergedGridOptions: GridOptions = {
-      ...SKY_GRID_OPTIONS,
-      ...options
+      ...defaultGridOptions,
+      ...options,
+      columnTypes: {
+        ...options.columnTypes,
+        ...defaultGridOptions.columnTypes
+      },
+      defaultColDef: {
+        ...defaultGridOptions.defaultColDef,
+        ...options.defaultColDef,
+        cellClassRules: defaultGridOptions.defaultColDef.cellClassRules
+      },
+      icons: {
+        ...defaultGridOptions.icons,
+        ...options.icons
+      }
     };
+
     return mergedGridOptions;
   }
 
-  public getColumnDefinition(initialColumnDefinition: ColDef, columnDefinitionConfig: SkyColumnDefinitionConfig = {}): ColDef {
-    let mergedColumnDefinition: ColDef = {};
-    Object.assign(mergedColumnDefinition, initialColumnDefinition);
-
-    mergedColumnDefinition.cellClass = this.getCellClassFunction(initialColumnDefinition.cellClass, columnDefinitionConfig);
-
-    if (this.isSkyCellEditorType(columnDefinitionConfig.cellEditorType)) {
-      mergedColumnDefinition.cellEditor = columnDefinitionConfig.cellEditorType;
-    }
-
-    if (this.isSkyCellRendererType(columnDefinitionConfig.cellRendererType)) {
-      mergedColumnDefinition.cellRenderer = columnDefinitionConfig.cellRendererType;
-    }
-
-    return mergedColumnDefinition;
-  }
-
-  private getCellClassFunction(initialCellClass: CellClass, columnDefinitionConfig: SkyColumnDefinitionConfig = {}): CellClassFunction {
-    let cellClassFunction: CellClassFunction = (params: CellClassParams): string[] => {
-      let cellClasses: string[] = [];
-
-      if (typeof initialCellClass === 'string' || typeof initialCellClass === 'object') {
-        cellClasses = this.createCellClasses(initialCellClass);
-      } else if (typeof initialCellClass === 'function') {
-        let calculatedCellClasses = initialCellClass(params);
-        cellClasses = this.createCellClasses(calculatedCellClasses);
-      }
-
-      if (params.colDef.editable) {
-        cellClasses.push('sky-cell-editable');
-      } else {
-        cellClasses.push('sky-cell-uneditable');
-      }
-
-      if (columnDefinitionConfig.cellEditorType === SkyCellEditorType.Number) {
-        cellClasses.push('sky-cell-number');
-      } else if (columnDefinitionConfig.cellEditorType === SkyCellEditorType.Datepicker) {
-        cellClasses.push('sky-cell-date');
-      }
-
-      if (params.colDef.type === 'number') {
-        cellClasses.push('sky-cell-number');
-      }
-
-      return cellClasses;
+  private getDefaultGridOptions(): GridOptions {
+    const editableCellClassRules = {
+      [SkyCellClass.Editable]: this.cellClassRuleIsEditable,
+      [SkyCellClass.Uneditable]: this.cellClassRuleIsUneditable
+    };
+    const defaultSkyGridOptions: GridOptions = {
+      columnTypes: {
+        [SkyCellType.Number]: {
+          cellClassRules: {
+            [SkyCellClass.Number]: 'true',
+            ...editableCellClassRules
+          },
+          cellEditorFramework: SkyCellEditorNumberComponent
+        },
+        [SkyCellType.Date]: {
+          cellClassRules: {
+            [SkyCellClass.Date]: 'true',
+            ...editableCellClassRules
+          },
+          cellEditorFramework: SkyCellEditorDatepickerComponent,
+          valueFormatter: this.dateFormatter
+        },
+        [SkyCellType.RowSelector]: {
+          cellClassRules: {
+            [SkyCellClass.Uneditable]: 'true'
+          },
+          cellRendererFramework: SkyCellRendererRowSelectorComponent,
+          minWidth: 50,
+          width: 50
+        }
+      },
+      defaultColDef: {
+        cellClassRules: editableCellClassRules,
+        sortable: true,
+        resizable: true,
+        minWidth: 100
+      },
+      enterMovesDownAfterEdit: true,
+      headerHeight: 37,
+      icons: {
+        sortDescending: '<i class="fa fa-caret-down"></i>',
+        sortAscending: '<i class="fa fa-caret-up"></i>',
+        columnMoveMove: '<i class="fa fa-arrows"></i>',
+        columnMoveHide: '<i class="fa fa-arrows"></i>',
+        columnMoveLeft: '<i class="fa fa-arrows"></i>',
+        columnMoveRight: '<i class="fa fa-arrows"></i>',
+        columnMovePin: '<i class="fa fa-arrows"></i>'
+      },
+      rowHeight: 37,
+      rowMultiSelectWithClick: true,
+      rowSelection: 'multiple',
+      singleClickEdit: true,
+      sortingOrder: ['desc', 'asc', 'null'],
+      suppressCellSelection: true,
+      suppressDragLeaveHidesColumns: true
     };
 
-    return cellClassFunction;
+    return defaultSkyGridOptions;
   }
 
-  private createCellClasses(classes: string | string[]) {
-    if (typeof classes === 'string') {
-      return classes.split(' ');
-    } else {
-      return classes;
+  private dateFormatter(params: ValueFormatterParams): string | undefined {
+    let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return params.value ? params.value.toLocaleDateString('en-us', dateConfig) : undefined;
+  }
+
+  private cellClassRuleIsEditable(params: CellClassParams): boolean {
+    if (typeof params.colDef.editable === 'boolean') {
+      return params.colDef.editable;
+    } else if (typeof params.colDef.editable === 'function') {
+      const column = params.columnApi.getColumn(params.colDef.field);
+      return params.colDef.editable({ ...params, column });
     }
+    return false;
   }
 
-  private isSkyCellEditorType(type: string): boolean {
-    return Object.values(SkyCellEditorType).includes(type);
-  }
-
-  private isSkyCellRendererType(type: string): boolean {
-    return Object.values(SkyCellRendererType).includes(type);
+  private cellClassRuleIsUneditable(params: CellClassParams): boolean {
+    if (typeof params.colDef.editable === 'boolean') {
+      return !params.colDef.editable;
+    } else if (typeof params.colDef.editable === 'function') {
+      const column = params.columnApi.getColumn(params.colDef.field);
+      return !params.colDef.editable({ ...params, column });
+    }
+    return true;
   }
 }

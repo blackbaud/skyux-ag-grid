@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component
 } from '@angular/core';
 
@@ -8,7 +9,8 @@ import {
 } from 'ag-grid-angular';
 
 import {
-  RowNode
+  RowNode,
+  RowSelectedEvent
 } from 'ag-grid-community';
 
 import {
@@ -26,17 +28,27 @@ export class SkyCellRendererRowSelectorComponent implements ICellRendererAngular
   public checked: boolean;
   public rowNode: RowNode;
 
+  constructor(private changeDetection: ChangeDetectorRef) {}
+
   public agInit(params: ICellRendererParams): void {
     this.params = params;
     this.checked = this.params.value;
     this.rowNode = this.params.node;
+
+    this.rowNode.addEventListener(RowNode.EVENT_ROW_SELECTED, (event: RowSelectedEvent) => { this.rowSelectedListener(event); });
+    this.rowNode.setSelected(this.checked);
+  }
+
+  public refresh(): boolean {
+    return false;
   }
 
   public updateRow() {
     this.rowNode.setSelected(this.checked);
   }
 
-  public refresh(): boolean {
-    return false;
+  private rowSelectedListener(event: RowSelectedEvent) {
+    this.checked = event.node.isSelected();
+    this.changeDetection.markForCheck();
   }
 }
