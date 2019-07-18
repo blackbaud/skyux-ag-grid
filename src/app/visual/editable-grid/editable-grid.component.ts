@@ -27,8 +27,6 @@ import {
   SkyCellType
 } from '../../public';
 
-const _cloneDeep = require('lodash.clonedeep');
-
 @Component({
   selector: 'editable-grid-visual',
   templateUrl: './editable-grid.component.html',
@@ -63,7 +61,7 @@ export class EditableGridComponent implements OnInit {
       row.total = this.calculateRowTotal(row);
     });
 
-    this.uneditedGridData = _cloneDeep(this.gridData);
+    this.uneditedGridData = this.cloneGridData(this.gridData);
   }
 
   public setColumnDefs() {
@@ -130,9 +128,18 @@ export class EditableGridComponent implements OnInit {
     ];
   }
 
+  public cloneGridData(data: EditableGridRow[]): EditableGridRow[] {
+    let clonedData: EditableGridRow[] = [];
+    data.forEach(row => {
+      clonedData.push( {...row});
+    });
+
+    return clonedData;
+  }
+
   public cancelEdits() {
     this.setEditMode(false);
-    this.gridData = _cloneDeep(this.uneditedGridData);
+    this.gridData = this.cloneGridData(this.uneditedGridData);
   }
 
   public setEditMode(editable: boolean) {
@@ -144,7 +151,7 @@ export class EditableGridComponent implements OnInit {
 
   public saveData() {
     this.gridApi.stopEditing();
-    this.uneditedGridData = _cloneDeep(this.gridData);
+    this.uneditedGridData = this.cloneGridData(this.gridData);
     this.setEditMode(false);
     alert('save your data here!');
   }
