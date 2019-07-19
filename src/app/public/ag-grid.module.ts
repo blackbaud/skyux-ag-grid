@@ -37,11 +37,7 @@ import {
 @NgModule({
   declarations: [],
   imports: [
-    AgGridModule.withComponents([
-      SkyCellRendererRowSelectorComponent,
-      SkyCellEditorNumberComponent,
-      SkyCellEditorDatepickerComponent
-    ]),
+    AgGridModule,
     SkyCellRendererRowSelectorModule,
     SkyCellEditorDatepickerModule,
     SkyCellEditorNumberModule
@@ -52,6 +48,10 @@ import {
   providers: [
     SkyAgGridService
   ],
-  entryComponents: []
+  entryComponents: [
+    SkyCellRendererRowSelectorComponent,
+    SkyCellEditorNumberComponent,
+    SkyCellEditorDatepickerComponent
+  ]
 })
 export class SkyAgGridModule { }
