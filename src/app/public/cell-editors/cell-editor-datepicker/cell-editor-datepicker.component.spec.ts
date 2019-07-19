@@ -67,12 +67,14 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   describe('#agInit', () => {
-    it('initializes the SkyuxDatepickerCellEditorComponent properties', () => {
-      const date = new Date('1/1/2019');
-      const columnWidth = 200;
-      const rowNode: RowNode = new RowNode();
-      rowNode.rowHeight = 37;
-      const column: Column = new Column(
+    let cellEditorParams: ICellEditorParams;
+    let column: Column;
+    const columnWidth = 200;
+    const rowNode: RowNode = new RowNode();
+    rowNode.rowHeight = 37;
+
+    beforeEach(() => {
+      column = new Column(
         {
           colId: 'col'
         },
@@ -81,13 +83,13 @@ describe('SkyCellEditorDatepickerComponent', () => {
         true);
       column.setActualWidth(columnWidth);
 
-      const cellEditorParams: ICellEditorParams = {
-        value: date,
+      cellEditorParams = {
+        value: undefined,
         column,
         node: rowNode,
         keyPress: undefined,
         charPress: undefined,
-        colDef: undefined,
+        colDef: {},
         columnApi: undefined,
         data: undefined,
         rowIndex: undefined,
@@ -101,6 +103,11 @@ describe('SkyCellEditorDatepickerComponent', () => {
         parseValue: undefined,
         formatValue: undefined
       };
+    });
+
+    it('initializes the SkyuxDatepickerCellEditorComponent properties', () => {
+      const date = new Date('1/1/2019');
+      cellEditorParams.value = date;
 
       expect(component.currentDate).toBeUndefined();
       expect(component.columnWidth).toBeUndefined();
@@ -111,6 +118,36 @@ describe('SkyCellEditorDatepickerComponent', () => {
       expect(component.currentDate).toEqual(date);
       expect(component.columnWidth).toEqual(columnWidth);
       expect(component.rowHeight).toEqual(38);
+    });
+
+    it('sets the cellEditorParams', () => {
+      const startingDay: number = 1;
+      const minDate: Date = new Date('1/1/2019');
+      const maxDate: Date = new Date('12/31/2019');
+      const disabled: boolean = false;
+      const dateFormat: string = 'DD/MM/YYYY';
+
+      cellEditorParams.colDef.cellEditorParams = {
+        startingDay,
+        minDate,
+        maxDate,
+        disabled,
+        dateFormat
+      };
+
+      expect(component.startingDay).toBeUndefined();
+      expect(component.minDate).toBeUndefined();
+      expect(component.maxDate).toBeUndefined();
+      expect(component.disabled).toBeUndefined();
+      expect(component.dateFormat).toBeUndefined();
+
+      component.agInit(cellEditorParams);
+
+      expect(component.startingDay).toEqual(startingDay);
+      expect(component.minDate).toEqual(minDate);
+      expect(component.maxDate).toEqual(maxDate);
+      expect(component.disabled).toEqual(disabled);
+      expect(component.dateFormat).toEqual(dateFormat);
     });
   });
 

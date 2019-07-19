@@ -8,6 +8,11 @@
       #skyCellEditorDatepickerInput
       skyDatepickerInput
       [(ngModel)]="currentDate"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      [disabled]="disabled"
+      [dateFormat]="dateFormat"
+      [startingDay]="startingDay"
     />
   </sky-datepicker>
 </div>

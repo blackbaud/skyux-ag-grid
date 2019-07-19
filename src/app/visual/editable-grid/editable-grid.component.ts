@@ -115,7 +115,8 @@ export class EditableGridComponent implements OnInit {
         headerName: 'Completed Date',
         editable: this.editMode,
         type: SkyCellType.Date,
-        minWidth: 160
+        minWidth: 160,
+        cellEditorParams: { startingDay: 1 }
       },
       {
         colId: 'dueDate',

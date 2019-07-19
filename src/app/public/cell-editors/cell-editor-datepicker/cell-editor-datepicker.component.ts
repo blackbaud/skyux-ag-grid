@@ -33,12 +33,23 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
   public inputDirective: SkyDatepickerInputDirective;
 
   public currentDate: Date;
+  public minDate: Date;
+  public maxDate: Date;
+  public disabled: boolean;
+  public dateFormat: string;
+  public startingDay: number;
   public columnWidth: number;
   public rowHeight: number;
 
   public agInit(params: ICellEditorParams) {
     this.params = params;
     this.currentDate = this.params.value;
+    const cellEditorParams = this.params.colDef.cellEditorParams;
+    this.minDate = cellEditorParams && cellEditorParams.minDate;
+    this.maxDate = cellEditorParams && cellEditorParams.maxDate;
+    this.disabled = cellEditorParams && cellEditorParams.disabled;
+    this.dateFormat = cellEditorParams && cellEditorParams.dateFormat;
+    this.startingDay = cellEditorParams && cellEditorParams.startingDay;
     this.columnWidth = this.params.column.getActualWidth();
     this.rowHeight = this.params.node.rowHeight + 1;
   }
