@@ -87,7 +87,7 @@ export class ReadonlyGridComponent implements OnInit {
     this.gridOptions = {
       onGridReady: (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); }
     };
-    this.gridOptions = this.agGridService.getGridOptions(this.gridOptions);
+    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
 
   public statusRenderer(cellRendererParams: ICellRendererParams) {

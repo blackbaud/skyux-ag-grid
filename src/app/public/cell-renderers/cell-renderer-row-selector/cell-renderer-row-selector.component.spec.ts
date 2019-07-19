@@ -129,7 +129,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
     spyOn(rowNode, 'isSelected').and.returnValue(true);
 
     rowNode.addEventListener = (event: string, listener: Function) => {
-      // capture event listener
+      // set event listener
       rowClickListener = listener;
     };
     spyOn(rowNode, 'addEventListener').and.callThrough();

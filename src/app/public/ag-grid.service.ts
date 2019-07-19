@@ -22,56 +22,84 @@ import {
 
 import {
   SkyCellClass,
-  SkyCellType
+  SkyCellType,
+  SkyGetGridOptionsArgs
 } from './types';
 
+/**
+ *
+ */
 @Injectable()
 export class SkyAgGridService {
 
-  public getGridOptions(options: GridOptions = {}): GridOptions {
-    const defaultGridOptions = this.getDefaultGridOptions();
+  /**
+   * Get SKY UX gridOptions to create your agGrid with default SKY styling and behavior.
+   * @param args options to be applied to the default SKY UX agGrid gridOptions.
+   */
+  public getGridOptions(args: SkyGetGridOptionsArgs): GridOptions {
+    const defaultGridOptions = this.getDefaultGridOptions(args);
+
     let mergedGridOptions: GridOptions = {
       ...defaultGridOptions,
-      ...options,
+      ...args.gridOptions,
       columnTypes: {
-        ...options.columnTypes,
+        ...args.gridOptions.columnTypes,
+        // apply default second to prevent consumers from overwriting our default column types
         ...defaultGridOptions.columnTypes
       },
       defaultColDef: {
         ...defaultGridOptions.defaultColDef,
-        ...options.defaultColDef,
+        ...args.gridOptions.defaultColDef,
+        // allow consumers to override all defaultColDef properties except cellClassRules, which we reserve for styling
         cellClassRules: defaultGridOptions.defaultColDef.cellClassRules
       },
       icons: {
         ...defaultGridOptions.icons,
-        ...options.icons
+        ...args.gridOptions.icons
       }
     };
 
     return mergedGridOptions;
   }
 
-  private getDefaultGridOptions(): GridOptions {
+  private getDefaultGridOptions(args: SkyGetGridOptionsArgs): GridOptions {
+    // cellClassRules can be functions or string expressions
+    const cellClassRuleTrueExpression = 'true';
+
+    function getEditableFn(flip?: boolean) {
+      return function (params: CellClassParams): boolean {
+        let isEditable = params.colDef.editable;
+
+        if (typeof isEditable === 'function') {
+          const column = params.columnApi.getColumn(params.colDef.field);
+          isEditable = isEditable({ ...params, column });
+        }
+
+        return flip ? !isEditable : isEditable;
+      };
+    }
+
     const editableCellClassRules = {
-      [SkyCellClass.Editable]: this.cellClassRuleIsEditable,
-      [SkyCellClass.Uneditable]: this.cellClassRuleIsUneditable
+      [SkyCellClass.Editable]: getEditableFn(),
+      [SkyCellClass.Uneditable]: getEditableFn(true)
     };
+
     const defaultSkyGridOptions: GridOptions = {
       columnTypes: {
         [SkyCellType.Number]: {
           cellClassRules: {
-            [SkyCellClass.Number]: 'true',
+            [SkyCellClass.Number]: cellClassRuleTrueExpression,
             ...editableCellClassRules
           },
           cellEditorFramework: SkyCellEditorNumberComponent
         },
         [SkyCellType.Date]: {
           cellClassRules: {
-            [SkyCellClass.Date]: 'true',
+            [SkyCellClass.Date]: cellClassRuleTrueExpression,
             ...editableCellClassRules
           },
           cellEditorFramework: SkyCellEditorDatepickerComponent,
-          valueFormatter: this.dateFormatter
+          valueFormatter: (params) => this.dateFormatter(params, args.locale)
         },
         [SkyCellType.RowSelector]: {
           cellClassRules: {
@@ -111,28 +139,8 @@ export class SkyAgGridService {
     return defaultSkyGridOptions;
   }
 
-  private dateFormatter(params: ValueFormatterParams): string | undefined {
+  private dateFormatter(params: ValueFormatterParams, locale: string = 'us-en'): string | undefined {
     let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return params.value ? params.value.toLocaleDateString('en-us', dateConfig) : undefined;
-  }
-
-  private cellClassRuleIsEditable(params: CellClassParams): boolean {
-    if (typeof params.colDef.editable === 'boolean') {
-      return params.colDef.editable;
-    } else if (typeof params.colDef.editable === 'function') {
-      const column = params.columnApi.getColumn(params.colDef.field);
-      return params.colDef.editable({ ...params, column });
-    }
-    return false;
-  }
-
-  private cellClassRuleIsUneditable(params: CellClassParams): boolean {
-    if (typeof params.colDef.editable === 'boolean') {
-      return !params.colDef.editable;
-    } else if (typeof params.colDef.editable === 'function') {
-      const column = params.columnApi.getColumn(params.colDef.field);
-      return !params.colDef.editable({ ...params, column });
-    }
-    return true;
+    return params.value && params.value.toLocaleDateString(locale, dateConfig);
   }
 }

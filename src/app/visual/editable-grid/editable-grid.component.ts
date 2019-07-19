@@ -55,7 +55,7 @@ export class EditableGridComponent implements OnInit {
       onGridReady: (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); },
       onGridSizeChanged: () => { this.sizeGrid(); }
     };
-    this.gridOptions = this.agGridService.getGridOptions(this.gridOptions);
+    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
 
     this.gridData.forEach((row: EditableGridRow) => {
       row.total = this.calculateRowTotal(row);

@@ -73,6 +73,10 @@ ag-grid-angular {
     background-color: $sky-background-color-neutral-light;
   }
 
+  .ag-popup > div {
+    box-shadow: none;
+  }
+
   /* fine tune focus cell borders */
   .ag-row {
     .ag-cell-focus.ag-cell-inline-editing {

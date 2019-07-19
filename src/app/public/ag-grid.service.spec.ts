@@ -31,7 +31,7 @@ describe('SyAgGridService', () => {
     });
 
     agGridService = TestBed.get(SkyAgGridService);
-    defaultGridOptions = agGridService.getGridOptions();
+    defaultGridOptions = agGridService.getGridOptions({ gridOptions: {}});
   });
 
   describe('#getGridOptions', () => {
@@ -47,7 +47,7 @@ describe('SyAgGridService', () => {
         headerHeight: newHeight,
         rowHeight: newHeight
       };
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions(overrideGridOptions);
+      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
 
       expect(defaultGridOptions.headerHeight).not.toEqual(newHeight);
       expect(defaultGridOptions.rowHeight).not.toEqual(newHeight);
@@ -66,7 +66,7 @@ describe('SyAgGridService', () => {
           newType: newColumnType
         }
       };
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions(overrideGridOptions);
+      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
 
       expect(mergedGridOptions.columnTypes.newType).toEqual(newColumnType);
       expect(mergedGridOptions.columnTypes[SkyCellType.Number]).toBeDefined();
@@ -82,6 +82,7 @@ describe('SyAgGridService', () => {
         cellClass: 'random'
       };
       const defaultDateColumnType: ColDef = defaultGridOptions.columnTypes[SkyCellType.Date];
+      defaultDateColumnType.valueFormatter = jasmine.any(Function);
       defaultDateColumnType.cellClassRules[SkyCellClass.Editable] = jasmine.any(Function);
       defaultDateColumnType.cellClassRules[SkyCellClass.Uneditable] = jasmine.any(Function);
       const overrideGridOptions: GridOptions = {
@@ -90,7 +91,7 @@ describe('SyAgGridService', () => {
         }
       };
 
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions(overrideGridOptions);
+      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
 
       expect(mergedGridOptions.columnTypes[SkyCellType.Date]).toEqual(defaultDateColumnType);
       expect(mergedGridOptions.columnTypes[SkyCellType.Number]).toBeDefined();
@@ -107,7 +108,7 @@ describe('SyAgGridService', () => {
         defaultColDef: overrideDefaultColDef
       };
 
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions(overrideGridOptions);
+      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
 
       expect(mergedGridOptions.defaultColDef.sortable).not.toEqual(defaultColDef.sortable);
       expect(mergedGridOptions.defaultColDef.sortable).toEqual(overrideDefaultColDef.sortable);
@@ -125,7 +126,7 @@ describe('SyAgGridService', () => {
         defaultColDef: overrideDefaultColDef
       };
 
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions(overrideGridOptions);
+      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
 
       expect(mergedGridOptions.defaultColDef.cellClassRules['new-rule']).toBeUndefined();
       expect(mergedGridOptions.defaultColDef.cellClassRules[SkyCellClass.Editable]).toBeDefined();
@@ -151,11 +152,11 @@ describe('SyAgGridService', () => {
       };
     });
 
-    it('returns a date in the MM/DD/YYYY string format', () => {
-      dateValueFormatterParams.value = new Date('1/1/2019');
+    it('returns a date in the MM/DD/YYYY string format when no locale provided', () => {
+      dateValueFormatterParams.value = new Date('12/1/2019');
       const formattedDate = dateValueFormatter(dateValueFormatterParams);
 
-      expect(formattedDate).toEqual('01/01/2019');
+      expect(formattedDate).toEqual('12/01/2019');
     });
 
     it('returns undefined when no date value is provided', () => {
@@ -163,17 +164,27 @@ describe('SyAgGridService', () => {
 
       expect(formattedDate).toBeUndefined();
     });
+
+    it('returns a date in the DD/MM/YYYY string format when british english en-gb locale provided', () => {
+      const britishGridOptions = agGridService.getGridOptions({ gridOptions: {}, locale: 'en-gb' });
+      const britishDateValueFormatter = britishGridOptions.columnTypes[SkyCellType.Date].valueFormatter;
+      dateValueFormatterParams.value = new Date('12/1/2019');
+      const formattedDate = britishDateValueFormatter(dateValueFormatterParams);
+
+      expect(formattedDate).toEqual('01/12/2019');
+    });
   });
 
-  describe('#cellClassRuleIsEditable', () => {
-    let cellClassRuleFunction: Function;
+  describe('getDefaultGridOptions getEditableFn', () => {
+    let cellClassRuleEditableFunction: Function;
     let cellClassParams: CellClassParams;
 
     beforeEach(() => {
-      const cellClassRule = defaultGridOptions.defaultColDef.cellClassRules[SkyCellClass.Editable];
-      if (typeof cellClassRule === 'function') {
-        cellClassRuleFunction = cellClassRule;
+      const cellClassRuleEditable = defaultGridOptions.defaultColDef.cellClassRules[SkyCellClass.Editable];
+      if (typeof cellClassRuleEditable === 'function') {
+        cellClassRuleEditableFunction = cellClassRuleEditable;
       }
+
       cellClassParams = {
         value: undefined,
         data: undefined,
@@ -187,81 +198,44 @@ describe('SyAgGridService', () => {
       };
     });
 
-    it('returns true when the columnDefinion\'s editable property is true', () => {
+    it('returns true when the columnDefinion\'s editable property is true and checkinng for editable', () => {
       cellClassParams.colDef.editable = true;
-      const editable = cellClassRuleFunction(cellClassParams);
+      const editable = cellClassRuleEditableFunction(cellClassParams);
 
       expect(editable).toBeTruthy();
     });
 
-    it('returns false when the columnDefinion\'s editable property is false', () => {
+    it('returns false when the columnDefinion\'s editable property is false and checking for editable', () => {
       cellClassParams.colDef.editable = false;
-      const editable = cellClassRuleFunction(cellClassParams);
+      const editable = cellClassRuleEditableFunction(cellClassParams);
 
       expect(editable).toBeFalsy();
     });
 
-    it('returns false when the columnDefinion\'s editable property is undefined', () => {
-      const editable = cellClassRuleFunction(cellClassParams);
+    it('returns false when the columnDefinion\'s editable property is undefined and checking for editable', () => {
+      const editable = cellClassRuleEditableFunction(cellClassParams);
 
       expect(editable).toBeFalsy();
     });
 
-    it('returns the result of the function when the columnDefinion\'s editable property is a function', () => {
+    it('returns the result of the function when the columnDefinion\'s editable property is a function and checking for editable', () => {
       cellClassParams.colDef.editable = () => { return true; };
       spyOn(cellClassParams.columnApi, 'getColumn').and.returnValue(undefined);
-      const editable = cellClassRuleFunction(cellClassParams);
+      const editable = cellClassRuleEditableFunction(cellClassParams);
 
       expect(editable).toBeTruthy();
     });
-  });
 
-  describe('#cellClassRuleIsUneditable', () => {
-    let cellClassRuleFunction: Function;
-    let cellClassParams: CellClassParams;
+    it('returns false when the columnDefinion\'s editable property is true and checking for uneditable', () => {
+      let cellClassRuleUneditableFunction: Function;
 
-    beforeEach(() => {
-      const cellClassRule = defaultGridOptions.defaultColDef.cellClassRules[SkyCellClass.Uneditable];
-      if (typeof cellClassRule === 'function') {
-        cellClassRuleFunction = cellClassRule;
+      const cellClassRuleUneditable = defaultGridOptions.defaultColDef.cellClassRules[SkyCellClass.Uneditable];
+      if (typeof cellClassRuleUneditable === 'function') {
+        cellClassRuleUneditableFunction = cellClassRuleUneditable;
       }
-      cellClassParams = {
-        value: undefined,
-        data: undefined,
-        node: undefined,
-        rowIndex: undefined,
-        $scope: undefined,
-        api: undefined,
-        columnApi: new ColumnApi(),
-        context: undefined,
-        colDef: {}
-      };
-    });
 
-    it('returns true when the columnDefinion\'s editable property is false', () => {
-      cellClassParams.colDef.editable = false;
-      const editable = cellClassRuleFunction(cellClassParams);
-
-      expect(editable).toBeTruthy();
-    });
-
-    it('returns false when the columnDefinion\'s editable property is true', () => {
       cellClassParams.colDef.editable = true;
-      const editable = cellClassRuleFunction(cellClassParams);
-
-      expect(editable).toBeFalsy();
-    });
-
-    it('returns true when the columnDefinion\'s editable property is undefined', () => {
-      const editable = cellClassRuleFunction(cellClassParams);
-
-      expect(editable).toBeTruthy();
-    });
-
-    it('returns the result of the function when the columnDefinion\'s editable property is a function', () => {
-      cellClassParams.colDef.editable = () => { return true; };
-      spyOn(cellClassParams.columnApi, 'getColumn').and.returnValue(undefined);
-      const editable = cellClassRuleFunction(cellClassParams);
+      const editable = cellClassRuleUneditableFunction(cellClassParams);
 
       expect(editable).toBeFalsy();
     });
