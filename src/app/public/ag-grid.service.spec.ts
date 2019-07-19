@@ -138,6 +138,20 @@ describe('SyAgGridService', () => {
     let dateValueFormatter: Function;
     let dateValueFormatterParams: ValueFormatterParams;
 
+    // remove the invisible characters IE11 includes in the output of toLocaleDateString
+    // by creating a new string that only includes ASCII characters 47 - 57 (/0123456789)
+    // https://stackoverflow.com/a/24874223/6178885
+    function fixLocaleDateString(localeDate: string): string {
+      let newStr = '';
+      for (let i = 0; i < localeDate.length; i++) {
+        const code = localeDate.charCodeAt(i);
+        if (code >= 47 && code <= 57) {
+          newStr += localeDate.charAt(i);
+        }
+      }
+      return newStr;
+    }
+
     beforeEach(() => {
       dateValueFormatter = defaultGridOptions.columnTypes[SkyCellType.Date].valueFormatter;
       dateValueFormatterParams = {
@@ -155,8 +169,9 @@ describe('SyAgGridService', () => {
     it('returns a date in the MM/DD/YYYY string format when no locale provided', () => {
       dateValueFormatterParams.value = new Date('12/1/2019');
       const formattedDate = dateValueFormatter(dateValueFormatterParams);
+      const fixedFormattedDate = fixLocaleDateString(formattedDate);
 
-      expect(formattedDate).toEqual('12/01/2019');
+      expect(fixedFormattedDate).toEqual('12/01/2019');
     });
 
     it('returns undefined when no date value is provided', () => {
@@ -169,9 +184,11 @@ describe('SyAgGridService', () => {
       const britishGridOptions = agGridService.getGridOptions({ gridOptions: {}, locale: 'en-gb' });
       const britishDateValueFormatter = britishGridOptions.columnTypes[SkyCellType.Date].valueFormatter;
       dateValueFormatterParams.value = new Date('12/1/2019');
-      const formattedDate = britishDateValueFormatter(dateValueFormatterParams);
 
-      expect(formattedDate).toEqual('01/12/2019');
+      const formattedDate = britishDateValueFormatter(dateValueFormatterParams);
+      const fixedFormattedDate = fixLocaleDateString(formattedDate);
+
+      expect(fixedFormattedDate).toEqual('01/12/2019');
     });
   });
 
