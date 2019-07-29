@@ -41,6 +41,8 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
   public columnWidth: number;
   public rowHeight: number;
 
+  constructor(private el: ElementRef) {}
+
   public agInit(params: ICellEditorParams) {
     this.params = params;
     this.currentDate = this.params.value;
@@ -54,8 +56,8 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
     this.rowHeight = this.params.node.rowHeight + 1;
   }
 
-  public afterGuiAttached() {
-    this.datepickerInput.nativeElement.focus();
+  public afterGuiAttached(): void {
+    this.focusOnDatepickerInput();
   }
 
   public getValue(): Date {
@@ -63,7 +65,38 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
     return this.currentDate;
   }
 
-  public isPopup() {
+  public isPopup(): boolean {
     return true;
+  }
+
+  public onKeydown(e: KeyboardEvent): void {
+    const calendarEl = this.el.nativeElement.querySelector('sky-datepicker-calendar');
+    const calendarElStyles = calendarEl && getComputedStyle(calendarEl);
+    const targetEl = e.target as HTMLElement;
+
+    // stop event propagation to prevent the grid from moving to the next cell if there is an element target, the tab key was pressed, and
+    if (targetEl && e.keyCode === 9 &&
+      // it is a tab right and the target is either an input or the calendar button when the calendar is open or
+      ((!e.shiftKey && (targetEl.tagName === 'INPUT' || (targetEl.tagName === 'BUTTON' && calendarElStyles.visibility === 'visible'))) ||
+      // it is a tab left and the target is the calendar button or
+      (e.shiftKey && targetEl.tagName === 'BUTTON')) ||
+      // it is a tab left and the target is the calendar
+      (e.shiftKey && targetEl.tagName === 'SKY-DAYPICKER')) {
+        e.stopPropagation();
+    }
+  }
+
+  public onDatepickerClick(e: MouseEvent): void {
+    const clickedEl = e.target as HTMLElement;
+    const parentEl = clickedEl.parentElement;
+    const dayButtonClass = 'sky-datepicker-btn-date';
+
+    if (clickedEl.classList.contains(dayButtonClass) || parentEl.classList.contains(dayButtonClass)) {
+      this.focusOnDatepickerInput();
+    }
+  }
+
+  private focusOnDatepickerInput(): void {
+    this.datepickerInput.nativeElement.focus();
   }
 }

@@ -3,7 +3,10 @@
   [style.height.px]="rowHeight"
   class="sky-cell-editor-datepicker"
 >
-  <sky-datepicker>
+  <sky-datepicker
+    (keydown)="onKeydown($event)"
+    (click)="onDatepickerClick($event)"
+  >
     <input
       #skyCellEditorDatepickerInput
       skyDatepickerInput
