@@ -9,6 +9,7 @@ import {
 } from '@skyux-sdk/builder/runtime/testing/browser';
 
 import {
+  SkyAppTestUtility,
   expect
 } from '@skyux-sdk/testing';
 
@@ -48,6 +49,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     component.columnWidth = 300;
     component.rowHeight = 37;
     component.currentDate = new Date('7/12/2019');
+
     fixture.detectChanges();
 
     const element = nativeElement.querySelector('sky-datepicker');
@@ -58,7 +60,9 @@ describe('SkyCellEditorDatepickerComponent', () => {
     component.columnWidth = 300;
     component.rowHeight = 37;
     component.currentDate = new Date('7/12/2019');
+
     fixture.detectChanges();
+
     const calendarButton = nativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
     calendarButton.click();
 
@@ -81,6 +85,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
         undefined,
         'col',
         true);
+
       column.setActualWidth(columnWidth);
 
       cellEditorParams = {
@@ -156,9 +161,11 @@ describe('SkyCellEditorDatepickerComponent', () => {
       const previousDate = new Date('1/1/2019');
       const elementDateValue = '12/1/2019';
       const elementDate = new Date(elementDateValue);
+
       component.columnWidth = 300;
       component.rowHeight = 37;
       component.currentDate = previousDate;
+
       fixture.detectChanges();
 
       component.datepickerInput.nativeElement.value = elementDateValue;
@@ -175,7 +182,9 @@ describe('SkyCellEditorDatepickerComponent', () => {
       component.columnWidth = 300;
       component.rowHeight = 37;
       component.currentDate = new Date('7/12/2019');
+
       fixture.detectChanges();
+
       const input = nativeElement.querySelector('input');
       spyOn(input, 'focus');
 
@@ -192,17 +201,119 @@ describe('SkyCellEditorDatepickerComponent', () => {
     });
   });
 
+  describe('#onDatepickerKeydown', () => {
+    let stopPropagationSpy: jasmine.Spy;
+    let tabKeyCustomEventInit: object;
+
+    const tabRightKeyboardEventInit: KeyboardEventInit = {
+      key: 'tab',
+      shiftKey: false
+    };
+
+    const tabLeftKeyboardEventInit: KeyboardEventInit = {
+      key: 'tab',
+      shiftKey: true
+    };
+
+    beforeEach(() => {
+      stopPropagationSpy = jasmine.createSpy();
+      tabKeyCustomEventInit = {
+        stopPropagation: stopPropagationSpy,
+        keyCode: 9
+      };
+    });
+
+    it('stops event propagation for tab right keydown when the target is the datepicker input', () => {
+      const datepickerInputEl = fixture.nativeElement.querySelector('input');
+
+      SkyAppTestUtility.fireDomEvent(datepickerInputEl, 'keydown', {
+        keyboardEventInit: tabRightKeyboardEventInit,
+        customEventInit: tabKeyCustomEventInit
+      });
+
+      expect(stopPropagationSpy).toHaveBeenCalled();
+    });
+
+    it('stops event propagation for tab left keydown when the target is the calendar button', () => {
+      fixture.detectChanges();
+
+      const calendarButtonEl = fixture.nativeElement.querySelector('.sky-dropdown-button-type-calendar');
+
+      SkyAppTestUtility.fireDomEvent(calendarButtonEl, 'keydown', {
+        keyboardEventInit: tabLeftKeyboardEventInit,
+        customEventInit: tabKeyCustomEventInit
+      });
+
+      expect(stopPropagationSpy).toHaveBeenCalled();
+    });
+
+    it('stops event propagation for tab right keydown when the target is the calendar button and the calendar is open', async(() => {
+      fixture.detectChanges();
+
+      const calendarButtonEl = fixture.nativeElement.querySelector('.sky-dropdown-button-type-calendar');
+      calendarButtonEl.click();
+
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        SkyAppTestUtility.fireDomEvent(calendarButtonEl, 'keydown', {
+          keyboardEventInit: tabRightKeyboardEventInit,
+          customEventInit: tabKeyCustomEventInit
+        });
+
+        expect(stopPropagationSpy).toHaveBeenCalled();
+      });
+    }));
+
+    it('stops event propagation for tab left keydown when the target is the daypicker and the calendar is open', async(() => {
+      fixture.detectChanges();
+
+      const calendarButtonEl = fixture.nativeElement.querySelector('.sky-dropdown-button-type-calendar');
+      calendarButtonEl.click();
+
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        const daypickerEl = fixture.nativeElement.querySelector('sky-daypicker');
+
+        SkyAppTestUtility.fireDomEvent(daypickerEl, 'keydown', {
+          keyboardEventInit: tabLeftKeyboardEventInit,
+          customEventInit: tabKeyCustomEventInit
+        });
+
+        expect(stopPropagationSpy).toHaveBeenCalled();
+      });
+    }));
+
+    it('does not stop event propagation for tab right keydown when the target is the calendar button and the calendar is closed', () => {
+      fixture.detectChanges();
+
+      const calendarButtonEl = fixture.nativeElement.querySelector('.sky-dropdown-button-type-calendar');
+
+      SkyAppTestUtility.fireDomEvent(calendarButtonEl, 'keydown', {
+        keyboardEventInit: tabRightKeyboardEventInit,
+        customEventInit: tabKeyCustomEventInit
+      });
+
+      expect(stopPropagationSpy).not.toHaveBeenCalled();
+    });
+  });
+
   it('should pass accessibility', async(() => {
     component.columnWidth = 300;
     component.rowHeight = 37;
+
     fixture.detectChanges();
+
     expect(nativeElement).toBeAccessible();
   }));
 
   it('should pass accessibility with calendar open', async(() => {
     component.columnWidth = 300;
     component.rowHeight = 37;
+
     fixture.detectChanges();
+
     const calendarButton = nativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
     calendarButton.click();
 

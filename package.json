@@ -24,7 +24,7 @@
     "ag-grid-angular": "^21.0.0",
     "ag-grid-community": "^21.0.0",
     "@skyux/forms": "^3.0.0",
-    "@skyux/datetime": "^3.0.0"
+    "@skyux/datetime": "^3.4.0"
   },
   "dependencies": {},
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@skyux/avatar": "3.0.0",
     "@skyux/config": "3.5.0",
     "@skyux/core": "3.5.2",
-    "@skyux/datetime": "3.3.0",
+    "@skyux/datetime": "3.4.0",
     "@skyux/errors": "3.0.0",
     "@skyux/forms": "3.2.1",
     "@skyux/http": "3.2.0",

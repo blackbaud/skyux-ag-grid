@@ -61,7 +61,7 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
   }
 
   public getValue(): Date {
-    this.inputDirective.writeValue(this.datepickerInput.nativeElement.value);
+    this.inputDirective.detectInputValueChange();
     return this.currentDate;
   }
 
@@ -69,7 +69,7 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
     return true;
   }
 
-  public onKeydown(e: KeyboardEvent): void {
+  public onDatepickerKeydown(e: KeyboardEvent): void {
     const calendarEl = this.el.nativeElement.querySelector('sky-datepicker-calendar');
     const calendarElStyles = calendarEl && getComputedStyle(calendarEl);
     const targetEl = e.target as HTMLElement;
@@ -86,17 +86,7 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
     }
   }
 
-  public onDatepickerClick(e: MouseEvent): void {
-    const clickedEl = e.target as HTMLElement;
-    const parentEl = clickedEl.parentElement;
-    const dayButtonClass = 'sky-datepicker-btn-date';
-
-    if (clickedEl.classList.contains(dayButtonClass) || parentEl.classList.contains(dayButtonClass)) {
-      this.focusOnDatepickerInput();
-    }
-  }
-
-  private focusOnDatepickerInput(): void {
+  public focusOnDatepickerInput(): void {
     this.datepickerInput.nativeElement.focus();
   }
 }

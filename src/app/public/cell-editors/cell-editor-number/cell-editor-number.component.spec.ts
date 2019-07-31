@@ -81,6 +81,7 @@ describe('SkyCellEditorNumberComponent', () => {
     it('returns the value if it is set', () => {
       let value = 7;
       component.value = value;
+
       fixture.detectChanges();
 
       expect(component.getValue()).toBe(value);
@@ -89,6 +90,7 @@ describe('SkyCellEditorNumberComponent', () => {
     it('returns the value if it is 0', () => {
       let value = 0;
       component.value = value;
+
       fixture.detectChanges();
 
       expect(component.getValue()).toBe(value);
@@ -97,6 +99,7 @@ describe('SkyCellEditorNumberComponent', () => {
     describe('#afterGuiAttached', () => {
       it('focuses on the input after it attaches to the DOM', () => {
         fixture.detectChanges();
+
         const input = nativeElement.querySelector('input');
         spyOn(input, 'focus');
 
@@ -114,6 +117,7 @@ describe('SkyCellEditorNumberComponent', () => {
 
   it('should pass accessibility', async(() => {
     fixture.detectChanges();
+
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement).toBeAccessible();
     });

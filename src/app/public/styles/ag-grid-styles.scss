@@ -111,4 +111,14 @@ ag-grid-angular {
   .ag-popup-editor {
     border: none;
   }
+
+  sky-datepicker {
+    button:focus {
+      outline: -webkit-focus-ring-color auto 5px !important;
+    }
+
+    sky-daypicker:focus {
+      outline: -webkit-focus-ring-color auto 5px !important;
+    }
+  }
 }

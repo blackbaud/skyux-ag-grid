@@ -1,5 +1,4 @@
 import {
-  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -123,8 +122,10 @@ describe('SkyCellRendererCheckboxComponent', () => {
       columnApi: undefined,
       type: undefined
     };
+
     cellRendererParams.value = false;
     cellRendererParams.node = rowNode;
+
     spyOn(rowNode, 'setSelected');
     spyOn(rowNode, 'isSelected').and.returnValue(true);
 
@@ -145,8 +146,9 @@ describe('SkyCellRendererCheckboxComponent', () => {
     expect(component.checked).toEqual(true);
   });
 
-  it('should pass accessibility', async(() => {
+  it('should pass accessibility', () => {
     fixture.detectChanges();
+
     expect(nativeElement).toBeAccessible();
-  }));
+  });
 });
