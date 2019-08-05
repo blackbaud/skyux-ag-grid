@@ -8,112 +8,164 @@ import {
   by
 } from 'protractor';
 
+import {
+  SkyHostBrowserBreakpoint
+} from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
+
 describe('Editable grid', () => {
 
   beforeEach(() => {
     SkyHostBrowser.get('visual/editable-grid');
   });
 
-  it('should match previous editable grid in read mode screenshot', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    SkyHostBrowser.moveCursorOffScreen();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-read-lg'
+  describe('read mode', () => {
+    const matchesPreviousEditableGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      SkyHostBrowser.moveCursorOffScreen();
+
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-read-${screenSize}`
+      });
+    };
+
+    it('should match previous editable grid on large screens', (done) => {
+      matchesPreviousEditableGrid('lg', done);
+    });
+
+    it('should match previous editable grid on extra small screens', (done) => {
+      matchesPreviousEditableGrid('xs', done);
     });
   });
 
-  it('should match previous editable grid in read mode screenshot on tiny screens', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('xs');
-    SkyHostBrowser.moveCursorOffScreen();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-read-xs'
+  describe('edit mode', () => {
+    const matchesPreviousEditableGridInEditMode = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      element(by.css('#edit-btn')).click();
+
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-${screenSize}`
+      });
+    };
+
+    it('should match previous editable grid on large screens', (done) => {
+      matchesPreviousEditableGridInEditMode('lg', done);
+    });
+
+    it('should match previous editable grid on extra small screens', (done) => {
+      matchesPreviousEditableGridInEditMode('xs', done);
     });
   });
 
-  it('should match previous editable grid in edit mode screenshot', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    element(by.css('#edit-btn')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-edit-lg'
+  describe('descending sort', () => {
+    const matchesPreviousDescendingSortGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      element(by.css('.ag-header-cell-sortable')).click();
+
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-sort-desc-${screenSize}`
+      });
+    };
+
+    it('should match previous screenshot on large screens', (done) => {
+      matchesPreviousDescendingSortGrid('lg', done);
+    });
+
+    it('should match previous screenshot on extra small screens', (done) => {
+      matchesPreviousDescendingSortGrid('xs', done);
     });
   });
 
-  it('should match previous editable grid in edit mode screenshot on tiny screens', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('xs');
-    element(by.css('#edit-btn')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-edit-xs'
+  describe('ascending sort', () => {
+    const matchesPreviousAscendingSortGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      // click twice to sort by descending then ascending
+      element(by.css('.ag-header-cell-sortable')).click();
+      element(by.css('.ag-header-cell-sortable')).click();
+
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-sort-asc-${screenSize}`
+      });
+    };
+
+    it('should match previous screenshot on large screens', (done) => {
+      matchesPreviousAscendingSortGrid('lg', done);
+    });
+
+    it('should match previous screenshot on extra small screens', (done) => {
+      matchesPreviousAscendingSortGrid('xs', done);
     });
   });
 
-  it('should match previous screenshot with descending sort indication', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    element(by.css('.ag-header-cell-sortable')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-sort-desc-lg'
+  describe('number editing', () => {
+    const matchesPreviousNumberEditingGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      element(by.css('#edit-btn')).click();
+
+      element(by.css('.sky-cell-editable.sky-cell-number')).click();
+
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-number-${screenSize}`
+      });
+    };
+
+    it('should match previous screenshot on large screens', (done) => {
+      matchesPreviousNumberEditingGrid('lg', done);
+    });
+
+    it('should match previous screenshot on extra small screens', (done) => {
+      matchesPreviousNumberEditingGrid('xs', done);
     });
   });
 
-  it('should match previous screenshot with descending sort indication on tiny screens', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('xs');
-    element(by.css('.ag-header-cell-sortable')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-sort-desc-xs'
+  describe('date text input editing', () => {
+    const matchesPreviousDateTextEditingGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      element(by.css('#edit-btn')).click();
+
+      element(by.css('.sky-cell-editable.sky-cell-date')).click();
+
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-date-${screenSize}`
+      });
+    };
+
+    it('should match previous screenshot on large screens', (done) => {
+      matchesPreviousDateTextEditingGrid('lg', done);
+    });
+
+    it('should match previous screenshot on extra small screens', (done) => {
+      matchesPreviousDateTextEditingGrid('xs', done);
     });
   });
 
-  it('should match previous screenshot with ascending sort indication', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    element(by.css('.ag-header-cell-sortable')).click();
-    element(by.css('.ag-header-cell-sortable')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-sort-asc-lg'
-    });
-  });
+  describe('date calendar editing', () => {
+    const matchesPreviousDateCalendarEditingGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-  it('should match previous screenshot with ascending sort indication on tiny screens', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('xs');
-    element(by.css('.ag-header-cell-sortable')).click();
-    element(by.css('.ag-header-cell-sortable')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-sort-asc-xs'
-    });
-  });
+      element(by.css('#edit-btn')).click();
 
-  it('should match previous editable grid with number editing screenshot', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    element(by.css('#edit-btn')).click();
-    element(by.css('.sky-cell-editable.sky-cell-number')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-edit-number-lg'
-    });
-  });
+      SkyHostBrowser.scrollTo('.sky-cell-editable.sky-cell-date');
+      element(by.css('.sky-cell-editable.sky-cell-date')).click();
 
-  it('should match previous editable grid with number editing screenshot on tiny screens', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('xs');
-    element(by.css('#edit-btn')).click();
-    element(by.css('.sky-cell-editable.sky-cell-number')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-edit-number-xs'
-    });
-  });
+      element(by.css('.sky-dropdown-button-type-calendar')).click();
 
-  it('should match previous editable grid with date text editing screenshot', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    element(by.css('#edit-btn')).click();
-    element(by.css('.sky-cell-editable.sky-cell-date')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-edit-date-lg'
-    });
-  });
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-date-cal-${screenSize}`
+      });
+    };
 
-  it('should match previous editable grid with date calendar editing screenshot', (done) => {
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    element(by.css('#edit-btn')).click();
-    element(by.css('.sky-cell-editable.sky-cell-date')).click();
-    element(by.css('.sky-dropdown-button-type-calendar')).click();
-    expect('.editable-grid').toMatchBaselineScreenshot(done, {
-      screenshotName: 'editable-grid-edit-date-cal-lg'
+    it('should match previous screenshot on large screens', (done) => {
+      matchesPreviousDateCalendarEditingGrid('lg', done);
+    });
+
+    it('should match previous screenshot on extra small screens', (done) => {
+      matchesPreviousDateCalendarEditingGrid('xs', done);
     });
   });
 });

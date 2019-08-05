@@ -73,6 +73,15 @@ export class EditableGridComponent implements OnInit {
         minWidth: 220
       },
       {
+        colId: 'completedDate',
+        field: 'completedDate',
+        headerName: 'Completed Date',
+        editable: this.editMode,
+        type: SkyCellType.Date,
+        minWidth: 160,
+        cellEditorParams: { startingDay: 1 }
+      },
+      {
         colId: 'value1',
         field: 'value1',
         headerName: 'Update 1',
@@ -108,15 +117,6 @@ export class EditableGridComponent implements OnInit {
         field: 'target',
         headerName: 'Target Value',
         type: SkyCellType.Number
-      },
-      {
-        colId: 'completedDate',
-        field: 'completedDate',
-        headerName: 'Completed Date',
-        editable: this.editMode,
-        type: SkyCellType.Date,
-        minWidth: 160,
-        cellEditorParams: { startingDay: 1 }
       },
       {
         colId: 'dueDate',
