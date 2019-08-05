@@ -38,7 +38,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     });
 
     fixture = TestBed.createComponent(SkyCellEditorDatepickerComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
+    nativeElement = fixture.nativeElement;
     component = fixture.componentInstance;
   });
 
@@ -71,7 +71,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     let cellEditorParams: ICellEditorParams;
     let column: Column;
     const columnWidth = 200;
-    const rowNode: RowNode = new RowNode();
+    const rowNode = new RowNode();
     rowNode.rowHeight = 37;
 
     beforeEach(() => {
@@ -123,11 +123,11 @@ describe('SkyCellEditorDatepickerComponent', () => {
     });
 
     it('sets the cellEditorParams', () => {
-      const startingDay: number = 1;
-      const minDate: Date = new Date('1/1/2019');
-      const maxDate: Date = new Date('12/31/2019');
-      const disabled: boolean = false;
-      const dateFormat: string = 'DD/MM/YYYY';
+      const startingDay = 1;
+      const minDate = new Date('1/1/2019');
+      const maxDate = new Date('12/31/2019');
+      const disabled = false;
+      const dateFormat = 'DD/MM/YYYY';
 
       cellEditorParams.colDef.cellEditorParams = {
         startingDay,
@@ -199,36 +199,31 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   describe('#onDatepickerKeydown', () => {
-    let stopPropagationSpy: jasmine.Spy;
-    let tabKeyCustomEventInit: object;
+    const validateTabbingEventPropagation = (targetEl: HTMLElement, isTabLeft: boolean, isEventPropagated: boolean) => {
+      const stopPropagationSpy = jasmine.createSpy();
 
-    const tabRightKeyboardEventInit: KeyboardEventInit = {
-      key: 'tab',
-      shiftKey: false
+      SkyAppTestUtility.fireDomEvent(targetEl, 'keydown', {
+        keyboardEventInit: {
+          key: 'tab',
+          shiftKey: isTabLeft
+        },
+        customEventInit: {
+          keyCode: 9,
+          stopPropagation: stopPropagationSpy
+        }
+      });
+
+      if (isEventPropagated) {
+        expect(stopPropagationSpy).toHaveBeenCalled();
+      } else {
+        expect(stopPropagationSpy).not.toHaveBeenCalled();
+      }
     };
-
-    const tabLeftKeyboardEventInit: KeyboardEventInit = {
-      key: 'tab',
-      shiftKey: true
-    };
-
-    beforeEach(() => {
-      stopPropagationSpy = jasmine.createSpy();
-      tabKeyCustomEventInit = {
-        stopPropagation: stopPropagationSpy,
-        keyCode: 9
-      };
-    });
 
     it('stops event propagation for tab right keydown when the target is the datepicker input', () => {
       const datepickerInputEl = fixture.nativeElement.querySelector('input');
 
-      SkyAppTestUtility.fireDomEvent(datepickerInputEl, 'keydown', {
-        keyboardEventInit: tabRightKeyboardEventInit,
-        customEventInit: tabKeyCustomEventInit
-      });
-
-      expect(stopPropagationSpy).toHaveBeenCalled();
+      validateTabbingEventPropagation(datepickerInputEl, false, true);
     });
 
     it('stops event propagation for tab left keydown when the target is the calendar button', () => {
@@ -236,12 +231,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
 
       const calendarButtonEl = fixture.nativeElement.querySelector('.sky-dropdown-button-type-calendar');
 
-      SkyAppTestUtility.fireDomEvent(calendarButtonEl, 'keydown', {
-        keyboardEventInit: tabLeftKeyboardEventInit,
-        customEventInit: tabKeyCustomEventInit
-      });
-
-      expect(stopPropagationSpy).toHaveBeenCalled();
+      validateTabbingEventPropagation(calendarButtonEl, true, true);
     });
 
     it('stops event propagation for tab right keydown when the target is the calendar button and the calendar is open', async(() => {
@@ -253,12 +243,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
       fixture.whenStable().then(() => {
         fixture.detectChanges();
 
-        SkyAppTestUtility.fireDomEvent(calendarButtonEl, 'keydown', {
-          keyboardEventInit: tabRightKeyboardEventInit,
-          customEventInit: tabKeyCustomEventInit
-        });
-
-        expect(stopPropagationSpy).toHaveBeenCalled();
+        validateTabbingEventPropagation(calendarButtonEl, false, true);
       });
     }));
 
@@ -273,12 +258,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
 
         const daypickerEl = fixture.nativeElement.querySelector('sky-daypicker');
 
-        SkyAppTestUtility.fireDomEvent(daypickerEl, 'keydown', {
-          keyboardEventInit: tabLeftKeyboardEventInit,
-          customEventInit: tabKeyCustomEventInit
-        });
-
-        expect(stopPropagationSpy).toHaveBeenCalled();
+        validateTabbingEventPropagation(daypickerEl, true, true);
       });
     }));
 
@@ -287,12 +267,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
 
       const calendarButtonEl = fixture.nativeElement.querySelector('.sky-dropdown-button-type-calendar');
 
-      SkyAppTestUtility.fireDomEvent(calendarButtonEl, 'keydown', {
-        keyboardEventInit: tabRightKeyboardEventInit,
-        customEventInit: tabKeyCustomEventInit
-      });
-
-      expect(stopPropagationSpy).not.toHaveBeenCalled();
+      validateTabbingEventPropagation(calendarButtonEl, false, false);
     });
   });
 

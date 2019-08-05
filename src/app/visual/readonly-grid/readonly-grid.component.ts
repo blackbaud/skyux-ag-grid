@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 
 import {
-  ColDef,
   ColumnApi,
   GridReadyEvent,
   GridOptions,
@@ -38,7 +37,7 @@ export class ReadonlyGridComponent implements OnInit {
   public readonly fitGridSizing: GridSizingMode = GridSizingMode.FIT;
   public readonly autoGridSizing: GridSizingMode = GridSizingMode.AUTO;
   public sizingMode: GridSizingMode = this.fitGridSizing;
-  public columnDefs: ColDef[] = [
+  public columnDefs = [
     {
       field: 'selected',
       headerName: '',
@@ -80,14 +79,14 @@ export class ReadonlyGridComponent implements OnInit {
 
   constructor(private agGridService: SkyAgGridService) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.gridOptions = {
-      onGridReady: (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); }
+      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
     };
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
 
-  public statusRenderer(cellRendererParams: ICellRendererParams) {
+  public statusRenderer(cellRendererParams: ICellRendererParams): string {
     const iconClassMap = {
       [RowStatusNames.BEHIND]: 'fa-warning',
       [RowStatusNames.CURRENT]: 'fa-clock-o',
@@ -98,7 +97,7 @@ export class ReadonlyGridComponent implements OnInit {
             </div>`;
   }
 
-  public onGridReady(gridReadyEvent: GridReadyEvent) {
+  public onGridReady(gridReadyEvent: GridReadyEvent): void {
     this.columnApi = gridReadyEvent.columnApi;
 
     this.columnApi.autoSizeColumns(['name', 'value', 'startDate', 'endDate', 'comment', 'status']);

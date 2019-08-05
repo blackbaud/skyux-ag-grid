@@ -39,11 +39,11 @@ export class SkyCellEditorNumberComponent implements ICellEditorAngularComp {
     return this.value;
   }
 
-  public afterGuiAttached() {
+  public afterGuiAttached(): void {
     this.input.nativeElement.focus();
   }
 
-  public getAriaLabel() {
+  public getAriaLabel(): string {
     return `Editable ${this.columnHeader} for row ${this.rowNumber}`;
   }
 }

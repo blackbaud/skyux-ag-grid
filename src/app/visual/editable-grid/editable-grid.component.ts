@@ -1,5 +1,5 @@
 import {
-  ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   ViewEncapsulation
@@ -28,40 +28,40 @@ import {
   selector: 'editable-grid-visual',
   templateUrl: './editable-grid.component.html',
   styleUrls: ['./editable-grid.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditableGridComponent implements OnInit {
-  public gridData: EditableGridRow[] = EDITABLE_GRID_DATA;
+  public gridData = EDITABLE_GRID_DATA;
+  public editMode = false;
   public uneditedGridData: EditableGridRow[];
   public gridOptions: GridOptions;
   public gridApi: GridApi;
-  public editMode: boolean = false;
   public columnDefs: ColDef[];
 
   constructor(
-    private changeDetector: ChangeDetectorRef,
     private agGridService: SkyAgGridService
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.setColumnDefs();
 
     this.gridOptions = {
       rowSelection: 'none',
       suppressCellSelection: false,
-      onGridReady: (gridReadyEvent: GridReadyEvent) => { this.onGridReady(gridReadyEvent); },
+      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
       onGridSizeChanged: () => { this.sizeGrid(); }
     };
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
 
-    this.gridData.forEach((row: EditableGridRow) => {
+    this.gridData.forEach(row => {
       row.total = this.calculateRowTotal(row);
     });
 
     this.uneditedGridData = this.cloneGridData(this.gridData);
   }
 
-  public setColumnDefs() {
+  public setColumnDefs(): void {
     this.columnDefs = [
       {
         colId: 'name',
@@ -135,26 +135,25 @@ export class EditableGridComponent implements OnInit {
     return clonedData;
   }
 
-  public cancelEdits() {
+  public cancelEdits(): void {
     this.setEditMode(false);
     this.gridData = this.cloneGridData(this.uneditedGridData);
   }
 
-  public setEditMode(editable: boolean) {
+  public setEditMode(editable: boolean): void {
     this.editMode = editable;
     this.setColumnDefs();
     this.gridApi.setColumnDefs(this.columnDefs);
-    this.changeDetector.markForCheck();
   }
 
-  public saveData() {
+  public saveData(): void {
     this.gridApi.stopEditing();
     this.uneditedGridData = this.cloneGridData(this.gridData);
     this.setEditMode(false);
     alert('save your data here!');
   }
 
-  public totalCellClass(params: CellClassParams) {
+  public totalCellClass(params: CellClassParams): string {
     const difference = params.data.target - params.data.total;
     const thresholdOne = params.data.target / 3;
     const thresholdTwo = thresholdOne * 2;
@@ -167,14 +166,14 @@ export class EditableGridComponent implements OnInit {
     }
   }
 
-  public onUpdateCellValueChanged(cellValueChangedData: CellValueChangedEvent) {
+  public onUpdateCellValueChanged(cellValueChangedData: CellValueChangedEvent): void {
     if (cellValueChangedData.newValue !== cellValueChangedData.oldValue) {
       cellValueChangedData.data.total = this.calculateRowTotal(cellValueChangedData.data);
       this.gridApi.refreshCells({rowNodes: [cellValueChangedData.node]});
     }
   }
 
-  public calculateRowTotal(row: EditableGridRow) {
+  public calculateRowTotal(row: EditableGridRow): number {
     let rowValue = 0;
     if (row.value1 !== undefined) {
       rowValue = rowValue + row.value1;
@@ -189,13 +188,13 @@ export class EditableGridComponent implements OnInit {
     return rowValue;
   }
 
-  public onGridReady(gridReadyEvent: GridReadyEvent) {
+  public onGridReady(gridReadyEvent: GridReadyEvent): void {
     this.gridApi = gridReadyEvent.api;
 
     this.sizeGrid();
   }
 
-  public sizeGrid() {
+  public sizeGrid(): void {
     if (this.gridApi) {
       this.gridApi.sizeColumnsToFit();
     }

@@ -4,7 +4,6 @@ import {
 
 import {
   CellClassParams,
-  ColDef,
   ColumnApi,
   GridOptions,
   ValueFormatterParams
@@ -40,11 +39,11 @@ describe('SyAgGridService', () => {
 
     it('overrides non-nested properties from the given options', () => {
       const newHeight = 1000;
-      const overrideGridOptions: GridOptions = {
+      const overrideGridOptions = {
         headerHeight: newHeight,
         rowHeight: newHeight
       };
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedGridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
 
       expect(defaultGridOptions.headerHeight).not.toEqual(newHeight);
       expect(defaultGridOptions.rowHeight).not.toEqual(newHeight);
@@ -53,81 +52,85 @@ describe('SyAgGridService', () => {
     });
 
     it('includes new provided columnTypes', () => {
-      const newColumnType: ColDef = {
+      const newColumnType = {
         width: 1000,
         sortable: false,
         editable: true
       };
-      const overrideGridOptions: GridOptions = {
+      const overrideGridOptions = {
         columnTypes: {
           newType: newColumnType
         }
       };
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedGridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedColumnTypes = mergedGridOptions.columnTypes;
 
-      expect(mergedGridOptions.columnTypes.newType).toEqual(newColumnType);
-      expect(mergedGridOptions.columnTypes[SkyCellType.Number]).toBeDefined();
-      expect(mergedGridOptions.columnTypes[SkyCellType.Date]).toBeDefined();
-      expect(mergedGridOptions.columnTypes[SkyCellType.RowSelector]).toBeDefined();
+      expect(mergedColumnTypes.newType).toEqual(newColumnType);
+      expect(mergedColumnTypes[SkyCellType.Number]).toBeDefined();
+      expect(mergedColumnTypes[SkyCellType.Date]).toBeDefined();
+      expect(mergedColumnTypes[SkyCellType.RowSelector]).toBeDefined();
     });
 
     it('does not overwrite the default grid options columnTypes', () => {
-      const overrideDateColumnType: ColDef = {
+      const overrideDateColumnType = {
         width: 1000,
         sortable: false,
         editable: true,
         cellClass: 'random'
       };
-      const defaultDateColumnType: ColDef = defaultGridOptions.columnTypes[SkyCellType.Date];
+      const defaultDateColumnType = defaultGridOptions.columnTypes[SkyCellType.Date];
       defaultDateColumnType.valueFormatter = jasmine.any(Function);
       defaultDateColumnType.cellClassRules[SkyCellClass.Editable] = jasmine.any(Function);
       defaultDateColumnType.cellClassRules[SkyCellClass.Uneditable] = jasmine.any(Function);
-      const overrideGridOptions: GridOptions = {
+      const overrideGridOptions = {
         columnTypes: {
           [SkyCellType.Date]: overrideDateColumnType
         }
       };
 
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedGridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedColumnTypes = mergedGridOptions.columnTypes;
 
-      expect(mergedGridOptions.columnTypes[SkyCellType.Date]).toEqual(defaultDateColumnType);
-      expect(mergedGridOptions.columnTypes[SkyCellType.Number]).toBeDefined();
-      expect(mergedGridOptions.columnTypes[SkyCellType.RowSelector]).toBeDefined();
+      expect(mergedColumnTypes[SkyCellType.Date]).toEqual(defaultDateColumnType);
+      expect(mergedColumnTypes[SkyCellType.Number]).toBeDefined();
+      expect(mergedColumnTypes[SkyCellType.RowSelector]).toBeDefined();
     });
 
     it('overrides defaultColDef options that are not cellClassRules', () => {
-      const overrideDefaultColDef: ColDef = {
+      const overrideDefaultColDef = {
         sortable: false,
         resizable: false
       };
-      const defaultColDef: ColDef = defaultGridOptions.defaultColDef;
-      const overrideGridOptions: GridOptions = {
+      const defaultColDef = defaultGridOptions.defaultColDef;
+      const overrideGridOptions = {
         defaultColDef: overrideDefaultColDef
       };
 
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedGridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedDefaultColDef = mergedGridOptions.defaultColDef;
 
-      expect(mergedGridOptions.defaultColDef.sortable).not.toEqual(defaultColDef.sortable);
-      expect(mergedGridOptions.defaultColDef.sortable).toEqual(overrideDefaultColDef.sortable);
-      expect(mergedGridOptions.defaultColDef.resizable).not.toEqual(defaultColDef.resizable);
-      expect(mergedGridOptions.defaultColDef.resizable).toEqual(overrideDefaultColDef.resizable);
+      expect(mergedDefaultColDef.sortable).not.toEqual(defaultColDef.sortable);
+      expect(mergedDefaultColDef.sortable).toEqual(overrideDefaultColDef.sortable);
+      expect(mergedDefaultColDef.resizable).not.toEqual(defaultColDef.resizable);
+      expect(mergedDefaultColDef.resizable).toEqual(overrideDefaultColDef.resizable);
     });
 
     it('does not override defaultColDef cellClassRules', () => {
-      const overrideDefaultColDef: ColDef = {
+      const overrideDefaultColDef = {
         cellClassRules: {
           'new-rule': 'true'
         }
       };
-      const overrideGridOptions: GridOptions = {
+      const overrideGridOptions = {
         defaultColDef: overrideDefaultColDef
       };
 
-      const mergedGridOptions: GridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedGridOptions = agGridService.getGridOptions({ gridOptions: overrideGridOptions });
+      const mergedCellClassRules = mergedGridOptions.defaultColDef.cellClassRules;
 
-      expect(mergedGridOptions.defaultColDef.cellClassRules['new-rule']).toBeUndefined();
-      expect(mergedGridOptions.defaultColDef.cellClassRules[SkyCellClass.Editable]).toBeDefined();
-      expect(mergedGridOptions.defaultColDef.cellClassRules[SkyCellClass.Uneditable]).toBeDefined();
+      expect(mergedCellClassRules['new-rule']).toBeUndefined();
+      expect(mergedCellClassRules[SkyCellClass.Editable]).toBeDefined();
+      expect(mergedCellClassRules[SkyCellClass.Uneditable]).toBeDefined();
     });
   });
 

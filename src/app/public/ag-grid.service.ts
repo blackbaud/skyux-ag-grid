@@ -30,7 +30,7 @@ export class SkyAgGridService {
   public getGridOptions(args: SkyGetGridOptionsArgs): GridOptions {
     const defaultGridOptions = this.getDefaultGridOptions(args);
 
-    let mergedGridOptions: GridOptions = {
+    let mergedGridOptions = {
       ...defaultGridOptions,
       ...args.gridOptions,
       columnTypes: {
@@ -75,7 +75,7 @@ export class SkyAgGridService {
       [SkyCellClass.Uneditable]: getEditableFn(true)
     };
 
-    const defaultSkyGridOptions: GridOptions = {
+    const defaultSkyGridOptions = {
       columnTypes: {
         [SkyCellType.Number]: {
           cellClassRules: {
@@ -90,11 +90,11 @@ export class SkyAgGridService {
             ...editableCellClassRules
           },
           cellEditorFramework: SkyCellEditorDatepickerComponent,
-          valueFormatter: (params) => this.dateFormatter(params, args.locale)
+          valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale)
         },
         [SkyCellType.RowSelector]: {
           cellClassRules: {
-            [SkyCellClass.Uneditable]: 'true'
+            [SkyCellClass.Uneditable]: cellClassRuleTrueExpression
           },
           cellRendererFramework: SkyCellRendererRowSelectorComponent,
           minWidth: 50,

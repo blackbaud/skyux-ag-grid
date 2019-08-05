@@ -37,7 +37,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
     });
 
     fixture = TestBed.createComponent(SkyCellRendererRowSelectorComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
+    nativeElement = fixture.nativeElement;
     component = fixture.componentInstance;
     cellRendererParams = {
       value: undefined,
@@ -71,7 +71,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
   describe('#agInit', () => {
     it('initializes the SkyuxCheckboxGridCellComponent properties', () => {
       let checked = true;
-      let rowNode: RowNode = new RowNode();
+      let rowNode = new RowNode();
       cellRendererParams.value = checked;
       cellRendererParams.node = rowNode;
       spyOn(rowNode, 'setSelected');
@@ -89,7 +89,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
 
   describe('#updateRow', () => {
     it ('sets the rowNode selected property to the component\'s checked property', () => {
-      let rowNode: RowNode = new RowNode();
+      let rowNode = new RowNode();
       component.checked = true;
       component.rowNode = rowNode;
       spyOn(component.rowNode, 'setSelected');
@@ -108,7 +108,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
 
   it('updates the checkmark when the row is selected', () => {
     let rowClickListener: Function;
-    let rowNode: RowNode = new RowNode();
+    let rowNode = new RowNode();
     let rowClickedEvent: RowClickedEvent = {
       node: rowNode,
       data: undefined,
@@ -126,7 +126,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
     spyOn(rowNode, 'setSelected');
     spyOn(rowNode, 'isSelected').and.returnValue(true);
 
-    rowNode.addEventListener = (event: string, listener: Function) => {
+    rowNode.addEventListener = (event, listener) => {
       // set event listener
       rowClickListener = listener;
     };

@@ -33,7 +33,7 @@ describe('SkyCellEditorNumberComponent', () => {
     });
 
     fixture = TestBed.createComponent(SkyCellEditorNumberComponent);
-    nativeElement = fixture.nativeElement as HTMLElement;
+    nativeElement = fixture.nativeElement;
     component = fixture.componentInstance;
   });
 
