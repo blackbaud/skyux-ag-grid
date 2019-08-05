@@ -7,40 +7,28 @@ import {
 } from 'ag-grid-angular';
 
 import {
-  SkyCellRendererRowSelectorComponent
-} from './cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.component';
-
-import {
-  SkyCellEditorNumberComponent
-} from './cell-editors/cell-editor-number/cell-editor-number.component';
-
-import {
-  SkyCellEditorDatepickerComponent
-} from './cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
-
-import {
-  SkyCellRendererRowSelectorModule
-} from './cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.module';
-
-import {
-  SkyCellEditorDatepickerModule
-} from './cell-editors/cell-editor-datepicker/cell-editor-datepicker.module';
-
-import {
-  SkyCellEditorNumberModule
-} from './cell-editors/cell-editor-number/cell-editor-number.module';
-
-import {
   SkyAgGridService
 } from './ag-grid.service';
+
+import {
+  SkyCellEditorDatepickerComponent,
+  SkyCellEditorDatepickerModule,
+  SkyCellEditorNumberComponent,
+  SkyCellEditorNumberModule
+} from './cell-editors';
+
+import {
+  SkyCellRendererRowSelectorComponent,
+  SkyCellRendererRowSelectorModule
+} from './cell-renderers';
 
 @NgModule({
   declarations: [],
   imports: [
     AgGridModule,
-    SkyCellRendererRowSelectorModule,
     SkyCellEditorDatepickerModule,
-    SkyCellEditorNumberModule
+    SkyCellEditorNumberModule,
+    SkyCellRendererRowSelectorModule
   ],
   exports: [
     AgGridModule
@@ -49,9 +37,9 @@ import {
     SkyAgGridService
   ],
   entryComponents: [
-    SkyCellRendererRowSelectorComponent,
+    SkyCellEditorDatepickerComponent,
     SkyCellEditorNumberComponent,
-    SkyCellEditorDatepickerComponent
+    SkyCellRendererRowSelectorComponent
   ]
 })
 export class SkyAgGridModule { }

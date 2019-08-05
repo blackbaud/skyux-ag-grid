@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 
 import {
-  ColumnApi,
   ColDef,
+  ColumnApi,
   GridReadyEvent,
   GridOptions,
   ICellRendererParams
@@ -20,10 +20,7 @@ import {
   RowStatusNames
 } from './readonly-grid-data';
 import {
-  SkyAgGridService
-} from '../../public';
-
-import {
+  SkyAgGridService,
   SkyCellType
 } from '../../public';
 

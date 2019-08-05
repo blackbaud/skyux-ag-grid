@@ -9,25 +9,16 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyCellRendererRowSelectorComponent
-} from './cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.component';
-
-import {
-  SkyCellEditorNumberComponent
-} from './cell-editors/cell-editor-number/cell-editor-number.component';
-
-import {
-  SkyCellEditorDatepickerComponent
-} from './cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
-
-import {
   SkyCellClass,
+  SkyCellEditorDatepickerComponent,
+  SkyCellEditorNumberComponent,
+  SkyCellRendererRowSelectorComponent,
   SkyCellType,
   SkyGetGridOptionsArgs
-} from './types';
+} from '.';
 
 /**
- *
+ * A service that provides default styling and behavior for agGrids in SKY UX SPAs.
  */
 @Injectable()
 export class SkyAgGridService {

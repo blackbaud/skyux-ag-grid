@@ -4,13 +4,13 @@ import {
 } from '@skyux-sdk/e2e';
 
 import {
-  element,
-  by
-} from 'protractor';
-
-import {
   SkyHostBrowserBreakpoint
 } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
+
+import {
+  by,
+  element
+} from 'protractor';
 
 describe('Editable grid', () => {
 

@@ -6,12 +6,12 @@ import {
 } from '@angular/core';
 
 import {
-  ICellEditorAngularComp
-} from 'ag-grid-angular';
-
-import {
   SkyDatepickerInputDirective
 } from '@skyux/datetime';
+
+import {
+  ICellEditorAngularComp
+} from 'ag-grid-angular';
 
 import {
   ICellEditorParams

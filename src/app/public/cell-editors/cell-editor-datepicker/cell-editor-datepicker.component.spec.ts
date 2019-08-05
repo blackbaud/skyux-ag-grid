@@ -14,18 +14,15 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyCellEditorDatepickerComponent
-} from './cell-editor-datepicker.component';
-
-import {
-  SkyCellEditorDatepickerModule
-} from './cell-editor-datepicker.module';
-
-import {
   Column,
   ICellEditorParams,
   RowNode
 } from 'ag-grid-community';
+
+import {
+  SkyCellEditorDatepickerComponent,
+  SkyCellEditorDatepickerModule
+} from '.';
 
 describe('SkyCellEditorDatepickerComponent', () => {
   let fixture: ComponentFixture<SkyCellEditorDatepickerComponent>;

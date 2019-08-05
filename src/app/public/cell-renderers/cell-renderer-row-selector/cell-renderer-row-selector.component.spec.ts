@@ -12,18 +12,15 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyCellRendererRowSelectorComponent
-} from './cell-renderer-row-selector.component';
-
-import {
-  SkyCellRendererRowSelectorModule
-} from './cell-renderer-row-selector.module';
-
-import {
   ICellRendererParams,
-  RowNode,
-  RowClickedEvent
+  RowClickedEvent,
+  RowNode
 } from 'ag-grid-community';
+
+import {
+  SkyCellRendererRowSelectorComponent,
+  SkyCellRendererRowSelectorModule
+} from '.';
 
 describe('SkyCellRendererCheckboxComponent', () => {
   let fixture: ComponentFixture<SkyCellRendererRowSelectorComponent>;

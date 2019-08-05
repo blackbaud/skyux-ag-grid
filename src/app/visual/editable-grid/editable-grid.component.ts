@@ -20,10 +20,7 @@ import {
 } from './editable-grid-data';
 
 import {
-  SkyAgGridService
-} from '../../public';
-
-import {
+  SkyAgGridService,
   SkyCellType
 } from '../../public';
 

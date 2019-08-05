@@ -3,16 +3,16 @@ import {
 } from '@angular/core';
 
 import {
-  SkyCellEditorDatepickerComponent
-} from './cell-editor-datepicker.component';
+  FormsModule
+} from '@angular/forms';
 
 import {
   SkyDatepickerModule
 } from '@skyux/datetime';
 
 import {
-  FormsModule
-} from '@angular/forms';
+  SkyCellEditorDatepickerComponent
+} from '.';
 
 @NgModule({
   imports: [

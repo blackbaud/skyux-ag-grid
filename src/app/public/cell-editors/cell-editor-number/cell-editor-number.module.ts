@@ -3,12 +3,12 @@ import {
 } from '@angular/core';
 
 import {
-  SkyCellEditorNumberComponent
-} from './cell-editor-number.component';
-
-import {
   FormsModule
 } from '@angular/forms';
+
+import {
+  SkyCellEditorNumberComponent
+} from '.';
 
 @NgModule({
   imports: [

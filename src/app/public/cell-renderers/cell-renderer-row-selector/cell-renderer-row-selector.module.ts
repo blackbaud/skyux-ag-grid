@@ -3,16 +3,16 @@ import {
 } from '@angular/core';
 
 import {
-  SkyCellRendererRowSelectorComponent
-} from './cell-renderer-row-selector.component';
+  FormsModule
+} from '@angular/forms';
 
 import {
   SkyCheckboxModule
 } from '@skyux/forms';
 
 import {
-  FormsModule
-} from '@angular/forms';
+  SkyCellRendererRowSelectorComponent
+} from '.';
 
 @NgModule({
   imports: [

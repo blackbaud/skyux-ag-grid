@@ -3,10 +3,6 @@ import {
 } from '@angular/core/testing';
 
 import {
-  SkyAgGridService
-} from './ag-grid.service';
-
-import {
   CellClassParams,
   ColDef,
   ColumnApi,
@@ -15,9 +11,10 @@ import {
 } from 'ag-grid-community';
 
 import {
+  SkyAgGridService,
   SkyCellClass,
   SkyCellType
-} from './types';
+} from '.';
 
 describe('SyAgGridService', () => {
   let agGridService: SkyAgGridService;

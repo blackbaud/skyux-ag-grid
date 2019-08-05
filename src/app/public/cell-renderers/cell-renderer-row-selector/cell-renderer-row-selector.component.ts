@@ -1,6 +1,6 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component
 } from '@angular/core';
 
@@ -9,12 +9,9 @@ import {
 } from 'ag-grid-angular';
 
 import {
+  ICellRendererParams,
   RowNode,
   RowSelectedEvent
-} from 'ag-grid-community';
-
-import {
-  ICellRendererParams
 } from 'ag-grid-community';
 
 @Component({

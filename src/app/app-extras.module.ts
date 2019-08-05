@@ -3,24 +3,24 @@ import {
 } from '@angular/core';
 
 import {
-  SkyAppLinkModule
-} from '@skyux/router';
-
-import {
   SkyToolbarModule
 } from '@skyux/layout';
 
 import {
+  SkyAppLinkModule
+} from '@skyux/router';
+
+import {
   SkyAgGridModule
-} from './public/ag-grid.module';
+} from './public';
 
 @NgModule({
   declarations: [],
   imports: [],
   exports: [
+    SkyAgGridModule,
     SkyAppLinkModule,
-    SkyToolbarModule,
-    SkyAgGridModule
+    SkyToolbarModule
   ],
   providers: [],
   entryComponents: []

@@ -13,12 +13,12 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyCellEditorNumberComponent
-} from './cell-editor-number.component';
-
-import {
   ICellEditorParams
 } from 'ag-grid-community';
+
+import {
+  SkyCellEditorNumberComponent
+} from '.';
 
 describe('SkyCellEditorNumberComponent', () => {
   let fixture: ComponentFixture<SkyCellEditorNumberComponent>;
