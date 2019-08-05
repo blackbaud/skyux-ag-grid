@@ -1,8 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
-  ViewEncapsulation
+  OnInit
 } from '@angular/core';
 
 import {
@@ -28,7 +27,6 @@ import {
   selector: 'editable-grid-visual',
   templateUrl: './editable-grid.component.html',
   styleUrls: ['./editable-grid.component.scss'],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditableGridComponent implements OnInit {

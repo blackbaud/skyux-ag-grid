@@ -18,7 +18,7 @@ import {
 } from 'ag-grid-community';
 
 @Component({
-  selector: 'sky-cell-editor-datepicker',
+  selector: 'sky-ag-grid-cell-editor-datepicker',
   templateUrl: './cell-editor-datepicker.component.html',
   styleUrls: ['./cell-editor-datepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -46,14 +46,17 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
   public agInit(params: ICellEditorParams) {
     this.params = params;
     this.currentDate = this.params.value;
-    const cellEditorParams = this.params.colDef.cellEditorParams;
-    this.minDate = cellEditorParams && cellEditorParams.minDate;
-    this.maxDate = cellEditorParams && cellEditorParams.maxDate;
-    this.disabled = cellEditorParams && cellEditorParams.disabled;
-    this.dateFormat = cellEditorParams && cellEditorParams.dateFormat;
-    this.startingDay = cellEditorParams && cellEditorParams.startingDay;
     this.columnWidth = this.params.column.getActualWidth();
     this.rowHeight = this.params.node.rowHeight + 1;
+
+    const cellEditorParams = this.params.colDef.cellEditorParams;
+    if (cellEditorParams) {
+      this.minDate = cellEditorParams.minDate;
+      this.maxDate = cellEditorParams.maxDate;
+      this.disabled = cellEditorParams.disabled;
+      this.dateFormat = cellEditorParams.dateFormat;
+      this.startingDay = cellEditorParams.startingDay;
+    }
   }
 
   public afterGuiAttached(): void {
@@ -70,19 +73,23 @@ export class SkyCellEditorDatepickerComponent implements ICellEditorAngularComp 
   }
 
   public onDatepickerKeydown(e: KeyboardEvent): void {
-    const calendarEl = this.el.nativeElement.querySelector('sky-datepicker-calendar');
-    const calendarElStyles = calendarEl && getComputedStyle(calendarEl);
     const targetEl = e.target as HTMLElement;
 
-    // stop event propagation to prevent the grid from moving to the next cell if there is an element target, the tab key was pressed, and
-    if (targetEl && e.keyCode === 9 &&
-      // it is a tab right and the target is either an input or the calendar button when the calendar is open or
-      ((!e.shiftKey && (targetEl.tagName === 'INPUT' || (targetEl.tagName === 'BUTTON' && calendarElStyles.visibility === 'visible'))) ||
-      // it is a tab left and the target is the calendar button or
+    if (targetEl && e.keyCode === 9) {
+      const calendarEl = this.el.nativeElement.querySelector('sky-datepicker-calendar');
+      const calendarElStyles = calendarEl && getComputedStyle(calendarEl);
+
+      // stop event propagation to prevent the grid from moving to the next cell if there is an element target, the tab key was pressed, and
+      // the tab key press is a tab right and the target is either an input or
+      if (((!e.shiftKey && (targetEl.tagName === 'INPUT' ||
+      // the calendar button when the calendar is open or
+      (targetEl.tagName === 'BUTTON' && calendarElStyles.visibility === 'visible'))) ||
+      // the tab key press is a tab left and the target is the calendar button or
       (e.shiftKey && targetEl.tagName === 'BUTTON')) ||
-      // it is a tab left and the target is the calendar
+      // the tab key press is a tab left and the target is the calendar
       (e.shiftKey && targetEl.tagName === 'SKY-DAYPICKER')) {
         e.stopPropagation();
+      }
     }
   }
 

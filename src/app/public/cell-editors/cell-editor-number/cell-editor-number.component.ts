@@ -17,7 +17,7 @@ import {
   selector: 'sky-cell-editor-number',
   templateUrl: './cell-editor-number.component.html',
   styleUrls: ['./cell-editor-number.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyCellEditorNumberComponent implements ICellEditorAngularComp {
   public value: number;

@@ -1,8 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
-  ViewEncapsulation
+  OnInit
 } from '@angular/core';
 
 import {
@@ -27,7 +26,6 @@ import {
   selector: 'readonly-grid-visual',
   templateUrl: './readonly-grid.component.html',
   styleUrls: ['./readonly-grid.component.scss'],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReadonlyGridComponent implements OnInit {

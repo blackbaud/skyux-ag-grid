@@ -106,7 +106,7 @@ describe('Editable grid', () => {
 
       element(by.css('#edit-btn')).click();
 
-      element(by.css('.sky-cell-editable.sky-cell-number')).click();
+      element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')).click();
 
       expect('.editable-grid').toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-number-${screenSize}`
@@ -128,7 +128,7 @@ describe('Editable grid', () => {
 
       element(by.css('#edit-btn')).click();
 
-      element(by.css('.sky-cell-editable.sky-cell-date')).click();
+      element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-date')).click();
 
       expect('.editable-grid').toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-date-${screenSize}`
@@ -150,8 +150,8 @@ describe('Editable grid', () => {
 
       element(by.css('#edit-btn')).click();
 
-      SkyHostBrowser.scrollTo('.sky-cell-editable.sky-cell-date');
-      element(by.css('.sky-cell-editable.sky-cell-date')).click();
+      SkyHostBrowser.scrollTo('.sky-ag-grid-cell-editable.sky-ag-grid-cell-date');
+      element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-date')).click();
 
       element(by.css('.sky-dropdown-button-type-calendar')).click();
 

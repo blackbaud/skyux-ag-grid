@@ -110,13 +110,13 @@ export class SkyAgGridService {
       enterMovesDownAfterEdit: true,
       headerHeight: 37,
       icons: {
-        sortDescending: '<i class="fa fa-caret-down"></i>',
-        sortAscending: '<i class="fa fa-caret-up"></i>',
-        columnMoveMove: '<i class="fa fa-arrows"></i>',
-        columnMoveHide: '<i class="fa fa-arrows"></i>',
-        columnMoveLeft: '<i class="fa fa-arrows"></i>',
-        columnMoveRight: '<i class="fa fa-arrows"></i>',
-        columnMovePin: '<i class="fa fa-arrows"></i>'
+        sortDescending: this.getIconTemplate('caret-down'),
+        sortAscending: this.getIconTemplate('caret-up'),
+        columnMoveMove: this.getIconTemplate('arrows'),
+        columnMoveHide: this.getIconTemplate('arrows'),
+        columnMoveLeft: this.getIconTemplate('arrows'),
+        columnMoveRight: this.getIconTemplate('arrows'),
+        columnMovePin: this.getIconTemplate('arrows')
       },
       rowHeight: 37,
       rowMultiSelectWithClick: true,
@@ -130,8 +130,12 @@ export class SkyAgGridService {
     return defaultSkyGridOptions;
   }
 
-  private dateFormatter(params: ValueFormatterParams, locale: string = 'us-en'): string | undefined {
+  private dateFormatter(params: ValueFormatterParams, locale: string = 'en-us'): string | undefined {
     let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return params.value && params.value.toLocaleDateString(locale, dateConfig);
+  }
+
+  private getIconTemplate(iconName: string): string {
+    return `<i class="fa fa-${iconName}"></i>`;
   }
 }

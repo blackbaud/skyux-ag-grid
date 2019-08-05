@@ -16,14 +16,16 @@
   padding: 0 2px;
 }
 
-.green {
-  color: #86BF6D;
-}
+::ng-deep {
+  .green {
+    color: #86BF6D;
+  }
 
-.red {
-  color: #FF4848;
-}
+  .red {
+    color: #FF4848;
+  }
 
-.yellow {
-  color: #FAD448;
+  .yellow {
+    color: #FAD448;
+  }
 }

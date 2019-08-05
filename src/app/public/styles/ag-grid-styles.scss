@@ -1,13 +1,13 @@
 @import '~@skyux/theme/scss/mixins';
 
 /* base grid theme property variables */
-$odd-row-background-color: #FFFFFF !default;
+$odd-row-background-color: #fff !default;
 $background-color: $sky-color-gray-01 !default;
 $border-color: $sky-border-color-neutral-medium !default;
 $row-height: 38px !default;
 $header-height: 37px !default;
 $font-family: "Blackbaud Sans" !default;
-$header-background-color: #FFFFFF !default;
+$header-background-color: #fff !default;
 $font-size: 15px !default;
 $row-border-width: 1px !default;
 $secondary-font-size: 15px !default;
@@ -18,7 +18,7 @@ $selected-color: #F1EEF6 !default;
 $hover-color: #E9E4F1 !default;
 
 /* other variables */
-$standard-border: 1px solid $border-color !default;
+$sky-standard-border: 1px solid $border-color !default;
 
 @import "~ag-grid-community/src/styles/ag-grid.scss";
 @import "~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss";
@@ -27,19 +27,22 @@ ag-grid-angular {
   width: 100%;
   height: 100%;
 }
-.ag-theme-balham {
+.sky-ag-grid {
+  @extend .ag-theme-balham;
+
   .ag-root {
     border: none;
-    border-left: $standard-border;
-    border-right: $standard-border;
+    border-left: $sky-standard-border;
+    border-right: $sky-standard-border;
   }
 
+  // ag grid renders a small column header divider that we don't want shown
   .ag-header-cell::after {
     display: none;
   }
 
   .ag-header-cell {
-    border-right: $standard-border;
+    border-right: $sky-standard-border;
   }
 
 
@@ -49,27 +52,27 @@ ag-grid-angular {
     border-style: dotted;
   }
 
-  .sky-cell-number {
+  .sky-ag-grid-cell-number {
     text-align: right;
   }
 }
 
-.ag-theme-balham.sky-grid-edit-mode {
+.sky-ag-grid.sky-grid-edit-mode {
   .ag-row {
     border-style: solid;
   }
 
   .ag-cell {
-    border-right: $standard-border;
+    border-right: $sky-standard-border;
     border-block-end: none;
     border-block-start: none;
   }
 
-  .sky-cell-editable {
+  .sky-ag-grid-cell-editable {
     background-color: #FFFFFF;
   }
 
-  .sky-cell-uneditable {
+  .sky-ag-grid-cell-uneditable {
     background-color: $sky-background-color-neutral-light;
   }
 
@@ -87,7 +90,7 @@ ag-grid-angular {
 
     .ag-cell-focus.ag-cell-not-inline-editing {
       border: none;
-      border-right: $standard-border;
+      border-right: $sky-standard-border;
       box-shadow: none;
     }
   }
@@ -112,13 +115,13 @@ ag-grid-angular {
     border: none;
   }
 
-  sky-datepicker {
+  sky-ag-grid-cell-editor-datepicker {
     button:focus {
-      outline: -webkit-focus-ring-color auto 5px !important;
+      outline: -webkit-focus-ring-color auto 5px;
     }
 
     sky-daypicker:focus {
-      outline: -webkit-focus-ring-color auto 5px !important;
+      outline: -webkit-focus-ring-color auto 5px;
     }
   }
 }
