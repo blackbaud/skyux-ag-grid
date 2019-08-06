@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -143,9 +144,11 @@ describe('SkyCellRendererCheckboxComponent', () => {
     expect(component.checked).toEqual(true);
   });
 
-  it('should pass accessibility', () => {
+  it('should pass accessibility', async(() => {
     fixture.detectChanges();
 
-    expect(nativeElement).toBeAccessible();
-  });
+    fixture.whenStable().then(() => {
+      expect(nativeElement).toBeAccessible();
+    });
+  }));
 });

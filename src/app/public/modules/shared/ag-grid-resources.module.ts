@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 
 import {
+  SkyI18nModule,
   SKY_LIB_RESOURCES_PROVIDERS
 } from '@skyux/i18n';
 
@@ -15,6 +16,9 @@ import {
     provide: SKY_LIB_RESOURCES_PROVIDERS,
     useClass: SkyAgGridResourcesProvider,
     multi: true
-  }]
+  }],
+  exports: [
+    SkyI18nModule
+  ]
 })
 export class SkyAgGridResourcesModule { }

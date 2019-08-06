@@ -7,11 +7,16 @@ import {
 } from '@angular/forms';
 
 import {
+  SkyAgGridResourcesModule
+} from '../../../shared';
+
+import {
   SkyCellEditorNumberComponent
 } from '../cell-editor-number';
 
 @NgModule({
   imports: [
+    SkyAgGridResourcesModule,
     FormsModule
   ],
   declarations: [

@@ -2,8 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  OnInit,
   ViewChild
 } from '@angular/core';
+
+import {
+  SkyLibResourcesService
+} from '@skyux/i18n';
 
 import {
   ICellEditorAngularComp
@@ -19,14 +24,18 @@ import {
   styleUrls: ['./cell-editor-number.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyCellEditorNumberComponent implements ICellEditorAngularComp {
+
+export class SkyCellEditorNumberComponent implements ICellEditorAngularComp, OnInit {
   public value: number;
+  public numberInputLabel: string;
   private params: ICellEditorParams;
   private columnHeader: string;
   private rowNumber: number;
 
-  @ViewChild('skyCellEditorNumeric', {read: ElementRef})
+  @ViewChild('skyCellEditorNumber', {read: ElementRef})
   public input: ElementRef;
+
+  constructor(private libResources: SkyLibResourcesService) { }
 
   public agInit(params: ICellEditorParams): void {
     this.params = params;
@@ -35,15 +44,18 @@ export class SkyCellEditorNumberComponent implements ICellEditorAngularComp {
     this.rowNumber = this.params.rowIndex + 1;
   }
 
+  public ngOnInit(): void {
+    this.libResources.getString('sky_ag_grid_cell_editor_number_aria_label', this.columnHeader, this.rowNumber)
+    .subscribe(label => {
+      this.numberInputLabel = label;
+    });
+  }
+
   public getValue(): number {
     return this.value;
   }
 
   public afterGuiAttached(): void {
     this.input.nativeElement.focus();
-  }
-
-  public getAriaLabel(): string {
-    return `Editable ${this.columnHeader} for row ${this.rowNumber}`;
   }
 }

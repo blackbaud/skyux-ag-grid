@@ -1,5 +1,6 @@
 <sky-checkbox
-  [label]="'grid_row_selector' | skyLibResources"
+  [label]="checkboxLabel"
+  [attr.aria-label]="checkboxLabel"
   [(ngModel)]="checked"
   (change)="updateRow()">
 </sky-checkbox>
