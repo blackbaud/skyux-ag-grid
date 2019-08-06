@@ -11,11 +11,16 @@ import {
 } from '@skyux/forms';
 
 import {
+  SkyAgGridResourcesModule
+} from '../../../shared';
+
+import {
   SkyCellRendererRowSelectorComponent
-} from '.';
+} from '../cell-renderer-row-selector';
 
 @NgModule({
   imports: [
+    SkyAgGridResourcesModule,
     SkyCheckboxModule,
     FormsModule
   ],

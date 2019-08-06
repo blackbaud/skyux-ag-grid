@@ -15,7 +15,7 @@ import {
   SkyCellRendererRowSelectorComponent,
   SkyCellType,
   SkyGetGridOptionsArgs
-} from '.';
+} from '../..';
 
 /**
  * A service that provides default styling and behavior for agGrids in SKY UX SPAs.

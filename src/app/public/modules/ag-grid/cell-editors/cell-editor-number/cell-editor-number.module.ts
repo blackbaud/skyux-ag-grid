@@ -8,7 +8,7 @@ import {
 
 import {
   SkyCellEditorNumberComponent
-} from '.';
+} from '../cell-editor-number';
 
 @NgModule({
   imports: [

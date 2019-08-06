@@ -12,7 +12,7 @@ import {
 
 import {
   SkyCellEditorDatepickerComponent
-} from '.';
+} from '../cell-editor-datepicker';
 
 @NgModule({
   imports: [

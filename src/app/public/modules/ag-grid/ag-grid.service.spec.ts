@@ -13,7 +13,7 @@ import {
   SkyAgGridService,
   SkyCellClass,
   SkyCellType
-} from '.';
+} from '../..';
 
 describe('SyAgGridService', () => {
   let agGridService: SkyAgGridService;

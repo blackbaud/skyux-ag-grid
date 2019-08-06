@@ -22,7 +22,7 @@ import {
 import {
   SkyCellEditorDatepickerComponent,
   SkyCellEditorDatepickerModule
-} from '.';
+} from '../cell-editor-datepicker';
 
 describe('SkyCellEditorDatepickerComponent', () => {
   let fixture: ComponentFixture<SkyCellEditorDatepickerComponent>;

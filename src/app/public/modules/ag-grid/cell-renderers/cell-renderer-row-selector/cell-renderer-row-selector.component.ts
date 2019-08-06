@@ -25,7 +25,9 @@ export class SkyCellRendererRowSelectorComponent implements ICellRendererAngular
   public checked: boolean;
   public rowNode: RowNode;
 
-  constructor(private changeDetection: ChangeDetectorRef) {}
+  constructor(
+    private changeDetection: ChangeDetectorRef
+    ) { }
 
   public agInit(params: ICellRendererParams): void {
     this.params = params;

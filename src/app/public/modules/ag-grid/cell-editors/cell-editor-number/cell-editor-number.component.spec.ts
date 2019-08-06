@@ -18,7 +18,7 @@ import {
 
 import {
   SkyCellEditorNumberComponent
-} from '.';
+} from '../cell-editor-number';
 
 describe('SkyCellEditorNumberComponent', () => {
   let fixture: ComponentFixture<SkyCellEditorNumberComponent>;

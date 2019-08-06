@@ -20,7 +20,7 @@ import {
 import {
   SkyCellRendererRowSelectorComponent,
   SkyCellRendererRowSelectorModule
-} from '.';
+} from '../cell-renderer-row-selector';
 
 describe('SkyCellRendererCheckboxComponent', () => {
   let fixture: ComponentFixture<SkyCellRendererRowSelectorComponent>;
