@@ -11,7 +11,7 @@ import {
 } from '../../../shared';
 
 import {
-  SkyCellEditorNumberComponent
+  SkyAgGridCellEditorNumberComponent
 } from '../cell-editor-number';
 
 @NgModule({
@@ -20,10 +20,10 @@ import {
     FormsModule
   ],
   declarations: [
-    SkyCellEditorNumberComponent
+    SkyAgGridCellEditorNumberComponent
   ],
   exports: [
-    SkyCellEditorNumberComponent
+    SkyAgGridCellEditorNumberComponent
   ]
 })
 export class SkyCellEditorNumberModule {

@@ -15,7 +15,7 @@ import {
 } from '../../../shared';
 
 import {
-  SkyCellRendererRowSelectorComponent
+  SkyAgGridCellRendererRowSelectorComponent
 } from '../cell-renderer-row-selector';
 
 @NgModule({
@@ -25,10 +25,10 @@ import {
     FormsModule
   ],
   declarations: [
-    SkyCellRendererRowSelectorComponent
+    SkyAgGridCellRendererRowSelectorComponent
   ],
   exports: [
-    SkyCellRendererRowSelectorComponent
+    SkyAgGridCellRendererRowSelectorComponent
   ]
 })
 export class SkyCellRendererRowSelectorModule {

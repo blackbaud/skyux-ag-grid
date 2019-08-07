@@ -19,13 +19,13 @@ import {
 } from 'ag-grid-community';
 
 @Component({
-  selector: 'sky-cell-editor-number',
+  selector: 'sky-ag-grid-cell-editor-number',
   templateUrl: './cell-editor-number.component.html',
   styleUrls: ['./cell-editor-number.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SkyCellEditorNumberComponent implements ICellEditorAngularComp, OnInit {
+export class SkyAgGridCellEditorNumberComponent implements ICellEditorAngularComp, OnInit {
   public value: number;
   public numberInputLabel: string;
   private params: ICellEditorParams;

@@ -11,7 +11,7 @@ import {
 } from '@skyux/datetime';
 
 import {
-  SkyCellEditorDatepickerComponent
+  SkyAgGridCellEditorDatepickerComponent
 } from '../cell-editor-datepicker';
 
 @NgModule({
@@ -20,10 +20,10 @@ import {
     FormsModule
   ],
   declarations: [
-    SkyCellEditorDatepickerComponent
+    SkyAgGridCellEditorDatepickerComponent
   ],
   exports: [
-    SkyCellEditorDatepickerComponent
+    SkyAgGridCellEditorDatepickerComponent
   ]
 })
 export class SkyCellEditorDatepickerModule {

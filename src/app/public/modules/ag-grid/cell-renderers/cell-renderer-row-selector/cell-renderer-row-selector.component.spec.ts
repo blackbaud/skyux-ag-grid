@@ -19,13 +19,13 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyCellRendererRowSelectorComponent,
+  SkyAgGridCellRendererRowSelectorComponent,
   SkyCellRendererRowSelectorModule
 } from '../cell-renderer-row-selector';
 
 describe('SkyCellRendererCheckboxComponent', () => {
-  let fixture: ComponentFixture<SkyCellRendererRowSelectorComponent>;
-  let component: SkyCellRendererRowSelectorComponent;
+  let fixture: ComponentFixture<SkyAgGridCellRendererRowSelectorComponent>;
+  let component: SkyAgGridCellRendererRowSelectorComponent;
   let nativeElement: HTMLElement;
   let cellRendererParams: ICellRendererParams;
 
@@ -37,7 +37,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
       ]
     });
 
-    fixture = TestBed.createComponent(SkyCellRendererRowSelectorComponent);
+    fixture = TestBed.createComponent(SkyAgGridCellRendererRowSelectorComponent);
     nativeElement = fixture.nativeElement;
     component = fixture.componentInstance;
     cellRendererParams = {

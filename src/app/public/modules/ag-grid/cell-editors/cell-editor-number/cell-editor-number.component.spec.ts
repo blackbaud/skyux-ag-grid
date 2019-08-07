@@ -17,12 +17,12 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyCellEditorNumberComponent
+  SkyAgGridCellEditorNumberComponent
 } from '../cell-editor-number';
 
 describe('SkyCellEditorNumberComponent', () => {
-  let fixture: ComponentFixture<SkyCellEditorNumberComponent>;
-  let component: SkyCellEditorNumberComponent;
+  let fixture: ComponentFixture<SkyAgGridCellEditorNumberComponent>;
+  let component: SkyAgGridCellEditorNumberComponent;
   let nativeElement: HTMLElement;
 
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('SkyCellEditorNumberComponent', () => {
       ]
     });
 
-    fixture = TestBed.createComponent(SkyCellEditorNumberComponent);
+    fixture = TestBed.createComponent(SkyAgGridCellEditorNumberComponent);
     nativeElement = fixture.nativeElement;
     component = fixture.componentInstance;
   });

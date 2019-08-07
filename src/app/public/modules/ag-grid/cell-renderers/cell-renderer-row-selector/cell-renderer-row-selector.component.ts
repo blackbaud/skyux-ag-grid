@@ -20,12 +20,12 @@ import {
 } from 'ag-grid-community';
 
 @Component({
-  selector: 'sky-cell-renderer-row-selector',
+  selector: 'sky-ag-grid-cell-renderer-row-selector',
   templateUrl: './cell-renderer-row-selector.component.html',
   styleUrls: ['./cell-renderer-row-selector.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyCellRendererRowSelectorComponent implements ICellRendererAngularComp, OnInit {
+export class SkyAgGridCellRendererRowSelectorComponent implements ICellRendererAngularComp, OnInit {
   public checked: boolean;
   public rowNode: RowNode;
   public checkboxLabel: string;

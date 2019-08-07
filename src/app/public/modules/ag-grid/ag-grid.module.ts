@@ -11,14 +11,14 @@ import {
 } from './ag-grid.service';
 
 import {
-  SkyCellEditorDatepickerComponent,
+  SkyAgGridCellEditorDatepickerComponent,
   SkyCellEditorDatepickerModule,
-  SkyCellEditorNumberComponent,
+  SkyAgGridCellEditorNumberComponent,
   SkyCellEditorNumberModule
 } from './cell-editors';
 
 import {
-  SkyCellRendererRowSelectorComponent,
+  SkyAgGridCellRendererRowSelectorComponent,
   SkyCellRendererRowSelectorModule
 } from './cell-renderers';
 
@@ -37,9 +37,9 @@ import {
     SkyAgGridService
   ],
   entryComponents: [
-    SkyCellEditorDatepickerComponent,
-    SkyCellEditorNumberComponent,
-    SkyCellRendererRowSelectorComponent
+    SkyAgGridCellEditorDatepickerComponent,
+    SkyAgGridCellEditorNumberComponent,
+    SkyAgGridCellRendererRowSelectorComponent
   ]
 })
 export class SkyAgGridModule { }

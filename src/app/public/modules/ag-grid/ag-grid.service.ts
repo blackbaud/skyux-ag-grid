@@ -10,9 +10,9 @@ import {
 
 import {
   SkyCellClass,
-  SkyCellEditorDatepickerComponent,
-  SkyCellEditorNumberComponent,
-  SkyCellRendererRowSelectorComponent,
+  SkyAgGridCellEditorDatepickerComponent,
+  SkyAgGridCellEditorNumberComponent,
+  SkyAgGridCellRendererRowSelectorComponent,
   SkyCellType,
   SkyGetGridOptionsArgs
 } from '../..';
@@ -82,21 +82,21 @@ export class SkyAgGridService {
             [SkyCellClass.Number]: cellClassRuleTrueExpression,
             ...editableCellClassRules
           },
-          cellEditorFramework: SkyCellEditorNumberComponent
+          cellEditorFramework: SkyAgGridCellEditorNumberComponent
         },
         [SkyCellType.Date]: {
           cellClassRules: {
             [SkyCellClass.Date]: cellClassRuleTrueExpression,
             ...editableCellClassRules
           },
-          cellEditorFramework: SkyCellEditorDatepickerComponent,
+          cellEditorFramework: SkyAgGridCellEditorDatepickerComponent,
           valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale)
         },
         [SkyCellType.RowSelector]: {
           cellClassRules: {
             [SkyCellClass.Uneditable]: cellClassRuleTrueExpression
           },
-          cellRendererFramework: SkyCellRendererRowSelectorComponent,
+          cellRendererFramework: SkyAgGridCellRendererRowSelectorComponent,
           minWidth: 50,
           width: 50
         }
