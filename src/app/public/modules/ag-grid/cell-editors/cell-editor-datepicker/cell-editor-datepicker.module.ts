@@ -26,5 +26,5 @@ import {
     SkyAgGridCellEditorDatepickerComponent
   ]
 })
-export class SkyCellEditorDatepickerModule {
+export class SkyAgGridCellEditorDatepickerModule {
 }

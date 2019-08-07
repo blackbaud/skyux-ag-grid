@@ -12,23 +12,23 @@ import {
 
 import {
   SkyAgGridCellEditorDatepickerComponent,
-  SkyCellEditorDatepickerModule,
+  SkyAgGridCellEditorDatepickerModule,
   SkyAgGridCellEditorNumberComponent,
-  SkyCellEditorNumberModule
+  SkyAgGridCellEditorNumberModule
 } from './cell-editors';
 
 import {
   SkyAgGridCellRendererRowSelectorComponent,
-  SkyCellRendererRowSelectorModule
+  SkyAgGridCellRendererRowSelectorModule
 } from './cell-renderers';
 
 @NgModule({
   declarations: [],
   imports: [
     AgGridModule,
-    SkyCellEditorDatepickerModule,
-    SkyCellEditorNumberModule,
-    SkyCellRendererRowSelectorModule
+    SkyAgGridCellEditorDatepickerModule,
+    SkyAgGridCellEditorNumberModule,
+    SkyAgGridCellRendererRowSelectorModule
   ],
   exports: [
     AgGridModule

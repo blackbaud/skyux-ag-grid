@@ -21,7 +21,7 @@ import {
 
 import {
   SkyAgGridCellEditorDatepickerComponent,
-  SkyCellEditorDatepickerModule
+  SkyAgGridCellEditorDatepickerModule
 } from '../cell-editor-datepicker';
 
 describe('SkyCellEditorDatepickerComponent', () => {
@@ -33,7 +33,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         SkyAppTestModule,
-        SkyCellEditorDatepickerModule
+        SkyAgGridCellEditorDatepickerModule
       ]
     });
 

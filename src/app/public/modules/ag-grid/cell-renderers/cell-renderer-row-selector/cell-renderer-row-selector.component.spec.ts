@@ -20,7 +20,7 @@ import {
 
 import {
   SkyAgGridCellRendererRowSelectorComponent,
-  SkyCellRendererRowSelectorModule
+  SkyAgGridCellRendererRowSelectorModule
 } from '../cell-renderer-row-selector';
 
 describe('SkyCellRendererCheckboxComponent', () => {
@@ -33,7 +33,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         SkyAppTestModule,
-        SkyCellRendererRowSelectorModule
+        SkyAgGridCellRendererRowSelectorModule
       ]
     });
 

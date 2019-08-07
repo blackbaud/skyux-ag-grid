@@ -26,5 +26,5 @@ import {
     SkyAgGridCellEditorNumberComponent
   ]
 })
-export class SkyCellEditorNumberModule {
+export class SkyAgGridCellEditorNumberModule {
 }

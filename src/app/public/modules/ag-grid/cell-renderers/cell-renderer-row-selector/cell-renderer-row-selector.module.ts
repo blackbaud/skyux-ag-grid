@@ -31,5 +31,5 @@ import {
     SkyAgGridCellRendererRowSelectorComponent
   ]
 })
-export class SkyCellRendererRowSelectorModule {
+export class SkyAgGridCellRendererRowSelectorModule {
 }
