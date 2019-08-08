@@ -11,13 +11,17 @@ import {
 } from '@skyux/router';
 
 import {
+  AgGridModule
+} from 'ag-grid-angular';
+
+import {
   SkyAgGridModule
 } from './public';
 
 @NgModule({
   declarations: [],
-  imports: [],
   exports: [
+    AgGridModule,
     SkyAgGridModule,
     SkyAppLinkModule,
     SkyToolbarModule
