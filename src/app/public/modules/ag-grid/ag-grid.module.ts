@@ -11,6 +11,8 @@ import {
 } from './ag-grid.service';
 
 import {
+  SkyAgGridCellEditorAutocompleteComponent,
+  SkyAgGridCellEditorAutocompleteModule,
   SkyAgGridCellEditorDatepickerComponent,
   SkyAgGridCellEditorDatepickerModule,
   SkyAgGridCellEditorNumberComponent,
@@ -26,6 +28,7 @@ import {
   declarations: [],
   imports: [
     AgGridModule,
+    SkyAgGridCellEditorAutocompleteModule,
     SkyAgGridCellEditorDatepickerModule,
     SkyAgGridCellEditorNumberModule,
     SkyAgGridCellRendererRowSelectorModule
@@ -37,6 +40,7 @@ import {
     SkyAgGridService
   ],
   entryComponents: [
+    SkyAgGridCellEditorAutocompleteComponent,
     SkyAgGridCellEditorDatepickerComponent,
     SkyAgGridCellEditorNumberComponent,
     SkyAgGridCellRendererRowSelectorComponent

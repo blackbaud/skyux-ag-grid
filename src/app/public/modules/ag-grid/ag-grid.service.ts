@@ -10,6 +10,7 @@ import {
 
 import {
   SkyCellClass,
+  SkyAgGridCellEditorAutocompleteComponent,
   SkyAgGridCellEditorDatepickerComponent,
   SkyAgGridCellEditorNumberComponent,
   SkyAgGridCellRendererRowSelectorComponent,
@@ -77,12 +78,13 @@ export class SkyAgGridService {
 
     const defaultSkyGridOptions = {
       columnTypes: {
-        [SkyCellType.Number]: {
+        [SkyCellType.Autocomplete]: {
           cellClassRules: {
-            [SkyCellClass.Number]: cellClassRuleTrueExpression,
+            [SkyCellClass.Autocomplete]: cellClassRuleTrueExpression,
             ...editableCellClassRules
           },
-          cellEditorFramework: SkyAgGridCellEditorNumberComponent
+          cellEditorFramework: SkyAgGridCellEditorAutocompleteComponent,
+          minWidth: 185
         },
         [SkyCellType.Date]: {
           cellClassRules: {
@@ -91,6 +93,13 @@ export class SkyAgGridService {
           },
           cellEditorFramework: SkyAgGridCellEditorDatepickerComponent,
           valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale)
+        },
+        [SkyCellType.Number]: {
+          cellClassRules: {
+            [SkyCellClass.Number]: cellClassRuleTrueExpression,
+            ...editableCellClassRules
+          },
+          cellEditorFramework: SkyAgGridCellEditorNumberComponent
         },
         [SkyCellType.RowSelector]: {
           cellClassRules: {

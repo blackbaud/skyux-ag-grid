@@ -16,8 +16,8 @@ import {
 
 @NgModule({
   imports: [
-    SkyDatepickerModule,
-    FormsModule
+    FormsModule,
+    SkyDatepickerModule
   ],
   declarations: [
     SkyAgGridCellEditorDatepickerComponent
