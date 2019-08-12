@@ -1,6 +1,7 @@
 export const enum SkyCellClass {
+  Autocomplete = 'sky-ag-grid-cell-autocomplete',
+  Date = 'sky-ag-grid-cell-date',
   Editable = 'sky-ag-grid-cell-editable',
-  Uneditable = 'sky-ag-grid-cell-uneditable',
   Number = 'sky-ag-grid-cell-number',
-  Date = 'sky-ag-grid-cell-date'
+  Uneditable = 'sky-ag-grid-cell-uneditable'
 }

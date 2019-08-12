@@ -8,6 +8,7 @@ import {
 } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 import {
+  browser,
   by,
   element
 } from 'protractor';
@@ -166,6 +167,47 @@ describe('Editable grid', () => {
 
     it('should match previous screenshot on extra small screens', (done) => {
       matchesPreviousDateCalendarEditingGrid('xs', done);
+    });
+  });
+
+  describe('autocomplete input editing', () => {
+    it('should match previous screenshot on large screens', (done) => {
+      SkyHostBrowser.setWindowBreakpoint('lg');
+
+      element(by.css('#edit-btn')).click();
+
+      SkyHostBrowser.scrollTo('.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete');
+      element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete')).click();
+
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-autocomplete-input-lg`
+      });
+    });
+  });
+
+  describe('autocomplete dropdown editing', () => {
+    it('should match previous screenshot on large screens', (done) => {
+      const input = element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete'));
+
+      SkyHostBrowser.setWindowBreakpoint('lg');
+
+      element(by.css('#edit-btn')).click();
+
+      SkyHostBrowser.scrollTo('.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete');
+
+      input.value = 'j';
+      input.click();
+      browser.actions().sendKeys('j').perform();
+
+      browser.wait(() => {
+        return browser.isElementPresent(
+          element(by.css('.sky-dropdown-item'))
+        );
+      });
+
+      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-autocomplete-dropdown-lg`
+      });
     });
   });
 });
