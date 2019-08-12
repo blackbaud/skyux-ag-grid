@@ -75,7 +75,7 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
   public onDatepickerKeydown(e: KeyboardEvent): void {
     const targetEl = e.target as HTMLElement;
 
-    if (targetEl && e.keyCode === 9) {
+    if (targetEl && e.key.toLowerCase() === 'tab') {
       const calendarEl = this.el.nativeElement.querySelector('sky-datepicker-calendar');
       const calendarElStyles = calendarEl && getComputedStyle(calendarEl);
 

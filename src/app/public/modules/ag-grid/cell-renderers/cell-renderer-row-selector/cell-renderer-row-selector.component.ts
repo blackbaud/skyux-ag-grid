@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 
@@ -19,18 +20,23 @@ import {
   RowSelectedEvent
 } from 'ag-grid-community';
 
+import {
+  Subject
+} from 'rxjs/Subject';
+
 @Component({
   selector: 'sky-ag-grid-cell-renderer-row-selector',
   templateUrl: './cell-renderer-row-selector.component.html',
   styleUrls: ['./cell-renderer-row-selector.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAgGridCellRendererRowSelectorComponent implements ICellRendererAngularComp, OnInit {
+export class SkyAgGridCellRendererRowSelectorComponent implements ICellRendererAngularComp, OnInit, OnDestroy {
   public checked: boolean;
   public rowNode: RowNode;
   public checkboxLabel: string;
   private params: ICellRendererParams;
   private rowNumber: number;
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(
     private changeDetection: ChangeDetectorRef,
@@ -48,17 +54,23 @@ export class SkyAgGridCellRendererRowSelectorComponent implements ICellRendererA
   }
 
   public ngOnInit(): void {
-    this.libResources.getString('sky_ag_grid_row_selector_aria_label', this.rowNumber)
+    this.libResources.getString('skyux_ag_grid_row_selector_aria_label', this.rowNumber)
+    .takeUntil(this.ngUnsubscribe)
     .subscribe(label => {
       this.checkboxLabel = label;
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public refresh(): boolean {
     return false;
   }
 
-  public updateRow() {
+  public updateRow(): void {
     this.rowNode.setSelected(this.checked);
   }
 

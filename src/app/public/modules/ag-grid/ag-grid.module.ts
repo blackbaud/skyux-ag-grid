@@ -3,6 +3,10 @@ import {
 } from '@angular/core';
 
 import {
+  AgGridModule
+} from 'ag-grid-angular';
+
+import {
   SkyAgGridService
 } from './ag-grid.service';
 
@@ -21,6 +25,7 @@ import {
 @NgModule({
   declarations: [],
   imports: [
+    AgGridModule,
     SkyAgGridCellEditorDatepickerModule,
     SkyAgGridCellEditorNumberModule,
     SkyAgGridCellRendererRowSelectorModule

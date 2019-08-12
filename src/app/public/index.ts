@@ -1,5 +1,5 @@
 // Export any types that should be included in the root.
-export * from './modules';
-export * from './modules/ag-grid/cell-editors';
-export * from './modules/ag-grid/cell-renderers';
-export * from './types';
+export * from './modules/ag-grid';
+export * from './types/cell-class';
+export * from './types/cell-type';
+export * from './types/sky-grid-options';

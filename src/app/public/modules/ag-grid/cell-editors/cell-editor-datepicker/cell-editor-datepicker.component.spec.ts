@@ -199,16 +199,15 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   describe('#onDatepickerKeydown', () => {
-    const validateTabbingEventPropagation = (targetEl: HTMLElement, isTabLeft: boolean, isPropagated: boolean, keyCode: number = 9) => {
+    const validateTabbingEventPropagation = (targetEl: HTMLElement, isTabLeft: boolean, isPropagated: boolean, key: string = 'tab') => {
       const stopPropagationSpy = jasmine.createSpy();
 
       SkyAppTestUtility.fireDomEvent(targetEl, 'keydown', {
         keyboardEventInit: {
-          key: '',
+          key,
           shiftKey: isTabLeft
         },
         customEventInit: {
-          keyCode,
           stopPropagation: stopPropagationSpy
         }
       });
@@ -273,7 +272,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     it('does not stop event propagation for non-tab key presses', () => {
       const datepickerInputEl = fixture.nativeElement.querySelector('input');
 
-      validateTabbingEventPropagation(datepickerInputEl, false, false, 32);
+      validateTabbingEventPropagation(datepickerInputEl, false, false, 'space');
     });
   });
 

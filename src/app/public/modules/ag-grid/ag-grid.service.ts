@@ -9,13 +9,19 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyCellClass,
   SkyAgGridCellEditorDatepickerComponent,
-  SkyAgGridCellEditorNumberComponent,
-  SkyAgGridCellRendererRowSelectorComponent,
+  SkyAgGridCellEditorNumberComponent
+} from './cell-editors';
+
+import {
+  SkyAgGridCellRendererRowSelectorComponent
+} from './cell-renderers';
+
+import {
+  SkyCellClass,
   SkyCellType,
   SkyGetGridOptionsArgs
-} from '../..';
+} from '../../types';
 
 /**
  * A service that provides default styling and behavior for agGrids in SKY UX SPAs.

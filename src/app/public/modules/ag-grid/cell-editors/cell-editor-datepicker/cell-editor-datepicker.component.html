@@ -1,21 +1,21 @@
 <div
+  class="sky-ag-grid-cell-editor-datepicker"
   [style.width.px]="columnWidth"
   [style.height.px]="rowHeight"
-  class="sky-ag-grid-cell-editor-datepicker"
 >
   <sky-datepicker
     (keydown)="onDatepickerKeydown($event)"
   >
     <input
-      #skyCellEditorDatepickerInput
       skyDatepickerInput
-      [(ngModel)]="currentDate"
-      (ngModelChange)="focusOnDatepickerInput()"
+      [disabled]="disabled"
       [minDate]="minDate"
       [maxDate]="maxDate"
-      [disabled]="disabled"
       [dateFormat]="dateFormat"
       [startingDay]="startingDay"
+      [(ngModel)]="currentDate"
+      (ngModelChange)="focusOnDatepickerInput()"
+      #skyCellEditorDatepickerInput
     />
   </sky-datepicker>
 </div>
