@@ -5,10 +5,6 @@ import {
 } from '@angular/core/testing';
 
 import {
-  SkyAppTestModule
-} from '@skyux-sdk/builder/runtime/testing/browser';
-
-import {
   expect
 } from '@skyux-sdk/testing';
 
@@ -19,27 +15,34 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyAgGridCellRendererRowSelectorComponent,
-  SkyAgGridCellRendererRowSelectorModule
+  SkyCellClass
+} from '../../../../types';
+
+import {
+  SkyAgGridFixtureComponent,
+  SkyAgGridFixtureModule
+} from '../../fixtures/';
+
+import {
+  SkyAgGridCellRendererRowSelectorComponent
 } from '../cell-renderer-row-selector';
 
 describe('SkyCellRendererCheckboxComponent', () => {
-  let fixture: ComponentFixture<SkyAgGridCellRendererRowSelectorComponent>;
-  let component: SkyAgGridCellRendererRowSelectorComponent;
-  let nativeElement: HTMLElement;
+  let rowSelectorCellFixture: ComponentFixture<SkyAgGridCellRendererRowSelectorComponent>;
+  let rowSelectorCellComponent: SkyAgGridCellRendererRowSelectorComponent;
+  let rowSelectorCellNativeElement: HTMLElement;
   let cellRendererParams: ICellRendererParams;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        SkyAppTestModule,
-        SkyAgGridCellRendererRowSelectorModule
+        SkyAgGridFixtureModule
       ]
     });
 
-    fixture = TestBed.createComponent(SkyAgGridCellRendererRowSelectorComponent);
-    nativeElement = fixture.nativeElement;
-    component = fixture.componentInstance;
+    rowSelectorCellFixture = TestBed.createComponent(SkyAgGridCellRendererRowSelectorComponent);
+    rowSelectorCellNativeElement = rowSelectorCellFixture.nativeElement;
+    rowSelectorCellComponent = rowSelectorCellFixture.componentInstance;
     cellRendererParams = {
       value: undefined,
       node: undefined,
@@ -62,10 +65,13 @@ describe('SkyCellRendererCheckboxComponent', () => {
     };
   });
 
-  it('renders a skyux checkbox', () => {
-    fixture.detectChanges();
+  it('renders a skyux checkbox in an ag grid', () => {
+    let gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
+    let gridNativeElement = gridFixture.nativeElement;
 
-    let element = nativeElement.querySelector('sky-checkbox');
+    gridFixture.detectChanges();
+
+    let element = gridNativeElement.querySelector(`.${SkyCellClass.RowSelector}`);
     expect(element).toBeVisible();
   });
 
@@ -77,33 +83,33 @@ describe('SkyCellRendererCheckboxComponent', () => {
       cellRendererParams.node = rowNode;
       spyOn(rowNode, 'setSelected');
 
-      expect(component.checked).toBeUndefined();
-      expect(component.rowNode).toBeUndefined();
+      expect(rowSelectorCellComponent.checked).toBeUndefined();
+      expect(rowSelectorCellComponent.rowNode).toBeUndefined();
 
-      component.agInit(cellRendererParams);
+      rowSelectorCellComponent.agInit(cellRendererParams);
 
-      expect(component.checked).toEqual(checked);
-      expect(component.rowNode).toEqual(rowNode);
-      expect(component.rowNode.setSelected).toHaveBeenCalledWith(true);
+      expect(rowSelectorCellComponent.checked).toEqual(checked);
+      expect(rowSelectorCellComponent.rowNode).toEqual(rowNode);
+      expect(rowSelectorCellComponent.rowNode.setSelected).toHaveBeenCalledWith(true);
     });
   });
 
   describe('#updateRow', () => {
     it ('sets the rowNode selected property to the component\'s checked property', () => {
       let rowNode = new RowNode();
-      component.checked = true;
-      component.rowNode = rowNode;
-      spyOn(component.rowNode, 'setSelected');
+      rowSelectorCellComponent.checked = true;
+      rowSelectorCellComponent.rowNode = rowNode;
+      spyOn(rowSelectorCellComponent.rowNode, 'setSelected');
 
-      component.updateRow();
+      rowSelectorCellComponent.updateRow();
 
-      expect(component.rowNode.setSelected).toHaveBeenCalledWith(true);
+      expect(rowSelectorCellComponent.rowNode.setSelected).toHaveBeenCalledWith(true);
     });
   });
 
   describe('#refresh', () => {
     it ('returns false', () => {
-      expect(component.refresh()).toBeFalsy();
+      expect(rowSelectorCellComponent.refresh()).toBeFalsy();
     });
   });
 
@@ -133,22 +139,22 @@ describe('SkyCellRendererCheckboxComponent', () => {
     };
     spyOn(rowNode, 'addEventListener').and.callThrough();
 
-    component.agInit(cellRendererParams);
+    rowSelectorCellComponent.agInit(cellRendererParams);
 
-    expect(component.checked).toBeFalsy();
+    expect(rowSelectorCellComponent.checked).toBeFalsy();
 
     // trigger the rowClickEventListner
     rowClickListener(rowClickedEvent);
 
     expect(rowNode.addEventListener).toHaveBeenCalledWith(RowNode.EVENT_ROW_SELECTED, jasmine.any(Function));
-    expect(component.checked).toEqual(true);
+    expect(rowSelectorCellComponent.checked).toEqual(true);
   });
 
   it('should pass accessibility', async(() => {
-    fixture.detectChanges();
+    rowSelectorCellFixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(nativeElement).toBeAccessible();
+    rowSelectorCellFixture.whenStable().then(() => {
+      expect(rowSelectorCellNativeElement).toBeAccessible();
     });
   }));
 });

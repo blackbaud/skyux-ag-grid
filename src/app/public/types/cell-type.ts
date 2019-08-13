@@ -1,4 +1,4 @@
-export const enum SkyCellType {
+export enum SkyCellType {
   Date = 'skyCellDate',
   Number = 'skyCellNumber',
   RowSelector = 'skyCellRowSelector'

@@ -100,6 +100,7 @@ export class SkyAgGridService {
         },
         [SkyCellType.RowSelector]: {
           cellClassRules: {
+            [SkyCellClass.RowSelector]: cellClassRuleTrueExpression,
             [SkyCellClass.Uneditable]: cellClassRuleTrueExpression
           },
           cellRendererFramework: SkyAgGridCellRendererRowSelectorComponent,
@@ -113,6 +114,7 @@ export class SkyAgGridService {
         resizable: true,
         minWidth: 100
       },
+      domLayout: 'autoHeight',
       enterMovesDownAfterEdit: true,
       headerHeight: 37,
       icons: {

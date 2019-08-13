@@ -5,10 +5,6 @@ import {
 } from '@angular/core/testing';
 
 import {
-  SkyAppTestModule
-} from '@skyux-sdk/builder/runtime/testing/browser';
-
-import {
   expect
 } from '@skyux-sdk/testing';
 
@@ -17,31 +13,54 @@ import {
 } from 'ag-grid-community';
 
 import {
+  SkyCellClass
+} from '../../../../types';
+
+import {
+  SkyAgGridFixtureComponent,
+  SkyAgGridFixtureModule
+} from '../../fixtures/';
+
+import {
   SkyAgGridCellEditorNumberComponent
 } from '../cell-editor-number';
 
 describe('SkyCellEditorNumberComponent', () => {
-  let fixture: ComponentFixture<SkyAgGridCellEditorNumberComponent>;
-  let component: SkyAgGridCellEditorNumberComponent;
-  let nativeElement: HTMLElement;
+  let numberEditorFixture: ComponentFixture<SkyAgGridCellEditorNumberComponent>;
+  let numberEditorComponent: SkyAgGridCellEditorNumberComponent;
+  let numberEditorNativeElement: HTMLElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        SkyAppTestModule
+        SkyAgGridFixtureModule
       ]
     });
 
-    fixture = TestBed.createComponent(SkyAgGridCellEditorNumberComponent);
-    nativeElement = fixture.nativeElement;
-    component = fixture.componentInstance;
+    numberEditorFixture = TestBed.createComponent(SkyAgGridCellEditorNumberComponent);
+    numberEditorNativeElement = numberEditorFixture.nativeElement;
+    numberEditorComponent = numberEditorFixture.componentInstance;
+
+    numberEditorFixture.detectChanges();
   });
 
-  it('renders a numeric input', () => {
-    fixture.detectChanges();
+  it('renders a numeric input when editing a number cell in an ag grid', () => {
+    const gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
+    const gridNativeElement = gridFixture.nativeElement;
 
-    let element = nativeElement.querySelector('input[type="number"]');
-    expect(element).toBeVisible();
+    gridFixture.detectChanges();
+
+    const numberCellElement = gridNativeElement.querySelector(`.${SkyCellClass.Number}`);
+    const numberCellEditorSelector = `.ag-cell-inline-editing.${SkyCellClass.Number}`;
+    let inputElement = gridNativeElement.querySelector(numberCellEditorSelector);
+
+    expect(inputElement).toBeNull();
+
+    numberCellElement.click();
+
+    inputElement = gridNativeElement.querySelector(numberCellEditorSelector);
+
+    expect(inputElement).toBeVisible();
   });
 
   describe('#agInit', () => {
@@ -69,41 +88,41 @@ describe('SkyCellEditorNumberComponent', () => {
         formatValue: undefined
       };
 
-      expect(component.value).toBeUndefined();
+      expect(numberEditorComponent.value).toBeUndefined();
 
-      component.agInit(cellEditorParams);
+      numberEditorComponent.agInit(cellEditorParams);
 
-      expect(component.value).toEqual(value);
+      expect(numberEditorComponent.value).toEqual(value);
     });
   });
 
   describe('#getValue', () => {
     it('returns the value if it is set', () => {
       let value = 7;
-      component.value = value;
+      numberEditorComponent.value = value;
 
-      fixture.detectChanges();
+      numberEditorFixture.detectChanges();
 
-      expect(component.getValue()).toBe(value);
+      expect(numberEditorComponent.getValue()).toBe(value);
     });
 
     it('returns the value if it is 0', () => {
       let value = 0;
-      component.value = value;
+      numberEditorComponent.value = value;
 
-      fixture.detectChanges();
+      numberEditorFixture.detectChanges();
 
-      expect(component.getValue()).toBe(value);
+      expect(numberEditorComponent.getValue()).toBe(value);
     });
 
     describe('#afterGuiAttached', () => {
       it('focuses on the input after it attaches to the DOM', () => {
-        fixture.detectChanges();
+        numberEditorFixture.detectChanges();
 
-        const input = nativeElement.querySelector('input');
+        const input = numberEditorNativeElement.querySelector('input');
         spyOn(input, 'focus');
 
-        component.afterGuiAttached();
+        numberEditorComponent.afterGuiAttached();
 
         expect(input).toBeVisible();
         expect(input.focus).toHaveBeenCalled();
@@ -111,15 +130,15 @@ describe('SkyCellEditorNumberComponent', () => {
     });
 
     it('returns undefined if the value is not set', () => {
-      expect(component.getValue()).toBeUndefined();
+      expect(numberEditorComponent.getValue()).toBeUndefined();
     });
   });
 
   it('should pass accessibility', async(() => {
-    fixture.detectChanges();
+    numberEditorFixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(fixture.nativeElement).toBeAccessible();
+    numberEditorFixture.whenStable().then(() => {
+      expect(numberEditorFixture.nativeElement).toBeAccessible();
     });
   }));
 });
