@@ -6,7 +6,8 @@ import {
 } from '@angular/core';
 
 import {
-  SkyDatepickerInputDirective
+  SkyDatepickerInputDirective,
+  SkyDatepickerComponent
 } from '@skyux/datetime';
 
 import {
@@ -32,6 +33,9 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
   @ViewChild(SkyDatepickerInputDirective)
   public inputDirective: SkyDatepickerInputDirective;
 
+  @ViewChild(SkyDatepickerComponent)
+  public datepickerComponent: SkyDatepickerComponent;
+
   public currentDate: Date;
   public minDate: Date;
   public maxDate: Date;
@@ -41,7 +45,7 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
   public columnWidth: number;
   public rowHeight: number;
 
-  constructor(private el: ElementRef) {}
+  constructor() {}
 
   public agInit(params: ICellEditorParams) {
     this.params = params;
@@ -76,18 +80,15 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
     const targetEl = e.target as HTMLElement;
 
     if (targetEl && e.key.toLowerCase() === 'tab') {
-      const calendarEl = this.el.nativeElement.querySelector('sky-datepicker-calendar');
-      const calendarElStyles = calendarEl && getComputedStyle(calendarEl);
-
-      // stop event propagation to prevent the grid from moving to the next cell if there is an element target, the tab key was pressed, and
-      // the tab key press is a tab right and the target is either an input or
-      if (((!e.shiftKey && (targetEl.tagName === 'INPUT' ||
-      // the calendar button when the calendar is open or
-      (targetEl.tagName === 'BUTTON' && calendarElStyles.visibility === 'visible'))) ||
-      // the tab key press is a tab left and the target is the calendar button or
-      (e.shiftKey && targetEl.tagName === 'BUTTON')) ||
-      // the tab key press is a tab left and the target is the calendar
-      (e.shiftKey && targetEl.tagName === 'SKY-DAYPICKER')) {
+      // stop event propagation to prevent the grid from moving to the next cell if there is an element target, the tab key was pressed,
+      // the tab key press is a tab right and either the input has focus or
+      if (((!e.shiftKey && (this.inputDirective.inputIsFocused ||
+      // the calendar button has focus when the calendar is open or
+      (this.datepickerComponent.buttonIsFocused && this.datepickerComponent.calendarIsVisible))) ||
+      // the tab key press is a tab left and the calendar button has focus
+      (e.shiftKey && this.datepickerComponent.buttonIsFocused)) ||
+      // the tab key press is a tab left and the calendar has focus
+      (e.shiftKey && this.datepickerComponent.calendarIsFocused)) {
         e.stopPropagation();
       }
     }
