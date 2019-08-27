@@ -15,7 +15,7 @@ import {
   SkyCellType
 } from '../..';
 
-describe('SyAgGridService', () => {
+describe('SkyAgGridService', () => {
   let agGridService: SkyAgGridService;
   let defaultGridOptions: GridOptions;
 
