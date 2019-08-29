@@ -7,6 +7,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+  SkyTestComponentSelector
+} from '@blackbaud/skyux-lib-testing';
+
+import {
   SkyAppTestUtility,
   expect
 } from '@skyux-sdk/testing';
@@ -77,8 +81,12 @@ describe('SkyCellEditorDatepickerComponent', () => {
     it('opens a datepicker calendar', () => {
       dateCellElement.click();
 
-      const calendarButton = gridNativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
-      calendarButton.click();
+      const datepicker = SkyTestComponentSelector.selectDatepicker(
+        gridFixture,
+        'cell-datepicker'
+      );
+
+      datepicker.clickDatepickerCalenderButtonEl();
 
       const calendar = gridNativeElement.querySelector('sky-datepicker-calendar');
       expect(calendar).toBeVisible();
@@ -97,8 +105,12 @@ describe('SkyCellEditorDatepickerComponent', () => {
     }
 
     function validateCalendarFocus(hasFocus: boolean, focusedEl?: HTMLElement): void {
-      const calendarButtonEl = datepickerEditorNativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
-      calendarButtonEl.click();
+      const datepicker = SkyTestComponentSelector.selectDatepicker(
+        datepickerEditorFixture,
+        'cell-datepicker'
+      );
+
+      datepicker.clickDatepickerCalenderButtonEl();
       datepickerEditorFixture.detectChanges();
       tick();
 
@@ -131,11 +143,14 @@ describe('SkyCellEditorDatepickerComponent', () => {
   describe('calendarIsVisible property', () => {
     it('should reflect the visibility of the calendar element', fakeAsync(() => {
       datepickerEditorFixture.detectChanges();
-      const calendarButtonEl = datepickerEditorNativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
+      const datepicker = SkyTestComponentSelector.selectDatepicker(
+        datepickerEditorFixture,
+        'cell-datepicker'
+      );
 
       expect(datepickerEditorComponent.calendarIsVisible).toBe(false);
 
-      calendarButtonEl.click();
+      datepicker.clickDatepickerCalenderButtonEl();
       datepickerEditorFixture.detectChanges();
       tick();
       datepickerEditorFixture.detectChanges();
@@ -184,8 +199,14 @@ describe('SkyCellEditorDatepickerComponent', () => {
       };
     });
 
-    it('initializes the SkyuxDatepickerCellEditorComponent properties', () => {
-      const date = new Date('1/1/2019');
+    it('initializes the SkyuxDatepickerCellEditorComponent properties', fakeAsync(() => {
+      const dateString = '01/01/2019';
+      const date = new Date(dateString);
+      const datepicker = SkyTestComponentSelector.selectDatepicker(
+        datepickerEditorFixture,
+        'cell-datepicker'
+      );
+
       cellEditorParams.value = date;
 
       expect(datepickerEditorComponent.currentDate).toBeUndefined();
@@ -193,11 +214,15 @@ describe('SkyCellEditorDatepickerComponent', () => {
       expect(datepickerEditorComponent.rowHeight).toBeUndefined();
 
       datepickerEditorComponent.agInit(cellEditorParams);
+      datepickerEditorFixture.detectChanges();
+      tick();
+      datepickerEditorFixture.detectChanges();
 
       expect(datepickerEditorComponent.currentDate).toEqual(date);
+      expect(datepicker.date).toEqual(dateString);
       expect(datepickerEditorComponent.columnWidth).toEqual(columnWidth);
       expect(datepickerEditorComponent.rowHeight).toEqual(38);
-    });
+    }));
 
     it('sets the cellEditorParams', () => {
       const startingDay = 1;
@@ -354,13 +379,17 @@ describe('SkyCellEditorDatepickerComponent', () => {
   }));
 
   it('should pass accessibility with calendar open', async(() => {
+    const datepicker = SkyTestComponentSelector.selectDatepicker(
+      datepickerEditorFixture,
+      'cell-datepicker'
+    );
+
     datepickerEditorComponent.columnWidth = 300;
     datepickerEditorComponent.rowHeight = 37;
 
     datepickerEditorFixture.detectChanges();
 
-    const calendarButton = datepickerEditorNativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
-    calendarButton.click();
+    datepicker.clickDatepickerCalenderButtonEl();
 
     expect(datepickerEditorNativeElement).toBeAccessible();
   }));
