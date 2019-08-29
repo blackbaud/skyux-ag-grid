@@ -1,7 +1,9 @@
 import {
   async,
   ComponentFixture,
-  TestBed
+  fakeAsync,
+  TestBed,
+  tick
 } from '@angular/core/testing';
 
 import {
@@ -17,7 +19,7 @@ import {
 
 import {
   SkyCellClass
-} from '../../../../types';
+} from '../../types';
 
 import {
   SkyAgGridFixtureComponent,
@@ -83,7 +85,66 @@ describe('SkyCellEditorDatepickerComponent', () => {
     });
   });
 
-  describe('#agInit', () => {
+  describe('focus properties', () => {
+    type focusProperty = 'buttonIsFocused' | 'calendarIsFocused' | 'inputIsFocused';
+
+    function validateFocus(hasFocus: boolean, focusPropertyName: focusProperty, focusedEl?: HTMLElement): void {
+      if (hasFocus && focusedEl) {
+        focusedEl.focus();
+      }
+
+      expect(datepickerEditorComponent[focusPropertyName]).toBe(hasFocus);
+    }
+
+    function validateCalendarFocus(hasFocus: boolean, focusedEl?: HTMLElement): void {
+      const calendarButtonEl = datepickerEditorNativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
+      calendarButtonEl.click();
+      datepickerEditorFixture.detectChanges();
+      tick();
+
+      validateFocus(hasFocus, 'calendarIsFocused', focusedEl);
+    }
+
+    it('should reflect the state of focus for the datepicker editor', fakeAsync(() => {
+      datepickerEditorFixture.detectChanges();
+      const inputEl = datepickerEditorNativeElement.querySelector('input') as HTMLElement;
+      const buttonEl = datepickerEditorNativeElement.querySelector('.sky-dropdown-button') as HTMLElement;
+      const dropdownContainerEl = datepickerEditorNativeElement.querySelector('.sky-popover-container') as HTMLElement;
+      const selectedDayEl = datepickerEditorNativeElement.querySelector('td .sky-datepicker-btn-selected') as HTMLElement;
+
+      expect(inputEl).toBeDefined();
+      expect(buttonEl).toBeDefined();
+      expect(dropdownContainerEl).toBeDefined();
+      expect(selectedDayEl).toBeDefined();
+
+      validateFocus(false, 'inputIsFocused');
+      validateFocus(true, 'inputIsFocused', inputEl);
+      validateFocus(false, 'buttonIsFocused');
+      validateFocus(true, 'buttonIsFocused', buttonEl);
+
+      validateCalendarFocus(false);
+      validateCalendarFocus(true, dropdownContainerEl);
+      validateCalendarFocus(true, selectedDayEl);
+    }));
+  });
+
+  describe('calendarIsVisible property', () => {
+    it('should reflect the visibility of the calendar element', fakeAsync(() => {
+      datepickerEditorFixture.detectChanges();
+      const calendarButtonEl = datepickerEditorNativeElement.querySelector('.sky-dropdown-button-type-calendar') as HTMLButtonElement;
+
+      expect(datepickerEditorComponent.calendarIsVisible).toBe(false);
+
+      calendarButtonEl.click();
+      datepickerEditorFixture.detectChanges();
+      tick();
+      datepickerEditorFixture.detectChanges();
+
+      expect(datepickerEditorComponent.calendarIsVisible).toBe(true);
+    }));
+  });
+
+  describe('agInit', () => {
     let cellEditorParams: ICellEditorParams;
     let column: Column;
     const columnWidth = 200;
@@ -169,8 +230,8 @@ describe('SkyCellEditorDatepickerComponent', () => {
     });
   });
 
-  describe('#getValue', () => {
-    it('updates value from input and returns currentDate', (done) => {
+  describe('getValue', () => {
+    it('updates value from input and returns currentDate', () => {
       const previousDate = new Date('1/1/2019');
       const elementDateValue = '12/1/2019';
       const elementDate = new Date(elementDateValue);
@@ -181,16 +242,14 @@ describe('SkyCellEditorDatepickerComponent', () => {
 
       datepickerEditorFixture.detectChanges();
 
-      datepickerEditorComponent.datepickerInput.nativeElement.value = elementDateValue;
+      datepickerEditorComponent['datepickerInput'].nativeElement.value = elementDateValue;
       datepickerEditorFixture.detectChanges();
-
-      setTimeout(() => { done(); }, 4000);
 
       expect(datepickerEditorComponent.getValue()).toEqual(elementDate);
     });
   });
 
-  describe('#afterGuiAttached', () => {
+  describe('afterGuiAttached', () => {
     it('focuses on the datepicker input after it attaches to the DOM', () => {
       datepickerEditorComponent.columnWidth = 300;
       datepickerEditorComponent.rowHeight = 37;
@@ -208,13 +267,13 @@ describe('SkyCellEditorDatepickerComponent', () => {
     });
   });
 
-  describe('#isPopup', () => {
+  describe('isPopup', () => {
     it('returns true', () => {
       expect(datepickerEditorComponent.isPopup()).toBeTruthy();
     });
   });
 
-  describe('#onDatepickerKeydown', () => {
+  describe('onDatepickerKeydown', () => {
     const validateTabbingEventPropagation = (isTabLeft: boolean, isPropagated: boolean, key: string = 'tab') => {
       const datepickerInputEl = datepickerEditorFixture.nativeElement.querySelector('input');
       const stopPropagationSpy = jasmine.createSpy();
@@ -237,7 +296,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     };
 
     it('stops event propagation for tab right keydown when the datepicker input has focus', () => {
-      spyOnProperty(datepickerEditorComponent.inputDirective, 'inputIsFocused').and.returnValue(true);
+      spyOnProperty(datepickerEditorComponent, 'inputIsFocused').and.returnValue(true);
 
       validateTabbingEventPropagation(false, true);
     });
@@ -245,7 +304,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     it('stops event propagation for tab left keydown when the calendar button has focus', () => {
       datepickerEditorFixture.detectChanges();
 
-      spyOnProperty(datepickerEditorComponent.datepickerComponent, 'buttonIsFocused').and.returnValue(true);
+      spyOnProperty(datepickerEditorComponent, 'buttonIsFocused').and.returnValue(true);
 
       validateTabbingEventPropagation(true, true);
     });
@@ -253,8 +312,8 @@ describe('SkyCellEditorDatepickerComponent', () => {
     it('stops event propagation for tab right keydown when the calendar button has focus and the calendar is open', async(() => {
       datepickerEditorFixture.detectChanges();
 
-      spyOnProperty(datepickerEditorComponent.datepickerComponent, 'buttonIsFocused').and.returnValue(true);
-      spyOnProperty(datepickerEditorComponent.datepickerComponent, 'calendarIsVisible').and.returnValue(true);
+      spyOnProperty(datepickerEditorComponent, 'buttonIsFocused').and.returnValue(true);
+      spyOnProperty(datepickerEditorComponent, 'calendarIsVisible').and.returnValue(true);
 
       validateTabbingEventPropagation(false, true);
     }));
@@ -265,8 +324,8 @@ describe('SkyCellEditorDatepickerComponent', () => {
       const calendarButtonEl = datepickerEditorFixture.nativeElement.querySelector('.sky-dropdown-button-type-calendar');
       calendarButtonEl.click();
 
-      spyOnProperty(datepickerEditorComponent.datepickerComponent, 'calendarIsFocused').and.returnValue(true);
-      spyOnProperty(datepickerEditorComponent.datepickerComponent, 'calendarIsVisible').and.returnValue(true);
+      spyOnProperty(datepickerEditorComponent, 'calendarIsFocused').and.returnValue(true);
+      spyOnProperty(datepickerEditorComponent, 'calendarIsVisible').and.returnValue(true);
 
       validateTabbingEventPropagation(true, true);
     }));
@@ -274,8 +333,8 @@ describe('SkyCellEditorDatepickerComponent', () => {
     it('does not stop event propagation for tab right keydown when the calendar button has focus and the calendar is not visible', () => {
       datepickerEditorFixture.detectChanges();
 
-      spyOnProperty(datepickerEditorComponent.datepickerComponent, 'buttonIsFocused').and.returnValue(true);
-      spyOnProperty(datepickerEditorComponent.datepickerComponent, 'calendarIsVisible').and.returnValue(false);
+      spyOnProperty(datepickerEditorComponent, 'buttonIsFocused').and.returnValue(true);
+      spyOnProperty(datepickerEditorComponent, 'calendarIsVisible').and.returnValue(false);
 
       validateTabbingEventPropagation(false, false);
     });

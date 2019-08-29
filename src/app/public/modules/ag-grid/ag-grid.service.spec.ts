@@ -30,7 +30,7 @@ describe('SkyAgGridService', () => {
     defaultGridOptions = agGridService.getGridOptions({ gridOptions: {}});
   });
 
-  describe('#getGridOptions', () => {
+  describe('getGridOptions', () => {
     it('should return a default grid options configuration when no override options are passed', () => {
 
       expect(defaultGridOptions).toBeDefined();
@@ -134,7 +134,7 @@ describe('SkyAgGridService', () => {
     });
   });
 
-  describe('#dateFormatter', () => {
+  describe('dateFormatter', () => {
     let dateValueFormatter: Function;
     let dateValueFormatterParams: ValueFormatterParams;
 

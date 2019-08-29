@@ -16,7 +16,7 @@ import {
 
 import {
   SkyCellClass
-} from '../../../../types';
+} from '../../types';
 
 import {
   SkyAgGridFixtureComponent,
@@ -75,7 +75,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
     expect(element).toBeVisible();
   });
 
-  describe('#agInit', () => {
+  describe('agInit', () => {
     it('initializes the SkyuxCheckboxGridCellComponent properties', () => {
       let checked = true;
       let rowNode = new RowNode();
@@ -94,7 +94,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
     });
   });
 
-  describe('#updateRow', () => {
+  describe('updateRow', () => {
     it ('sets the rowNode selected property to the component\'s checked property', () => {
       let rowNode = new RowNode();
       rowSelectorCellComponent.checked = true;
@@ -107,9 +107,9 @@ describe('SkyCellRendererCheckboxComponent', () => {
     });
   });
 
-  describe('#refresh', () => {
+  describe('refresh', () => {
     it ('returns false', () => {
-      expect(rowSelectorCellComponent.refresh()).toBeFalsy();
+      expect(rowSelectorCellComponent.refresh()).toBe(false);
     });
   });
 

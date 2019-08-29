@@ -39,10 +39,16 @@ export class SkyAgGridCellEditorNumberComponent implements ICellEditorAngularCom
   private ngUnsubscribe = new Subject<void>();
 
   @ViewChild('skyCellEditorNumber', {read: ElementRef})
-  public input: ElementRef;
+  private input: ElementRef;
 
-  constructor(private libResources: SkyLibResourcesService) { }
+  constructor(
+    private libResources: SkyLibResourcesService
+  ) { }
 
+  /**
+   * agInit is called by agGrid once after the editor is created and provides the editor with the information it needs.
+   * @param params The cell editor params that include data about the cell, column, row, and grid.
+   */
   public agInit(params: ICellEditorParams): void {
     this.params = params;
     this.value = this.params.value;
@@ -50,12 +56,19 @@ export class SkyAgGridCellEditorNumberComponent implements ICellEditorAngularCom
     this.rowNumber = this.params.rowIndex + 1;
   }
 
+  /**
+   * afterGuiAttached is called by agGrid after the editor is rendered in the DOM. Once it is attached the editor is ready to be focused on.
+   */
+  public afterGuiAttached(): void {
+    this.input.nativeElement.focus();
+  }
+
   public ngOnInit(): void {
     this.libResources.getString('skyux_ag_grid_cell_editor_number_aria_label', this.columnHeader, this.rowNumber)
-    .takeUntil(this.ngUnsubscribe)
-    .subscribe(label => {
-      this.numberInputLabel = label;
-    });
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(label => {
+        this.numberInputLabel = label;
+      });
   }
 
   public ngOnDestroy(): void {
@@ -63,11 +76,10 @@ export class SkyAgGridCellEditorNumberComponent implements ICellEditorAngularCom
     this.ngUnsubscribe.complete();
   }
 
+  /**
+   * getValue is called by agGrid when editing is stopped to get the new value of the cell.
+   */
   public getValue(): number {
     return this.value;
-  }
-
-  public afterGuiAttached(): void {
-    this.input.nativeElement.focus();
   }
 }

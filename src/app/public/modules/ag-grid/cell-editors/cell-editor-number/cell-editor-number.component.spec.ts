@@ -14,7 +14,7 @@ import {
 
 import {
   SkyCellClass
-} from '../../../../types';
+} from '../../types';
 
 import {
   SkyAgGridFixtureComponent,
@@ -63,7 +63,7 @@ describe('SkyCellEditorNumberComponent', () => {
     expect(inputElement).toBeVisible();
   });
 
-  describe('#agInit', () => {
+  describe('agInit', () => {
     it('initializes the SkyuxNumericCellEditorComponent properties', () => {
       let value = 15;
 
@@ -96,7 +96,7 @@ describe('SkyCellEditorNumberComponent', () => {
     });
   });
 
-  describe('#getValue', () => {
+  describe('getValue', () => {
     it('returns the value if it is set', () => {
       let value = 7;
       numberEditorComponent.value = value;
@@ -115,7 +115,7 @@ describe('SkyCellEditorNumberComponent', () => {
       expect(numberEditorComponent.getValue()).toBe(value);
     });
 
-    describe('#afterGuiAttached', () => {
+    describe('afterGuiAttached', () => {
       it('focuses on the input after it attaches to the DOM', () => {
         numberEditorFixture.detectChanges();
 

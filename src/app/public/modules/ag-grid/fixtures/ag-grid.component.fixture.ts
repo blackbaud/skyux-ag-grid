@@ -11,7 +11,7 @@ import {
 
 import {
   SkyCellType
-} from '../../../types';
+} from '../types';
 
 import {
   SkyAgGridService

@@ -21,7 +21,7 @@ import {
   SkyCellClass,
   SkyCellType,
   SkyGetGridOptionsArgs
-} from '../../types';
+} from './types';
 
 /**
  * A service that provides default styling and behavior for agGrids in SKY UX SPAs.
@@ -63,7 +63,7 @@ export class SkyAgGridService {
     // cellClassRules can be functions or string expressions
     const cellClassRuleTrueExpression = 'true';
 
-    function getEditableFn(flip?: boolean) {
+    function getEditableFn(isUneditable?: boolean): ((params: CellClassParams) => boolean) {
       return function (params: CellClassParams): boolean {
         let isEditable = params.colDef.editable;
 
@@ -72,7 +72,7 @@ export class SkyAgGridService {
           isEditable = isEditable({ ...params, column });
         }
 
-        return flip ? !isEditable : isEditable;
+        return isUneditable ? !isEditable : isEditable;
       };
     }
 
@@ -139,11 +139,11 @@ export class SkyAgGridService {
   }
 
   private dateFormatter(params: ValueFormatterParams, locale: string = 'en-us'): string | undefined {
-    let dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return params.value && params.value.toLocaleDateString(locale, dateConfig);
   }
 
   private getIconTemplate(iconName: string): string {
-    return `<i class="fa fa-${iconName}"></i>`;
+    return `<sky-icon icon="${iconName}" size="lg"></sky-icon>`;
   }
 }

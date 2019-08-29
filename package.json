@@ -21,10 +21,10 @@
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",
-    "ag-grid-angular": "^21.0.0",
-    "ag-grid-community": "^21.0.0",
+    "@skyux/datetime": "^3.4.0",
     "@skyux/forms": "^3.0.0",
-    "@skyux/datetime": "^3.4.0"
+    "ag-grid-angular": "^21.0.0",
+    "ag-grid-community": "^21.0.0"
   },
   "dependencies": {},
   "devDependencies": {
