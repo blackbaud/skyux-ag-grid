@@ -194,10 +194,6 @@ describe('Editable grid', () => {
     it('should match previous screenshot on large screens', (done) => {
       matchesPreviousAutocompleteInputEditingGrid('lg', done);
     });
-
-    it('should match previous screenshot on extra small screens', (done) => {
-      matchesPreviousAutocompleteInputEditingGrid('xs', done);
-    });
   });
 
   describe('autocomplete dropdown editing', () => {
@@ -225,10 +221,6 @@ describe('Editable grid', () => {
 
     it('should match previous screenshot on large screens', (done) => {
       matchesPreviousAutocompleteDropdownEditingGrid('lg', done);
-    });
-
-    it('should match previous screenshot on extra small screens', (done) => {
-      matchesPreviousAutocompleteDropdownEditingGrid('xs', done);
     });
   });
 });
