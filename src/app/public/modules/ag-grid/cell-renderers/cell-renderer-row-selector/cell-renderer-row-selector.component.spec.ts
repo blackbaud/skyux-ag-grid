@@ -1,12 +1,14 @@
 import {
   async,
   ComponentFixture,
-  TestBed
+  fakeAsync,
+  TestBed,
+  tick
 } from '@angular/core/testing';
 
 import {
-  SkyAppTestModule
-} from '@skyux-sdk/builder/runtime/testing/browser';
+  SkyTestComponentSelector
+} from '@blackbaud/skyux-lib-testing';
 
 import {
   expect
@@ -19,27 +21,34 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyAgGridCellRendererRowSelectorComponent,
-  SkyAgGridCellRendererRowSelectorModule
+  SkyCellClass
+} from '../../types';
+
+import {
+  SkyAgGridFixtureComponent,
+  SkyAgGridFixtureModule
+} from '../../fixtures/';
+
+import {
+  SkyAgGridCellRendererRowSelectorComponent
 } from '../cell-renderer-row-selector';
 
 describe('SkyCellRendererCheckboxComponent', () => {
-  let fixture: ComponentFixture<SkyAgGridCellRendererRowSelectorComponent>;
-  let component: SkyAgGridCellRendererRowSelectorComponent;
-  let nativeElement: HTMLElement;
+  let rowSelectorCellFixture: ComponentFixture<SkyAgGridCellRendererRowSelectorComponent>;
+  let rowSelectorCellComponent: SkyAgGridCellRendererRowSelectorComponent;
+  let rowSelectorCellNativeElement: HTMLElement;
   let cellRendererParams: ICellRendererParams;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        SkyAppTestModule,
-        SkyAgGridCellRendererRowSelectorModule
+        SkyAgGridFixtureModule
       ]
     });
 
-    fixture = TestBed.createComponent(SkyAgGridCellRendererRowSelectorComponent);
-    nativeElement = fixture.nativeElement;
-    component = fixture.componentInstance;
+    rowSelectorCellFixture = TestBed.createComponent(SkyAgGridCellRendererRowSelectorComponent);
+    rowSelectorCellNativeElement = rowSelectorCellFixture.nativeElement;
+    rowSelectorCellComponent = rowSelectorCellFixture.componentInstance;
     cellRendererParams = {
       value: undefined,
       node: undefined,
@@ -62,52 +71,66 @@ describe('SkyCellRendererCheckboxComponent', () => {
     };
   });
 
-  it('renders a skyux checkbox', () => {
-    fixture.detectChanges();
+  it('renders a skyux checkbox in an ag grid', () => {
+    let gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
+    let gridNativeElement = gridFixture.nativeElement;
 
-    let element = nativeElement.querySelector('sky-checkbox');
+    gridFixture.detectChanges();
+
+    const element = gridNativeElement.querySelector(`.${SkyCellClass.RowSelector}`);
     expect(element).toBeVisible();
   });
 
-  describe('#agInit', () => {
-    it('initializes the SkyuxCheckboxGridCellComponent properties', () => {
-      let checked = true;
-      let rowNode = new RowNode();
+  describe('agInit', () => {
+    it('initializes the SkyuxCheckboxGridCellComponent properties', fakeAsync(() => {
+      const checked = true;
+      const rowNode = new RowNode();
       cellRendererParams.value = checked;
       cellRendererParams.node = rowNode;
       spyOn(rowNode, 'setSelected');
 
-      expect(component.checked).toBeUndefined();
-      expect(component.rowNode).toBeUndefined();
+      const checkbox = SkyTestComponentSelector.selectCheckbox(
+        rowSelectorCellFixture,
+        'row-checkbox'
+      );
 
-      component.agInit(cellRendererParams);
+      expect(rowSelectorCellComponent.checked).toBeUndefined();
+      expect(checkbox.selected).toBe(false);
+      expect(rowSelectorCellComponent.rowNode).toBeUndefined();
 
-      expect(component.checked).toEqual(checked);
-      expect(component.rowNode).toEqual(rowNode);
-      expect(component.rowNode.setSelected).toHaveBeenCalledWith(true);
-    });
+      rowSelectorCellComponent.agInit(cellRendererParams);
+
+      rowSelectorCellFixture.detectChanges();
+      tick();
+      rowSelectorCellFixture.detectChanges();
+
+      expect(rowSelectorCellComponent.checked).toEqual(checked);
+      expect(checkbox.selected).toBe(true);
+      expect(rowSelectorCellComponent.rowNode).toEqual(rowNode);
+      expect(rowSelectorCellComponent.rowNode.setSelected).toHaveBeenCalledWith(true);
+    }));
   });
 
-  describe('#updateRow', () => {
+  describe('updateRow', () => {
     it ('sets the rowNode selected property to the component\'s checked property', () => {
       let rowNode = new RowNode();
-      component.checked = true;
-      component.rowNode = rowNode;
-      spyOn(component.rowNode, 'setSelected');
+      rowSelectorCellComponent.checked = true;
+      rowSelectorCellComponent.rowNode = rowNode;
+      spyOn(rowSelectorCellComponent.rowNode, 'setSelected');
 
-      component.updateRow();
+      rowSelectorCellComponent.updateRow();
 
-      expect(component.rowNode.setSelected).toHaveBeenCalledWith(true);
+      expect(rowSelectorCellComponent.rowNode.setSelected).toHaveBeenCalledWith(true);
     });
   });
 
-  describe('#refresh', () => {
+  describe('refresh', () => {
     it ('returns false', () => {
-      expect(component.refresh()).toBeFalsy();
+      expect(rowSelectorCellComponent.refresh()).toBe(false);
     });
   });
 
-  it('updates the checkmark when the row is selected', () => {
+  it('updates the checkmark when the row is selected', fakeAsync(() => {
     let rowClickListener: Function;
     let rowNode = new RowNode();
     let rowClickedEvent: RowClickedEvent = {
@@ -131,24 +154,37 @@ describe('SkyCellRendererCheckboxComponent', () => {
       // set event listener
       rowClickListener = listener;
     };
+
     spyOn(rowNode, 'addEventListener').and.callThrough();
 
-    component.agInit(cellRendererParams);
+    rowSelectorCellFixture.detectChanges();
 
-    expect(component.checked).toBeFalsy();
+    const checkbox = SkyTestComponentSelector.selectCheckbox(
+      rowSelectorCellFixture,
+      'row-checkbox'
+    );
+
+    rowSelectorCellComponent.agInit(cellRendererParams);
+
+    expect(rowSelectorCellComponent.checked).toBeFalsy();
+    expect(checkbox.selected).toBe(false);
 
     // trigger the rowClickEventListner
     rowClickListener(rowClickedEvent);
+    rowSelectorCellFixture.detectChanges();
+    tick();
+    rowSelectorCellFixture.detectChanges();
 
     expect(rowNode.addEventListener).toHaveBeenCalledWith(RowNode.EVENT_ROW_SELECTED, jasmine.any(Function));
-    expect(component.checked).toEqual(true);
-  });
+    expect(rowSelectorCellComponent.checked).toBe(true);
+    expect(checkbox.selected).toBe(true);
+  }));
 
   it('should pass accessibility', async(() => {
-    fixture.detectChanges();
+    rowSelectorCellFixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(nativeElement).toBeAccessible();
+    rowSelectorCellFixture.whenStable().then(() => {
+      expect(rowSelectorCellNativeElement).toBeAccessible();
     });
   }));
 });

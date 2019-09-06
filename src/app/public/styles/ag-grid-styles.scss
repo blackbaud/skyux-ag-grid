@@ -1,22 +1,22 @@
 @import '~@skyux/theme/scss/mixins';
-@import "~@skyux/theme/scss/_compat/mixins";
+@import '~@skyux/theme/scss/_compat/mixins';
 
 /* base grid theme property variables */
-$odd-row-background-color: #fff !default;
+$odd-row-background-color: $sky-background-color-page-default !default;
 $background-color: $sky-color-gray-01 !default;
 $border-color: $sky-border-color-neutral-medium !default;
 $row-height: 38px !default;
 $header-height: 37px !default;
-$font-family: "Blackbaud Sans" !default;
-$header-background-color: #fff !default;
+$font-family: $sky-font-family !default;
+$header-background-color: $sky-background-color-page-default !default;
 $font-size: 15px !default;
 $row-border-width: 1px !default;
-$secondary-font-size: 15px !default;
+$secondary-font-size: $sky-font-size-base !default;
 $secondary-font-weight: 400 !default;
 $secondary-foreground-color: $sky-text-color-deemphasized !default;
 $primary-color: $sky-highlight-color-info !default;
-$selected-color: #F1EEF6 !default;
-$hover-color: #E9E4F1 !default;
+$selected-color: $sky-background-color-selected !default;
+$hover-color: darken($sky-background-color-selected, 10%) !default;
 
 /* other variables */
 $sky-standard-border: 1px solid $border-color !default;
@@ -70,7 +70,7 @@ ag-grid-angular {
   }
 
   .sky-ag-grid-cell-editable {
-    background-color: #FFFFFF;
+    background-color: $sky-background-color-page-default;
   }
 
   .sky-ag-grid-cell-uneditable {
@@ -85,7 +85,7 @@ ag-grid-angular {
   .ag-row {
     .ag-cell-focus.ag-cell-inline-editing {
       margin-top: $row-border-width * -1;
-      @include sky-field-status(active);
+      @include sky-field-status(active)
     }
 
     .ag-cell-focus.ag-cell-not-inline-editing {

@@ -15,7 +15,7 @@ import {
   SkyCellType
 } from '../..';
 
-describe('SyAgGridService', () => {
+describe('SkyAgGridService', () => {
   let agGridService: SkyAgGridService;
   let defaultGridOptions: GridOptions;
 
@@ -30,7 +30,7 @@ describe('SyAgGridService', () => {
     defaultGridOptions = agGridService.getGridOptions({ gridOptions: {}});
   });
 
-  describe('#getGridOptions', () => {
+  describe('getGridOptions', () => {
     it('should return a default grid options configuration when no override options are passed', () => {
 
       expect(defaultGridOptions).toBeDefined();
@@ -134,7 +134,7 @@ describe('SyAgGridService', () => {
     });
   });
 
-  describe('#dateFormatter', () => {
+  describe('dateFormatter', () => {
     let dateValueFormatter: Function;
     let dateValueFormatterParams: ValueFormatterParams;
 

@@ -46,6 +46,7 @@ export class EditableGridComponent implements OnInit {
     this.setColumnDefs();
 
     this.gridOptions = {
+      columnDefs: this.columnDefs,
       rowSelection: 'none',
       suppressCellSelection: false,
       onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),

@@ -1,13 +1,31 @@
-<div class="editable-grid">
+<div
+  class="editable-grid"
+>
   <sky-toolbar>
     <sky-toolbar-item *ngIf="!editMode">
-      <button class="sky-btn sky-btn-primary" id="edit-btn" (click)="setEditMode(true)">Edit</button>
+      <button
+        class="sky-btn sky-btn-primary"
+        id="edit-btn"
+        (click)="setEditMode(true)"
+      >
+        Edit
+      </button>
     </sky-toolbar-item>
     <sky-toolbar-item *ngIf="editMode">
-      <button class="sky-btn sky-btn-primary" (click)="saveData();">Save</button>
+      <button
+        class="sky-btn sky-btn-primary"
+        (click)="saveData();"
+      >
+        Save
+      </button>
     </sky-toolbar-item>
     <sky-toolbar-item *ngIf="editMode">
-      <button class="sky-btn sky-btn-default" (click)="cancelEdits();">Cancel</button>
+      <button
+        class="sky-btn sky-btn-default"
+        (click)="cancelEdits();"
+      >
+        Cancel
+      </button>
     </sky-toolbar-item>
   </sky-toolbar>
   <ag-grid-angular
@@ -15,8 +33,6 @@
     [ngClass]="{'sky-grid-edit-mode': editMode}"
     [gridOptions]="gridOptions"
     [rowData]="gridData"
-    [columnDefs]="columnDefs"
-    domLayout="autoHeight"
   >
   </ag-grid-angular>
 </div>

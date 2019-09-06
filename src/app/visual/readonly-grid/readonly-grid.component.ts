@@ -14,7 +14,6 @@ import {
 import {
   GridSizingMode,
   READONLY_GRID_DATA,
-  ReadonlyGridRow,
   RowStatusNames
 } from './readonly-grid-data';
 import {
@@ -29,12 +28,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReadonlyGridComponent implements OnInit {
-  public gridData: ReadonlyGridRow[] = READONLY_GRID_DATA;
+  public gridData = READONLY_GRID_DATA;
   public gridOptions: GridOptions;
   public columnApi: ColumnApi;
-  public readonly fitGridSizing: GridSizingMode = GridSizingMode.FIT;
-  public readonly autoGridSizing: GridSizingMode = GridSizingMode.AUTO;
-  public sizingMode: GridSizingMode = this.fitGridSizing;
+  public readonly fitGridSizing = GridSizingMode.FIT;
+  public readonly autoGridSizing = GridSizingMode.AUTO;
+  public sizingMode = this.fitGridSizing;
   public columnDefs = [
     {
       field: 'selected',
@@ -79,6 +78,7 @@ export class ReadonlyGridComponent implements OnInit {
 
   public ngOnInit(): void {
     this.gridOptions = {
+      columnDefs: this.columnDefs,
       onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
     };
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });

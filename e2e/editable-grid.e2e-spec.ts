@@ -15,20 +15,27 @@ import {
 
 describe('Editable grid', () => {
 
+  // selectors
+  const dateCell = '.sky-ag-grid-cell-editable.sky-ag-grid-cell-date';
+  const autocompleteCell = '.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete';
+  const editButton = '#edit-btn';
+  const editableGrid = '.editable-grid';
+  const sortableHeaderCell = '.ag-header-cell-sortable';
+
   beforeEach(() => {
     SkyHostBrowser.get('visual/editable-grid');
   });
 
   describe('read mode', () => {
-    const matchesPreviousEditableGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+    function matchesPreviousEditableGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
 
       SkyHostBrowser.moveCursorOffScreen();
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-read-${screenSize}`
       });
-    };
+    }
 
     it('should match previous editable grid on large screens', (done) => {
       matchesPreviousEditableGrid('lg', done);
@@ -40,15 +47,15 @@ describe('Editable grid', () => {
   });
 
   describe('edit mode', () => {
-    const matchesPreviousEditableGridInEditMode = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+    function matchesPreviousEditableGridInEditMode(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-      element(by.css('#edit-btn')).click();
+      element(by.css(editButton)).click();
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-${screenSize}`
       });
-    };
+    }
 
     it('should match previous editable grid on large screens', (done) => {
       matchesPreviousEditableGridInEditMode('lg', done);
@@ -60,15 +67,15 @@ describe('Editable grid', () => {
   });
 
   describe('descending sort', () => {
-    const matchesPreviousDescendingSortGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+    function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-      element(by.css('.ag-header-cell-sortable')).click();
+      element(by.css(sortableHeaderCell)).click();
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-sort-desc-${screenSize}`
       });
-    };
+    }
 
     it('should match previous screenshot on large screens', (done) => {
       matchesPreviousDescendingSortGrid('lg', done);
@@ -80,17 +87,17 @@ describe('Editable grid', () => {
   });
 
   describe('ascending sort', () => {
-    const matchesPreviousAscendingSortGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+    function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
 
       // click twice to sort by descending then ascending
-      element(by.css('.ag-header-cell-sortable')).click();
-      element(by.css('.ag-header-cell-sortable')).click();
+      element(by.css(sortableHeaderCell)).click();
+      element(by.css(sortableHeaderCell)).click();
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-sort-asc-${screenSize}`
       });
-    };
+    }
 
     it('should match previous screenshot on large screens', (done) => {
       matchesPreviousAscendingSortGrid('lg', done);
@@ -102,17 +109,17 @@ describe('Editable grid', () => {
   });
 
   describe('number editing', () => {
-    const matchesPreviousNumberEditingGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+    function matchesPreviousNumberEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-      element(by.css('#edit-btn')).click();
+      element(by.css(editButton)).click();
 
       element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')).click();
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-number-${screenSize}`
       });
-    };
+    }
 
     it('should match previous screenshot on large screens', (done) => {
       matchesPreviousNumberEditingGrid('lg', done);
@@ -124,17 +131,17 @@ describe('Editable grid', () => {
   });
 
   describe('date text input editing', () => {
-    const matchesPreviousDateTextEditingGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+    function matchesPreviousDateTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-      element(by.css('#edit-btn')).click();
+      element(by.css(editButton)).click();
 
-      element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-date')).click();
+      element(by.css(dateCell)).click();
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-date-${screenSize}`
       });
-    };
+    }
 
     it('should match previous screenshot on large screens', (done) => {
       matchesPreviousDateTextEditingGrid('lg', done);
@@ -146,20 +153,20 @@ describe('Editable grid', () => {
   });
 
   describe('date calendar editing', () => {
-    const matchesPreviousDateCalendarEditingGrid = (screenSize: SkyHostBrowserBreakpoint, done: DoneFn) => {
+    function matchesPreviousDateCalendarEditingGrid (screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-      element(by.css('#edit-btn')).click();
+      element(by.css(editButton)).click();
 
-      SkyHostBrowser.scrollTo('.sky-ag-grid-cell-editable.sky-ag-grid-cell-date');
-      element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-date')).click();
+      SkyHostBrowser.scrollTo(dateCell);
+      element(by.css(dateCell)).click();
 
       element(by.css('.sky-dropdown-button-type-calendar')).click();
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-date-cal-${screenSize}`
       });
-    };
+    }
 
     it('should match previous screenshot on large screens', (done) => {
       matchesPreviousDateCalendarEditingGrid('lg', done);
@@ -171,30 +178,36 @@ describe('Editable grid', () => {
   });
 
   describe('autocomplete input editing', () => {
-    it('should match previous screenshot on large screens', (done) => {
-      SkyHostBrowser.setWindowBreakpoint('lg');
+    function matchesPreviousAutocompleteInputEditingGrid (screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-      element(by.css('#edit-btn')).click();
+      element(by.css(editButton)).click();
 
-      SkyHostBrowser.scrollTo('.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete');
-      element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete')).click();
+      SkyHostBrowser.scrollTo(autocompleteCell);
+      element(by.css(autocompleteCell)).click();
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
-        screenshotName: `editable-grid-edit-autocomplete-input-lg`
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-autocomplete-input-${screenSize}`
       });
+    }
+
+    it('should match previous screenshot on large screens', (done) => {
+      matchesPreviousAutocompleteInputEditingGrid('lg', done);
+    });
+
+    it('should match previous screenshot on extra small screens', (done) => {
+      matchesPreviousAutocompleteInputEditingGrid('xs', done);
     });
   });
 
   describe('autocomplete dropdown editing', () => {
-    it('should match previous screenshot on large screens', (done) => {
-      const input = element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete'));
+    function matchesPreviousAutocompleteDropdownEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
+      const input = element(by.css(autocompleteCell));
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-      SkyHostBrowser.setWindowBreakpoint('lg');
+      element(by.css(editButton)).click();
 
-      element(by.css('#edit-btn')).click();
-
-      SkyHostBrowser.scrollTo('.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete');
-
+      SkyHostBrowser.scrollTo(autocompleteCell);
       input.value = 'j';
       input.click();
       browser.actions().sendKeys('j').perform();
@@ -205,9 +218,17 @@ describe('Editable grid', () => {
         );
       });
 
-      expect('.editable-grid').toMatchBaselineScreenshot(done, {
-        screenshotName: `editable-grid-edit-autocomplete-dropdown-lg`
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-autocomplete-dropdown-${screenSize}`
       });
+    }
+
+    it('should match previous screenshot on large screens', (done) => {
+      matchesPreviousAutocompleteDropdownEditingGrid('lg', done);
+    });
+
+    it('should match previous screenshot on extra small screens', (done) => {
+      matchesPreviousAutocompleteDropdownEditingGrid('xs', done);
     });
   });
 });

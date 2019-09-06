@@ -33,9 +33,6 @@ import {
     SkyAgGridCellEditorNumberModule,
     SkyAgGridCellRendererRowSelectorModule
   ],
-  exports: [
-    AgGridModule
-  ],
   providers: [
     SkyAgGridService
   ],

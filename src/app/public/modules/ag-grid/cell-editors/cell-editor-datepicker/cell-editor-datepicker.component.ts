@@ -6,7 +6,8 @@ import {
 } from '@angular/core';
 
 import {
-  SkyDatepickerInputDirective
+  SkyDatepickerInputDirective,
+  SkyDatepickerComponent
 } from '@skyux/datetime';
 
 import {
@@ -24,14 +25,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngularComp {
-  private params: ICellEditorParams;
-
-  @ViewChild('skyCellEditorDatepickerInput', {read: ElementRef})
-  public datepickerInput: ElementRef;
-
-  @ViewChild(SkyDatepickerInputDirective)
-  public inputDirective: SkyDatepickerInputDirective;
-
   public currentDate: Date;
   public minDate: Date;
   public maxDate: Date;
@@ -40,10 +33,40 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
   public startingDay: number;
   public columnWidth: number;
   public rowHeight: number;
+  private params: ICellEditorParams;
 
-  constructor(private el: ElementRef) {}
+  @ViewChild('skyCellEditorDatepickerInput', { read: ElementRef })
+  private datepickerInput: ElementRef;
 
-  public agInit(params: ICellEditorParams) {
+  @ViewChild(SkyDatepickerInputDirective)
+  private inputDirective: SkyDatepickerInputDirective;
+
+  @ViewChild(SkyDatepickerComponent)
+  private datepickerComponent: SkyDatepickerComponent;
+
+  public get inputIsFocused(): boolean {
+    return this.inputDirective.inputIsFocused;
+  }
+
+  public get buttonIsFocused(): boolean {
+    return this.datepickerComponent.buttonIsFocused;
+  }
+
+  public get calendarIsFocused(): boolean {
+    return this.datepickerComponent.calendarIsFocused;
+  }
+
+  public get calendarIsVisible(): boolean {
+    return this.datepickerComponent.calendarIsVisible;
+  }
+
+  constructor() { }
+
+  /**
+   * agInit is called by agGrid once after the editor is created and provides the editor with the information it needs.
+   * @param params The cell editor params that include data about the cell, column, row, and grid.
+   */
+  public agInit(params: ICellEditorParams): void {
     this.params = params;
     this.currentDate = this.params.value;
     this.columnWidth = this.params.column.getActualWidth();
@@ -59,15 +82,24 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
     }
   }
 
+  /**
+   * afterGuiAttached is called by agGrid after the editor is rendered in the DOM. Once it is attached the editor is ready to be focused on.
+   */
   public afterGuiAttached(): void {
     this.focusOnDatepickerInput();
   }
 
+  /**
+   * getValue is called by agGrid when editing is stopped to get the new value of the cell.
+   */
   public getValue(): Date {
     this.inputDirective.detectInputValueChange();
     return this.currentDate;
   }
 
+  /**
+   * isPopup is called by agGrid to determine if the editor should be rendered as a cell or as a popup over the cell being edited.
+   */
   public isPopup(): boolean {
     return true;
   }
@@ -75,19 +107,16 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
   public onDatepickerKeydown(e: KeyboardEvent): void {
     const targetEl = e.target as HTMLElement;
 
-    if (targetEl && e.keyCode === 9) {
-      const calendarEl = this.el.nativeElement.querySelector('sky-datepicker-calendar');
-      const calendarElStyles = calendarEl && getComputedStyle(calendarEl);
-
-      // stop event propagation to prevent the grid from moving to the next cell if there is an element target, the tab key was pressed, and
-      // the tab key press is a tab right and the target is either an input or
-      if (((!e.shiftKey && (targetEl.tagName === 'INPUT' ||
-      // the calendar button when the calendar is open or
-      (targetEl.tagName === 'BUTTON' && calendarElStyles.visibility === 'visible'))) ||
-      // the tab key press is a tab left and the target is the calendar button or
-      (e.shiftKey && targetEl.tagName === 'BUTTON')) ||
-      // the tab key press is a tab left and the target is the calendar
-      (e.shiftKey && targetEl.tagName === 'SKY-DAYPICKER')) {
+    if (targetEl && e.key.toLowerCase() === 'tab') {
+      // stop event propagation to prevent the grid from moving to the next cell if there is an element target, the tab key was pressed,
+      // the tab key press is a tab right and either the input has focus or
+      if (((!e.shiftKey && (this.inputIsFocused ||
+      // the calendar button has focus when the calendar is open or
+      (this.buttonIsFocused && this.calendarIsVisible))) ||
+      // the tab key press is a tab left and the calendar button has focus
+      (e.shiftKey && this.buttonIsFocused)) ||
+      // the tab key press is a tab left and the calendar has focus
+      (e.shiftKey && this.calendarIsFocused)) {
         e.stopPropagation();
       }
     }
