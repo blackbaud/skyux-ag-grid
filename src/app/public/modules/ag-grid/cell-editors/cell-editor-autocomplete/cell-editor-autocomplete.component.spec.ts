@@ -46,14 +46,14 @@ describe('SkyCellEditorAutocompleteComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('renders an autocomplete input', () => {
+  it('should render an autocomplete input', () => {
     fixture.detectChanges();
 
     let element = nativeElement.querySelector('sky-autocomplete');
     expect(element).toBeVisible();
   });
 
-  describe('#agInit', () => {
+  describe('agInit', () => {
     let cellEditorParams: ICellEditorParams;
     let column: Column;
     const columnWidth = 200;
@@ -94,7 +94,7 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       };
     });
 
-    it('initializes the SkyuxNumericCellEditorComponent properties', () => {
+    it('should initialize the SkyuxNumericCellEditorComponent properties', () => {
       expect(component.currentSelection).toBeUndefined();
       expect(component.columnWidth).toBeUndefined();
       expect(component.rowHeight).toBeUndefined();
@@ -106,7 +106,7 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       expect(component.rowHeight).toBe(38);
     });
 
-    it('sets the cellEditorParams', () => {
+    it('should set the cellEditorParams', () => {
       const debounceTime = 2;
       const descriptorProperty = 'name';
       const propertiesToSearch = ['name', 'town'];
@@ -153,8 +153,8 @@ describe('SkyCellEditorAutocompleteComponent', () => {
     });
   });
 
-  describe('#getValue', () => {
-    it('returns the selected object if one is selected', () => {
+  describe('getValue', () => {
+    it('should return the selected object if one is selected', () => {
       let selection = data[0];
       component.currentSelection = selection;
 
@@ -163,13 +163,13 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       expect(component.getValue()).toEqual(selection);
     });
 
-    it('returns undefined if no value is selected', () => {
+    it('should return undefined if no value is selected', () => {
       expect(component.getValue()).toBeUndefined();
     });
   });
 
-  describe('#afterGuiAttached', () => {
-    it('focuses on the input after it attaches to the DOM', () => {
+  describe('afterGuiAttached', () => {
+    it('should focus on the input after it attaches to the DOM', () => {
       fixture.detectChanges();
 
       const input = nativeElement.querySelector('input');
@@ -182,8 +182,8 @@ describe('SkyCellEditorAutocompleteComponent', () => {
     });
   });
 
-  describe('#isPopup', () => {
-    it('returns true', () => {
+  describe('isPopup', () => {
+    it('should return true', () => {
       expect(component.isPopup()).toBeTruthy();
     });
   });

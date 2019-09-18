@@ -160,6 +160,6 @@ export class SkyAgGridService {
   }
 
   private getIconTemplate(iconName: string): string {
-    return `<sky-icon icon="${iconName}" size="lg"></sky-icon>`;
+    return `<i class="fa fa-${iconName}"></i>`;
   }
 }

@@ -25,6 +25,7 @@
     "ag-grid-community": "^21.0.0",
     "@skyux/datetime": "^3.4.0",
     "@skyux/forms": "^3.0.0",
+    "@skyux/indicators": "^3.0.0",
     "@skyux/lookup": "^3.0.0"
   },
   "dependencies": {},
@@ -69,8 +70,8 @@
     "@skyux/router": "3.1.1",
     "@skyux/theme": "3.7.0",
     "@types/core-js": "2.5.2",
-    "ag-grid-angular": "21.1.0",
-    "ag-grid-community": "21.1.1",
+    "ag-grid-angular": "21.2.1",
+    "ag-grid-community": "21.2.1",
     "codelyzer": "4.5.0",
     "rxjs": "6.5.2",
     "rxjs-compat": "6.5.2",
