@@ -33,6 +33,14 @@ BrowserStackLocal
 # OS specific files
 .DS_Store
 
+# IntelliJ files
+.idea
+
+# SKY UX visual directory
+screenshots-baseline-local
+screenshots-diff-local
+BrowserStackLocal
+
 *.ngfactory.ts
 *.ngsummary.json
 yarn.lock
