@@ -5,7 +5,8 @@
   "main": "bundles/bundle.umd.js",
   "module": "index.ts",
   "scripts": {
-    "build": "skyux build-public-library",
+    "build": "skyux build-public-library && node ./scripts/prepare-package.js",
+    "build:ci": "npm run build",
     "test": "skyux test --coverage library",
     "test:watch": "skyux watch --coverage library",
     "start": "skyux serve --hmr",
