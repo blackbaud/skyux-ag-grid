@@ -1,6 +1,6 @@
 # 3.0.0-rc.1 (2019/10/08)
 
-- Added a custom build step to export `src/app/public/styles/ag-grid-styles.scss` and fixed minor styling issues. [#9](https://github.com/blackbaud/skyux-ag-grid/pull/9)
+- Added a custom build step to export `ag-grid-styles.scss` and fixed minor styling issues. [#9](https://github.com/blackbaud/skyux-ag-grid/pull/9)
 
 # 3.0.0-rc.0 (2019/10/04)
 
