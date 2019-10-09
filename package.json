@@ -1,6 +1,6 @@
 {
   "name": "@skyux/ag-grid",
-  "version": "3.0.0-rc.0",
+  "version": "3.0.0-rc.1",
   "description": "SKY UX styles and utilities to be used with ag-grid.",
   "main": "bundles/bundle.umd.js",
   "module": "index.ts",
