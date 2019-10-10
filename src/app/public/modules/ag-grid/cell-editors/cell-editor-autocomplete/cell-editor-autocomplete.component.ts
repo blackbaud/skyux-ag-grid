@@ -15,8 +15,8 @@ import {
 } from 'ag-grid-angular';
 
 import {
-  ICellEditorParams
-} from 'ag-grid-community';
+  SkyCellEditorParams
+} from '../cell-editor-params';
 
 @Component({
   selector: 'sky-ag-grid-cell-editor-autocomplete',
@@ -43,14 +43,14 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
   public rowHeight: number;
   public columnHeader: string;
   public rowNumber: number;
-  private params: ICellEditorParams;
+  private params: SkyCellEditorParams;
 
   @ViewChild('skyCellEditorAutocomplete', {read: ElementRef})
   public input: ElementRef;
 
   constructor(private libResources: SkyLibResourcesService) { }
 
-  public agInit(params: ICellEditorParams) {
+  public agInit(params: SkyCellEditorParams) {
     this.params = params;
     this.currentSelection = this.params.value;
     this.columnWidth = this.params.column && this.params.column.getActualWidth();
@@ -58,18 +58,18 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
     this.columnHeader = this.params.colDef && this.params.colDef.headerName;
     this.rowNumber = this.params.rowIndex + 1;
 
-    const cellEditorParams = this.params.colDef.cellEditorParams;
-    if (cellEditorParams) {
-      this.data = cellEditorParams.data;
-      this.debounceTime = cellEditorParams.debounceTime;
-      this.descriptorProperty = cellEditorParams.descriptorProperty;
-      this.propertiesToSearch = cellEditorParams.propertiesToSearch;
-      this.search = cellEditorParams.search;
-      this.searchFilters = cellEditorParams.searchFilters;
-      this.searchResultsLimit = cellEditorParams.searchResultsLimit;
-      this.searchResultTemplate = cellEditorParams.searchResultTemplate;
-      this.searchTextMinimumCharacters = cellEditorParams.searchTextMinimumCharacters;
-      this.selectionChange = cellEditorParams.selectionChange;
+    const skyComponentProperties = this.params.skyComponentProperties;
+    if (skyComponentProperties) {
+      this.data = skyComponentProperties.data;
+      this.debounceTime = skyComponentProperties.debounceTime;
+      this.descriptorProperty = skyComponentProperties.descriptorProperty;
+      this.propertiesToSearch = skyComponentProperties.propertiesToSearch;
+      this.search = skyComponentProperties.search;
+      this.searchFilters = skyComponentProperties.searchFilters;
+      this.searchResultsLimit = skyComponentProperties.searchResultsLimit;
+      this.searchResultTemplate = skyComponentProperties.searchResultTemplate;
+      this.searchTextMinimumCharacters = skyComponentProperties.searchTextMinimumCharacters;
+      this.selectionChange = skyComponentProperties.selectionChange;
     }
   }
 

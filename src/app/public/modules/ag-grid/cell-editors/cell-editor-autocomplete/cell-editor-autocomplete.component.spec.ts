@@ -14,13 +14,16 @@ import {
 
 import {
   Column,
-  ICellEditorParams,
   RowNode
 } from 'ag-grid-community';
 
 import {
   SkyAgGridCellEditorAutocompleteComponent
 } from '../cell-editor-autocomplete';
+
+import {
+  SkyCellEditorParams
+} from '../cell-editor-params';
 
 describe('SkyCellEditorAutocompleteComponent', () => {
   let fixture: ComponentFixture<SkyAgGridCellEditorAutocompleteComponent>;
@@ -54,7 +57,7 @@ describe('SkyCellEditorAutocompleteComponent', () => {
   });
 
   describe('agInit', () => {
-    let cellEditorParams: ICellEditorParams;
+    let cellEditorParams: SkyCellEditorParams;
     let column: Column;
     const columnWidth = 200;
     const selection = data[0];
@@ -94,7 +97,7 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       };
     });
 
-    it('should initialize the SkyuxNumericCellEditorComponent properties', () => {
+    it('should initialize the SkyAgGridCellEditorAutocompleteComponent properties', () => {
       expect(component.currentSelection).toBeUndefined();
       expect(component.columnWidth).toBeUndefined();
       expect(component.rowHeight).toBeUndefined();
@@ -106,7 +109,7 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       expect(component.rowHeight).toBe(38);
     });
 
-    it('should set the cellEditorParams', () => {
+    it('should set the skyComponentProperties cellEditorParams', () => {
       const debounceTime = 2;
       const descriptorProperty = 'name';
       const propertiesToSearch = ['name', 'town'];
@@ -117,7 +120,7 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       const searchTextMinimumCharacters = 2;
       const selectionChange = () => {};
 
-      cellEditorParams.colDef.cellEditorParams = {
+      cellEditorParams.skyComponentProperties = {
         debounceTime,
         descriptorProperty,
         propertiesToSearch,

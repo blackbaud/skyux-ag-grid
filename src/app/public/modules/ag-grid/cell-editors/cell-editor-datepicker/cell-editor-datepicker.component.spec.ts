@@ -17,7 +17,6 @@ import {
 
 import {
   Column,
-  ICellEditorParams,
   RowNode
 } from 'ag-grid-community';
 
@@ -33,6 +32,10 @@ import {
 import {
   SkyAgGridCellEditorDatepickerComponent
 } from '../cell-editor-datepicker';
+
+import {
+  SkyCellEditorParams
+} from '../cell-editor-params';
 
 describe('SkyCellEditorDatepickerComponent', () => {
   let datepickerEditorFixture: ComponentFixture<SkyAgGridCellEditorDatepickerComponent>;
@@ -160,7 +163,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   describe('agInit', () => {
-    let cellEditorParams: ICellEditorParams;
+    let cellEditorParams: SkyCellEditorParams;
     let column: Column;
     const columnWidth = 200;
     const rowNode = new RowNode();
@@ -199,7 +202,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
       };
     });
 
-    it('initializes the SkyuxDatepickerCellEditorComponent properties', fakeAsync(() => {
+    it('initializes the SkyAgGridCellEditorDatepickerComponent properties', fakeAsync(() => {
       const dateString = '01/01/2019';
       const date = new Date(dateString);
       const datepicker = SkyTestComponentSelector.selectDatepicker(
@@ -224,14 +227,14 @@ describe('SkyCellEditorDatepickerComponent', () => {
       expect(datepickerEditorComponent.rowHeight).toEqual(38);
     }));
 
-    it('sets the cellEditorParams', () => {
+    it('should set the skyComponentProperties cellEditorParams', () => {
       const startingDay = 1;
       const minDate = new Date('1/1/2019');
       const maxDate = new Date('12/31/2019');
       const disabled = false;
       const dateFormat = 'DD/MM/YYYY';
 
-      cellEditorParams.colDef.cellEditorParams = {
+      cellEditorParams.skyComponentProperties = {
         startingDay,
         minDate,
         maxDate,
