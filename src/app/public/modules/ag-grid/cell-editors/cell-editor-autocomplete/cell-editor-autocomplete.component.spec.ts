@@ -108,49 +108,6 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       expect(component.columnWidth).toBe(columnWidth);
       expect(component.rowHeight).toBe(38);
     });
-
-    it('should set the skyComponentProperties cellEditorParams', () => {
-      const debounceTime = 2;
-      const descriptorProperty = 'name';
-      const propertiesToSearch = ['name', 'town'];
-      const search = () => { return ['result']; };
-      const searchFilters = () => { return true; };
-      const searchResultsLimit = 10;
-      const searchTextMinimumCharacters = 2;
-      const selectionChange = () => {};
-
-      cellEditorParams.skyComponentProperties = {
-        debounceTime,
-        descriptorProperty,
-        propertiesToSearch,
-        search,
-        searchFilters,
-        searchResultsLimit,
-        searchTextMinimumCharacters,
-        selectionChange
-      };
-
-      expect(component.debounceTime).toBeUndefined();
-      expect(component.descriptorProperty).toBeUndefined();
-      expect(component.propertiesToSearch).toBeUndefined();
-      expect(component.search).toBeUndefined();
-      expect(component.searchFilters).toBeUndefined();
-      expect(component.searchResultsLimit).toBeUndefined();
-      expect(component.searchResultTemplate).toBeUndefined();
-      expect(component.searchTextMinimumCharacters).toBeUndefined();
-      expect(component.selectionChange).toBeUndefined();
-
-      component.agInit(cellEditorParams);
-
-      expect(component.debounceTime).toBe(debounceTime);
-      expect(component.descriptorProperty).toBe(descriptorProperty);
-      expect(component.propertiesToSearch).toBe(propertiesToSearch);
-      expect(component.search).toBe(search);
-      expect(component.searchFilters).toBe(searchFilters);
-      expect(component.searchResultsLimit).toBe(searchResultsLimit);
-      expect(component.searchTextMinimumCharacters).toBe(searchTextMinimumCharacters);
-      expect(component.selectionChange).toBe(selectionChange);
-    });
   });
 
   describe('getValue', () => {

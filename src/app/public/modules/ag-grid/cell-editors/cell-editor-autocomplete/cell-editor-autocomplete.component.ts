@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   OnInit,
-  TemplateRef,
   ViewChild
 } from '@angular/core';
 
@@ -19,6 +18,10 @@ import {
   SkyCellEditorAutocompleteParams
 } from './cell-editor-autocomplete-params';
 
+import {
+  SkyAutocompleteProperties
+} from './autocomplete-properties';
+
 @Component({
   selector: 'sky-ag-grid-cell-editor-autocomplete',
   templateUrl: './cell-editor-autocomplete.component.html',
@@ -29,21 +32,11 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
   public currentSelection: any;
   public autocompleteInputLabel: string;
 
-  public data: any[] = [];
-  public debounceTime: number;
-  public descriptorProperty: string;
-  public propertiesToSearch: string[];
-  public search: (searchText: string, data?: any[]) => any[] | Promise<any[]>;
-  public searchFilters: (searchText: string, item: any) => boolean;
-  public searchResultsLimit: number;
-  public searchResultTemplate: TemplateRef<any>;
-  public searchTextMinimumCharacters: number;
-  public selectionChange: Function;
-
   public columnWidth: number;
   public rowHeight: number;
   public columnHeader: string;
   public rowNumber: number;
+  public skyComponentProperties: SkyAutocompleteProperties = {};
   private params: SkyCellEditorAutocompleteParams;
 
   @ViewChild('skyCellEditorAutocomplete', {read: ElementRef})
@@ -58,20 +51,7 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
     this.rowHeight = this.params.node && this.params.node.rowHeight + 1;
     this.columnHeader = this.params.colDef && this.params.colDef.headerName;
     this.rowNumber = this.params.rowIndex + 1;
-
-    const skyComponentProperties = this.params.skyComponentProperties;
-    if (skyComponentProperties) {
-      this.data = skyComponentProperties.data;
-      this.debounceTime = skyComponentProperties.debounceTime;
-      this.descriptorProperty = skyComponentProperties.descriptorProperty;
-      this.propertiesToSearch = skyComponentProperties.propertiesToSearch;
-      this.search = skyComponentProperties.search;
-      this.searchFilters = skyComponentProperties.searchFilters;
-      this.searchResultsLimit = skyComponentProperties.searchResultsLimit;
-      this.searchResultTemplate = skyComponentProperties.searchResultTemplate;
-      this.searchTextMinimumCharacters = skyComponentProperties.searchTextMinimumCharacters;
-      this.selectionChange = skyComponentProperties.selectionChange;
-    }
+    this.skyComponentProperties = this.params.skyComponentProperties || {};
   }
 
   public ngOnInit(): void {

@@ -226,36 +226,6 @@ describe('SkyCellEditorDatepickerComponent', () => {
       expect(datepickerEditorComponent.columnWidth).toEqual(columnWidth);
       expect(datepickerEditorComponent.rowHeight).toEqual(38);
     }));
-
-    it('should set the skyComponentProperties cellEditorParams', () => {
-      const startingDay = 1;
-      const minDate = new Date('1/1/2019');
-      const maxDate = new Date('12/31/2019');
-      const disabled = false;
-      const dateFormat = 'DD/MM/YYYY';
-
-      cellEditorParams.skyComponentProperties = {
-        startingDay,
-        minDate,
-        maxDate,
-        disabled,
-        dateFormat
-      };
-
-      expect(datepickerEditorComponent.startingDay).toBeUndefined();
-      expect(datepickerEditorComponent.minDate).toBeUndefined();
-      expect(datepickerEditorComponent.maxDate).toBeUndefined();
-      expect(datepickerEditorComponent.disabled).toBeUndefined();
-      expect(datepickerEditorComponent.dateFormat).toBeUndefined();
-
-      datepickerEditorComponent.agInit(cellEditorParams);
-
-      expect(datepickerEditorComponent.startingDay).toEqual(startingDay);
-      expect(datepickerEditorComponent.minDate).toEqual(minDate);
-      expect(datepickerEditorComponent.maxDate).toEqual(maxDate);
-      expect(datepickerEditorComponent.disabled).toEqual(disabled);
-      expect(datepickerEditorComponent.dateFormat).toEqual(dateFormat);
-    });
   });
 
   describe('getValue', () => {

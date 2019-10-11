@@ -18,6 +18,10 @@ import {
   SkyCellEditorDatepickerParams
 } from './cell-editor-datepicker-params';
 
+import {
+  SkyDatepickerProperties
+} from './datepicker-properties';
+
 @Component({
   selector: 'sky-ag-grid-cell-editor-datepicker',
   templateUrl: './cell-editor-datepicker.component.html',
@@ -26,13 +30,9 @@ import {
 })
 export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngularComp {
   public currentDate: Date;
-  public minDate: Date;
-  public maxDate: Date;
-  public disabled: boolean;
-  public dateFormat: string;
-  public startingDay: number;
   public columnWidth: number;
   public rowHeight: number;
+  public skyComponentProperties: SkyDatepickerProperties = {};
   private params: SkyCellEditorDatepickerParams;
 
   @ViewChild('skyCellEditorDatepickerInput', { read: ElementRef })
@@ -71,15 +71,7 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
     this.currentDate = this.params.value;
     this.columnWidth = this.params.column.getActualWidth();
     this.rowHeight = this.params.node.rowHeight + 1;
-
-    const skyComponentProperties = this.params.skyComponentProperties;
-    if (skyComponentProperties) {
-      this.minDate = skyComponentProperties.minDate;
-      this.maxDate = skyComponentProperties.maxDate;
-      this.disabled = skyComponentProperties.disabled;
-      this.dateFormat = skyComponentProperties.dateFormat;
-      this.startingDay = skyComponentProperties.startingDay;
-    }
+    this.skyComponentProperties = this.params.skyComponentProperties || {};
   }
 
   /**
