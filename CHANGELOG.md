@@ -1,8 +1,8 @@
 # 3.0.0-rc.2 (2019/10/11)
 
 - Fixed border, font, and hover styling issues. [#11](https://github.com/blackbaud/skyux-ag-grid/pull/11)
-- Added an autocomplete valueFormatter. [#11](https://github.com/blackbaud/skyux-ag-grid/pull/11)
-- Added a namespace and types for passing SKY component properties to cell editors. [#11](https://github.com/blackbaud/skyux-ag-grid/pull/11)
+- Added an autocomplete `valueFormatter` function. [#11](https://github.com/blackbaud/skyux-ag-grid/pull/11)
+- Added a namespace and types for passing SKY UX component properties to cell editors. [#11](https://github.com/blackbaud/skyux-ag-grid/pull/11)
 
 # 3.0.0-rc.1 (2019/10/08)
 
