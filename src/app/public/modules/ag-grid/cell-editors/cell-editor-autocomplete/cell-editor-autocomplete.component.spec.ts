@@ -22,8 +22,8 @@ import {
 } from '../cell-editor-autocomplete';
 
 import {
-  SkyCellEditorParams
-} from '../cell-editor-params';
+  SkyCellEditorAutocompleteParams
+} from './cell-editor-autocomplete-params';
 
 describe('SkyCellEditorAutocompleteComponent', () => {
   let fixture: ComponentFixture<SkyAgGridCellEditorAutocompleteComponent>;
@@ -57,7 +57,7 @@ describe('SkyCellEditorAutocompleteComponent', () => {
   });
 
   describe('agInit', () => {
-    let cellEditorParams: SkyCellEditorParams;
+    let cellEditorParams: SkyCellEditorAutocompleteParams;
     let column: Column;
     const columnWidth = 200;
     const selection = data[0];
@@ -113,10 +113,9 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       const debounceTime = 2;
       const descriptorProperty = 'name';
       const propertiesToSearch = ['name', 'town'];
-      const search = () => {};
-      const searchFilters: any[] = [];
+      const search = () => { return ['result']; };
+      const searchFilters = () => { return true; };
       const searchResultsLimit = 10;
-      const searchResultTemplate = 'template';
       const searchTextMinimumCharacters = 2;
       const selectionChange = () => {};
 
@@ -127,7 +126,6 @@ describe('SkyCellEditorAutocompleteComponent', () => {
         search,
         searchFilters,
         searchResultsLimit,
-        searchResultTemplate,
         searchTextMinimumCharacters,
         selectionChange
       };
@@ -150,7 +148,6 @@ describe('SkyCellEditorAutocompleteComponent', () => {
       expect(component.search).toBe(search);
       expect(component.searchFilters).toBe(searchFilters);
       expect(component.searchResultsLimit).toBe(searchResultsLimit);
-      expect(component.searchResultTemplate).toBe(searchResultTemplate);
       expect(component.searchTextMinimumCharacters).toBe(searchTextMinimumCharacters);
       expect(component.selectionChange).toBe(selectionChange);
     });

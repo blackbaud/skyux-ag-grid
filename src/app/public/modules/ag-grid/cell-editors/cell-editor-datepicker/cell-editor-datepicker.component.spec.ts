@@ -34,8 +34,8 @@ import {
 } from '../cell-editor-datepicker';
 
 import {
-  SkyCellEditorParams
-} from '../cell-editor-params';
+  SkyCellEditorDatepickerParams
+} from './cell-editor-datepicker-params';
 
 describe('SkyCellEditorDatepickerComponent', () => {
   let datepickerEditorFixture: ComponentFixture<SkyAgGridCellEditorDatepickerComponent>;
@@ -163,7 +163,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   describe('agInit', () => {
-    let cellEditorParams: SkyCellEditorParams;
+    let cellEditorParams: SkyCellEditorDatepickerParams;
     let column: Column;
     const columnWidth = 200;
     const rowNode = new RowNode();

@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   OnInit,
+  TemplateRef,
   ViewChild
 } from '@angular/core';
 
@@ -15,8 +16,8 @@ import {
 } from 'ag-grid-angular';
 
 import {
-  SkyCellEditorParams
-} from '../cell-editor-params';
+  SkyCellEditorAutocompleteParams
+} from './cell-editor-autocomplete-params';
 
 @Component({
   selector: 'sky-ag-grid-cell-editor-autocomplete',
@@ -35,7 +36,7 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
   public search: (searchText: string, data?: any[]) => any[] | Promise<any[]>;
   public searchFilters: (searchText: string, item: any) => boolean;
   public searchResultsLimit: number;
-  public searchResultTemplate: string;
+  public searchResultTemplate: TemplateRef<any>;
   public searchTextMinimumCharacters: number;
   public selectionChange: Function;
 
@@ -43,14 +44,14 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
   public rowHeight: number;
   public columnHeader: string;
   public rowNumber: number;
-  private params: SkyCellEditorParams;
+  private params: SkyCellEditorAutocompleteParams;
 
   @ViewChild('skyCellEditorAutocomplete', {read: ElementRef})
   public input: ElementRef;
 
   constructor(private libResources: SkyLibResourcesService) { }
 
-  public agInit(params: SkyCellEditorParams) {
+  public agInit(params: SkyCellEditorAutocompleteParams) {
     this.params = params;
     this.currentSelection = this.params.value;
     this.columnWidth = this.params.column && this.params.column.getActualWidth();
