@@ -91,6 +91,7 @@ export class SkyAgGridService {
           },
           cellEditorFramework: SkyAgGridCellEditorAutocompleteComponent,
           valueFormatter: (params: ValueFormatterParams) => this.autocompleteFormatter(params),
+          comparator: (value1: any, value2: any) => { return this.autocompleteComparator(value1, value2); },
           minWidth: 185
         },
         [SkyCellType.Number]: {
@@ -162,6 +163,20 @@ export class SkyAgGridService {
 
   private autocompleteFormatter(params: ValueFormatterParams): string | undefined {
     return params.value && params.value.name;
+  }
+
+  private autocompleteComparator(value1: {id: string, name: string}, value2: {id: string, name: string}): number {
+    if (value1 && value2 && value1.name > value2.name) {
+      return 1;
+    } else if (value1 && value2 && value1.name < value2.name) {
+      return -1;
+    } else if (value1 && value2 && value1 === value2) {
+      return 0;
+    } else if (value1) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   private getIconTemplate(iconName: string): string {
