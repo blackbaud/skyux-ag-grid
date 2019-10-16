@@ -237,23 +237,23 @@ describe('SkyAgGridService', () => {
     });
 
     it('should return 1 when value1.name comes after value2.name', () => {
-      expect(autocompleteComparator(dog, cat, undefined, undefined, undefined)).toEqual(1);
+      expect(autocompleteComparator(dog, cat)).toEqual(1);
     });
 
     it('should return -1 when value1.name comes before value2.name', () => {
-      expect(autocompleteComparator(cat, dog, undefined, undefined, undefined)).toEqual(-1);
+      expect(autocompleteComparator(cat, dog)).toEqual(-1);
     });
 
     it('should return 0 when value1.name is equal to value2.name', () => {
-      expect(autocompleteComparator(cat, cat, undefined, undefined, undefined)).toEqual(0);
+      expect(autocompleteComparator(cat, cat)).toEqual(0);
     });
 
     it('should return 1 when value1 is defined and value2 is undefined', () => {
-      expect(autocompleteComparator(cat, undefined, undefined, undefined, undefined)).toEqual(1);
+      expect(autocompleteComparator(cat, undefined)).toEqual(1);
     });
 
     it('should return -1 when value2 is defined and value1 is undefined', () => {
-      expect(autocompleteComparator(undefined, dog, undefined, undefined, undefined)).toEqual(-1);
+      expect(autocompleteComparator(undefined, dog)).toEqual(-1);
     });
   });
 
