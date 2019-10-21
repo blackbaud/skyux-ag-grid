@@ -119,10 +119,9 @@ export class SkyAgGridEditModalComponent implements OnInit {
 
     this.gridOptions = {
       columnDefs: this.columnDefs,
-      suppressCellSelection: false,
       onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
     };
-    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
+    this.gridOptions = this.agGridService.getEditableGridOptions({ gridOptions: this.gridOptions });
   }
 
   public onGridReady(gridReadyEvent: GridReadyEvent) {
