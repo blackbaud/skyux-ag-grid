@@ -20,10 +20,10 @@ import {
     FormsModule
   ],
   declarations: [
-  SkyAgGridCellEditorTextComponent
+    SkyAgGridCellEditorTextComponent
   ],
   exports: [
-  SkyAgGridCellEditorTextComponent
+    SkyAgGridCellEditorTextComponent
   ]
 })
 export class SkyAgGridCellEditorTextModule {

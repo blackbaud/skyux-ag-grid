@@ -104,6 +104,7 @@ ag-grid-angular.sky-ag-grid-editable {
   }
 
   .ag-row.ag-row-first {
+    // ag-grid sets the height on the element and the first row does not have a border, we must adjust the row height to account for that.
     height: $row-height - 1 !important;
   }
 

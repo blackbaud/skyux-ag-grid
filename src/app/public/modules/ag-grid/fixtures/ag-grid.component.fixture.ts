@@ -43,7 +43,7 @@ export class SkyAgGridFixtureComponent implements OnInit {
     },
     {
       field: 'nickname',
-      headerName: 'Nick Name',
+      headerName: 'Nickname',
       editable: true,
       type: SkyCellType.Text
     },
