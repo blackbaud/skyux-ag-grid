@@ -130,6 +130,28 @@ describe('Editable grid', () => {
     });
   });
 
+  describe('text editing', () => {
+    function matchesPreviousTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      element(by.css(editButton)).click();
+
+      element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-text')).click();
+
+      expect(editableGrid).toMatchBaselineScreenshot(done, {
+        screenshotName: `editable-grid-edit-text-${screenSize}`
+      });
+    }
+
+    it('should match previous screenshot on large screens', (done) => {
+      matchesPreviousTextEditingGrid('lg', done);
+    });
+
+    it('should match previous screenshot on extra small screens', (done) => {
+      matchesPreviousTextEditingGrid('xs', done);
+    });
+  });
+
   describe('date text input editing', () => {
     function matchesPreviousDateTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
