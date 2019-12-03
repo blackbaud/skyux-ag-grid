@@ -179,7 +179,7 @@ export class SkyAgGridService {
         columnMoveRight: this.getIconTemplate('arrows'),
         columnMovePin: this.getIconTemplate('arrows')
       },
-      onCellKeyPress: this.onKeyPress,
+      onCellKeyPress: (keypress: CellKeyPressEvent) => this.onKeyPress(keypress),
       rowHeight: 38,
       rowMultiSelectWithClick: true,
       rowSelection: 'multiple',

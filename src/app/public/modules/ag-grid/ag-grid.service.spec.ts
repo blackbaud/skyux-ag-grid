@@ -275,7 +275,6 @@ describe('SkyAgGridService', () => {
     let onKeyPressFunction: Function;
     let gridApi: GridApi;
     let keypress: CellKeyPressEvent;
-    let event: KeyboardEvent;
 
     beforeEach(() => {
       onKeyPressFunction = defaultGridOptions.onCellKeyPress;
@@ -300,7 +299,7 @@ describe('SkyAgGridService', () => {
 
     it('should start editing when the enter key was pressed', () => {
       spyOn(gridApi, 'startEditingCell');
-      event = {
+      const event = {
         key: 'Enter'
       } as KeyboardEvent;
       keypress.event = event;
@@ -312,7 +311,7 @@ describe('SkyAgGridService', () => {
 
     it('should not start editing when the space key is pressed', () => {
       spyOn(gridApi, 'startEditingCell');
-      event = {
+      const event = {
         key: 'Space'
       } as KeyboardEvent;
       keypress.event = event;
