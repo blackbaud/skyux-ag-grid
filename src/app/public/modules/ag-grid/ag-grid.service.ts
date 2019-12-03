@@ -211,11 +211,14 @@ export class SkyAgGridService {
     return `<i class="fa fa-${iconName}"></i>`;
   }
 
-  private onKeyPress(keypress: CellKeyPressEvent) {
-    const event: KeyboardEvent = keypress.event as KeyboardEvent;
+  private onKeyPress(keypress: CellKeyPressEvent): void {
+    const event = keypress.event as KeyboardEvent;
 
     if (event.key === 'Enter') {
-      keypress.api.startEditingCell({rowIndex: keypress.rowIndex, colKey: keypress.colDef.colId });
+      keypress.api.startEditingCell({
+        rowIndex: keypress.rowIndex,
+        colKey: keypress.colDef.colId
+      });
     }
   }
 }
