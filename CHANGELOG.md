@@ -1,6 +1,6 @@
-# 3.0.0-rc.6 (2019/12/04)
+# 3.0.0-rc.6 (2020/01/07)
 
-- Fixed the keyboard navigation so that hitting enter while editing a cell saves it and starts editing the next in the column. [#20](https://github.com/blackbaud/skyux-ag-grid/pull/20)
+- Fixed the keyboard navigation so that users can press Enter to save a cell and switch focus to the next cell in the column. [#20](https://github.com/blackbaud/skyux-ag-grid/pull/20)
 
 # 3.0.0-rc.5 (2019/11/04)
 
