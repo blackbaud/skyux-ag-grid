@@ -100,14 +100,5 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     comment: 'Not yet started',
     status: RowStatusNames.CURRENT,
     selected: false
-  },
-  {
-    name: 'Fourth quarter team goal 2',
-    value: 0,
-    startDate: new Date('10/1/2019'),
-    endDate: new Date('12/31/2019'),
-    comment: 'Not yet started',
-    status: RowStatusNames.CURRENT,
-    selected: false
   }
 ];

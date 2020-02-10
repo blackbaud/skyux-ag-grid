@@ -3,6 +3,10 @@ import {
 } from '@angular/core';
 
 import {
+  SkyInfiniteScrollModule
+} from '@skyux/lists';
+
+import {
   SkyToolbarModule
 } from '@skyux/layout';
 
@@ -38,7 +42,8 @@ import {
     SkyAppLinkModule,
     SkyModalModule,
     SkySearchModule,
-    SkyToolbarModule
+    SkyToolbarModule,
+    SkyInfiniteScrollModule
   ],
   providers: [],
   entryComponents: [

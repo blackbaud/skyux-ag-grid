@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   OnInit
 } from '@angular/core';
@@ -20,14 +19,16 @@ import {
   SkyCellType
 } from '../../public';
 
+let nextId = 0;
+
 @Component({
   selector: 'readonly-grid-visual',
   templateUrl: './readonly-grid.component.html',
-  styleUrls: ['./readonly-grid.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./readonly-grid.component.scss']
 })
 export class ReadonlyGridComponent implements OnInit {
   public gridData = READONLY_GRID_DATA;
+  public hasMore = true;
   public gridOptions: GridOptions;
   public columnApi: ColumnApi;
   public columnDefs = [
@@ -50,8 +51,7 @@ export class ReadonlyGridComponent implements OnInit {
     {
       field: 'startDate',
       headerName: 'Start Date',
-      type: SkyCellType.Date,
-      sort: 'asc'
+      type: SkyCellType.Date
     },
     {
       field: 'endDate',
@@ -78,6 +78,37 @@ export class ReadonlyGridComponent implements OnInit {
       onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
     };
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
+  }
+
+  public onScrollEnd(): void {
+    if (this.hasMore) {
+      // MAKE API REQUEST HERE
+      // I am faking an API request because I don't have one to work with
+      this.mockRemote().then((result: any) => {
+        this.gridData = this.gridData.concat(result.data);
+        this.hasMore = result.hasMore;
+      });
+    }
+  }
+
+  public mockRemote(): Promise<any> {
+    const data: any[] = [];
+
+    for (let i = 0; i < 8; i++) {
+      data.push({
+        name: `Item #${++nextId}`
+      });
+    }
+
+    // Simulate async request.
+    return new Promise((resolve: any) => {
+      setTimeout(() => {
+        resolve({
+          data,
+          hasMore: (nextId < 50)
+        });
+      }, 1000);
+    });
   }
 
   public statusRenderer(cellRendererParams: ICellRendererParams): string {

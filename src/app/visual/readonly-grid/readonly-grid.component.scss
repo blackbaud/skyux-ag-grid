@@ -17,3 +17,9 @@
     padding: 0 2px;
   }
 }
+
+.readonly-grid {
+  overflow-y: auto;
+  max-height: 400px;
+  position: relative;
+}
