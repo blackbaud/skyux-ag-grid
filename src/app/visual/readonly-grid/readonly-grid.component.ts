@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 
 import {
-  ColumnApi,
   GridReadyEvent,
   GridOptions,
   ICellRendererParams
@@ -30,23 +29,24 @@ export class ReadonlyGridComponent implements OnInit {
   public gridData = READONLY_GRID_DATA;
   public hasMore = true;
   public gridOptions: GridOptions;
-  public columnApi: ColumnApi;
   public columnDefs = [
     {
       field: 'selected',
       headerName: '',
-      maxWidth: 50,
       sortable: false,
       type: SkyCellType.RowSelector
     },
     {
       field: 'name',
-      headerName: 'Goal Name'
+      headerName: 'Goal Name',
+      autoHeight: true,
+      headerClass: 'sticky'
     },
     {
       field: 'value',
       headerName: 'Current Value',
-      type: SkyCellType.Number
+      type: SkyCellType.Number,
+      maxWidth: 200
     },
     {
       field: 'startDate',
@@ -61,13 +61,18 @@ export class ReadonlyGridComponent implements OnInit {
     {
       field: 'comment',
       headerName: 'Comment',
-      minWidth: 400
+      maxWidth: 500,
+      autoHeight: true,
+      cellRenderer: (params: ICellRendererParams) => {
+        return `<div style="white-space: normal">${params.value || ''}</div>`;
+      }
     },
     {
       field: 'status',
       headerName: 'Status',
       sortable: false,
-      cellRenderer: this.statusRenderer
+      cellRenderer: this.statusRenderer,
+      minWidth: 300
     }];
 
   constructor(private agGridService: SkyAgGridService) { }
@@ -75,7 +80,9 @@ export class ReadonlyGridComponent implements OnInit {
   public ngOnInit(): void {
     this.gridOptions = {
       columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
+      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
+      domLayout: 'autoHeight',
+      alignedGrids: []
     };
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
@@ -92,11 +99,13 @@ export class ReadonlyGridComponent implements OnInit {
   }
 
   public mockRemote(): Promise<any> {
+    const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis a cras semper auctor neque vitae tempus quam. Tempor orci eu lobortis elementum nibh tellus molestie. Tempus imperdiet nulla malesuada pellentesque elit.';
     const data: any[] = [];
 
     for (let i = 0; i < 8; i++) {
       data.push({
-        name: `Item #${++nextId}`
+        name: `Item #${++nextId}`,
+        comment: i % 3 === 0 ? lorem : ''
       });
     }
 
@@ -117,14 +126,17 @@ export class ReadonlyGridComponent implements OnInit {
       [RowStatusNames.CURRENT]: 'fa-clock-o',
       [RowStatusNames.COMPLETE]: 'fa-check'
     };
+    if (cellRendererParams.value) {
     return `<div class="status ${cellRendererParams.value.toLowerCase()}">
               <i class="fa ${iconClassMap[cellRendererParams.value]}"></i> ${cellRendererParams.value}
             </div>`;
+    } else {
+      return '';
+    }
   }
 
   public onGridReady(gridReadyEvent: GridReadyEvent): void {
-    this.columnApi = gridReadyEvent.columnApi;
-
-    this.columnApi.autoSizeColumns(['name', 'value', 'startDate', 'endDate', 'comment', 'status']);
+    gridReadyEvent.api.sizeColumnsToFit();
+    gridReadyEvent.api.resetRowHeights();
   }
 }
