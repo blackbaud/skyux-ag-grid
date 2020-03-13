@@ -180,22 +180,6 @@ describe('SkyAgGridService', () => {
       };
     });
 
-    it('returns a date string in the MM/DD/YYYY format when only a Date object is provided', () => {
-      dateValueFormatterParams.value = new Date('12/1/2019');
-      const formattedDate = dateValueFormatter(dateValueFormatterParams);
-      const fixedFormattedDate = fixLocaleDateString(formattedDate);
-
-      expect(fixedFormattedDate).toEqual('12/01/2019');
-    });
-
-    it('returns a date string in the MM/DD/YYYY format when only a date string is provided', () => {
-      dateValueFormatterParams.value = '3/1/2019';
-      const formattedDate = dateValueFormatter(dateValueFormatterParams);
-      const fixedFormattedDate = fixLocaleDateString(formattedDate);
-
-      expect(fixedFormattedDate).toEqual('03/01/2019');
-    });
-
     it('returns undefined when no date value is provided', () => {
       const formattedDate = dateValueFormatter(dateValueFormatterParams);
 
@@ -236,6 +220,22 @@ describe('SkyAgGridService', () => {
       const fixedFormattedDate = fixLocaleDateString(formattedDate);
 
       expect(fixedFormattedDate).toEqual('01/03/2019');
+    });
+
+    it('returns a date string in the MM/DD/YYYY format when only a Date object is provided', () => {
+      dateValueFormatterParams.value = new Date('12/1/2019');
+      const formattedDate = dateValueFormatter(dateValueFormatterParams);
+      const fixedFormattedDate = fixLocaleDateString(formattedDate);
+
+      expect(fixedFormattedDate).toEqual('12/01/2019');
+    });
+
+    it('returns a date string in the MM/DD/YYYY format when only a date string is provided', () => {
+      dateValueFormatterParams.value = '3/1/2019';
+      const formattedDate = dateValueFormatter(dateValueFormatterParams);
+      const fixedFormattedDate = fixLocaleDateString(formattedDate);
+
+      expect(fixedFormattedDate).toEqual('03/01/2019');
     });
   });
 
