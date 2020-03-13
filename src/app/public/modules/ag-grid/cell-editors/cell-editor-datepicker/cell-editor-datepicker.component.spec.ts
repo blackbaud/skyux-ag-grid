@@ -231,7 +231,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
   describe('getValue', () => {
     it('updates value from input and returns currentDate', () => {
       const previousDate = new Date('1/1/2019');
-      const elementDateValue = '12/1/2019';
+      const elementDateValue = '12/2/2019';
       const elementDate = new Date(elementDateValue);
 
       datepickerEditorComponent.columnWidth = 300;
