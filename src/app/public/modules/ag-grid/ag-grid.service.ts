@@ -204,7 +204,17 @@ export class SkyAgGridService {
 
   private dateFormatter(params: ValueFormatterParams, locale: string = 'en-us'): string | undefined {
     const dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return params.value && params.value.toLocaleDateString(locale, dateConfig);
+    let date: Date = params.value;
+
+    if (date && typeof date === 'string') {
+      date = new Date(params.value);
+    }
+
+    let formattedDate = date && date.toLocaleDateString && date.toLocaleDateString(locale, dateConfig);
+
+    if (formattedDate !== 'Invalid Date') {
+      return formattedDate;
+    }
   }
 
   private getIconTemplate(iconName: string): string {
