@@ -17,7 +17,7 @@ export class EditableGridRow {
 
 export const EDITABLE_GRID_DATA: EditableGridRow[] = [
   {
-    name: 'Yearly team goal 1',
+    name: 'Yearly team goal 1 ',
     value1: 102,
     value2: 77,
     target: 150,
