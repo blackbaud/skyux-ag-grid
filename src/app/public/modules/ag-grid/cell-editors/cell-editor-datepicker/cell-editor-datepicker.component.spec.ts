@@ -16,6 +16,10 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
+  SkyAppWindowRef
+} from '@skyux/core';
+
+import {
   Column,
   RowNode
 } from 'ag-grid-community';
@@ -229,7 +233,28 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   describe('getValue', () => {
-    it('updates value from input and returns currentDate', () => {
+    let mockWindowService: any;
+
+    beforeEach(() => {
+      mockWindowService = {
+        getWindow: () => ({
+          document: {
+            body: { }
+          }
+        })
+      };
+      TestBed.overrideProvider(SkyAppWindowRef, {useValue: mockWindowService});
+    });
+
+    it('should update the value from input and return currentDate', fakeAsync(() => {
+      spyOn(mockWindowService, 'getWindow').and.returnValue(
+        {
+          navigator: {
+            languages: ['en-US']
+          }
+        }
+      );
+
       const previousDate = new Date('1/1/2019');
       const elementDateValue = '12/2/2019';
       const elementDate = new Date(elementDateValue);
@@ -244,8 +269,8 @@ describe('SkyCellEditorDatepickerComponent', () => {
       datepickerEditorFixture.detectChanges();
 
       expect(datepickerEditorComponent.getValue()).toEqual(elementDate);
+     }));
     });
-  });
 
   describe('afterGuiAttached', () => {
     it('focuses on the datepicker input after it attaches to the DOM', () => {
