@@ -22,8 +22,7 @@ export const EDITABLE_GRID_DATA: EditableGridRow[] = [
     value2: 77,
     target: 150,
     dueDate: '2019-12-31T08:44:02.443-05:00',
-    completedDate: new Date('4/15/2019'),
-    primaryContact: { id: '1', name: 'John Doe' }
+    completedDate: new Date('4/15/2019')
   },
   {
     name: 'First quarter team goal 1',
@@ -32,7 +31,8 @@ export const EDITABLE_GRID_DATA: EditableGridRow[] = [
     value3: 54,
     target: 125,
     dueDate: new Date('3/31/2019'),
-    completedDate: '2019-03-28T08:44:02.443-05:00'
+    completedDate: '2019-03-28T08:44:02.443-05:00',
+    primaryContact: { id: '1', name: 'John Doe' }
   },
   {
     name: 'First quarter team goal 2',
