@@ -40,10 +40,10 @@ import {
     AgGridModule,
     SkyAgGridModule,
     SkyAppLinkModule,
+    SkyInfiniteScrollModule,
     SkyModalModule,
     SkySearchModule,
-    SkyToolbarModule,
-    SkyInfiniteScrollModule
+    SkyToolbarModule
   ],
   providers: [],
   entryComponents: [

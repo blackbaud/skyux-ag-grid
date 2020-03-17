@@ -30,17 +30,19 @@ import {
 } from './types';
 
 function autocompleteComparator(value1: {name: string}, value2: {name: string}): number {
-  if (value1 && value2 && value1.name > value2.name) {
-    return 1;
-  } else if (value1 && value2 && value1.name < value2.name) {
-    return -1;
-  } else if (value1 && value2 && value1 === value2) {
+  if (value1 && value2) {
+    if (value1.name > value2.name) {
+      return 1;
+    }
+
+    if (value1.name < value2.name) {
+      return -1;
+    }
+
     return 0;
-  } else if (value1) {
-    return 1;
-  } else {
-    return -1;
   }
+
+  return value1 ? 1 : -1;
 }
 
 function autocompleteFormatter(params: ValueFormatterParams): string | undefined {
@@ -59,17 +61,19 @@ function dateComparator(date1: any, date2: any): number {
     date2value = new Date(date2);
   }
 
-  if (date1value && date2value && date1value > date2value) {
-    return 1;
-  } else if (date1value && date2value && date1value < date2value) {
-    return -1;
-  } else if (date1value && date2value && date1value === date2value) {
+  if (date1value && date2value) {
+    if (date1value > date2value) {
+      return 1;
+    }
+
+    if (date1value < date2value) {
+      return -1;
+    }
+
     return 0;
-  } else if (date1value) {
-    return 1;
-  } else {
-    return -1;
   }
+
+  return date1value ? 1 : -1;
 }
 
 /**
@@ -238,7 +242,7 @@ export class SkyAgGridService {
 
     let formattedDate = date && date.toLocaleDateString && date.toLocaleDateString(locale, dateConfig);
 
-    if (formattedDate !== 'Invalid Date') {
+    if (date && date.getTime && !isNaN(date.getTime())) {
       return formattedDate;
     }
   }

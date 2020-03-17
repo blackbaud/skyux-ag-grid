@@ -13,10 +13,16 @@ import {
   READONLY_GRID_DATA,
   RowStatusNames
 } from './readonly-grid-data';
+
 import {
   SkyAgGridService,
   SkyCellType
 } from '../../public';
+
+import {
+  Observable,
+  Subject
+} from 'rxjs';
 
 let nextId = 0;
 
@@ -91,14 +97,14 @@ export class ReadonlyGridComponent implements OnInit {
     if (this.hasMore) {
       // MAKE API REQUEST HERE
       // I am faking an API request because I don't have one to work with
-      this.mockRemote().then((result: any) => {
+      this.mockRemote().subscribe((result: any) => {
         this.gridData = this.gridData.concat(result.data);
         this.hasMore = result.hasMore;
       });
     }
   }
 
-  public mockRemote(): Promise<any> {
+  public mockRemote(): Observable<any> {
     const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis a cras semper auctor neque vitae tempus quam. Tempor orci eu lobortis elementum nibh tellus molestie. Tempus imperdiet nulla malesuada pellentesque elit.';
     const data: any[] = [];
 
@@ -109,15 +115,16 @@ export class ReadonlyGridComponent implements OnInit {
       });
     }
 
-    // Simulate async request.
-    return new Promise((resolve: any) => {
-      setTimeout(() => {
-        resolve({
-          data,
-          hasMore: (nextId < 50)
-        });
-      }, 1000);
-    });
+    let results = new Subject<any>();
+
+    setTimeout(() => {
+      results.next({
+        data,
+        hasMore: (nextId < 50)
+      });
+    }, 1000);
+
+    return results;
   }
 
   public statusRenderer(cellRendererParams: ICellRendererParams): string {
