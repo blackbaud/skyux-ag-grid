@@ -47,6 +47,31 @@ function autocompleteFormatter(params: ValueFormatterParams): string | undefined
   return params.value && params.value.name;
 }
 
+function dateComparator(date1: any, date2: any): number {
+  let date1value = date1;
+  let date2value = date2;
+
+  if (typeof date1value === 'string') {
+    date1value = new Date(date1);
+  }
+
+  if (typeof date2value === 'string') {
+    date2value = new Date(date2);
+  }
+
+  if (date1value && date2value && date1value > date2value) {
+    return 1;
+  } else if (date1value && date2value && date1value < date2value) {
+    return -1;
+  } else if (date1value && date2value && date1value === date2value) {
+    return 0;
+  } else if (date1value) {
+    return 1;
+  } else {
+    return -1;
+  }
+}
+
 /**
  * A service that provides default styling and behavior for agGrids in SKY UX SPAs.
  */
@@ -135,7 +160,8 @@ export class SkyAgGridService {
             ...editableCellClassRules
           },
           cellEditorFramework: SkyAgGridCellEditorDatepickerComponent,
-          valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale)
+          valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale),
+          comparator: dateComparator
         },
         [SkyCellType.Number]: {
           cellClassRules: {

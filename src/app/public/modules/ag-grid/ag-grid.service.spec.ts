@@ -239,6 +239,38 @@ describe('SkyAgGridService', () => {
     });
   });
 
+  describe('dateComparator', () => {
+    let dateComparator: Function;
+    const earlyDateString = '1/1/19';
+    const lateDateString = '12/1/19';
+    const earlyDate = new Date(earlyDateString);
+    const lateDate = new Date(lateDateString);
+
+    beforeEach(() => {
+      dateComparator = defaultGridOptions.columnTypes[SkyCellType.Date].comparator;
+    });
+
+    it('should return 1 when date1 (object) comes after date2 (string)', () => {
+      expect(dateComparator(lateDate, earlyDateString)).toEqual(1);
+    });
+
+    it('should return -1 when date1 (string) comes before date1 (object)', () => {
+      expect(dateComparator(earlyDateString, lateDate)).toEqual(-1);
+    });
+
+    it('should return 0 when date1 is equal to date2', () => {
+      expect(dateComparator(earlyDate, earlyDate)).toEqual(0);
+    });
+
+    it('should return 1 when value1 is defined and value2 is undefined', () => {
+      expect(dateComparator(earlyDate, undefined)).toEqual(1);
+    });
+
+    it('should return -1 when value2 is defined and value1 is undefined', () => {
+      expect(dateComparator(undefined, lateDate)).toEqual(-1);
+    });
+  });
+
   describe('autocompleteFormatter', () => {
     let autocompleteValueFormatter: Function;
     let autocompleteValueFormatterParams: ValueFormatterParams;
