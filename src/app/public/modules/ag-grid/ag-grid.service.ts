@@ -5,12 +5,9 @@ import {
 import {
   CellClassParams,
   GridOptions,
-  ValueFormatterParams
+  ValueFormatterParams,
+  SuppressKeyboardEventParams
 } from 'ag-grid-community';
-
-import {
-  CellKeyPressEvent
-} from 'ag-grid-community/dist/lib/events';
 
 import {
   SkyAgGridCellEditorAutocompleteComponent,
@@ -28,6 +25,7 @@ import {
   SkyCellType,
   SkyGetGridOptionsArgs
 } from './types';
+import { SkyCoreAdapterService } from '@skyux/core';
 
 function autocompleteComparator(value1: {name: string}, value2: {name: string}): number {
   if (value1 && value2) {
@@ -81,6 +79,8 @@ function dateComparator(date1: any, date2: any): number {
  */
 @Injectable()
 export class SkyAgGridService {
+
+  constructor(private adapterService: SkyCoreAdapterService) {}
 
   /**
    * Get SKY UX gridOptions to create your agGrid with default SKY styling and behavior.
@@ -209,14 +209,22 @@ export class SkyAgGridService {
         columnMoveRight: this.getIconTemplate('arrows'),
         columnMovePin: this.getIconTemplate('arrows')
       },
-      onCellKeyPress: (keypress: CellKeyPressEvent) => this.onKeyPress(keypress),
+      onCellFocused: (): void => {
+        let currentElement = document.activeElement as HTMLElement;
+        let focusableChildren = this.adapterService.getFocusableChildren(currentElement);
+
+        if (focusableChildren.length) {
+          focusableChildren[0].focus();
+        }
+      },
+      suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress),
       rowHeight: 38,
       rowMultiSelectWithClick: true,
       rowSelection: 'multiple',
       singleClickEdit: true,
       sortingOrder: ['desc', 'asc', 'null'],
       stopEditingWhenGridLosesFocus: true,
-      suppressCellSelection: true,
+      suppressRowClickSelection: true,
       suppressDragLeaveHidesColumns: true
     };
 
@@ -251,14 +259,7 @@ export class SkyAgGridService {
     return `<i class="fa fa-${iconName}"></i>`;
   }
 
-  private onKeyPress(keypress: CellKeyPressEvent): void {
-    const event = keypress.event as KeyboardEvent;
-
-    if (event.key === 'Enter') {
-      keypress.api.startEditingCell({
-        rowIndex: keypress.rowIndex,
-        colKey: keypress.colDef.colId
-      });
-    }
+  private suppressTab(params: SuppressKeyboardEventParams): boolean {
+    return params.event.code === 'Tab';
   }
 }

@@ -64,6 +64,12 @@ ag-grid-angular {
   }
 }
 
+ag-grid-angular {
+  button:focus {
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+}
+
 ag-grid-angular.sky-ag-grid-editable {
 
   border: $sky-standard-border;
@@ -117,10 +123,6 @@ ag-grid-angular.sky-ag-grid-editable {
   }
 
   sky-ag-grid-cell-editor-datepicker {
-    button:focus {
-      outline: -webkit-focus-ring-color auto 5px;
-    }
-
     sky-daypicker:focus {
       outline: -webkit-focus-ring-color auto 5px;
     }
@@ -132,6 +134,12 @@ sky-toolbar + ag-grid-angular {
 }
 
 ag-grid-angular + sky-infinite-scroll {
+  .sky-infinite-scroll {
+    margin-top: 0 !important;
+  }
+}
+
+sky-ag-grid + sky-infinite-scroll {
   .sky-infinite-scroll {
     margin-top: 0 !important;
   }

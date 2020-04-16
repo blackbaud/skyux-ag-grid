@@ -14,5 +14,17 @@
   "sky_ag_grid_cell_editor_autocomplete_aria_label": {
     "_description": "aria label for the autocomplete cell editor",
     "message": "Editable autocomplete {0} for row {1}"
+  },
+  "readonly_grid_delete_text": {
+    "_description": "Context menu delete text for readonly grid example",
+    "message": "Delete"
+  },
+  "readonly_grid_inactive_text": {
+    "_description": "Context menu inactive text for readonly grid example",
+    "message": "Mark Inactive"
+  },
+  "readonly_grid_more_info_text": {
+    "_description": "Context menu more info text for readonly grid example",
+    "message": "More Info"
   }
 }

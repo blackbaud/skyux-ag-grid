@@ -15,6 +15,10 @@ import {
 } from './readonly-grid-data';
 
 import {
+  ReadonlyGridContextMenuComponent
+} from './readonly-grid-context-menu.component';
+
+import {
   SkyAgGridService,
   SkyCellType
 } from '../../public';
@@ -42,6 +46,13 @@ export class ReadonlyGridComponent implements OnInit {
       headerName: '',
       sortable: false,
       type: SkyCellType.RowSelector
+    },
+    {
+      colId: 'contextMenu',
+      headerName: '',
+      sortable: false,
+      cellRendererFramework: ReadonlyGridContextMenuComponent,
+      maxWidth: 55
     },
     {
       field: 'name',

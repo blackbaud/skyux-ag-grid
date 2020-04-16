@@ -78,7 +78,7 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
    * afterGuiAttached is called by agGrid after the editor is rendered in the DOM. Once it is attached the editor is ready to be focused on.
    */
   public afterGuiAttached(): void {
-    this.focusOnDatepickerInput();
+    // this.focusOnDatepickerInput();
   }
 
   /**
@@ -94,6 +94,10 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
    */
   public isPopup(): boolean {
     return true;
+  }
+
+  public onDatepickerClick(e: Event): void {
+    e.preventDefault();
   }
 
   public onDatepickerKeydown(e: KeyboardEvent): void {

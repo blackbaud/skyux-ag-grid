@@ -1,0 +1,30 @@
+<sky-dropdown
+  buttonType="context-menu"
+>
+  <sky-dropdown-menu>
+    <sky-dropdown-item>
+      <button
+        type="button"
+        (click)="actionClicked('Delete')"
+      >
+        {{ 'readonly_grid_delete_text' | skyAppResources }}
+      </button>
+    </sky-dropdown-item>
+    <sky-dropdown-item>
+      <button
+        type="button"
+        (click)="actionClicked('Mark inactive')"
+      >
+        {{ 'readonly_grid_inactive_text' | skyAppResources }}
+      </button>
+    </sky-dropdown-item>
+    <sky-dropdown-item>
+      <button
+        type="button"
+        (click)="actionClicked('More info')"
+      >
+        {{ 'readonly_grid_more_info_text' | skyAppResources }}
+      </button>
+    </sky-dropdown-item>
+  </sky-dropdown-menu>
+</sky-dropdown>

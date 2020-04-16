@@ -1,0 +1,15 @@
+<div
+  class="sky-ag-grid"
+  id="sky-ag-grid"
+  tabindex="0"
+  (keydown)="onGridKeydown($event)"
+>
+  <ng-content></ng-content>
+  <span
+    class="nav-anchor"
+    id="nav-anchor"
+    tabindex="0"
+    (focus)="onAnchorFocus($event)"
+  >
+  </span>
+</div>
