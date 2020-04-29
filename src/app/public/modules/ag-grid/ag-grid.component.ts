@@ -31,7 +31,7 @@ export class SkyAgGridComponent {
       if (event.key === 'Tab') {
         const inEditMode = this.agGrid.api.getEditingCells().length > 0;
         if (!inEditMode) {
-          const idToFocus = event.shiftKey ? 'sky-ag-grid' : 'nav-anchor';
+          const idToFocus = event.shiftKey ? 'nav-anchor-before' : 'nav-anchor-after';
           this.setFocusById(idToFocus);
         }
       } else if (event.key === 'Enter' && target.id === 'sky-ag-grid') {
@@ -51,13 +51,24 @@ export class SkyAgGridComponent {
     const relatedTarget = event.relatedTarget as HTMLElement;
     const previousFocusedId = relatedTarget && relatedTarget.id;
     const previousWasCell = relatedTarget && this.isGridCell(relatedTarget);
+    console.log(relatedTarget);
 
     if (previousFocusedId !== gridId && !previousWasCell) {
       this.setFocusById(gridId);
     }
   }
 
-  public setFocusById(id: string): void {
+  public onGridFocus(): void {
+    const columns = this.agGrid.columnApi.getAllDisplayedColumns();
+    const firstColumn = columns && columns[0];
+    const rowIndex = this.agGrid.api.getFirstDisplayedRow();
+
+    if (firstColumn && rowIndex >= 0) {
+      this.agGrid.api.setFocusedCell(rowIndex, firstColumn);
+    }
+  }
+
+  private setFocusById(id: string): void {
     this.elementRef.nativeElement.querySelector(`#${id}`).focus();
   }
 

@@ -6,7 +6,9 @@ import {
 import {
   GridReadyEvent,
   GridOptions,
-  ICellRendererParams
+  ICellRendererParams,
+  GridApi,
+  IGetRowsParams
 } from 'ag-grid-community';
 
 import {
@@ -39,6 +41,7 @@ export class ReadonlyGridComponent implements OnInit {
   public gridData = READONLY_GRID_DATA;
   public hasMore = true;
   public gridOptions: GridOptions;
+  public gridApi: GridApi;
   public columnDefs = [
     {
       field: 'selected',
@@ -99,8 +102,11 @@ export class ReadonlyGridComponent implements OnInit {
     this.gridOptions = {
       columnDefs: this.columnDefs,
       onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
-      domLayout: 'autoHeight',
-      alignedGrids: []
+      domLayout: 'normal',
+      rowModelType: 'infinite',
+      infiniteInitialRowCount: 100,
+      maxBlocksInCache: 2,
+      rowBuffer: 20
     };
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
@@ -110,7 +116,7 @@ export class ReadonlyGridComponent implements OnInit {
       // MAKE API REQUEST HERE
       // I am faking an API request because I don't have one to work with
       this.mockRemote().subscribe((result: any) => {
-        this.gridData = this.gridData.concat(result.data);
+        this.gridApi.updateRowData({add: result.data});
         this.hasMore = result.hasMore;
       });
     }
@@ -155,7 +161,29 @@ export class ReadonlyGridComponent implements OnInit {
   }
 
   public onGridReady(gridReadyEvent: GridReadyEvent): void {
-    gridReadyEvent.api.sizeColumnsToFit();
-    gridReadyEvent.api.resetRowHeights();
+    this.gridApi = gridReadyEvent.api;
+    this.gridApi.setDatasource({
+      getRows: (params: IGetRowsParams): void => this.getData(params)
+    });
+    this.gridApi.sizeColumnsToFit();
+    this.gridApi.resetRowHeights();
+  }
+
+  protected getData(params: IGetRowsParams): void {
+    const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis a cras semper auctor neque vitae tempus quam. Tempor orci eu lobortis elementum nibh tellus molestie. Tempus imperdiet nulla malesuada pellentesque elit.';
+    const data: any[] = [];
+
+    for (let i = params.startRow; i < params.endRow; i++) {
+      data.push({
+        name: `Item #${i}`,
+        comment: i % 3 === 0 ? lorem : ''
+      });
+    }
+
+    setTimeout(() => {
+      params.successCallback(data, params.endRow + 1);
+      this.gridApi.resetRowHeights();
+    }, 1500);
+
   }
 }

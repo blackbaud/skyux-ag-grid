@@ -25,7 +25,7 @@ export class ReadonlyGridContextMenuComponent implements ICellRendererAngularCom
 
   public agInit(params: ICellRendererParams): void {
     this.params = params;
-    this.goalName = this.params.data.name;
+    this.goalName = this.params.data && this.params.data.name;
   }
 
   public refresh(): boolean {

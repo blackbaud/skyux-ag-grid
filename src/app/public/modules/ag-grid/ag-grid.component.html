@@ -1,15 +1,23 @@
+  <span
+  class="nav-anchor"
+  id="nav-anchor-before"
+  tabindex="0"
+  (focus)="onAnchorFocus($event)"
+>
+</span>
 <div
   class="sky-ag-grid"
   id="sky-ag-grid"
   tabindex="0"
+  (focus)="onGridFocus()"
   (keydown)="onGridKeydown($event)"
 >
   <ng-content></ng-content>
-  <span
-    class="nav-anchor"
-    id="nav-anchor"
-    tabindex="0"
-    (focus)="onAnchorFocus($event)"
-  >
-  </span>
 </div>
+<span
+class="nav-anchor"
+id="nav-anchor-after"
+tabindex="0"
+(focus)="onAnchorFocus($event)"
+>
+</span>

@@ -10,6 +10,10 @@ import {
 } from 'ag-grid-community';
 
 import {
+  SkyCoreAdapterService
+} from '@skyux/core';
+
+import {
   SkyAgGridCellEditorAutocompleteComponent,
   SkyAgGridCellEditorDatepickerComponent,
   SkyAgGridCellEditorNumberComponent,
@@ -25,7 +29,6 @@ import {
   SkyCellType,
   SkyGetGridOptionsArgs
 } from './types';
-import { SkyCoreAdapterService } from '@skyux/core';
 
 function autocompleteComparator(value1: {name: string}, value2: {name: string}): number {
   if (value1 && value2) {
@@ -223,7 +226,7 @@ export class SkyAgGridService {
       rowSelection: 'multiple',
       singleClickEdit: true,
       sortingOrder: ['desc', 'asc', 'null'],
-      stopEditingWhenGridLosesFocus: true,
+      stopEditingWhenGridLosesFocus: false,
       suppressRowClickSelection: true,
       suppressDragLeaveHidesColumns: true
     };

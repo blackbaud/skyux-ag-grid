@@ -11,7 +11,6 @@ import {
 } from '@blackbaud/skyux-lib-testing';
 
 import {
-  SkyAppTestUtility,
   expect
 } from '@skyux-sdk/testing';
 
@@ -267,77 +266,6 @@ describe('SkyCellEditorDatepickerComponent', () => {
   describe('isPopup', () => {
     it('returns true', () => {
       expect(datepickerEditorComponent.isPopup()).toBeTruthy();
-    });
-  });
-
-  describe('onDatepickerKeydown', () => {
-    const validateTabbingEventPropagation = (isTabLeft: boolean, isPropagated: boolean, key: string = 'tab') => {
-      const datepickerInputEl = datepickerEditorFixture.nativeElement.querySelector('input');
-      const stopPropagationSpy = jasmine.createSpy();
-
-      SkyAppTestUtility.fireDomEvent(datepickerInputEl, 'keydown', {
-        keyboardEventInit: {
-          key,
-          shiftKey: isTabLeft
-        },
-        customEventInit: {
-          stopPropagation: stopPropagationSpy
-        }
-      });
-
-      if (isPropagated) {
-        expect(stopPropagationSpy).toHaveBeenCalled();
-      } else {
-        expect(stopPropagationSpy).not.toHaveBeenCalled();
-      }
-    };
-
-    it('stops event propagation for tab right keydown when the datepicker input has focus', () => {
-      spyOnProperty(datepickerEditorComponent, 'inputIsFocused').and.returnValue(true);
-
-      validateTabbingEventPropagation(false, true);
-    });
-
-    it('stops event propagation for tab left keydown when the calendar button has focus', () => {
-      datepickerEditorFixture.detectChanges();
-
-      spyOnProperty(datepickerEditorComponent, 'buttonIsFocused').and.returnValue(true);
-
-      validateTabbingEventPropagation(true, true);
-    });
-
-    it('stops event propagation for tab right keydown when the calendar button has focus and the calendar is open', async(() => {
-      datepickerEditorFixture.detectChanges();
-
-      spyOnProperty(datepickerEditorComponent, 'buttonIsFocused').and.returnValue(true);
-      spyOnProperty(datepickerEditorComponent, 'calendarIsVisible').and.returnValue(true);
-
-      validateTabbingEventPropagation(false, true);
-    }));
-
-    it('stops event propagation for tab left keydown when the daypicker has focus and the calendar is visible', async(() => {
-      datepickerEditorFixture.detectChanges();
-
-      const calendarButtonEl = datepickerEditorFixture.nativeElement.querySelector('.sky-dropdown-button-type-calendar');
-      calendarButtonEl.click();
-
-      spyOnProperty(datepickerEditorComponent, 'calendarIsFocused').and.returnValue(true);
-      spyOnProperty(datepickerEditorComponent, 'calendarIsVisible').and.returnValue(true);
-
-      validateTabbingEventPropagation(true, true);
-    }));
-
-    it('does not stop event propagation for tab right keydown when the calendar button has focus and the calendar is not visible', () => {
-      datepickerEditorFixture.detectChanges();
-
-      spyOnProperty(datepickerEditorComponent, 'buttonIsFocused').and.returnValue(true);
-      spyOnProperty(datepickerEditorComponent, 'calendarIsVisible').and.returnValue(false);
-
-      validateTabbingEventPropagation(false, false);
-    });
-
-    it('does not stop event propagation for non-tab key presses', () => {
-      validateTabbingEventPropagation(false, false, 'space');
     });
   });
 

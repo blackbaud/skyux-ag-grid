@@ -78,7 +78,7 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
    * afterGuiAttached is called by agGrid after the editor is rendered in the DOM. Once it is attached the editor is ready to be focused on.
    */
   public afterGuiAttached(): void {
-    // this.focusOnDatepickerInput();
+    this.focusOnDatepickerInput();
   }
 
   /**
@@ -96,26 +96,12 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
     return true;
   }
 
-  public onDatepickerClick(e: Event): void {
-    e.preventDefault();
+  public test(event: Event) {
+    console.log('hello');
   }
 
-  public onDatepickerKeydown(e: KeyboardEvent): void {
-    const targetEl = e.target as HTMLElement;
-
-    if (targetEl && e.key.toLowerCase() === 'tab') {
-      // stop event propagation to prevent the grid from moving to the next cell if there is an element target, the tab key was pressed,
-      // the tab key press is a tab right and either the input has focus or
-      if (((!e.shiftKey && (this.inputIsFocused ||
-      // the calendar button has focus when the calendar is open or
-      (this.buttonIsFocused && this.calendarIsVisible))) ||
-      // the tab key press is a tab left and the calendar button has focus
-      (e.shiftKey && this.buttonIsFocused)) ||
-      // the tab key press is a tab left and the calendar has focus
-      (e.shiftKey && this.calendarIsFocused)) {
-        e.stopPropagation();
-      }
-    }
+  public blah(event: Event) {
+    console.log('meh');
   }
 
   public focusOnDatepickerInput(): void {
