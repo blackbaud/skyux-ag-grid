@@ -1,9 +1,5 @@
 @import '~@skyux/theme/scss/mixins';
 
-.readonly-grid ag-grid-angular {
-  height: 600px;
-}
-
 ::ng-deep {
   .complete i {
     color: $sky-highlight-color-success;
