@@ -1,6 +1,18 @@
-<ag-grid-angular
-  class="sky-ag-grid-editable"
-  [gridOptions]="gridOptions"
-  [rowData]="gridData"
+<button
+  id="button-before-grid"
 >
-</ag-grid-angular>
+  Button before
+</button>
+<sky-ag-grid-wrapper>
+  <ag-grid-angular
+    class="sky-ag-grid-editable"
+    [gridOptions]="gridOptions"
+    [rowData]="gridData"
+  >
+  </ag-grid-angular>
+</sky-ag-grid-wrapper>
+<button
+  id="button-after-grid"
+>
+  Button after
+</button>

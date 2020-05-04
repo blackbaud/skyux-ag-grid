@@ -1,13 +1,13 @@
-  <span
+<span
   class="nav-anchor"
-  id="nav-anchor-before"
+  [id]="beforeAnchorId"
   tabindex="0"
   (focus)="onAnchorFocus($event)"
 >
 </span>
 <div
   class="sky-ag-grid"
-  id="sky-ag-grid"
+  [id]="gridId"
   tabindex="0"
   (focus)="onGridFocus()"
   (keydown)="onGridKeydown($event)"
@@ -16,7 +16,7 @@
 </div>
 <span
 class="nav-anchor"
-id="nav-anchor-after"
+[id]="afterAnchorId"
 tabindex="0"
 (focus)="onAnchorFocus($event)"
 >

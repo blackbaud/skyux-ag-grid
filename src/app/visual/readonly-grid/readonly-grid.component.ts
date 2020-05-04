@@ -59,8 +59,7 @@ export class ReadonlyGridComponent implements OnInit {
     {
       field: 'name',
       headerName: 'Goal Name',
-      autoHeight: true,
-      headerClass: 'sticky'
+      autoHeight: true
     },
     {
       field: 'value',
@@ -100,8 +99,7 @@ export class ReadonlyGridComponent implements OnInit {
   public ngOnInit(): void {
     this.gridOptions = {
       columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
-      domLayout: 'autoHeight'
+      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
     };
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }

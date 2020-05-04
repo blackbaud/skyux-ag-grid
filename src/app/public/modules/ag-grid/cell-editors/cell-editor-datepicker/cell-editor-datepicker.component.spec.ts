@@ -7,17 +7,17 @@ import {
 } from '@angular/core/testing';
 
 import {
+  Column,
+  RowNode
+} from 'ag-grid-community';
+
+import {
   SkyTestComponentSelector
 } from '@blackbaud/skyux-lib-testing';
 
 import {
   expect
 } from '@skyux-sdk/testing';
-
-import {
-  Column,
-  RowNode
-} from 'ag-grid-community';
 
 import {
   SkyCellClass
@@ -80,85 +80,19 @@ describe('SkyCellEditorDatepickerComponent', () => {
       expect(datepickerEditorElement).toBeVisible();
     });
 
-    it('opens a datepicker calendar', () => {
-      dateCellElement.click();
+    // it('opens a datepicker calendar', () => {
+    //   dateCellElement.click();
 
-      const datepicker = SkyTestComponentSelector.selectDatepicker(
-        gridFixture,
-        'cell-datepicker'
-      );
+    //   const datepicker = SkyTestComponentSelector.selectDatepicker(
+    //     gridFixture,
+    //     'cell-datepicker'
+    //   );
 
-      datepicker.clickDatepickerCalenderButtonEl();
+    //   datepicker.clickDatepickerCalenderButtonEl();
 
-      const calendar = gridNativeElement.querySelector('sky-datepicker-calendar');
-      expect(calendar).toBeVisible();
-    });
-  });
-
-  describe('focus properties', () => {
-    type focusProperty = 'buttonIsFocused' | 'calendarIsFocused' | 'inputIsFocused';
-
-    function validateFocus(hasFocus: boolean, focusPropertyName: focusProperty, focusedEl?: HTMLElement): void {
-      if (hasFocus && focusedEl) {
-        focusedEl.focus();
-      }
-
-      expect(datepickerEditorComponent[focusPropertyName]).toBe(hasFocus);
-    }
-
-    function validateCalendarFocus(hasFocus: boolean, focusedEl?: HTMLElement): void {
-      const datepicker = SkyTestComponentSelector.selectDatepicker(
-        datepickerEditorFixture,
-        'cell-datepicker'
-      );
-
-      datepicker.clickDatepickerCalenderButtonEl();
-      datepickerEditorFixture.detectChanges();
-      tick();
-
-      validateFocus(hasFocus, 'calendarIsFocused', focusedEl);
-    }
-
-    it('should reflect the state of focus for the datepicker editor', fakeAsync(() => {
-      datepickerEditorFixture.detectChanges();
-      const inputEl = datepickerEditorNativeElement.querySelector('input') as HTMLElement;
-      const buttonEl = datepickerEditorNativeElement.querySelector('.sky-dropdown-button') as HTMLElement;
-      const dropdownContainerEl = datepickerEditorNativeElement.querySelector('.sky-popover-container') as HTMLElement;
-      const selectedDayEl = datepickerEditorNativeElement.querySelector('td .sky-datepicker-btn-selected') as HTMLElement;
-
-      expect(inputEl).toBeDefined();
-      expect(buttonEl).toBeDefined();
-      expect(dropdownContainerEl).toBeDefined();
-      expect(selectedDayEl).toBeDefined();
-
-      validateFocus(false, 'inputIsFocused');
-      validateFocus(true, 'inputIsFocused', inputEl);
-      validateFocus(false, 'buttonIsFocused');
-      validateFocus(true, 'buttonIsFocused', buttonEl);
-
-      validateCalendarFocus(false);
-      validateCalendarFocus(true, dropdownContainerEl);
-      validateCalendarFocus(true, selectedDayEl);
-    }));
-  });
-
-  describe('calendarIsVisible property', () => {
-    it('should reflect the visibility of the calendar element', fakeAsync(() => {
-      datepickerEditorFixture.detectChanges();
-      const datepicker = SkyTestComponentSelector.selectDatepicker(
-        datepickerEditorFixture,
-        'cell-datepicker'
-      );
-
-      expect(datepickerEditorComponent.calendarIsVisible).toBe(false);
-
-      datepicker.clickDatepickerCalenderButtonEl();
-      datepickerEditorFixture.detectChanges();
-      tick();
-      datepickerEditorFixture.detectChanges();
-
-      expect(datepickerEditorComponent.calendarIsVisible).toBe(true);
-    }));
+    //   const calendar = gridNativeElement.querySelector('sky-datepicker-calendar');
+    //   expect(calendar).toBeVisible();
+    // });
   });
 
   describe('agInit', () => {
@@ -278,19 +212,19 @@ describe('SkyCellEditorDatepickerComponent', () => {
     expect(datepickerEditorNativeElement).toBeAccessible();
   }));
 
-  it('should pass accessibility with calendar open', async(() => {
-    const datepicker = SkyTestComponentSelector.selectDatepicker(
-      datepickerEditorFixture,
-      'cell-datepicker'
-    );
+  // it('should pass accessibility with calendar open', async(() => {
+  //   const datepicker = SkyTestComponentSelector.selectDatepicker(
+  //     datepickerEditorFixture,
+  //     'cell-datepicker'
+  //   );
 
-    datepickerEditorComponent.columnWidth = 300;
-    datepickerEditorComponent.rowHeight = 37;
+  //   datepickerEditorComponent.columnWidth = 300;
+  //   datepickerEditorComponent.rowHeight = 37;
 
-    datepickerEditorFixture.detectChanges();
+  //   datepickerEditorFixture.detectChanges();
 
-    datepicker.clickDatepickerCalenderButtonEl();
+  //   datepicker.clickDatepickerCalenderButtonEl();
 
-    expect(datepickerEditorNativeElement).toBeAccessible();
-  }));
+  //   expect(datepickerEditorNativeElement).toBeAccessible();
+  // }));
 });

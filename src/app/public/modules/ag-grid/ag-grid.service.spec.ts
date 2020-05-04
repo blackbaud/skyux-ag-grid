@@ -355,26 +355,21 @@ describe('SkyAgGridService', () => {
         context: undefined,
         data: undefined,
         editing: true,
-        event: keypress,
+        event: undefined,
         node: undefined
       };
     });
 
     it('should return true to suppress the event when the tab key is pressed', () => {
       keypress = new KeyboardEvent('keypress', { code: 'Tab' });
+      params.event = keypress;
       expect(suppressKeypressFunction(params)).toBe(true);
     });
 
-    it('should not start editing when the space key is pressed', () => {
-      spyOn(gridApi, 'startEditingCell');
-      const event = {
-        key: 'Space'
-      } as KeyboardEvent;
-      keypress.event = event;
-
-      suppressKeypressFunction(keypress);
-
-      expect(gridApi.startEditingCell).not.toHaveBeenCalled();
+    it('should return false for non-tab keys to allow the keypress event', () => {
+      keypress = new KeyboardEvent('keypress', { code: 'Enter' });
+      params.event = keypress;
+      expect(suppressKeypressFunction(params)).toBe(false);
     });
   });
 

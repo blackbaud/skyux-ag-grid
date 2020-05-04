@@ -28,12 +28,12 @@
       </button>
     </sky-toolbar-item>
   </sky-toolbar>
-  <sky-ag-grid>
+  <sky-ag-grid-wrapper>
     <ag-grid-angular
       [ngClass]="{'sky-ag-grid-editable': editMode}"
       [gridOptions]="gridOptions"
       [rowData]="gridData"
     >
     </ag-grid-angular>
-  </sky-ag-grid>
+  </sky-ag-grid-wrapper>
 </div>

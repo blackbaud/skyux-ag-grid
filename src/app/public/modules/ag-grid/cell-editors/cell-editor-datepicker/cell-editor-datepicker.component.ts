@@ -6,8 +6,7 @@ import {
 } from '@angular/core';
 
 import {
-  SkyDatepickerInputDirective,
-  SkyDatepickerComponent
+  SkyDatepickerInputDirective
 } from '@skyux/datetime';
 
 import {
@@ -40,25 +39,6 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
 
   @ViewChild(SkyDatepickerInputDirective)
   private inputDirective: SkyDatepickerInputDirective;
-
-  @ViewChild(SkyDatepickerComponent)
-  private datepickerComponent: SkyDatepickerComponent;
-
-  public get inputIsFocused(): boolean {
-    return this.inputDirective.inputIsFocused;
-  }
-
-  public get buttonIsFocused(): boolean {
-    return this.datepickerComponent.buttonIsFocused;
-  }
-
-  public get calendarIsFocused(): boolean {
-    return this.datepickerComponent.calendarIsFocused;
-  }
-
-  public get calendarIsVisible(): boolean {
-    return this.datepickerComponent.calendarIsVisible;
-  }
 
   constructor() { }
 
@@ -94,14 +74,6 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
    */
   public isPopup(): boolean {
     return true;
-  }
-
-  public test(event: Event) {
-    console.log('hello');
-  }
-
-  public blah(event: Event) {
-    console.log('meh');
   }
 
   public focusOnDatepickerInput(): void {

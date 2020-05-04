@@ -15,8 +15,8 @@ import {
 } from './ag-grid.service';
 
 import {
-  SkyAgGridComponent
-} from './ag-grid.component';
+  SkyAgGridWrapperComponent
+} from './ag-grid-wrapper.component';
 
 import {
   SkyAgGridCellEditorAutocompleteComponent,
@@ -36,7 +36,7 @@ import {
 
 @NgModule({
   declarations: [
-    SkyAgGridComponent
+    SkyAgGridWrapperComponent
   ],
   imports: [
     AgGridModule,
@@ -48,7 +48,7 @@ import {
     SkyCoreAdapterModule
   ],
   exports: [
-    SkyAgGridComponent
+    SkyAgGridWrapperComponent
   ],
   providers: [
     SkyAgGridService
