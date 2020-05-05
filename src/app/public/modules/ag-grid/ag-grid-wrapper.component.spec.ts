@@ -17,7 +17,7 @@ import {
   SkyAgGridWrapperComponent
 } from '.';
 
-describe('SkyAgGridWrapperComponent', () => {
+fdescribe('SkyAgGridWrapperComponent', () => {
   let gridFixture: ComponentFixture<SkyAgGridFixtureComponent>;
   let gridComponent: SkyAgGridFixtureComponent;
   let skyAgGridWrapperComponent: SkyAgGridWrapperComponent;
@@ -73,7 +73,7 @@ describe('SkyAgGridWrapperComponent', () => {
       expect(document.activeElement).toEqual(focusedEl);
     });
 
-    fit('should not move focus when a non-tab key is pressed', () => {
+    it('should not move focus when a non-tab key is pressed', () => {
       const focusedEl = document.activeElement;
 
       console.log('the focused element');
