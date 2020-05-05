@@ -6,12 +6,10 @@ import {
   CellClassParams,
   ColumnApi,
   GridOptions,
-  SuppressKeyboardEventParams,
   ValueFormatterParams
 } from 'ag-grid-community';
 
 import {
-  SkyAppTestUtility,
   expect
 } from '@skyux-sdk/testing';
 
