@@ -76,8 +76,6 @@ describe('SkyAgGridWrapperComponent', () => {
     it('should not move focus when a non-tab key is pressed', () => {
       const focusedEl = document.activeElement;
 
-      console.log('the focused element');
-      console.log(focusedEl);
       fireKeydownOnGrid('L', false);
 
       expect(document.activeElement).toEqual(focusedEl);

@@ -11,6 +11,11 @@ import {
 } from 'ag-grid-community';
 
 import {
+  SkyAppTestUtility,
+  expect
+} from '@skyux-sdk/testing';
+
+import {
   SkyCoreAdapterService
 } from '@skyux/core';
 
@@ -339,36 +344,18 @@ describe('SkyAgGridService', () => {
 
   describe('suppressKeyboardEvent', () => {
     let suppressKeypressFunction: Function;
-    let params: SuppressKeyboardEventParams;
-    let keypress: KeyboardEvent;
 
     beforeEach(() => {
       suppressKeypressFunction = defaultGridOptions.suppressKeyboardEvent;
-
-      params = {
-        api: undefined,
-        colDef: {
-          colId: 'test'
-        },
-        column: undefined,
-        columnApi: undefined,
-        context: undefined,
-        data: undefined,
-        editing: true,
-        event: undefined,
-        node: undefined
-      };
     });
 
     it('should return true to suppress the event when the tab key is pressed', () => {
-      keypress = new KeyboardEvent('keypress', { code: 'Tab' });
-      params.event = keypress;
+      const params = { event: { code: 'Tab' }};
       expect(suppressKeypressFunction(params)).toBe(true);
     });
 
     it('should return false for non-tab keys to allow the keypress event', () => {
-      keypress = new KeyboardEvent('keypress', { code: 'Enter' });
-      params.event = keypress;
+      const params = { event: { code: 'Enter' }};
       expect(suppressKeypressFunction(params)).toBe(false);
     });
   });
