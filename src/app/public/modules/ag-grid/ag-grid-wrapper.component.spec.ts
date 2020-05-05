@@ -17,7 +17,7 @@ import {
   SkyAgGridWrapperComponent
 } from '.';
 
-fdescribe('SkyAgGridWrapperComponent', () => {
+describe('SkyAgGridWrapperComponent', () => {
   let gridFixture: ComponentFixture<SkyAgGridFixtureComponent>;
   let gridComponent: SkyAgGridFixtureComponent;
   let skyAgGridWrapperComponent: SkyAgGridWrapperComponent;
@@ -63,7 +63,7 @@ fdescribe('SkyAgGridWrapperComponent', () => {
       gridFixture.detectChanges();
     }
 
-    xit('should not move focus when tab is pressed but cells are being edited', () => {
+    it('should not move focus when tab is pressed but cells are being edited', () => {
       skyAgGridWrapperComponent.agGrid.api.startEditingCell({ rowIndex: 0, colKey: 'nickname' });
 
       const focusedEl = document.activeElement;

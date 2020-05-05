@@ -214,12 +214,12 @@ export class SkyAgGridService {
       },
       onCellFocused: (): void => {
         console.log('the cell is focusing');
-        let currentElement = document.activeElement as HTMLElement;
-        let focusableChildren = this.adapterService.getFocusableChildren(currentElement);
+        // let currentElement = document.activeElement as HTMLElement;
+        // let focusableChildren = this.adapterService.getFocusableChildren(currentElement);
 
-        if (focusableChildren.length) {
-          focusableChildren[0].focus();
-        }
+        // if (focusableChildren.length) {
+        //   focusableChildren[0].focus();
+        // }
       },
       suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress),
       rowHeight: 38,
