@@ -63,7 +63,7 @@ fdescribe('SkyAgGridWrapperComponent', () => {
       gridFixture.detectChanges();
     }
 
-    it('should not move focus when tab is pressed but cells are being edited', () => {
+    xit('should not move focus when tab is pressed but cells are being edited', () => {
       skyAgGridWrapperComponent.agGrid.api.startEditingCell({ rowIndex: 0, colKey: 'nickname' });
 
       const focusedEl = document.activeElement;
