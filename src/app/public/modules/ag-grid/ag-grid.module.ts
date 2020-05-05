@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 
 import {
-  SkyCoreAdapterModule
+  SkyCoreAdapterModule,
+  SkyViewkeeperModule
 } from '@skyux/core';
 
 import {
@@ -45,7 +46,8 @@ import {
     SkyAgGridCellEditorNumberModule,
     SkyAgGridCellRendererRowSelectorModule,
     SkyAgGridCellEditorTextModule,
-    SkyCoreAdapterModule
+    SkyCoreAdapterModule,
+    SkyViewkeeperModule
   ],
   exports: [
     SkyAgGridWrapperComponent
