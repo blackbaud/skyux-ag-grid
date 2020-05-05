@@ -213,6 +213,7 @@ export class SkyAgGridService {
         columnMovePin: this.getIconTemplate('arrows')
       },
       onCellFocused: (): void => {
+        console.log('the cell is focusing');
         let currentElement = document.activeElement as HTMLElement;
         let focusableChildren = this.adapterService.getFocusableChildren(currentElement);
 
