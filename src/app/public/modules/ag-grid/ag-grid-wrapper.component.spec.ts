@@ -17,7 +17,7 @@ import {
   SkyAgGridWrapperComponent
 } from '.';
 
-describe('SkyAgGridWrapperComponent', () => {
+fdescribe('SkyAgGridWrapperComponent', () => {
   let gridFixture: ComponentFixture<SkyAgGridFixtureComponent>;
   let gridComponent: SkyAgGridFixtureComponent;
   let skyAgGridWrapperComponent: SkyAgGridWrapperComponent;
@@ -75,6 +75,9 @@ describe('SkyAgGridWrapperComponent', () => {
 
     it('should not move focus when a non-tab key is pressed', () => {
       const focusedEl = document.activeElement;
+
+      console.log('troubleshooting');
+      console.log(document.querySelectorAll);
 
       fireKeydownOnGrid('L', false);
 
