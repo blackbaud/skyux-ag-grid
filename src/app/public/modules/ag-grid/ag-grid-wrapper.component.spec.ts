@@ -89,6 +89,9 @@ fdescribe('SkyAgGridWrapperComponent', () => {
       const afterAnchor = gridNativeElement.querySelector(`#${skyAgGridWrapperComponent.afterAnchorId}`);
       fireKeydownOnGrid('Tab', false, skyAgGridDivEl);
 
+      console.log('should be the after anchor');
+      console.log(document.activeElement);
+
       expect(document.activeElement).toEqual(afterAnchor);
     });
 
@@ -101,7 +104,7 @@ fdescribe('SkyAgGridWrapperComponent', () => {
     });
   });
 
-  describe('onAnchorFocus', () => {
+  xdescribe('onAnchorFocus', () => {
 
     function focusOnAnchor(anchorEl: HTMLElement, previousFocusedEl: HTMLElement): void {
       previousFocusedEl.focus();
@@ -137,6 +140,9 @@ fdescribe('SkyAgGridWrapperComponent', () => {
     it('should focus on the first cell if there are displayed cells', () => {
       const gridEl = gridNativeElement.querySelector(`#${skyAgGridWrapperComponent.gridId}`) as HTMLElement;
       gridEl.focus();
+
+      console.log('should have ag-cell class');
+      console.log(document.activeElement);
 
       expect(document.activeElement.classList.contains('ag-cell')).toBe(true);
     });
