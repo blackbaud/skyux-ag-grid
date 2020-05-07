@@ -73,7 +73,7 @@ fdescribe('SkyAgGridWrapperComponent', () => {
       expect(document.activeElement).toEqual(focusedEl);
     });
 
-    it('should not move focus when a non-tab key is pressed', () => {
+    xit('should not move focus when a non-tab key is pressed', () => {
       const focusedEl = document.activeElement;
 
       console.log('troubleshooting');
@@ -117,6 +117,8 @@ fdescribe('SkyAgGridWrapperComponent', () => {
 
       focusOnAnchor(afterAnchorEl, afterButtonEl);
 
+      console.log('the active element');
+      console.log(document.activeElement);
       expect(document.activeElement).toEqual(gridEl);
     });
 

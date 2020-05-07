@@ -45,6 +45,8 @@ export class SkyAgGridWrapperComponent {
   public onAnchorFocus(event: FocusEvent): void {
     const gridId = this.gridId;
     const relatedTarget = event.relatedTarget as HTMLElement;
+    console.log('THE RELATED TARGET');
+    console.log(relatedTarget);
     const previousFocusedId = relatedTarget && relatedTarget.id;
     const previousWasCell = relatedTarget && this.isGridCell(relatedTarget);
 
@@ -64,6 +66,7 @@ export class SkyAgGridWrapperComponent {
   }
 
   private setFocusById(id: string): void {
+    console.log(`time to focus on ${id}`);
     this.elementRef.nativeElement.querySelector(`#${id}`).focus();
   }
 

@@ -2,7 +2,7 @@
   class="nav-anchor"
   [id]="beforeAnchorId"
   tabindex="0"
-  (focus)="onAnchorFocus($event)"
+  (focusin)="onAnchorFocus($event)"
 >
 </span>
 <div
@@ -19,6 +19,6 @@
 class="nav-anchor"
 [id]="afterAnchorId"
 tabindex="0"
-(focus)="onAnchorFocus($event)"
+(focusin)="onAnchorFocus($event)"
 >
 </span>
