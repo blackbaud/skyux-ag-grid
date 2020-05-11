@@ -4,10 +4,6 @@ import {
 } from '@angular/core/testing';
 
 import {
-  ElementRef
-} from '@angular/core';
-
-import {
   SkyAppTestUtility,
   expect
 } from '@skyux-sdk/testing';
@@ -36,7 +32,6 @@ describe('SkyAgGridWrapperComponent', () => {
   let gridWrapperFixture: ComponentFixture<SkyAgGridWrapperComponent>;
   let gridWrapperComponent: SkyAgGridWrapperComponent;
   let gridWrapperNativeElement: HTMLElement;
-  let elementRef: ElementRef;
 
   const agGrid: AgGridAngular = {
     api: new GridApi(),
@@ -54,7 +49,6 @@ describe('SkyAgGridWrapperComponent', () => {
     gridWrapperAdapterService = TestBed.get(SkyAgGridWrapperAdapterService);
     gridWrapperComponent = gridWrapperFixture.componentInstance;
     gridWrapperNativeElement = gridWrapperFixture.nativeElement;
-    elementRef = gridWrapperFixture.elementRef;
     gridWrapperComponent.agGrid = agGrid;
 
     gridWrapperFixture.detectChanges();
