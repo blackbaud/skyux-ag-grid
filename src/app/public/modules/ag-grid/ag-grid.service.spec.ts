@@ -22,6 +22,7 @@ import {
   SkyCellClass,
   SkyCellType
 } from '../..';
+import { SkyAgGridWrapperAdapterService } from './ag-grid-wrapper-adapter.service';
 
 describe('SkyAgGridService', () => {
   let agGridService: SkyAgGridService;
@@ -31,6 +32,7 @@ describe('SkyAgGridService', () => {
     TestBed.configureTestingModule({
       providers: [
         SkyAgGridService,
+        SkyAgGridWrapperAdapterService,
         SkyCoreAdapterService
       ]
     });

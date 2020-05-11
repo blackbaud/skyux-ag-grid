@@ -9,6 +9,10 @@ import {
   AgGridAngular
 } from 'ag-grid-angular';
 
+import {
+  SkyAgGridWrapperAdapterService
+} from './ag-grid-wrapper-adapter.service';
+
 let idIndex = 0;
 
 @Component({
@@ -25,7 +29,10 @@ export class SkyAgGridWrapperComponent {
   public beforeAnchorId: string;
   public afterAnchorId: string;
 
-  constructor(private elementRef: ElementRef) {
+  constructor(
+    private adapterService: SkyAgGridWrapperAdapterService,
+    private elementRef: ElementRef
+  ) {
     idIndex++;
     this.gridId = 'sky-ag-grid-' + idIndex;
     this.beforeAnchorId = 'sky-ag-grid-nav-anchor-before-' + idIndex;
@@ -37,7 +44,7 @@ export class SkyAgGridWrapperComponent {
       const inEditMode = this.agGrid.api.getEditingCells().length > 0;
       if (!inEditMode) {
         const idToFocus = event.shiftKey ? this.beforeAnchorId : this.afterAnchorId;
-        this.setFocusById(idToFocus);
+        this.adapterService.setFocusedElementById(this.elementRef.nativeElement, idToFocus);
       }
     }
   }
@@ -45,13 +52,11 @@ export class SkyAgGridWrapperComponent {
   public onAnchorFocus(event: FocusEvent): void {
     const gridId = this.gridId;
     const relatedTarget = event.relatedTarget as HTMLElement;
-    console.log('THE RELATED TARGET');
-    console.log(relatedTarget);
     const previousFocusedId = relatedTarget && relatedTarget.id;
-    const previousWasCell = relatedTarget && this.isGridCell(relatedTarget);
+    const previousWasCell = relatedTarget && this.adapterService.elementOrParentHasClass(relatedTarget, 'ag-cell');
 
     if (previousFocusedId !== gridId && !previousWasCell) {
-      this.setFocusById(gridId);
+      this.adapterService.setFocusedElementById(this.elementRef.nativeElement, this.gridId);
     }
   }
 
@@ -63,19 +68,5 @@ export class SkyAgGridWrapperComponent {
     if (firstColumn && rowIndex >= 0) {
       this.agGrid.api.setFocusedCell(rowIndex, firstColumn);
     }
-  }
-
-  private setFocusById(id: string): void {
-    console.log(`time to focus on ${id}`);
-    this.elementRef.nativeElement.querySelector(`#${id}`).focus();
-  }
-
-  private isGridCell(element: HTMLElement): boolean {
-    if (element.classList.contains('ag-cell')) {
-      return true;
-    } else if (element.parentElement) {
-      return this.isGridCell(element.parentElement);
-    }
-    return false;
   }
 }

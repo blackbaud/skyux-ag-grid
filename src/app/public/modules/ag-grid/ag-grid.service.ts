@@ -10,10 +10,6 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyCoreAdapterService
-} from '@skyux/core';
-
-import {
   SkyAgGridCellEditorAutocompleteComponent,
   SkyAgGridCellEditorDatepickerComponent,
   SkyAgGridCellEditorNumberComponent,
@@ -29,6 +25,10 @@ import {
   SkyCellType,
   SkyGetGridOptionsArgs
 } from './types';
+
+import {
+  SkyAgGridWrapperAdapterService
+} from './ag-grid-wrapper-adapter.service';
 
 function autocompleteComparator(value1: {name: string}, value2: {name: string}): number {
   if (value1 && value2) {
@@ -83,7 +83,9 @@ function dateComparator(date1: any, date2: any): number {
 @Injectable()
 export class SkyAgGridService {
 
-  constructor(private adapterService: SkyCoreAdapterService) {}
+  constructor(
+    private agGridWrapperAdapterService: SkyAgGridWrapperAdapterService
+  ) {}
 
   /**
    * Get SKY UX gridOptions to create your agGrid with default SKY styling and behavior.
@@ -213,12 +215,9 @@ export class SkyAgGridService {
         columnMovePin: this.getIconTemplate('arrows')
       },
       onCellFocused: (): void => {
-        let currentElement = document.activeElement as HTMLElement;
-        let focusableChildren = this.adapterService.getFocusableChildren(currentElement);
+        let currentElement = this.agGridWrapperAdapterService.getFocusedElement();
 
-        if (focusableChildren.length) {
-          focusableChildren[0].focus();
-        }
+        this.agGridWrapperAdapterService.focusOnFocusableChildren(currentElement);
       },
       suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress),
       rowHeight: 38,
