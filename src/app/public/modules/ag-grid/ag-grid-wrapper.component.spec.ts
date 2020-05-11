@@ -161,7 +161,7 @@ describe('SkyAgGridWrapperComponent', () => {
     function focusOnGrid(): void {
       const gridEl = gridWrapperNativeElement.querySelector(`#${gridWrapperComponent.gridId}`) as HTMLElement;
 
-      gridEl.focus();
+      SkyAppTestUtility.fireDomEvent(gridEl, 'focus', {});
     }
     it('should focus on the first cell if there are displayed cells', () => {
       const column = new Column({}, {}, 'name', true);
