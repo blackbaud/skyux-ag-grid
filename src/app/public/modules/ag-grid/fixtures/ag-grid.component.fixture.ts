@@ -2,7 +2,6 @@
 import {
   Component,
   OnInit,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -17,10 +16,6 @@ import {
 import {
   SkyAgGridService
 } from '../ag-grid.service';
-
-import {
-  SkyAgGridWrapperComponent
-} from '../ag-grid-wrapper.component';
 
 import {
   SKY_AG_GRID_DATA
@@ -74,9 +69,6 @@ export class SkyAgGridFixtureComponent implements OnInit {
   public gridOptions: GridOptions = {
     columnDefs: this.columnDefs
   };
-
-  @ViewChild(SkyAgGridWrapperComponent)
-  public skyAgGridWrapperComponent: SkyAgGridWrapperComponent;
 
   constructor(private gridService: SkyAgGridService) { }
 

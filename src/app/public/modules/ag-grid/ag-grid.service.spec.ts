@@ -18,11 +18,14 @@ import {
 } from '@skyux/core';
 
 import {
+  SkyAgGridWrapperAdapterService
+} from './ag-grid-wrapper-adapter.service';
+
+import {
   SkyAgGridService,
   SkyCellClass,
   SkyCellType
 } from '../..';
-import { SkyAgGridWrapperAdapterService } from './ag-grid-wrapper-adapter.service';
 
 describe('SkyAgGridService', () => {
   let agGridService: SkyAgGridService;

@@ -79,20 +79,6 @@ describe('SkyCellEditorDatepickerComponent', () => {
 
       expect(datepickerEditorElement).toBeVisible();
     });
-
-    // it('opens a datepicker calendar', () => {
-    //   dateCellElement.click();
-
-    //   const datepicker = SkyTestComponentSelector.selectDatepicker(
-    //     gridFixture,
-    //     'cell-datepicker'
-    //   );
-
-    //   datepicker.clickDatepickerCalenderButtonEl();
-
-    //   const calendar = gridNativeElement.querySelector('sky-datepicker-calendar');
-    //   expect(calendar).toBeVisible();
-    // });
   });
 
   describe('agInit', () => {
@@ -211,20 +197,4 @@ describe('SkyCellEditorDatepickerComponent', () => {
 
     expect(datepickerEditorNativeElement).toBeAccessible();
   }));
-
-  // it('should pass accessibility with calendar open', async(() => {
-  //   const datepicker = SkyTestComponentSelector.selectDatepicker(
-  //     datepickerEditorFixture,
-  //     'cell-datepicker'
-  //   );
-
-  //   datepickerEditorComponent.columnWidth = 300;
-  //   datepickerEditorComponent.rowHeight = 37;
-
-  //   datepickerEditorFixture.detectChanges();
-
-  //   datepicker.clickDatepickerCalenderButtonEl();
-
-  //   expect(datepickerEditorNativeElement).toBeAccessible();
-  // }));
 });

@@ -214,23 +214,26 @@ export class SkyAgGridService {
         columnMoveRight: this.getIconTemplate('arrows'),
         columnMovePin: this.getIconTemplate('arrows')
       },
-      onCellFocused: (): void => {
-        let currentElement = this.agGridWrapperAdapterService.getFocusedElement();
-
-        this.agGridWrapperAdapterService.focusOnFocusableChildren(currentElement);
-      },
+      onCellFocused: () => this.onCellFocused(),
       suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress),
       rowHeight: 38,
       rowMultiSelectWithClick: true,
       rowSelection: 'multiple',
       singleClickEdit: true,
-      sortingOrder: ['desc', 'asc', 'null'],
+      // tslint:disable-next-line: no-null-keyword
+      sortingOrder: ['desc', 'asc', null],
       stopEditingWhenGridLosesFocus: false,
       suppressRowClickSelection: true,
       suppressDragLeaveHidesColumns: true
     };
 
     return defaultSkyGridOptions;
+  }
+
+  private onCellFocused(): void {
+    let currentElement = this.agGridWrapperAdapterService.getFocusedElement();
+
+    this.agGridWrapperAdapterService.focusOnFocusableChildren(currentElement);
   }
 
   private getDefaultEditableGridOptions(args: SkyGetGridOptionsArgs): GridOptions {

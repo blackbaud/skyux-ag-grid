@@ -40,7 +40,6 @@ describe('SkyCellRendererCheckboxComponent', () => {
   let rowSelectorCellNativeElement: HTMLElement;
   let cellRendererParams: ICellRendererParams;
   let dataField = 'selected';
-  let defaultDataField = 'rowSelected';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -165,8 +164,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
       expect(rowSelectorCellComponent.rowNode.data[dataField]).toBe(true);
     });
 
-    it (`should set the rowNode selected property and the row data's default field property
-      to the component's checked property value if no column field provided`, () => {
+    it (`should set the rowNode selected property to the component's checked property value if no column field provided`, () => {
       let rowNode = new RowNode();
       rowNode.data = {};
       cellRendererParams.node = rowNode;
@@ -181,7 +179,6 @@ describe('SkyCellRendererCheckboxComponent', () => {
       rowSelectorCellComponent.updateRow();
 
       expect(rowSelectorCellComponent.rowNode.setSelected).toHaveBeenCalledWith(true);
-      expect(rowSelectorCellComponent.rowNode.data[defaultDataField]).toBe(true);
     });
   });
 
@@ -192,7 +189,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
   });
 
   describe ('row selection', () => {
-    function testRowSelected(colDefinition: ColDef, isSelectedValues: boolean[], dataPropertyName: string) {
+    function testRowSelected(colDefinition: ColDef, isSelectedValues: boolean[], dataPropertySet: boolean = false) {
       let rowClickListener: Function;
       let rowNode = new RowNode();
       rowNode.data = {};
@@ -242,18 +239,20 @@ describe('SkyCellRendererCheckboxComponent', () => {
       expect(rowNode.addEventListener).toHaveBeenCalledWith(RowNode.EVENT_ROW_SELECTED, jasmine.any(Function));
       expect(rowSelectorCellComponent.checked).toBe(true);
       expect(checkbox.selected).toBe(true);
-      expect(rowNode.data[dataPropertyName]).toBe(true);
+
+      if (dataPropertySet) {
+        expect(rowNode.data[cellRendererParams.colDef.field]).toBe(true);
+      }
     }
 
     it(`should set the checkbox's selected value and the row data's column-defined field property
       to the component's checked property value if the data field is provided`, fakeAsync(() => {
-        testRowSelected(cellRendererParams.colDef, [true], cellRendererParams.colDef.field);
+        testRowSelected(cellRendererParams.colDef, [true], true);
     }));
 
-    it(`should set the checkbox's selected value and the row data's default field property
-    to the component's checked property value if the data field is provided or the default is used`, fakeAsync(() => {
+    it(`should set the checkbox's selected value to the component's checked property value if the data field is provided or the default is used`, fakeAsync(() => {
       let columnWithoutDataField = {};
-      testRowSelected(columnWithoutDataField, [false, true], defaultDataField);
+      testRowSelected(columnWithoutDataField, [false, true]);
   }));
   });
 

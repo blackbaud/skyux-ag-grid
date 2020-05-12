@@ -35,7 +35,6 @@ export class SkyAgGridCellRendererRowSelectorComponent implements ICellRendererA
   public dataField: string;
   public rowNode: RowNode;
   public checkboxLabel: string;
-  private defaultDataField = 'rowSelected';
   private params: ICellRendererParams;
   private rowNumber: number;
   private ngUnsubscribe = new Subject<void>();
@@ -88,15 +87,20 @@ export class SkyAgGridCellRendererRowSelectorComponent implements ICellRendererA
   }
 
   public updateRow(): void {
-    let dataPropertyName = this.dataField || this.defaultDataField;
     this.rowNode.setSelected(this.checked);
-    this.rowNode.data[dataPropertyName] = this.checked;
+
+    if (this.dataField) {
+      this.rowNode.data[this.dataField] = this.checked;
+    }
   }
 
-  private rowSelectedListener(event: RowSelectedEvent) {
-    let dataPropertyName = this.dataField || this.defaultDataField;
+  private rowSelectedListener(event: RowSelectedEvent): void {
     this.checked = event.node.isSelected();
-    this.rowNode.data[dataPropertyName] = this.checked;
+
+    if (this.dataField) {
+      this.rowNode.data[this.dataField] = this.checked;
+    }
+
     this.changeDetection.markForCheck();
   }
 }
