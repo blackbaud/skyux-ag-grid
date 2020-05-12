@@ -10,7 +10,8 @@ import {
 import {
   browser,
   by,
-  element
+  element,
+  ExpectedConditions
 } from 'protractor';
 
 describe('Editable grid', () => {
@@ -230,11 +231,11 @@ describe('Editable grid', () => {
       input.click();
       browser.actions().sendKeys('j').perform();
 
-      browser.wait(() => {
-        return browser.isElementPresent(
-          element(by.css('.sky-dropdown-item'))
-        );
-      });
+      browser.wait(
+        ExpectedConditions.presenceOf(element(by.css('.sky-autocomplete-results'))),
+        1200,
+        'Autocomplete results dropdown took too long to appear.'
+      );
 
       expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-autocomplete-dropdown-${screenSize}`
