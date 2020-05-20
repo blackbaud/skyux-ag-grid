@@ -1,24 +1,24 @@
 <span
   class="nav-anchor"
-  [id]="beforeAnchorId"
   tabindex="0"
+  [id]="beforeAnchorId"
   (focusin)="onAnchorFocus($event)"
 >
 </span>
 <div
   class="sky-ag-grid"
-  [id]="gridId"
-  [skyViewkeeper]="['.sky-toolbar-container', '.ag-header']"
   tabindex="0"
+  [id]="gridId"
+  [skyViewkeeper]="['.ag-header']"
   (focus)="onGridFocus()"
   (keydown)="onGridKeydown($event)"
 >
   <ng-content></ng-content>
 </div>
 <span
-class="nav-anchor"
-[id]="afterAnchorId"
-tabindex="0"
-(focusin)="onAnchorFocus($event)"
+  tabindex="0"
+  class="nav-anchor"
+  [id]="afterAnchorId"
+  (focusin)="onAnchorFocus($event)"
 >
 </span>

@@ -7,10 +7,10 @@ import {
 } from '@skyux/core';
 
 @Injectable()
-export class SkyAgGridWrapperAdapterService {
+export class SkyAgGridAdapterService {
   constructor(
     private skyAdapterService: SkyCoreAdapterService
-    ) { }
+  ) { }
 
   public elementOrParentHasClass(element: HTMLElement, className: string): boolean {
     if (element.classList.contains(className)) {

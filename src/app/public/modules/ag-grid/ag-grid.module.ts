@@ -20,8 +20,8 @@ import {
 } from './ag-grid-wrapper.component';
 
 import {
-  SkyAgGridWrapperAdapterService
-} from './ag-grid-wrapper-adapter.service';
+  SkyAgGridAdapterService
+} from './ag-grid-adapter.service';
 
 import {
   SkyAgGridCellEditorAutocompleteComponent,
@@ -58,7 +58,7 @@ import {
   ],
   providers: [
     SkyAgGridService,
-    SkyAgGridWrapperAdapterService
+    SkyAgGridAdapterService
   ],
   entryComponents: [
     SkyAgGridCellEditorAutocompleteComponent,

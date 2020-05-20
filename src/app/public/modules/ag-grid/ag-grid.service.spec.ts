@@ -18,8 +18,8 @@ import {
 } from '@skyux/core';
 
 import {
-  SkyAgGridWrapperAdapterService
-} from './ag-grid-wrapper-adapter.service';
+  SkyAgGridAdapterService
+} from './ag-grid-adapter.service';
 
 import {
   SkyAgGridService,
@@ -35,7 +35,7 @@ describe('SkyAgGridService', () => {
     TestBed.configureTestingModule({
       providers: [
         SkyAgGridService,
-        SkyAgGridWrapperAdapterService,
+        SkyAgGridAdapterService,
         SkyCoreAdapterService
       ]
     });

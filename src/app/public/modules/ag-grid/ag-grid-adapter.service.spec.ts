@@ -12,16 +12,16 @@ import {
 } from '@skyux/core';
 
 import {
-  SkyAgGridWrapperAdapterFixtureComponent
-} from './fixtures/ag-grid-wrapper-adapter.component.fixture';
+  SkyAgGridAdapterFixtureComponent
+} from './fixtures/ag-grid-adapter.component.fixture';
 
 import {
-  SkyAgGridWrapperAdapterService
-} from './ag-grid-wrapper-adapter.service';
+  SkyAgGridAdapterService
+} from './ag-grid-adapter.service';
 
-describe('SkyAgGridWrapperAdapterService', () => {
-  let agGridWrapperService: SkyAgGridWrapperAdapterService;
-  let agGridWrapperAdapterServiceFixture: ComponentFixture<SkyAgGridWrapperAdapterFixtureComponent>;
+describe('SkyAgGridAdapterService', () => {
+  let agGridAdapterService: SkyAgGridAdapterService;
+  let agGridAdapterServiceFixture: ComponentFixture<SkyAgGridAdapterFixtureComponent>;
 
   let parentElement: HTMLElement;
   let childElement: HTMLElement;
@@ -29,30 +29,30 @@ describe('SkyAgGridWrapperAdapterService', () => {
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      declarations: [SkyAgGridWrapperAdapterFixtureComponent],
+      declarations: [SkyAgGridAdapterFixtureComponent],
       providers: [
-        SkyAgGridWrapperAdapterService,
+        SkyAgGridAdapterService,
         SkyCoreAdapterService
       ]
     });
 
-    agGridWrapperAdapterServiceFixture = TestBed.createComponent(SkyAgGridWrapperAdapterFixtureComponent);
-    agGridWrapperService = TestBed.get(SkyAgGridWrapperAdapterService);
-    parentElement = agGridWrapperAdapterServiceFixture.nativeElement.querySelector('#parent');
-    childElement = agGridWrapperAdapterServiceFixture.nativeElement.querySelector('#child');
+    agGridAdapterServiceFixture = TestBed.createComponent(SkyAgGridAdapterFixtureComponent);
+    agGridAdapterService = TestBed.get(SkyAgGridAdapterService);
+    parentElement = agGridAdapterServiceFixture.nativeElement.querySelector('#parent');
+    childElement = agGridAdapterServiceFixture.nativeElement.querySelector('#child');
   });
 
   describe('elementOrParentHasClass', () => {
     it('should return true if an element has the given class', () => {
-      expect(agGridWrapperService.elementOrParentHasClass(childElement, 'class2')).toBe(true);
+      expect(agGridAdapterService.elementOrParentHasClass(childElement, 'class2')).toBe(true);
     });
 
     it('should return true if an element\'s parent has the given class', () => {
-      expect(agGridWrapperService.elementOrParentHasClass(childElement, 'class1')).toBe(true);
+      expect(agGridAdapterService.elementOrParentHasClass(childElement, 'class1')).toBe(true);
     });
 
     it('should return false if neither the element or it\'s parent has the given class', () => {
-      expect(agGridWrapperService.elementOrParentHasClass(childElement, 'fakeClass')).toBe(false);
+      expect(agGridAdapterService.elementOrParentHasClass(childElement, 'fakeClass')).toBe(false);
     });
   });
 
@@ -60,7 +60,7 @@ describe('SkyAgGridWrapperAdapterService', () => {
     it('should focus on the element in the given ref with the given ID', () => {
       expect(document.activeElement).not.toEqual(childElement);
 
-      agGridWrapperService.setFocusedElementById(parentElement, 'child');
+      agGridAdapterService.setFocusedElementById(parentElement, 'child');
 
       expect(document.activeElement).toEqual(childElement);
     });
@@ -70,7 +70,7 @@ describe('SkyAgGridWrapperAdapterService', () => {
     it('should return the element that currently has focus', () => {
       parentElement.focus();
 
-      expect(agGridWrapperService.getFocusedElement()).toEqual(parentElement);
+      expect(agGridAdapterService.getFocusedElement()).toEqual(parentElement);
     });
   });
 
@@ -78,7 +78,7 @@ describe('SkyAgGridWrapperAdapterService', () => {
     it('should move focus to the first focusable child if there is one', () => {
       parentElement.focus();
 
-      agGridWrapperService.focusOnFocusableChildren(parentElement);
+      agGridAdapterService.focusOnFocusableChildren(parentElement);
 
       expect(document.activeElement).toEqual(childElement);
     });
@@ -86,7 +86,7 @@ describe('SkyAgGridWrapperAdapterService', () => {
     it('should leave focus on the given element if it has no focusable children', () => {
       childElement.focus();
 
-      agGridWrapperService.focusOnFocusableChildren(childElement);
+      agGridAdapterService.focusOnFocusableChildren(childElement);
 
       expect(document.activeElement).toEqual(childElement);
     });

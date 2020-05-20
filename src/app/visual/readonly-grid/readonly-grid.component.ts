@@ -4,10 +4,10 @@ import {
 } from '@angular/core';
 
 import {
-  GridReadyEvent,
+  GridApi,
   GridOptions,
-  ICellRendererParams,
-  GridApi
+  GridReadyEvent,
+  ICellRendererParams
 } from 'ag-grid-community';
 
 import {
@@ -37,10 +37,11 @@ let nextId = 0;
   styleUrls: ['./readonly-grid.component.scss']
 })
 export class ReadonlyGridComponent implements OnInit {
-  public gridData = READONLY_GRID_DATA;
-  public hasMore = true;
-  public gridOptions: GridOptions;
   public gridApi: GridApi;
+  public gridData = READONLY_GRID_DATA;
+  public gridOptions: GridOptions;
+  public hasMore = true;
+
   public columnDefs = [
     {
       field: 'selected',

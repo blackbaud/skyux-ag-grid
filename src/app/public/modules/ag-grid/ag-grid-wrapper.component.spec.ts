@@ -19,16 +19,19 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyAgGridWrapperAdapterService
-} from './ag-grid-wrapper-adapter.service';
+  SkyAgGridAdapterService
+} from './ag-grid-adapter.service';
 
 import {
-  SkyAgGridWrapperComponent,
   SkyAgGridModule
-} from '.';
+} from './ag-grid.module';
+
+import {
+  SkyAgGridWrapperComponent
+} from './ag-grid-wrapper.component';
 
 describe('SkyAgGridWrapperComponent', () => {
-  let gridWrapperAdapterService: SkyAgGridWrapperAdapterService;
+  let gridAdapterService: SkyAgGridAdapterService;
   let gridWrapperFixture: ComponentFixture<SkyAgGridWrapperComponent>;
   let gridWrapperComponent: SkyAgGridWrapperComponent;
   let gridWrapperNativeElement: HTMLElement;
@@ -46,7 +49,7 @@ describe('SkyAgGridWrapperComponent', () => {
     });
 
     gridWrapperFixture = TestBed.createComponent(SkyAgGridWrapperComponent);
-    gridWrapperAdapterService = TestBed.get(SkyAgGridWrapperAdapterService);
+    gridAdapterService = TestBed.get(SkyAgGridAdapterService);
     gridWrapperComponent = gridWrapperFixture.componentInstance;
     gridWrapperNativeElement = gridWrapperFixture.nativeElement;
     gridWrapperComponent.agGrid = agGrid;
@@ -76,43 +79,43 @@ describe('SkyAgGridWrapperComponent', () => {
     }
 
     it('should not move focus when tab is pressed but cells are being edited', () => {
-      spyOn(gridWrapperAdapterService, 'setFocusedElementById');
+      spyOn(gridAdapterService, 'setFocusedElementById');
       spyOn(agGrid.api, 'getEditingCells').and.returnValue(['editingCell']);
 
       fireKeydownOnGrid('Tab', false);
 
-      expect(gridWrapperAdapterService.setFocusedElementById).not.toHaveBeenCalled();
+      expect(gridAdapterService.setFocusedElementById).not.toHaveBeenCalled();
     });
 
     it('should not move focus when a non-tab key is pressed', () => {
-      spyOn(gridWrapperAdapterService, 'setFocusedElementById');
+      spyOn(gridAdapterService, 'setFocusedElementById');
 
       fireKeydownOnGrid('L', false);
 
-      expect(gridWrapperAdapterService.setFocusedElementById).not.toHaveBeenCalled();
+      expect(gridAdapterService.setFocusedElementById).not.toHaveBeenCalled();
     });
 
     it(`should move focus to the anchor after the grid when tab is pressed, no cells are being edited,
       and the grid was previously focused`, () => {
       spyOn(agGrid.api, 'getEditingCells').and.returnValue([]);
-      spyOn(gridWrapperAdapterService, 'getFocusedElement').and.returnValue(skyAgGridDivEl);
-      spyOn(gridWrapperAdapterService, 'setFocusedElementById');
+      spyOn(gridAdapterService, 'getFocusedElement').and.returnValue(skyAgGridDivEl);
+      spyOn(gridAdapterService, 'setFocusedElementById');
 
       fireKeydownOnGrid('Tab', false);
 
-      expect(gridWrapperAdapterService.setFocusedElementById).toHaveBeenCalledWith(
+      expect(gridAdapterService.setFocusedElementById).toHaveBeenCalledWith(
         gridWrapperNativeElement, gridWrapperComponent.afterAnchorId);
     });
 
     it(`should move focus to the anchor before the grid when shift + tab is pressed, no cells are being edited,
       and the grid was previous focused`, () => {
       spyOn(agGrid.api, 'getEditingCells').and.returnValue([]);
-      spyOn(gridWrapperAdapterService, 'getFocusedElement').and.returnValue(skyAgGridDivEl);
-      spyOn(gridWrapperAdapterService, 'setFocusedElementById');
+      spyOn(gridAdapterService, 'getFocusedElement').and.returnValue(skyAgGridDivEl);
+      spyOn(gridAdapterService, 'setFocusedElementById');
 
       fireKeydownOnGrid('Tab', true);
 
-      expect(gridWrapperAdapterService.setFocusedElementById).toHaveBeenCalledWith(
+      expect(gridAdapterService.setFocusedElementById).toHaveBeenCalledWith(
         gridWrapperNativeElement, gridWrapperComponent.beforeAnchorId);
     });
   });
@@ -132,21 +135,21 @@ describe('SkyAgGridWrapperComponent', () => {
     it('should shift focus to the grid if it was not the previously focused element', () => {
       const afterAnchorEl = gridWrapperNativeElement.querySelector(`#${gridWrapperComponent.afterAnchorId}`) as HTMLElement;
       const afterButtonEl = gridWrapperNativeElement.querySelector('#button-after-grid') as HTMLElement;
-      spyOn(gridWrapperAdapterService, 'setFocusedElementById');
+      spyOn(gridAdapterService, 'setFocusedElementById');
 
       focusOnAnchor(afterAnchorEl, afterButtonEl);
 
-      expect(gridWrapperAdapterService.setFocusedElementById).toHaveBeenCalledWith(gridWrapperNativeElement, gridWrapperComponent.gridId);
+      expect(gridAdapterService.setFocusedElementById).toHaveBeenCalledWith(gridWrapperNativeElement, gridWrapperComponent.gridId);
     });
 
     it('should not shift focus to the grid if it was the previously focused element', () => {
       const afterAnchorEl = gridWrapperNativeElement.querySelector(`#${gridWrapperComponent.afterAnchorId}`) as HTMLElement;
       const gridEl = gridWrapperNativeElement.querySelector(`#${gridWrapperComponent.gridId}`) as HTMLElement;
-      spyOn(gridWrapperAdapterService, 'setFocusedElementById');
+      spyOn(gridAdapterService, 'setFocusedElementById');
 
       focusOnAnchor(afterAnchorEl, gridEl);
 
-      expect(gridWrapperAdapterService.setFocusedElementById).not.toHaveBeenCalled();
+      expect(gridAdapterService.setFocusedElementById).not.toHaveBeenCalled();
     });
   });
 

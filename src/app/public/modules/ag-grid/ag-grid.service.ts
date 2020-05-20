@@ -5,8 +5,8 @@ import {
 import {
   CellClassParams,
   GridOptions,
-  ValueFormatterParams,
-  SuppressKeyboardEventParams
+  SuppressKeyboardEventParams,
+  ValueFormatterParams
 } from 'ag-grid-community';
 
 import {
@@ -27,8 +27,8 @@ import {
 } from './types';
 
 import {
-  SkyAgGridWrapperAdapterService
-} from './ag-grid-wrapper-adapter.service';
+  SkyAgGridAdapterService
+} from './ag-grid-adapter.service';
 
 function autocompleteComparator(value1: {name: string}, value2: {name: string}): number {
   if (value1 && value2) {
@@ -84,7 +84,7 @@ function dateComparator(date1: any, date2: any): number {
 export class SkyAgGridService {
 
   constructor(
-    private agGridWrapperAdapterService: SkyAgGridWrapperAdapterService
+    private agGridAdapterService: SkyAgGridAdapterService
   ) {}
 
   /**
@@ -231,9 +231,9 @@ export class SkyAgGridService {
   }
 
   private onCellFocused(): void {
-    let currentElement = this.agGridWrapperAdapterService.getFocusedElement();
+    const currentElement = this.agGridAdapterService.getFocusedElement();
 
-    this.agGridWrapperAdapterService.focusOnFocusableChildren(currentElement);
+    this.agGridAdapterService.focusOnFocusableChildren(currentElement);
   }
 
   private getDefaultEditableGridOptions(args: SkyGetGridOptionsArgs): GridOptions {

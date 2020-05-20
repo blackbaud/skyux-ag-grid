@@ -17,9 +17,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReadonlyGridContextMenuComponent implements ICellRendererAngularComp {
-  public deleteLabel: string;
-  public markInactiveLabel: string;
-  public moreInfoLabel: string;
   public goalName: string;
   private params: ICellRendererParams;
 

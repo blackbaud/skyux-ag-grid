@@ -10,8 +10,8 @@ import {
 } from 'ag-grid-angular';
 
 import {
-  SkyAgGridWrapperAdapterService
-} from './ag-grid-wrapper-adapter.service';
+  SkyAgGridAdapterService
+} from './ag-grid-adapter.service';
 
 let idIndex = 0;
 
@@ -25,18 +25,18 @@ export class SkyAgGridWrapperComponent {
   @ContentChild(AgGridAngular)
   public agGrid: AgGridAngular;
 
-  public gridId: string;
-  public beforeAnchorId: string;
   public afterAnchorId: string;
+  public beforeAnchorId: string;
+  public gridId: string;
 
   constructor(
-    private adapterService: SkyAgGridWrapperAdapterService,
+    private adapterService: SkyAgGridAdapterService,
     private elementRef: ElementRef
   ) {
     idIndex++;
-    this.gridId = 'sky-ag-grid-' + idIndex;
-    this.beforeAnchorId = 'sky-ag-grid-nav-anchor-before-' + idIndex;
     this.afterAnchorId = 'sky-ag-grid-nav-anchor-after-' + idIndex;
+    this.beforeAnchorId = 'sky-ag-grid-nav-anchor-before-' + idIndex;
+    this.gridId = 'sky-ag-grid-' + idIndex;
   }
 
   public onGridKeydown(event: KeyboardEvent): void {
