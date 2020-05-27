@@ -185,7 +185,10 @@ export class SkyAgGridService {
             [SkyCellClass.Uneditable]: cellClassRuleTrueExpression
           },
           cellRendererFramework: SkyAgGridCellRendererRowSelectorComponent,
+          headerName: '',
           minWidth: 50,
+          maxWidth: 50,
+          sortable: false,
           width: 50
         },
         [SkyCellType.Text]: {

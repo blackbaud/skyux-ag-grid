@@ -57,8 +57,20 @@ describe('SkyAgGridWrapperComponent', () => {
     gridWrapperFixture.detectChanges();
   });
 
-  it('should render a sky ag-grid element', () => {
+  it('should render a sky-ag-grid-wrapper element', () => {
     expect(gridWrapperNativeElement).toBeVisible();
+  });
+
+  it('should add .ag-header to the viewkeeper classes when the domLayout is set to autoHeight', () => {
+    agGrid.gridOptions = { domLayout: 'autoHeight' };
+
+    const autoHeightGridWrapperFixture = TestBed.createComponent(SkyAgGridWrapperComponent);
+    const autoHeightGridWrapperComponent = autoHeightGridWrapperFixture.componentInstance;
+    autoHeightGridWrapperComponent.agGrid = agGrid;
+
+    autoHeightGridWrapperFixture.detectChanges();
+
+    expect(autoHeightGridWrapperComponent.viewkeeperClasses.indexOf('.ag-header')).not.toEqual(-1);
   });
 
   describe('onGridKeydown', () => {

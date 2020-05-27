@@ -71,8 +71,7 @@ ag-grid-angular {
 }
 
 ag-grid-angular.sky-ag-grid-editable {
-
-  border: $sky-standard-border;
+  border-left: $sky-standard-border;
 
   .ag-row {
     border-style: solid;
@@ -130,6 +129,10 @@ ag-grid-angular.sky-ag-grid-editable {
 }
 
 sky-toolbar + ag-grid-angular {
+  border-top: none;
+}
+
+sky-toolbar + sky-ag-grid-wrapper ag-grid-angular {
   border-top: none;
 }
 

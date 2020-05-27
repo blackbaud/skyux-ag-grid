@@ -2,7 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-  ElementRef
+  ElementRef,
+  AfterContentInit
 } from '@angular/core';
 
 import {
@@ -20,7 +21,7 @@ let idIndex = 0;
   templateUrl: './ag-grid-wrapper.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAgGridWrapperComponent {
+export class SkyAgGridWrapperComponent implements AfterContentInit {
 
   @ContentChild(AgGridAngular)
   public agGrid: AgGridAngular;
@@ -28,6 +29,7 @@ export class SkyAgGridWrapperComponent {
   public afterAnchorId: string;
   public beforeAnchorId: string;
   public gridId: string;
+  public viewkeeperClasses: string[] = [];
 
   constructor(
     private adapterService: SkyAgGridAdapterService,
@@ -37,6 +39,12 @@ export class SkyAgGridWrapperComponent {
     this.afterAnchorId = 'sky-ag-grid-nav-anchor-after-' + idIndex;
     this.beforeAnchorId = 'sky-ag-grid-nav-anchor-before-' + idIndex;
     this.gridId = 'sky-ag-grid-' + idIndex;
+  }
+
+  public ngAfterContentInit(): void {
+    if (this.agGrid.gridOptions && this.agGrid.gridOptions.domLayout === 'autoHeight') {
+      this.viewkeeperClasses.push('.ag-header');
+    }
   }
 
   public onGridKeydown(event: KeyboardEvent): void {
