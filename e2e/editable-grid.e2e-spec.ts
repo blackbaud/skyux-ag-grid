@@ -10,7 +10,8 @@ import {
 import {
   browser,
   by,
-  element
+  element,
+  ExpectedConditions
 } from 'protractor';
 
 describe('Editable grid', () => {
@@ -183,7 +184,7 @@ describe('Editable grid', () => {
       SkyHostBrowser.scrollTo(dateCell);
       element(by.css(dateCell)).click();
 
-      element(by.css('.sky-dropdown-button-type-calendar')).click();
+      element(by.css('.sky-input-group-datepicker-btn')).click();
 
       expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-date-cal-${screenSize}`
@@ -230,11 +231,11 @@ describe('Editable grid', () => {
       input.click();
       browser.actions().sendKeys('j').perform();
 
-      browser.wait(() => {
-        return browser.isElementPresent(
-          element(by.css('.sky-dropdown-item'))
-        );
-      });
+      browser.wait(
+        ExpectedConditions.presenceOf(element(by.css('.sky-autocomplete-results'))),
+        1200,
+        'Autocomplete results dropdown took too long to appear.'
+      );
 
       expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-autocomplete-dropdown-${screenSize}`
