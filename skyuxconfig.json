@@ -15,6 +15,13 @@
     }
   },
   "app": {
-    "styles": ["src/app/public/styles/ag-grid-styles.scss"]
+    "styles": [
+      "src/app/public/styles/ag-grid-styles.scss"
+    ]
+  },
+  "host": {
+    "frameOptions": {
+      "none": true
+    }
   }
 }
