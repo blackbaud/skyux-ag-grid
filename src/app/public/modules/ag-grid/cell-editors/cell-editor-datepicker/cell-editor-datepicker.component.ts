@@ -6,10 +6,6 @@ import {
 } from '@angular/core';
 
 import {
-  SkyDatepickerInputDirective
-} from '@skyux/datetime';
-
-import {
   ICellEditorAngularComp
 } from 'ag-grid-angular';
 
@@ -37,11 +33,6 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
   @ViewChild('skyCellEditorDatepickerInput', { read: ElementRef })
   private datepickerInput: ElementRef;
 
-  @ViewChild(SkyDatepickerInputDirective)
-  private inputDirective: SkyDatepickerInputDirective;
-
-  constructor() { }
-
   /**
    * agInit is called by agGrid once after the editor is created and provides the editor with the information it needs.
    * @param params The cell editor params that include data about the cell, column, row, and grid.
@@ -65,7 +56,7 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
    * getValue is called by agGrid when editing is stopped to get the new value of the cell.
    */
   public getValue(): Date {
-    this.inputDirective.detectInputValueChange();
+    this.datepickerInput.nativeElement.blur();
     return this.currentDate;
   }
 

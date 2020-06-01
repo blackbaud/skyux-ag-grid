@@ -25,7 +25,7 @@ import {
   SkyAgGridService,
   SkyCellClass,
   SkyCellType
-} from '../..';
+} from '../../public_api';
 
 describe('SkyAgGridService', () => {
   let agGridService: SkyAgGridService;
