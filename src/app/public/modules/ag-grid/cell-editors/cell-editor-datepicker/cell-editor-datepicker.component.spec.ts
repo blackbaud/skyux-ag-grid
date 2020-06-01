@@ -16,6 +16,10 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
+  SkyDatepickerFixture
+} from '@skyux/datetime/testing';
+
+import {
   SkyCellClass
 } from '../../types';
 
@@ -117,30 +121,30 @@ describe('SkyCellEditorDatepickerComponent', () => {
       };
     });
 
-    // it('initializes the SkyAgGridCellEditorDatepickerComponent properties', fakeAsync(() => {
-    //   const dateString = '01/01/2019';
-    //   const date = new Date(dateString);
-    //   const datepicker = SkyTestComponentSelector.selectDatepicker(
-    //     datepickerEditorFixture,
-    //     'cell-datepicker'
-    //   );
+    it('initializes the SkyAgGridCellEditorDatepickerComponent properties', fakeAsync(() => {
+      const dateString = '01/01/2019';
+      const date = new Date(dateString);
+      const datepicker = new SkyDatepickerFixture(
+        datepickerEditorFixture,
+        'cell-datepicker'
+      );
 
-    //   cellEditorParams.value = date;
+      cellEditorParams.value = date;
 
-    //   expect(datepickerEditorComponent.currentDate).toBeUndefined();
-    //   expect(datepickerEditorComponent.columnWidth).toBeUndefined();
-    //   expect(datepickerEditorComponent.rowHeight).toBeUndefined();
+      expect(datepickerEditorComponent.currentDate).toBeUndefined();
+      expect(datepickerEditorComponent.columnWidth).toBeUndefined();
+      expect(datepickerEditorComponent.rowHeight).toBeUndefined();
 
-    //   datepickerEditorComponent.agInit(cellEditorParams);
-    //   datepickerEditorFixture.detectChanges();
-    //   tick();
-    //   datepickerEditorFixture.detectChanges();
+      datepickerEditorComponent.agInit(cellEditorParams);
+      datepickerEditorFixture.detectChanges();
+      tick();
+      datepickerEditorFixture.detectChanges();
 
-    //   expect(datepickerEditorComponent.currentDate).toEqual(date);
-    //   expect(datepicker.date).toEqual(dateString);
-    //   expect(datepickerEditorComponent.columnWidth).toEqual(columnWidth);
-    //   expect(datepickerEditorComponent.rowHeight).toEqual(36);
-    // }));
+      expect(datepickerEditorComponent.currentDate).toEqual(date);
+      expect(datepicker.date).toEqual(dateString);
+      expect(datepickerEditorComponent.columnWidth).toEqual(columnWidth);
+      expect(datepickerEditorComponent.rowHeight).toEqual(36);
+    }));
   });
 
   describe('getValue', () => {
