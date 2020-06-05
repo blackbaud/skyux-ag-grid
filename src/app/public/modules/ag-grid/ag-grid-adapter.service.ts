@@ -13,7 +13,7 @@ export class SkyAgGridAdapterService {
   ) { }
 
   public getElementOrParentWithClass(element: HTMLElement, className: string): HTMLElement | undefined {
-    if (element.classList.contains(className)) {
+    if (element && element.classList.contains(className)) {
       return element;
     } else if (element.parentElement) {
       return this.getElementOrParentWithClass(element.parentElement, className);

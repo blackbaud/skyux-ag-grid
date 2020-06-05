@@ -359,23 +359,25 @@ describe('SkyAgGridService', () => {
       expect(suppressKeypressFunction(params)).toBe(true);
     });
 
-    it('should return true to suppress the event when the tab key is pressed, cells are being edited, and there is other cell content to tab to', () => {
+    it('should return true to suppress the event when the tab key is pressed, an inline cell is being edited, and there is other cell content to tab to', () => {
       const params = {
         editing: true,
         event: {
           code: 'Tab'
         }};
+      spyOn(agGridAdapterService, 'getElementOrParentWithClass').and.returnValue('<div class="ag-cell"></div>');
       spyOn(agGridAdapterService, 'getNextFocusableElement').and.returnValue('<span></span>');
 
       expect(suppressKeypressFunction(params)).toBe(true);
     });
 
-    it('should return false to suppress the event when the tab key is pressed, cells are being edited, and there is no other cell content to tab to', () => {
+    it('should return false to suppress the event when the tab key is pressed, a popup cell is being edited, and there is no other cell content to tab to', () => {
       const params = {
         editing: true,
         event: {
           code: 'Tab'
         }};
+      spyOn(agGridAdapterService, 'getElementOrParentWithClass').and.returnValues(undefined, '<div class="ag-popup-editor"></div>');
       spyOn(agGridAdapterService, 'getNextFocusableElement').and.returnValue(undefined);
 
       expect(suppressKeypressFunction(params)).toBe(false);
