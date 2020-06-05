@@ -29,6 +29,7 @@ import {
 
 describe('SkyAgGridService', () => {
   let agGridService: SkyAgGridService;
+  let agGridAdapterService: SkyAgGridAdapterService;
   let defaultGridOptions: GridOptions;
 
   beforeEach(() => {
@@ -41,6 +42,7 @@ describe('SkyAgGridService', () => {
     });
 
     agGridService = TestBed.get(SkyAgGridService);
+    agGridAdapterService = TestBed.get(SkyAgGridAdapterService);
     defaultGridOptions = agGridService.getGridOptions({ gridOptions: {}});
   });
 
@@ -352,9 +354,31 @@ describe('SkyAgGridService', () => {
       suppressKeypressFunction = defaultGridOptions.suppressKeyboardEvent;
     });
 
-    it('should return true to suppress the event when the tab key is pressed', () => {
+    it('should return true to suppress the event when the tab key is pressed and cells are not being edited', () => {
       const params = { event: { code: 'Tab' }};
       expect(suppressKeypressFunction(params)).toBe(true);
+    });
+
+    it('should return true to suppress the event when the tab key is pressed, cells are being edited, and there is other cell content to tab to', () => {
+      const params = {
+        editing: true,
+        event: {
+          code: 'Tab'
+        }};
+      spyOn(agGridAdapterService, 'getNextFocusableElement').and.returnValue('<span></span>');
+
+      expect(suppressKeypressFunction(params)).toBe(true);
+    });
+
+    it('should return false to suppress the event when the tab key is pressed, cells are being edited, and there is no other cell content to tab to', () => {
+      const params = {
+        editing: true,
+        event: {
+          code: 'Tab'
+        }};
+      spyOn(agGridAdapterService, 'getNextFocusableElement').and.returnValue(undefined);
+
+      expect(suppressKeypressFunction(params)).toBe(false);
     });
 
     it('should return false for non-tab keys to allow the keypress event', () => {
