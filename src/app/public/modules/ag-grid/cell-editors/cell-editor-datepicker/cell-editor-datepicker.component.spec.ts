@@ -148,17 +148,14 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   describe('getValue', () => {
-    it('updates value from input and returns currentDate', () => {
+    it('should return currentDate', () => {
       const date = new Date('1/1/2019');
-      const inputEl = datepickerEditorComponent['datepickerInput'].nativeElement;
-      spyOn(inputEl, 'blur');
 
       datepickerEditorComponent.currentDate = date;
 
       datepickerEditorFixture.detectChanges();
 
       expect(datepickerEditorComponent.getValue()).toEqual(date);
-      expect(inputEl.blur).toHaveBeenCalled();
     });
   });
 
