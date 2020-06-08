@@ -33,6 +33,8 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
   @ViewChild('skyCellEditorDatepickerInput', { read: ElementRef })
   private datepickerInput: ElementRef;
 
+  constructor() { }
+
   /**
    * agInit is called by agGrid once after the editor is created and provides the editor with the information it needs.
    * @param params The cell editor params that include data about the cell, column, row, and grid.
@@ -58,13 +60,6 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
   public getValue(): Date {
     this.datepickerInput.nativeElement.blur();
     return this.currentDate;
-  }
-
-  /**
-   * isPopup is called by agGrid to determine if the editor should be rendered as a cell or as a popup over the cell being edited.
-   */
-  public isPopup(): boolean {
-    return true;
   }
 
   public focusOnDatepickerInput(): void {
