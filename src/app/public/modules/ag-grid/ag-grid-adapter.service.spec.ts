@@ -53,7 +53,7 @@ describe('SkyAgGridAdapterService', () => {
       expect(agGridAdapterService.getElementOrParentWithClass(firstChildElement, 'class1')).toEqual(parentElement);
     });
 
-    it('should return undefined if neither the given element or it\'s parent(s) have the given class', () => {
+    it('should return undefined if neither the given element or its parent(s) have the given class', () => {
       expect(agGridAdapterService.getElementOrParentWithClass(firstChildElement, 'fakeClass')).toBeUndefined();
     });
   });
