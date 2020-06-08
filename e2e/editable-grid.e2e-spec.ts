@@ -184,7 +184,7 @@ describe('Editable grid', () => {
       SkyHostBrowser.scrollTo(dateCell);
       element(by.css(dateCell)).click();
 
-      element(by.css('.sky-input-group-datepicker-btn')).click();
+      element(by.css('.sky-datepicker .sky-btn')).click();
 
       expect(editableGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `editable-grid-edit-date-cal-${screenSize}`
