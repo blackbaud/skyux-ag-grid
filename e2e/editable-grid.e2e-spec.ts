@@ -175,31 +175,6 @@ describe('Editable grid', () => {
     });
   });
 
-  describe('date calendar editing', () => {
-    function matchesPreviousDateCalendarEditingGrid (screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-      SkyHostBrowser.setWindowBreakpoint(screenSize);
-
-      element(by.css(editButton)).click();
-
-      SkyHostBrowser.scrollTo(dateCell);
-      element(by.css(dateCell)).click();
-
-      element(by.css('.sky-input-group-datepicker-btn')).click();
-
-      expect(editableGrid).toMatchBaselineScreenshot(done, {
-        screenshotName: `editable-grid-edit-date-cal-${screenSize}`
-      });
-    }
-
-    it('should match previous screenshot on large screens', (done) => {
-      matchesPreviousDateCalendarEditingGrid('lg', done);
-    });
-
-    it('should match previous screenshot on extra small screens', (done) => {
-      matchesPreviousDateCalendarEditingGrid('xs', done);
-    });
-  });
-
   describe('autocomplete input editing', () => {
     function matchesPreviousAutocompleteInputEditingGrid (screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
       SkyHostBrowser.setWindowBreakpoint(screenSize);

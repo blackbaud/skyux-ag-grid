@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const sass = require('node-sass');
+const sass = require('sass');
 const tildeImporter = require('node-sass-tilde-importer');
 const path = require('path');
 
