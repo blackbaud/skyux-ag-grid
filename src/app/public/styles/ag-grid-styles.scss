@@ -2,6 +2,7 @@
 @import '~@skyux/theme/scss/_compat/mixins';
 
 /* base grid theme property variables */
+$ag-compatibility-mode: "legacy";
 $odd-row-background-color: $sky-background-color-page-default !default;
 $background-color: $sky-color-gray-01 !default;
 $border-color: $sky-border-color-neutral-medium !default;
