@@ -178,7 +178,7 @@ describe('SkyAgGridService', () => {
     }
 
     beforeEach(() => {
-      dateValueFormatter = defaultGridOptions.columnTypes[SkyCellType.Date].valueFormatter;
+      dateValueFormatter = defaultGridOptions.columnTypes[SkyCellType.Date].valueFormatter as Function;
       dateValueFormatterParams = {
         value: undefined,
         node: undefined,
@@ -224,7 +224,7 @@ describe('SkyAgGridService', () => {
 
     it('returns a date string in the DD/MM/YYYY string format when a date string and british english en-gb locale  are provided', () => {
       const britishGridOptions = agGridService.getGridOptions({ gridOptions: {}, locale: 'en-gb' });
-      const britishDateValueFormatter = britishGridOptions.columnTypes[SkyCellType.Date].valueFormatter;
+      const britishDateValueFormatter = britishGridOptions.columnTypes[SkyCellType.Date].valueFormatter as Function;
       dateValueFormatterParams.value = '3/1/2019';
 
       const formattedDate = britishDateValueFormatter(dateValueFormatterParams);
@@ -287,7 +287,7 @@ describe('SkyAgGridService', () => {
     let autocompleteValueFormatterParams: ValueFormatterParams;
 
     beforeEach(() => {
-      autocompleteValueFormatter = defaultGridOptions.columnTypes[SkyCellType.Autocomplete].valueFormatter;
+      autocompleteValueFormatter = defaultGridOptions.columnTypes[SkyCellType.Autocomplete].valueFormatter as Function;
       autocompleteValueFormatterParams = {
         value: undefined,
         node: undefined,
