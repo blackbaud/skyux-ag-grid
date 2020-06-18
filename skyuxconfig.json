@@ -1,6 +1,12 @@
 {
   "name": "skyux-ag-grid",
   "$schema": "./node_modules/@skyux/config/skyuxconfig-schema.json",
+  "app": {
+    "styles": [
+      "@skyux/docs-tools/css/docs-tools.css",
+      "src/app/public/styles/ag-grid-styles.scss"
+    ]
+  },
   "mode": "easy",
   "compileMode": "aot",
   "plugins": [
@@ -13,11 +19,6 @@
     "unit": {
       "browserSet": "paranoid"
     }
-  },
-  "app": {
-    "styles": [
-      "src/app/public/styles/ag-grid-styles.scss"
-    ]
   },
   "host": {
     "frameOptions": {

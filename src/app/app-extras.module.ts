@@ -3,6 +3,11 @@ import {
 } from '@angular/core';
 
 import {
+  SkyDocsToolsModule,
+  SkyDocsToolsOptions
+} from '@skyux/docs-tools';
+
+import {
   SkyDropdownModule
 } from '@skyux/popovers';
 
@@ -51,13 +56,22 @@ import {
     AgGridModule,
     SkyAgGridModule,
     SkyAppLinkModule,
+    SkyDocsToolsModule,
     SkyDropdownModule,
     SkyInfiniteScrollModule,
     SkyModalModule,
     SkySearchModule,
     SkyToolbarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SkyDocsToolsOptions,
+      useValue: {
+        gitRepoUrl: 'https://github.com/blackbaud/skyux-ag-grid',
+        packageName: '@skyux/ag-grid'
+      }
+    }
+  ],
   entryComponents: [
     SkyAgGridEditModalComponent
   ]
