@@ -8,6 +8,10 @@ import {
 } from '@skyux/core';
 
 import {
+  SkyDataManagerModule
+} from '@skyux/lists';
+
+import {
   AgGridModule
 } from 'ag-grid-angular';
 
@@ -75,6 +79,7 @@ import {
     SkyAgGridCellRendererRowSelectorModule,
     SkyAgGridCellEditorTextModule,
     SkyCoreAdapterModule,
+    SkyDataManagerModule,
     SkyViewkeeperModule
   ],
   exports: [
