@@ -31,7 +31,7 @@ import {
   SkyDataManagerSortOption,
   SkyDataManagerState,
   SkyDataViewConfig
-} from '@skyux/lists';
+} from '@skyux/data-manager';
 
 @Directive({
   selector: '[skyAgGridDataManagerAdapter]'

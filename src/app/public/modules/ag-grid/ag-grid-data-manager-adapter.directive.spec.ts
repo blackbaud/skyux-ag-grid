@@ -20,7 +20,7 @@ import {
 
 import {
   SkyDataManagerService
-} from '@skyux/lists';
+} from '@skyux/data-manager';
 
 import {
   SkyAgGridDataManagerFixtureComponent

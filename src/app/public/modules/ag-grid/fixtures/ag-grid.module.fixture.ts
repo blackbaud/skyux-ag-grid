@@ -7,12 +7,12 @@ import {
 } from '@angular/common';
 
 import {
-  SkyDataManagerModule
-} from '@skyux/lists';
-
-import {
   AgGridModule
 } from 'ag-grid-angular';
+
+import {
+  SkyDataManagerModule
+} from '@skyux/data-manager';
 
 import {
   SkyAgGridModule

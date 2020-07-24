@@ -8,12 +8,12 @@ import {
 } from '@skyux/core';
 
 import {
-  SkyDataManagerModule
-} from '@skyux/lists';
-
-import {
   AgGridModule
 } from 'ag-grid-angular';
+
+import {
+  SkyDataManagerModule
+} from '@skyux/data-manager';
 
 import {
   SkyAgGridService

@@ -7,19 +7,19 @@ import {
 } from '@angular/core';
 
 import {
-  SkyDataManagerService,
-  SkyDataManagerState,
-  SkyDataManagerConfig,
-  SkyDataViewConfig
-} from '@skyux/lists';
-
-import {
   AgGridAngular
 } from 'ag-grid-angular';
 
 import {
   GridOptions
 } from 'ag-grid-community';
+
+import {
+  SkyDataManagerService,
+  SkyDataManagerState,
+  SkyDataManagerConfig,
+  SkyDataViewConfig
+} from '@skyux/data-manager';
 
 import {
   SkyCellType
