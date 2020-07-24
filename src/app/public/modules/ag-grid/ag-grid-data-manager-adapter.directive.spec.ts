@@ -4,6 +4,14 @@ import {
 } from '@angular/core/testing';
 
 import {
+  DebugElement
+} from '@angular/core';
+
+import {
+  By
+} from '@angular/platform-browser';
+
+import {
   AgGridAngular
 } from 'ag-grid-angular';
 
@@ -23,6 +31,10 @@ import {
 } from '@skyux/data-manager';
 
 import {
+  SkyAgGridDataManagerAdapterDirective
+} from './ag-grid-data-manager-adapter.directive';
+
+import {
   SkyAgGridDataManagerFixtureComponent
 } from './fixtures/ag-grid-data-manager.component.fixture';
 
@@ -35,6 +47,8 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
   let agGridDataManagerFixtureComponent: SkyAgGridDataManagerFixtureComponent;
   let agGridComponent: AgGridAngular;
   let dataManagerService: SkyDataManagerService;
+  let dataViewEl: DebugElement;
+  let agGridDataManagerDirective: SkyAgGridDataManagerAdapterDirective;
 
   beforeEach(() => {
 
@@ -48,7 +62,10 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
     dataManagerService = TestBed.inject(SkyDataManagerService);
 
     agGridDataManagerFixture.detectChanges();
+
     agGridComponent = agGridDataManagerFixtureComponent.agGrid;
+    dataViewEl = agGridDataManagerFixture.debugElement.query(By.directive(SkyAgGridDataManagerAdapterDirective));
+    agGridDataManagerDirective = dataViewEl.injector.get(SkyAgGridDataManagerAdapterDirective);
   });
 
   it('should set columns visible based on the data state changes', async () => {
@@ -151,5 +168,28 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
     agGridDataManagerFixture.detectChanges();
 
     expect(console.error).toHaveBeenCalledWith('A data view may only have one active ag-Grid child component instance at a time.');
+  });
+
+  it('should unregister the grid if no grids are rendered', () => {
+    expect(agGridDataManagerDirective.agGridList.length).toBe(1);
+
+    agGridDataManagerFixtureComponent.displayFirstGrid = false;
+    agGridDataManagerFixture.detectChanges();
+
+    expect(agGridDataManagerDirective.agGridList.length).toBe(0);
+  });
+
+  it('should register a grid if no other grids are rendered', () => {
+    expect(agGridDataManagerDirective.agGridList.length).toBe(1);
+
+    agGridDataManagerFixtureComponent.displayFirstGrid = false;
+    agGridDataManagerFixture.detectChanges();
+
+    expect(agGridDataManagerDirective.agGridList.length).toBe(0);
+
+    agGridDataManagerFixtureComponent.displaySecondGrid = true;
+    agGridDataManagerFixture.detectChanges();
+
+    expect(agGridDataManagerDirective.agGridList.length).toBe(1);
   });
 });

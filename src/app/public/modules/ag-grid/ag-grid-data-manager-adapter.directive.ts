@@ -62,7 +62,6 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     .subscribe(() => this.checkForAgGrid());
   }
 
-  /* istanbul ignore next */
   public ngOnDestroy() {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
@@ -183,7 +182,6 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
   private displayColumns(dataState: SkyDataManagerState): void {
     const agGrid = this.currentAgGrid;
     const viewState = dataState.getViewStateById(this.viewConfig.id);
-    /* istanbul ignore next */
     const displayedColumnIds = viewState.displayedColumnIds || [];
     const columns = agGrid.columnApi.getAllColumns();
 
