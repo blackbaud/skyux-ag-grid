@@ -163,11 +163,11 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
   });
 
   it('should throw an error if there are 2 grids in a component', () => {
-    spyOn(console, 'error');
+    spyOn(console, 'warn');
     agGridDataManagerFixtureComponent.displaySecondGrid = true;
     agGridDataManagerFixture.detectChanges();
 
-    expect(console.error).toHaveBeenCalledWith('A data view may only have one active ag-Grid child component instance at a time.');
+    expect(console.warn).toHaveBeenCalledWith('More than one ag-grid child component was found. Using the first ag-Grid.');
   });
 
   it('should unregister the grid if no grids are rendered', () => {
