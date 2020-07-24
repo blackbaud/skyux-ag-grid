@@ -62,6 +62,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     .subscribe(() => this.checkForAgGrid());
   }
 
+  /* istanbul ignore next */
   public ngOnDestroy() {
     this._ngUnsubscribe.next();
     this._ngUnsubscribe.complete();
@@ -70,8 +71,9 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
   private checkForAgGrid(): void {
     const agGridCount = this.agGridList.length;
 
+    /* istanbul ignore else */
     if (agGridCount > 1) {
-      throw new Error(
+      console.error(
         'A data view may only have one active ag-Grid child component instance at a time.'
       );
     } else if (agGridCount === 0) {
@@ -84,6 +86,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
   private unregisterAgGrid(): void {
     this.currentAgGrid = undefined;
 
+    /* istanbul ignore if */
     if (this.dataStateSub) {
       this.dataStateSub.unsubscribe();
     }
@@ -101,6 +104,8 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     .subscribe(() => {
       this.viewConfig.onSelectAllClick = this.selectAll.bind(this);
       this.viewConfig.onClearAllClick = this.clearAll.bind(this);
+
+      this.dataManagerSvc.updateViewConfig(this.viewConfig);
 
       this.displayColumns(this.dataManagerSvc.getCurrentDataState());
 
@@ -138,7 +143,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     .subscribe((event: RowSelectedEvent) => {
       const row = event.node;
       let dataState = this.dataManagerSvc.getCurrentDataState();
-      let selectedIds = dataState.selectedIds;
+      let selectedIds = dataState.selectedIds || [];
       const rowIndex = selectedIds.indexOf(row.data.id);
 
       if (row.isSelected() && rowIndex === -1) {
@@ -159,6 +164,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
       const dataState = this.dataManagerSvc.getCurrentDataState();
       let sortOption: SkyDataManagerSortOption;
 
+      /* istanbul ignore else */
       if (gridSortModel.length) {
         const activeSortModel = gridSortModel[0];
         const activeSortColumn = agGrid.columnApi.getColumn(activeSortModel.colId);
@@ -177,6 +183,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
   private displayColumns(dataState: SkyDataManagerState): void {
     const agGrid = this.currentAgGrid;
     const viewState = dataState.getViewStateById(this.viewConfig.id);
+    /* istanbul ignore next */
     const displayedColumnIds = viewState.displayedColumnIds || [];
     const columns = agGrid.columnApi.getAllColumns();
 

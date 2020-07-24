@@ -67,8 +67,13 @@ import {
   SkyAgGridCellRendererRowSelectorModule
 } from './cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.module';
 
+import {
+  SkyAgGridDataManagerAdapterDirective
+} from './ag-grid-data-manager-adapter.directive';
+
 @NgModule({
   declarations: [
+    SkyAgGridDataManagerAdapterDirective,
     SkyAgGridWrapperComponent
   ],
   imports: [
@@ -83,6 +88,7 @@ import {
     SkyViewkeeperModule
   ],
   exports: [
+    SkyAgGridDataManagerAdapterDirective,
     SkyAgGridWrapperComponent
   ],
   providers: [
