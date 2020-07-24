@@ -58,8 +58,8 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     this.checkForAgGrid();
 
     this.agGridList.changes
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe(() => this.checkForAgGrid());
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => this.checkForAgGrid());
   }
 
   public ngOnDestroy() {
@@ -100,7 +100,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     this.currentAgGrid = agGrid;
 
     agGrid.gridReady
-    .pipe(takeUntil(this.ngUnsubscribe))
+      .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(() => {
         this.viewConfig.onSelectAllClick = this.selectAll.bind(this);
         this.viewConfig.onClearAllClick = this.clearAll.bind(this);
@@ -110,10 +110,10 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
         this.displayColumns(this.dataManagerSvc.getCurrentDataState());
 
         this.dataStateSub = this.dataManagerSvc.getDataStateUpdates(this.viewConfig.id)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((dataState: SkyDataManagerState) => {
-          this.displayColumns(dataState);
-        });
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((dataState: SkyDataManagerState) => {
+            this.displayColumns(dataState);
+          });
 
         agGrid.api.sizeColumnsToFit();
       });
