@@ -14,15 +14,19 @@ import {
 } from 'ag-grid-community';
 
 import {
+  SkyAgGridService,
+  SkyCellType
+} from '../../public/public_api';
+
+import {
   EDITABLE_GRID_AUTOCOMPLETE_OPTIONS,
   EDITABLE_GRID_DATA,
   EditableGridRow
 } from './editable-grid-data';
 
 import {
-  SkyAgGridService,
-  SkyCellType
-} from '../../public/public_api';
+  GoalSelectEditorComponent
+} from './editable-select-field.component';
 
 @Component({
   selector: 'editable-grid-visual',
@@ -68,6 +72,15 @@ export class EditableGridComponent implements OnInit {
         minWidth: 220,
         editable: this.editMode,
         type: SkyCellType.Text
+      },
+      {
+        colId: 'goalType',
+        field: 'goalType',
+        headerName: 'Goal Type',
+        sortable: false,
+        editable: true,
+        minWidth: 160,
+        cellEditorFramework: GoalSelectEditorComponent
       },
       {
         colId: 'completedDate',

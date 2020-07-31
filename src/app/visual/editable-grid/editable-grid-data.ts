@@ -5,6 +5,7 @@ export class EditableGridPerson {
 
 export class EditableGridRow {
   public name: string;
+  public goalType?: string;
   public value1?: number;
   public value2?: number;
   public value3?: number;
@@ -18,6 +19,7 @@ export class EditableGridRow {
 export const EDITABLE_GRID_DATA: EditableGridRow[] = [
   {
     name: 'Yearly team goal 1',
+    goalType: 'Financial',
     value1: 102,
     value2: 77,
     target: 150,
@@ -66,6 +68,7 @@ export const EDITABLE_GRID_DATA: EditableGridRow[] = [
   },
   {
     name: 'Second quarter team goal 2',
+    goalType: 'Production',
     value1: 500,
     target: 750,
     dueDate: new Date('6/30/2019')
@@ -87,6 +90,7 @@ export const EDITABLE_GRID_DATA: EditableGridRow[] = [
   },
   {
     name: 'Fourth quarter team goal 2',
+    goalType: 'Other',
     target: 75,
     dueDate: new Date('12/31/2019')
   }
