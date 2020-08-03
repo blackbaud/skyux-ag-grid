@@ -23,6 +23,7 @@ jobs:
           browser-stack-access-key: ${{ secrets.BROWSER_STACK_ACCESS_KEY }}
           browser-stack-username: ${{ secrets.BROWSER_STACK_USERNAME }}
           github-token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          hook-after-build-public-library-success: ./scripts/after-build-public-library-success.js
           npm-token: ${{ secrets.NPM_TOKEN }}
           slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
       - uses: codecov/codecov-action@v1
