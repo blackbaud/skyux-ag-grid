@@ -28,12 +28,20 @@
   },
   "app": {
     "styles": [
+      "@skyux/docs-tools/css/docs-tools.css",
       "src/app/public/styles/ag-grid-styles.scss"
     ]
   },
   "host": {
+    "url": "https://developer.blackbaud.com",
     "frameOptions": {
       "none": true
+    }
+  },
+  "omnibar": {},
+  "params": {
+    "svcid": {
+      "value": "skyux"
     }
   }
 }
