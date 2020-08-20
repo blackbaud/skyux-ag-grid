@@ -165,7 +165,6 @@ describe('SkyAgGridWrapperComponent', () => {
       const afterAnchorEl = gridWrapperNativeElement.querySelector(`#${gridWrapperComponent.afterAnchorId}`) as HTMLElement;
       const afterButtonEl = gridWrapperNativeElement.querySelector('#button-after-grid') as HTMLElement;
       const column = new Column({}, {}, 'name', true);
-      const rowIndex = 0;
 
       spyOn(agGrid.columnApi, 'getAllDisplayedColumns').and.returnValue([column]);
       spyOn(agGrid.api, 'getFirstDisplayedRow').and.returnValue(undefined);
