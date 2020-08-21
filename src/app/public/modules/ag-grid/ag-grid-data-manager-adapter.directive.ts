@@ -48,7 +48,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
   @ContentChildren(AgGridAngular, { descendants: true })
   public agGridList: QueryList<AgGridAngular>;
 
-  @ContentChildren(SkyAgGridWrapperComponent, { descendants: true})
+  @ContentChildren(SkyAgGridWrapperComponent, { descendants: true })
   public skyAgGridWrapperList: QueryList<SkyAgGridWrapperComponent>;
 
   private currentAgGrid: AgGridAngular;
