@@ -27,7 +27,8 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyDataManagerService, SkyDataManagerState
+  SkyDataManagerService,
+  SkyDataManagerState
 } from '@skyux/data-manager';
 
 import {
