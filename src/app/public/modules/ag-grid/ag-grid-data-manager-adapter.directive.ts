@@ -23,8 +23,7 @@ import {
 
 import {
   ColumnMovedEvent,
-  RowSelectedEvent,
-  RowNode
+  RowSelectedEvent
 } from 'ag-grid-community';
 
 import {
