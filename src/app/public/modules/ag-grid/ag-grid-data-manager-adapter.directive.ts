@@ -23,7 +23,8 @@ import {
 
 import {
   ColumnMovedEvent,
-  RowSelectedEvent
+  RowSelectedEvent,
+  RowNode
 } from 'ag-grid-community';
 
 import {
@@ -136,7 +137,9 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     this.currentSkyAgGridWrapper = this.skyAgGridWrapperList.first;
 
     setTimeout(() => {
-      this.currentSkyAgGridWrapper.viewkeeperClasses = [];
+      if (this.currentSkyAgGridWrapper) {
+        this.currentSkyAgGridWrapper.viewkeeperClasses = [];
+      }
     });
   }
 

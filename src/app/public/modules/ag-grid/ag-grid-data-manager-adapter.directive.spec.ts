@@ -189,15 +189,18 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
 
   it('should register a grid if no other grids are rendered', () => {
     expect(agGridDataManagerDirective.agGridList.length).toBe(1);
+    expect(agGridDataManagerDirective.skyAgGridWrapperList.length).toBe(1);
 
     agGridDataManagerFixtureComponent.displayFirstGrid = false;
     agGridDataManagerFixture.detectChanges();
 
     expect(agGridDataManagerDirective.agGridList.length).toBe(0);
+    expect(agGridDataManagerDirective.skyAgGridWrapperList.length).toBe(0);
 
     agGridDataManagerFixtureComponent.displaySecondGrid = true;
     agGridDataManagerFixture.detectChanges();
 
     expect(agGridDataManagerDirective.agGridList.length).toBe(1);
+    expect(agGridDataManagerDirective.skyAgGridWrapperList.length).toBe(1);
   });
 });
