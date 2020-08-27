@@ -6,7 +6,6 @@ import { SkyWaitModule } from '@skyux/indicators';
 
 describe('AgGridLoadingOverlay', () => {
   let gridLoadingOverlayFixture: ComponentFixture<SkyAgGridLoadingOverlayComponent>;
-  let gridLoadingOverlayComponent: SkyAgGridLoadingOverlayComponent;
   let gridLoadingOverlayNativeElement: HTMLElement;
 
   beforeEach(() => {
@@ -23,7 +22,6 @@ describe('AgGridLoadingOverlay', () => {
     });
     gridLoadingOverlayFixture = TestBed.createComponent(SkyAgGridLoadingOverlayComponent);
     gridLoadingOverlayNativeElement = gridLoadingOverlayFixture.nativeElement;
-    gridLoadingOverlayComponent = gridLoadingOverlayFixture.componentInstance;
   });
   afterEach(() => {
     gridLoadingOverlayFixture.destroy();
