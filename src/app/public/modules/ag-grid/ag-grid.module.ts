@@ -71,6 +71,15 @@ import {
   SkyAgGridDataManagerAdapterDirective
 } from './ag-grid-data-manager-adapter.directive';
 
+import {
+  SkyAgGridLoadingOverlayComponent
+} from './overlays/ag-grid-loading-overlay.component';
+
+import {
+  SkyWaitModule
+} from '@skyux/indicators';
+import { SkyAgGridOverlaysModule } from './overlays/grid-overlays.module';
+
 @NgModule({
   declarations: [
     SkyAgGridDataManagerAdapterDirective,
@@ -85,7 +94,9 @@ import {
     SkyAgGridCellEditorTextModule,
     SkyCoreAdapterModule,
     SkyDataManagerModule,
-    SkyViewkeeperModule
+    SkyViewkeeperModule,
+    SkyWaitModule,
+    SkyAgGridOverlaysModule
   ],
   exports: [
     SkyAgGridDataManagerAdapterDirective,
@@ -100,7 +111,8 @@ import {
     SkyAgGridCellEditorDatepickerComponent,
     SkyAgGridCellEditorNumberComponent,
     SkyAgGridCellRendererRowSelectorComponent,
-    SkyAgGridCellEditorTextComponent
+    SkyAgGridCellEditorTextComponent,
+    SkyAgGridLoadingOverlayComponent
   ]
 })
 export class SkyAgGridModule { }

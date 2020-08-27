@@ -1,0 +1,18 @@
+<div class="overlays-grid">
+  <sky-toolbar>
+    <sky-toolbar-item>
+      <button type="button" (click)="showLoadingOverlay()" class="sky-btn sky-btn-secondary">
+        Show loading overlay
+      </button>
+    </sky-toolbar-item>
+    <sky-toolbar-item>
+      <button type="button" (click)="hideOverlay()" class="sky-btn sky-btn-secondary">
+        Hide overlay
+      </button>
+    </sky-toolbar-item>
+  </sky-toolbar>
+  <sky-ag-grid-wrapper>
+    <ag-grid-angular [gridOptions]="gridOptions">
+    </ag-grid-angular>
+  </sky-ag-grid-wrapper>
+</div>
