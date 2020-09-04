@@ -18,13 +18,13 @@ import {
 } from '../../types/currency-properties';
 
 @Component({
-  selector: 'sky-ag-grid-cell-editor-currency',
-  templateUrl: './cell-editor-currency.component.html',
-  styleUrls: ['./cell-editor-currency.component.scss'],
+  selector: 'sky-ag-grid-cell-renderer-currency',
+  templateUrl: './cell-renderer-currency.component.html',
+  styleUrls: ['./cell-renderer-currency.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SkyAgGridCellEditorCurrencyComponent implements ICellRendererAngularComp {
+export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngularComp {
   public value: any;
   public skyComponentProperties: SkyCurrencyProperties = {};
   public columnHeader: string;
@@ -33,12 +33,11 @@ export class SkyAgGridCellEditorCurrencyComponent implements ICellRendererAngula
   public rowNumber: number;
   private params: SkyCellRendererCurrencyParams;
 
-  @ViewChild('skyCellEditorCurrency', { read: ElementRef })
-  private input: ElementRef;
+  @ViewChild('skyCellRendererCurrency', { read: ElementRef })
 
   /**
-   * agInit is called by agGrid once after the editor is created and provides the editor with the information it needs.
-   * @param params The cell editor params that include data about the cell, column, row, and grid.
+   * agInit is called by agGrid once after the renderer is created and provides the renderer with the information it needs.
+   * @param params The cell renderer params that include data about the cell, column, row, and grid.
    */
   public agInit(params: SkyCellRendererCurrencyParams) {
     this.params = params;
@@ -50,19 +49,5 @@ export class SkyAgGridCellEditorCurrencyComponent implements ICellRendererAngula
 
   public refresh(): boolean {
     return false;
-  }
-
-  /**
-   * afterGuiAttached is called by agGrid after the editor is rendered in the DOM. Once it is attached the editor is ready to be focused on.
-   */
-  public afterGuiAttached(): void {
-    this.input.nativeElement.focus();
-  }
-
-  /**
-   * getValue is called by agGrid when editing is stopped to get the new value of the cell.
-   */
-  public getValue(): number {
-    return this.value;
   }
 }

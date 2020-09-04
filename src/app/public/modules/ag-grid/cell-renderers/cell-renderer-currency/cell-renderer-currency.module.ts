@@ -1,4 +1,4 @@
-import {
+ import {
   NgModule
 } from '@angular/core';
 
@@ -11,8 +11,8 @@ import {
 } from '../../../shared/ag-grid-resources.module';
 
 import {
-  SkyAgGridCellEditorCurrencyComponent
-} from './cell-editor-currency.component';
+  SkyAgGridCellRendererCurrencyComponent
+} from './cell-renderer-currency.component';
 
 import {
   SkyAutonumericModule
@@ -25,11 +25,11 @@ import {
     SkyAutonumericModule
   ],
   declarations: [
-    SkyAgGridCellEditorCurrencyComponent
+    SkyAgGridCellRendererCurrencyComponent
   ],
   exports: [
-    SkyAgGridCellEditorCurrencyComponent
+    SkyAgGridCellRendererCurrencyComponent
   ]
 })
-export class SkyAgGridCellEditorCurrencyModule {
+export class SkyAgGridCellRendererCurrencyModule {
 }
