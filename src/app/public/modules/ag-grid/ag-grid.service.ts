@@ -191,7 +191,8 @@ export class SkyAgGridService {
             [SkyCellClass.Currency]: cellClassRuleTrueExpression,
             ...editableCellClassRules
           },
-          cellEditorFramework: SkyAgGridCellRendererCurrencyComponent,
+          cellRendererFramework: SkyAgGridCellRendererCurrencyComponent,
+          cellEditorFramework: SkyAgGridCellEditorNumberComponent,
           minWidth: 185
         },
         [SkyCellType.Date]: {
