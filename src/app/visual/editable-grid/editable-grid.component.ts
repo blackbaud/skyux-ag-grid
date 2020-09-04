@@ -138,6 +138,15 @@ export class EditableGridComponent implements OnInit {
         type: SkyCellType.Date,
         sort: 'asc',
         minWidth: 160
+      },
+      {
+        colId: 'currencyAmount',
+        field: 'currencyAmount',
+        headerName: 'Currency',
+        type: SkyCellType.Currency,
+        editable: this.editMode,
+        sort: 'asc',
+        minWidth: 160
       }
     ];
   }

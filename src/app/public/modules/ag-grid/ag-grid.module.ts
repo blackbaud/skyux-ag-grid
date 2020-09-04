@@ -74,6 +74,7 @@ import {
 import {
   SkyAgGridCellRendererCurrencyModule
 } from './cell-renderers/cell-renderer-currency/cell-renderer-currency.module';
+import { SkyAgGridCellRendererCurrencyComponent } from './cell-renderers/cell-renderer-currency/cell-renderer-currency.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import {
     SkyAgGridCellEditorAutocompleteComponent,
     SkyAgGridCellEditorDatepickerComponent,
     SkyAgGridCellEditorNumberComponent,
+    SkyAgGridCellRendererCurrencyComponent,
     SkyAgGridCellRendererRowSelectorComponent,
     SkyAgGridCellEditorTextComponent
   ]
