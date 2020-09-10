@@ -149,7 +149,7 @@ export class EditableGridComponent implements OnInit {
         minWidth: 160,
         cellRendererParams: {
           skyComponentProperties: {
-            currencySymbol: 'a'
+            currencySymbol: '$'
           }
         }
       }
