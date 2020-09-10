@@ -1,8 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  ViewChild
+  Component
 } from '@angular/core';
 
 import {
