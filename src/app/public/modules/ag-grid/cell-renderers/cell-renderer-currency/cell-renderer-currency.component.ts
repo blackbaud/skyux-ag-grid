@@ -33,8 +33,6 @@ export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngu
   public rowNumber: number;
   private params: SkyCellRendererCurrencyParams;
 
-  @ViewChild('skyCellRendererCurrency', { read: ElementRef })
-
   /**
    * agInit is called by agGrid once after the renderer is created and provides the renderer with the information it needs.
    * @param params The cell renderer params that include data about the cell, column, row, and grid.
