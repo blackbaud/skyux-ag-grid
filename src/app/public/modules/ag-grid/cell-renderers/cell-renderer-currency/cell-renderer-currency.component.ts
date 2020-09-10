@@ -44,7 +44,7 @@ export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngu
     this.value = this.params.value;
     this.columnHeader = this.params.colDef && this.params.colDef.headerName;
     this.rowNumber = this.params.rowIndex + 1;
-    this.skyComponentProperties = this.params.skyComponentProperties || {};
+    this.skyComponentProperties = this.params.skyComponentProperties || { decimalPlaces: 2 , currencySymbol: '$' };
   }
 
   public refresh(): boolean {

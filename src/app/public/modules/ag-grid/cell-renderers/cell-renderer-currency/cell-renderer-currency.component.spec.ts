@@ -1,16 +1,14 @@
 import {
   async,
   ComponentFixture,
-  TestBed
+  TestBed,
+  fakeAsync,
+  tick
 } from '@angular/core/testing';
 
 import {
   expect
 } from '@skyux-sdk/testing';
-
-import {
-  Column
-} from 'ag-grid-community';
 
 import {
   SkyCellClass
@@ -27,11 +25,25 @@ import {
 import {
   SkyAgGridCellRendererCurrencyComponent
 } from './cell-renderer-currency.component';
-import { SkyCellRendererCurrencyParams } from '../../types/cell-renderer-currency-params';
+
+import {
+  SkyCellRendererCurrencyParams
+} from '../../types/cell-renderer-currency-params';
+
+import {
+  Column,
+  RowNode
+} from 'ag-grid-community';
+
+import {
+  SkyCurrencyProperties
+} from '../../types/currency-properties';
 
 describe('SkyAgGridCellRendererCurrencyComponent', () => {
-  let currencyRendererFixture: ComponentFixture<SkyAgGridCellRendererCurrencyComponent>;
-  let currencyRendererComponent: SkyAgGridCellRendererCurrencyComponent;
+  let currencyFixture: ComponentFixture<SkyAgGridCellRendererCurrencyComponent>;
+  let currencyComponent: SkyAgGridCellRendererCurrencyComponent;
+  let currencyNativeElement: HTMLElement;
+  let cellRendererParams: SkyCellRendererCurrencyParams;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,71 +52,79 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
       ]
     });
 
-    currencyRendererFixture = TestBed.createComponent(SkyAgGridCellRendererCurrencyComponent);
-    currencyRendererComponent = currencyRendererFixture.componentInstance;
+    currencyFixture = TestBed.createComponent(SkyAgGridCellRendererCurrencyComponent);
+    currencyNativeElement = currencyFixture.nativeElement;
+    currencyComponent = currencyFixture.componentInstance;
+    let column: Column = new Column(
+      {
+        colId: 'col'
+      },
+      undefined,
+      'col',
+      true);
 
-    currencyRendererFixture.detectChanges();
+    column.setActualWidth(200);
+
+    cellRendererParams = {
+      value: 123,
+      column,
+      node: new RowNode(),
+      colDef: {},
+      columnApi: undefined,
+      data: undefined,
+      rowIndex: undefined,
+      api: undefined,
+      context: undefined,
+      $scope: undefined,
+      eGridCell: undefined,
+      formatValue: undefined,
+      skyComponentProperties: {} as SkyCurrencyProperties
+    } as SkyCellRendererCurrencyParams;
   });
 
-  it('renders a currency input when editing a currency cell in an ag grid', () => {
-    const gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
-    const gridNativeElement = gridFixture.nativeElement;
+  it('renders a skyux autonumeric input in an ag grid', () => {
+    let gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
+    let gridNativeElement = gridFixture.nativeElement;
 
     gridFixture.detectChanges();
 
-    const currencyCellElement = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
-    const currencyCellEditorSelector = `.ag-cell-inline-editing.${SkyCellClass.Currency}`;
-    let inputElement = gridNativeElement.querySelector(currencyCellEditorSelector);
-
-    expect(inputElement).toBeNull();
-
-    currencyCellElement.click();
-
-    inputElement = gridNativeElement.querySelector(currencyCellEditorSelector);
-
-    expect(inputElement).toBeVisible();
+    const element = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
+    expect(element).toBeVisible();
   });
 
   describe('agInit', () => {
-    it('initializes the SkyAgGridCellRendererCurrencyComponent properties', () => {
-      const value = 123456;
-      const columnWidth = 100;
-      const column = new Column(
-        {
-          colId: 'col'
-        },
-        undefined,
-        'col',
-        true);
 
-      column.setActualWidth(columnWidth);
+    it('initializes the SkyAgGridCellRendererCurrencyComponent properties', fakeAsync(() => {
+      cellRendererParams.value = 123;
+      cellRendererParams.skyComponentProperties.currencySymbol = '$';
+      cellRendererParams.skyComponentProperties.decimalPlaces = 1;
 
-      let cellRendererParams: SkyCellRendererCurrencyParams = {
-        value,
-        colDef: { headerName: 'Test currency cell' },
-        rowIndex: 1,
-        column,
-        skyComponentProperties: {
-          currencySymbol: '$',
-          decimalPlaces: 2
-        }
-      } as SkyCellRendererCurrencyParams;
+      expect(currencyComponent.value).toBeUndefined();
 
-      expect(currencyRendererComponent.value).toBeUndefined();
-      expect(currencyRendererComponent.columnWidth).toBeUndefined();
+      currencyComponent.agInit(cellRendererParams);
 
-      currencyRendererComponent.agInit(cellRendererParams);
+      currencyFixture.detectChanges();
+      tick();
+      currencyFixture.detectChanges();
 
-      expect(currencyRendererComponent.value).toEqual(value);
-      expect(currencyRendererComponent.columnWidth).toEqual(columnWidth);
+      console.log(currencyFixture.nativeElement);
+      console.log(currencyFixture.elementRef);
+
+      expect(currencyComponent.value).toBe(123);
+    }));
+  });
+
+  describe('refresh', () => {
+    it('returns false', () => {
+      expect(currencyComponent.refresh()).toBe(false);
     });
   });
 
   it('should pass accessibility', async(() => {
-    currencyRendererFixture.detectChanges();
+    currencyFixture.detectChanges();
 
-    currencyRendererFixture.whenStable().then(() => {
-      expect(currencyRendererFixture.nativeElement).toBeAccessible();
+    currencyFixture.whenStable().then(() => {
+      expect(currencyNativeElement).toBeAccessible();
     });
   }));
 });
