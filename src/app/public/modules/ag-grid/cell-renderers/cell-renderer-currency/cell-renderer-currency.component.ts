@@ -23,12 +23,13 @@ import {
 })
 
 export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngularComp {
-  public value: any;
+  public value: number;
   public skyComponentProperties: SkyCurrencyProperties = {};
   public columnHeader: string;
   public columnWidth: number;
   public rowHeightWithoutBorders: number;
   public rowNumber: number;
+
   private params: SkyCellRendererCurrencyParams;
 
   /**
@@ -40,6 +41,8 @@ export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngu
     this.value = this.params.value;
     this.columnHeader = this.params.colDef && this.params.colDef.headerName;
     this.rowNumber = this.params.rowIndex + 1;
+    this.columnWidth = this.params.column.getActualWidth();
+    this.rowHeightWithoutBorders = this.params.node && this.params.node.rowHeight - 4;
     this.skyComponentProperties = this.params.skyComponentProperties || { decimalPlaces: 2 , currencySymbol: '$' };
   }
 

@@ -145,8 +145,6 @@ export class EditableGridComponent implements OnInit {
         headerName: 'Currency',
         type: SkyCellType.Currency,
         editable: this.editMode,
-        sort: 'asc',
-        minWidth: 160,
         cellRendererParams: {
           skyComponentProperties: {
             currencySymbol: '$'

@@ -53,7 +53,7 @@
     "@skyux-sdk/testing": "4.1.0",
     "@skyux/animations": "4.0.1",
     "@skyux/assets": "4.0.1",
-    "@skyux/autonumeric": "^4.0.2",
+    "@skyux/autonumeric": "4.0.2",
     "@skyux/avatar": "4.1.0",
     "@skyux/config": "4.0.3",
     "@skyux/core": "4.3.0",
