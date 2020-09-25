@@ -1,9 +1,10 @@
 import {
+  AfterContentInit,
+  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-  ElementRef,
-  AfterContentInit
+  ElementRef
 } from '@angular/core';
 
 import {
@@ -31,10 +32,21 @@ export class SkyAgGridWrapperComponent implements AfterContentInit {
   public afterAnchorId: string;
   public beforeAnchorId: string;
   public gridId: string;
-  public viewkeeperClasses: string[] = [];
+
+  public get viewkeeperClasses(): string[] {
+    return this._viewkeeperClasses;
+  }
+
+  public set viewkeeperClasses(value: string[]) {
+    this._viewkeeperClasses = value;
+    this.changeDetector.markForCheck();
+  }
+
+  private _viewkeeperClasses: string[] = [];
 
   constructor(
     private adapterService: SkyAgGridAdapterService,
+    private changeDetector: ChangeDetectorRef,
     private elementRef: ElementRef
   ) {
     idIndex++;
@@ -64,17 +76,13 @@ export class SkyAgGridWrapperComponent implements AfterContentInit {
     const previousWasCell = relatedTarget && !!this.adapterService.getElementOrParentWithClass(relatedTarget, 'ag-cell');
 
     if (previousFocusedId !== gridId && !previousWasCell) {
-      this.adapterService.setFocusedElementById(this.elementRef.nativeElement, this.gridId);
-    }
-  }
+      const columns = this.agGrid.columnApi.getAllDisplayedColumns();
+      const firstColumn = columns && columns[0];
+      const rowIndex = this.agGrid.api.getFirstDisplayedRow();
 
-  public onGridFocus(): void {
-    const columns = this.agGrid.columnApi.getAllDisplayedColumns();
-    const firstColumn = columns && columns[0];
-    const rowIndex = this.agGrid.api.getFirstDisplayedRow();
-
-    if (firstColumn && rowIndex >= 0) {
-      this.agGrid.api.setFocusedCell(rowIndex, firstColumn);
+      if (firstColumn && rowIndex >= 0) {
+        this.agGrid.api.setFocusedCell(rowIndex, firstColumn);
+      }
     }
   }
 }
