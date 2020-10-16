@@ -1,5 +1,5 @@
-sky-checkbox {
-  position: absolute;
-  top: -6px;
-  margin: 0 auto;
+::ng-deep {
+  .sky-switch-control {
+    top: -6px !important;
+  }
 }

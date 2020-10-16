@@ -30,7 +30,14 @@
     "styles": [
       "@skyux/docs-tools/css/docs-tools.css",
       "src/app/public/styles/ag-grid-styles.scss"
-    ]
+    ],
+    "theming": {
+      "supportedThemes": [
+        "default",
+        "modern"
+      ],
+      "theme": "default"
+    }
   },
   "host": {
     "url": "https://developer.blackbaud.com",

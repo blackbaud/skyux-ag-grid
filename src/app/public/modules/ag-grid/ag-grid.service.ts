@@ -206,10 +206,10 @@ export class SkyAgGridService {
           },
           cellRendererFramework: SkyAgGridCellRendererRowSelectorComponent,
           headerName: '',
-          minWidth: 50,
-          maxWidth: 50,
+          minWidth: 55,
+          maxWidth: 55,
           sortable: false,
-          width: 50
+          width: 55
         },
         [SkyCellType.Text]: {
           cellClassRules: {

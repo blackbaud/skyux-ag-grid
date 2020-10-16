@@ -11,6 +11,11 @@ import {
 } from 'ag-grid-community';
 
 import {
+  SkyThemeService,
+  SkyThemeSettings
+} from '@skyux/theme';
+
+import {
   READONLY_GRID_DATA,
   RowStatusNames
 } from './readonly-grid-data';
@@ -93,7 +98,11 @@ export class ReadonlyGridComponent implements OnInit {
       minWidth: 300
     }];
 
-  constructor(private agGridService: SkyAgGridService) { }
+  constructor(
+    private agGridService: SkyAgGridService,
+    private themeSvc: SkyThemeService
+
+    ) { }
 
   public ngOnInit(): void {
     this.gridOptions = {
@@ -156,5 +165,9 @@ export class ReadonlyGridComponent implements OnInit {
     this.gridApi = gridReadyEvent.api;
     this.gridApi.sizeColumnsToFit();
     this.gridApi.resetRowHeights();
+  }
+
+  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
+    this.themeSvc.setTheme(themeSettings);
   }
 }
