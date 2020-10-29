@@ -266,7 +266,6 @@ export class SkyAgGridService {
     let defaultGridOptions = this.getDefaultGridOptions(args);
 
     defaultGridOptions.rowSelection = 'none';
-    defaultGridOptions.suppressCellSelection = false;
 
     return defaultGridOptions;
   }
