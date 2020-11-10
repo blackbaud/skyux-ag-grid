@@ -9,8 +9,10 @@ import {
 } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 import {
+  browser,
   by,
-  element
+  element,
+  ExpectedConditions
 } from 'protractor';
 
 describe('Editable grid', () => {
@@ -192,25 +194,6 @@ describe('Editable grid', () => {
 
       it('should match previous screenshot on extra small screens', (done) => {
         matchesPreviousDateTextEditingGrid('xs', done);
-      });
-    });
-
-    describe('autocomplete input editing', () => {
-      function matchesPreviousAutocompleteInputEditingGrid (screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
-
-        element(by.css(editButton)).click();
-
-        SkyHostBrowser.scrollTo(autocompleteCell);
-        element(by.css(autocompleteCell)).click();
-
-        expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-autocomplete-input', screenSize)
-        });
-      }
-
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousAutocompleteInputEditingGrid('lg', done);
       });
     });
   }
