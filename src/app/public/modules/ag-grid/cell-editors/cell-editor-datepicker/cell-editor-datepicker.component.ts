@@ -24,7 +24,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngularComp {
+  public columnWidth: number;
   public currentDate: Date;
+  public rowHeightWithoutBorders: number;
   public skyComponentProperties: SkyDatepickerProperties = {};
   private params: SkyCellEditorDatepickerParams;
 
@@ -41,6 +43,8 @@ export class SkyAgGridCellEditorDatepickerComponent implements ICellEditorAngula
     this.params = params;
     this.currentDate = this.params.value;
     this.skyComponentProperties = this.params.skyComponentProperties || {};
+    this.columnWidth = this.params.column.getActualWidth();
+    this.rowHeightWithoutBorders = this.params.node && this.params.node.rowHeight - 4;
   }
 
   /**

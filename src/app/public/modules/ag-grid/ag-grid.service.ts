@@ -1,5 +1,6 @@
 import {
-  Injectable
+  Injectable,
+  Optional
 } from '@angular/core';
 
 import {
@@ -8,6 +9,11 @@ import {
   SuppressKeyboardEventParams,
   ValueFormatterParams
 } from 'ag-grid-community';
+
+import {
+  SkyThemeService,
+  SkyThemeSettings
+} from '@skyux/theme';
 
 import {
   SkyAgGridCellEditorAutocompleteComponent
@@ -101,10 +107,16 @@ function dateComparator(date1: any, date2: any): number {
  */
 @Injectable()
 export class SkyAgGridService {
+  private currentTheme: SkyThemeSettings;
 
   constructor(
+    @Optional() public themeSvc: SkyThemeService,
     private agGridAdapterService: SkyAgGridAdapterService
-  ) {}
+  ) {
+    if (this.themeSvc) {
+      this.themeSvc.settingsChange.subscribe(settingsChange => this.currentTheme = settingsChange.currentSettings);
+    }
+  }
 
   /**
    * Get SKY UX gridOptions to create your agGrid with default SKY styling and behavior.
@@ -188,8 +200,9 @@ export class SkyAgGridService {
             ...editableCellClassRules
           },
           cellEditorFramework: SkyAgGridCellEditorDatepickerComponent,
-          valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale),
-          comparator: dateComparator
+          comparator: dateComparator,
+          minWidth: this.currentTheme?.theme?.name === 'modern' ? 180 : 160,
+          valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale)
         },
         [SkyCellType.Number]: {
           cellClassRules: {
@@ -227,7 +240,7 @@ export class SkyAgGridService {
       },
       domLayout: 'autoHeight',
       enterMovesDownAfterEdit: true,
-      headerHeight: 37,
+      headerHeight: this.currentTheme?.theme?.name === 'modern' ? 60 : 37,
       icons: {
         sortDescending: this.getIconTemplate('caret-down'),
         sortAscending: this.getIconTemplate('caret-up'),
@@ -239,7 +252,7 @@ export class SkyAgGridService {
       },
       onCellFocused: () => this.onCellFocused(),
       suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress),
-      rowHeight: 38,
+      rowHeight: this.currentTheme?.theme?.name === 'modern' ? 60 : 38,
       rowMultiSelectWithClick: true,
       rowSelection: 'multiple',
       singleClickEdit: true,

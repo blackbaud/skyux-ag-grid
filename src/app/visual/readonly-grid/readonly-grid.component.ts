@@ -86,9 +86,7 @@ export class ReadonlyGridComponent implements OnInit {
       headerName: 'Comment',
       maxWidth: 500,
       autoHeight: true,
-      cellRenderer: (params: ICellRendererParams) => {
-        return `<div style="white-space: normal">${params.value || ''}</div>`;
-      }
+      wrapText: true
     },
     {
       field: 'status',
@@ -100,16 +98,11 @@ export class ReadonlyGridComponent implements OnInit {
 
   constructor(
     private agGridService: SkyAgGridService,
-    private themeSvc: SkyThemeService
-
-    ) { }
+    public themeSvc: SkyThemeService
+  ) { }
 
   public ngOnInit(): void {
-    this.gridOptions = {
-      columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
-    };
-    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
+    this.getGridOptions();
   }
 
   public onScrollEnd(): void {
@@ -169,5 +162,14 @@ export class ReadonlyGridComponent implements OnInit {
 
   public themeSettingsChange(themeSettings: SkyThemeSettings): void {
     this.themeSvc.setTheme(themeSettings);
+    this.getGridOptions();
+  }
+
+  private getGridOptions(): void {
+    this.gridOptions = {
+      columnDefs: this.columnDefs,
+      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
+    };
+    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
 }

@@ -7,4 +7,10 @@ sky-datepicker {
     box-shadow: none;
     border-right: 1px solid $sky-border-color-neutral-medium;
   }
+
+  ::ng-deep {
+  .sky-input-group-datepicker-btn {
+    border-radius: 0;
+  }
+}
 }
