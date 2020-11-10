@@ -42,10 +42,10 @@ describe('Readonly grid', () => {
 
   function runTests(): void {
     describe('read mode', () => {
-      function matchesPreviousReadonlyGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+      async function matchesPreviousReadonlyGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        SkyHostBrowser.moveCursorOffScreen();
+        await SkyHostBrowser.moveCursorOffScreen();
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-${screenSize}`)
@@ -62,10 +62,10 @@ describe('Readonly grid', () => {
     });
 
     describe('descending sort', () => {
-      function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+      async function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        element(by.css(sortableHeaderCell)).click();
+        await element(by.css(sortableHeaderCell)).click();
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-sort-desc-${screenSize}`)
@@ -82,12 +82,12 @@ describe('Readonly grid', () => {
     });
 
     describe('ascending sort', () => {
-      function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
+      async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         // click twice to sort by descending then ascending
-        element(by.css(sortableHeaderCell)).click();
-        element(by.css(sortableHeaderCell)).click();
+        await element(by.css(sortableHeaderCell)).click();
+        await element(by.css(sortableHeaderCell)).click();
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-sort-asc-${screenSize}`)
