@@ -9,14 +9,17 @@ import {
 } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 import {
+  browser,
   by,
-  element
+  element,
+  ExpectedConditions
 } from 'protractor';
 
 describe('Editable grid', () => {
 
   // selectors
   const dateCell = '.sky-ag-grid-cell-editable.sky-ag-grid-cell-date';
+  const autocompleteCell = '.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete';
   const editButton = '#edit-btn';
   const editableGrid = '.editable-grid';
   const sortableHeaderCell = '.ag-header-cell-sortable';
@@ -47,10 +50,10 @@ describe('Editable grid', () => {
 
   function runTests(): void {
     describe('read mode', () => {
-      function matchesPreviousEditableGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+      async function matchesPreviousEditableGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        SkyHostBrowser.moveCursorOffScreen();
+        await SkyHostBrowser.moveCursorOffScreen();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-read', screenSize)
@@ -67,10 +70,10 @@ describe('Editable grid', () => {
     });
 
     describe('edit mode', () => {
-      function matchesPreviousEditableGridInEditMode(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+      async function matchesPreviousEditableGridInEditMode(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        element(by.css(editButton)).click();
+        await element(by.css(editButton)).click();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit', screenSize)
@@ -87,10 +90,10 @@ describe('Editable grid', () => {
     });
 
     describe('descending sort', () => {
-      function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+      async function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        element(by.css(sortableHeaderCell)).click();
+        await element(by.css(sortableHeaderCell)).click();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-sort-desc', screenSize)
@@ -107,12 +110,12 @@ describe('Editable grid', () => {
     });
 
     describe('ascending sort', () => {
-      function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
+      async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         // click twice to sort by descending then ascending
-        element(by.css(sortableHeaderCell)).click();
-        element(by.css(sortableHeaderCell)).click();
+        await element(by.css(sortableHeaderCell)).click();
+        await element(by.css(sortableHeaderCell)).click();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-sort-asc', screenSize)
@@ -129,12 +132,12 @@ describe('Editable grid', () => {
     });
 
     describe('number editing', () => {
-      function matchesPreviousNumberEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+      async function matchesPreviousNumberEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        element(by.css(editButton)).click();
+        await element(by.css(editButton)).click();
 
-        element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')).click();
+        await element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')).click();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-number', screenSize)
@@ -151,12 +154,12 @@ describe('Editable grid', () => {
     });
 
     describe('text editing', () => {
-      function matchesPreviousTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+      async function matchesPreviousTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        element(by.css(editButton)).click();
+        await element(by.css(editButton)).click();
 
-        element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-text')).click();
+        await element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-text')).click();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-text', screenSize)
@@ -173,12 +176,12 @@ describe('Editable grid', () => {
     });
 
     describe('date text input editing', () => {
-      function matchesPreviousDateTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+      async function matchesPreviousDateTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        element(by.css(editButton)).click();
+        await element(by.css(editButton)).click();
 
-        element(by.css(dateCell)).click();
+        await element(by.css(dateCell)).click();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-date', screenSize)
@@ -191,6 +194,52 @@ describe('Editable grid', () => {
 
       it('should match previous screenshot on extra small screens', (done) => {
         matchesPreviousDateTextEditingGrid('xs', done);
+      });
+    });
+
+    describe('autocomplete input editing', () => {
+      async function matchesPreviousAutocompleteInputEditingGrid (screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+        await element(by.css(editButton)).click();
+
+        await element(by.css(autocompleteCell)).click();
+
+        expect(editableGrid).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-autocomplete-input', screenSize)
+        });
+      }
+
+      it('should match previous screenshot on large screens', (done) => {
+        matchesPreviousAutocompleteInputEditingGrid('lg', done);
+      });
+    });
+
+    describe('autocomplete dropdown editing', () => {
+      async function matchesPreviousAutocompleteDropdownEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        const cell = element(by.css(autocompleteCell));
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+        await element(by.css(editButton)).click();
+
+        await cell.click();
+        const input = element(by.css(`${autocompleteCell} input`));
+        input.value = 'j';
+        await browser.actions().sendKeys('j').perform();
+
+        await browser.wait(
+          ExpectedConditions.presenceOf(element(by.css('.sky-autocomplete-results'))),
+          1200,
+          'Autocomplete results dropdown took too long to appear.'
+        );
+
+        expect(editableGrid).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-autocomplete-dropdown', screenSize)
+        });
+      }
+
+      it('should match previous screenshot on large screens', (done) => {
+        matchesPreviousAutocompleteDropdownEditingGrid('lg', done);
       });
     });
   }
