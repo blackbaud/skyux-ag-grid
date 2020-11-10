@@ -9,17 +9,14 @@ import {
 } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 import {
-  browser,
   by,
-  element,
-  ExpectedConditions
+  element
 } from 'protractor';
 
 describe('Editable grid', () => {
 
   // selectors
   const dateCell = '.sky-ag-grid-cell-editable.sky-ag-grid-cell-date';
-  const autocompleteCell = '.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete';
   const editButton = '#edit-btn';
   const editableGrid = '.editable-grid';
   const sortableHeaderCell = '.ag-header-cell-sortable';
