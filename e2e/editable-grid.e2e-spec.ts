@@ -9,10 +9,8 @@ import {
 } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 import {
-  browser,
   by,
-  element,
-  ExpectedConditions
+  element
 } from 'protractor';
 
 describe('Editable grid', () => {
