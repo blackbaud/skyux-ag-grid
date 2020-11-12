@@ -107,7 +107,7 @@ function dateComparator(date1: any, date2: any): number {
  */
 @Injectable()
 export class SkyAgGridService {
-  private currentTheme: SkyThemeSettings;
+  public currentTheme: SkyThemeSettings;
 
   constructor(
     @Optional() public themeSvc: SkyThemeService,
