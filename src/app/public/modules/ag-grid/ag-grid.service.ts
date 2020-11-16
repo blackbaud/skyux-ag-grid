@@ -49,7 +49,11 @@ import {
   SkyAgGridAdapterService
 } from './ag-grid-adapter.service';
 
-function autocompleteComparator(value1: {name: string}, value2: {name: string}): number {
+import {
+  SkyAgGridCellRendererCurrencyComponent
+} from './cell-renderers/cell-renderer-currency/cell-renderer-currency.component';
+
+function autocompleteComparator(value1: { name: string }, value2: { name: string }): number {
   if (value1 && value2) {
     if (value1.name > value2.name) {
       return 1;
@@ -104,7 +108,7 @@ export class SkyAgGridService {
 
   constructor(
     private agGridAdapterService: SkyAgGridAdapterService
-  ) {}
+  ) { }
 
   /**
    * Get SKY UX gridOptions to create your agGrid with default SKY styling and behavior.
@@ -180,6 +184,15 @@ export class SkyAgGridService {
           cellEditorFramework: SkyAgGridCellEditorAutocompleteComponent,
           valueFormatter: autocompleteFormatter,
           comparator: autocompleteComparator,
+          minWidth: 185
+        },
+        [SkyCellType.Currency]: {
+          cellClassRules: {
+            [SkyCellClass.Currency]: cellClassRuleTrueExpression,
+            ...editableCellClassRules
+          },
+          cellRendererFramework: SkyAgGridCellRendererCurrencyComponent,
+          cellEditorFramework: SkyAgGridCellEditorNumberComponent,
           minWidth: 185
         },
         [SkyCellType.Date]: {
@@ -297,7 +310,7 @@ export class SkyAgGridService {
 
         const nextFocusableElementInCell =
           this.agGridAdapterService.getNextFocusableElement(currentlyFocusedEl, parentEl, params.event.shiftKey);
-          return !!nextFocusableElementInCell;
+        return !!nextFocusableElementInCell;
       }
       return true;
     }

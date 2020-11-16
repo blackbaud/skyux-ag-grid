@@ -71,6 +71,11 @@ import {
   SkyAgGridDataManagerAdapterDirective
 } from './ag-grid-data-manager-adapter.directive';
 
+import {
+  SkyAgGridCellRendererCurrencyModule
+} from './cell-renderers/cell-renderer-currency/cell-renderer-currency.module';
+import { SkyAgGridCellRendererCurrencyComponent } from './cell-renderers/cell-renderer-currency/cell-renderer-currency.component';
+
 @NgModule({
   declarations: [
     SkyAgGridDataManagerAdapterDirective,
@@ -81,6 +86,7 @@ import {
     SkyAgGridCellEditorAutocompleteModule,
     SkyAgGridCellEditorDatepickerModule,
     SkyAgGridCellEditorNumberModule,
+    SkyAgGridCellRendererCurrencyModule,
     SkyAgGridCellRendererRowSelectorModule,
     SkyAgGridCellEditorTextModule,
     SkyCoreAdapterModule,
@@ -99,6 +105,7 @@ import {
     SkyAgGridCellEditorAutocompleteComponent,
     SkyAgGridCellEditorDatepickerComponent,
     SkyAgGridCellEditorNumberComponent,
+    SkyAgGridCellRendererCurrencyComponent,
     SkyAgGridCellRendererRowSelectorComponent,
     SkyAgGridCellEditorTextComponent
   ]
