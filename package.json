@@ -24,10 +24,11 @@
     "ag-grid-community": "^23.2.0",
     "@skyux/data-manager": "^4.0.0-rc.0",
     "@skyux/datetime": "^4.0.0",
-    "@skyux/popovers": "^4.0.0",
     "@skyux/forms": "^4.0.0",
     "@skyux/indicators": "^4.0.0",
-    "@skyux/lookup": "^4.0.0"
+    "@skyux/layout": "^4.2.0",
+    "@skyux/lookup": "^4.0.0",
+    "@skyux/popovers": "^4.0.0"
   },
   "dependencies": {},
   "devDependencies": {

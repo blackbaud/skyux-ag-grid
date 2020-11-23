@@ -11,23 +11,24 @@ import {
 } from 'ag-grid-community';
 
 import {
-  READONLY_GRID_DATA,
-  RowStatusNames
-} from './readonly-grid-data';
+  Observable,
+  Subject
+} from 'rxjs';
 
 import {
   ReadonlyGridContextMenuComponent
 } from './readonly-grid-context-menu.component';
 
 import {
+  READONLY_GRID_DATA,
+  RowStatusNames
+} from './readonly-grid-data';
+
+import {
+  SkyAgGridRowDeleteConfirmArgs,
   SkyAgGridService,
   SkyCellType
 } from '../../public/public_api';
-
-import {
-  Observable,
-  Subject
-} from 'rxjs';
 
 let nextId = 0;
 
@@ -41,6 +42,7 @@ export class ReadonlyGridComponent implements OnInit {
   public gridData = READONLY_GRID_DATA;
   public gridOptions: GridOptions;
   public hasMore = true;
+  public rowDeleteIds: string[];
 
   public columnDefs = [
     {
@@ -98,7 +100,10 @@ export class ReadonlyGridComponent implements OnInit {
   public ngOnInit(): void {
     this.gridOptions = {
       columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
+      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
+      context: {
+        rowDeleteIds: []
+      }
     };
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
@@ -108,7 +113,7 @@ export class ReadonlyGridComponent implements OnInit {
       // MAKE API REQUEST HERE
       // I am faking an API request because I don't have one to work with
       this.mockRemote().subscribe((result: any) => {
-        this.gridApi.updateRowData({add: result.data});
+        this.gridApi.updateRowData({ add: result.data });
         this.hasMore = result.hasMore;
       });
     }
@@ -120,7 +125,8 @@ export class ReadonlyGridComponent implements OnInit {
 
     for (let i = 0; i < 8; i++) {
       data.push({
-        name: `Item #${++nextId}`,
+        id: `9${++nextId}`,
+        name: `Item #` + nextId,
         comment: i % 3 === 0 ? lorem : ''
       });
     }
@@ -144,7 +150,7 @@ export class ReadonlyGridComponent implements OnInit {
       [RowStatusNames.COMPLETE]: 'fa-check'
     };
     if (cellRendererParams.value) {
-    return `<div class="status ${cellRendererParams.value.toLowerCase()}">
+      return `<div class="status ${cellRendererParams.value.toLowerCase()}">
               <i class="fa ${iconClassMap[cellRendererParams.value]}"></i> ${cellRendererParams.value}
             </div>`;
     } else {
@@ -156,5 +162,15 @@ export class ReadonlyGridComponent implements OnInit {
     this.gridApi = gridReadyEvent.api;
     this.gridApi.sizeColumnsToFit();
     this.gridApi.resetRowHeights();
+  }
+
+  public deleteConfirm(confirmArgs: SkyAgGridRowDeleteConfirmArgs): void {
+    setTimeout(() => {
+      this.gridData = this.gridData.filter(data => this.gridData.indexOf(data) !== confirmArgs.index);
+    }, 3000);
+  }
+
+  public changeRowDeleteIds(): void {
+    this.gridOptions.context.rowDeleteIds = ['4', '8'];
   }
 }
