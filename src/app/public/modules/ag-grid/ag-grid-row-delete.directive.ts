@@ -64,13 +64,21 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
     this._rowDeleteIds = value;
 
     if (!value) {
+      for (let config of this.rowDeleteConfigs) {
+        this.destroyRowDelete(config.id);
+      }
+
+      this.changeDetector.markForCheck();
+
       return;
     }
 
     for (let id of value) {
       const existingConfig = this.rowDeleteConfigs
         .find(config => config.id === id);
-      if (!existingConfig) {
+      if (existingConfig) {
+        existingConfig.pending = false;
+      } else {
         this.rowDeleteConfigs.push({
           id: id,
           pending: false
@@ -203,6 +211,7 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
             });
           }
         });
+        this.changeDetector.markForCheck();
       });
 
     this.agGrid.getRowNodeId = (data: any) => {
@@ -213,6 +222,10 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
   public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
+
+    Object.keys(this.rowDeleteContents).forEach(id => {
+      this.destroyRowDelete(id);
+    });
   }
 
   public cancelRowDelete(row: RowNode): void {
@@ -233,12 +246,15 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
 
   private destroyRowDelete(id: string): void {
     const rowDeleteContents = this.rowDeleteContents[id];
+
+    /* sanity check */
+    /* istanbul ignore else */
     if (rowDeleteContents) {
       rowDeleteContents.affixer.destroy();
       this.overlayService.close(rowDeleteContents.overlay);
       delete this.rowDeleteContents[id];
       this.rowDeleteConfigs = this.rowDeleteConfigs.filter(config => config.id !== id);
-      this._rowDeleteIds = this._rowDeleteIds.filter(arrayId => arrayId !== id);
+      this._rowDeleteIds = this.rowDeleteIds?.filter(arrayId => arrayId !== id);
       this.rowDeleteIdsChange.emit(this._rowDeleteIds);
     }
   }
