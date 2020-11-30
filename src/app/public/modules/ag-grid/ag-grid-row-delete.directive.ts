@@ -59,6 +59,9 @@ import {
 })
 export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy {
 
+  /**
+   * Specifies the ids of the data in the rows on which inline delete's should be shown.
+   */
   @Input()
   set rowDeleteIds(value: string[]) {
     this._rowDeleteIds = value;
@@ -149,17 +152,20 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
   }
 
   /**
-   * @internal
+   * Emits a `SkyAgGridRowDeleteCancelArgs` object when a row's inline delete is cancelled.
    */
   @Output()
   public rowDeleteCancel = new EventEmitter<SkyAgGridRowDeleteCancelArgs>();
 
   /**
-   * @internal
+   * Emits a `SkyAgGridRowDeleteConfirmArgs` object when a row's inline delete is confirmed.
    */
   @Output()
   public rowDeleteConfirm = new EventEmitter<SkyAgGridRowDeleteConfirmArgs>();
 
+  /**
+   * Emits when the list of ids of the data in the rows where inline delete's are shown changes.
+   */
   @Output()
   public rowDeleteIdsChange = new EventEmitter<string[]>();
 
@@ -230,14 +236,14 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
 
   public cancelRowDelete(row: RowNode): void {
     this.rowDeleteConfigs = this.rowDeleteConfigs.filter(config => config.id !== row.id);
-    this.rowDeleteCancel.emit({ index: row.rowIndex });
+    this.rowDeleteCancel.emit({ id: row.id });
 
     this.destroyRowDelete(row.id);
   }
 
   public confirmRowDelete(row: RowNode): void {
     this.rowDeleteConfigs.find(config => config.id === row.id).pending = true;
-    this.rowDeleteConfirm.emit({ index: row.rowIndex });
+    this.rowDeleteConfirm.emit({ id: row.id });
   }
 
   public getRowDeleteItem(row: RowNode): SkyAgGridRowDeleteConfig {
@@ -258,4 +264,5 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
       this.rowDeleteIdsChange.emit(this._rowDeleteIds);
     }
   }
+
 }

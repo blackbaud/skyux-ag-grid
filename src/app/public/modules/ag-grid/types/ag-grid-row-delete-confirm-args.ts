@@ -3,7 +3,7 @@
  */
 export interface SkyAgGridRowDeleteConfirmArgs {
   /**
-   * The index of the row whose deletion has been confirmed.
+   * The id of the data in the row whose deletion has been confirmed.
    */
-  index: number;
+  id: string;
 }

@@ -108,15 +108,14 @@ export class ReadonlyGridComponent implements OnInit {
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
 
-  public onScrollEnd(): void {
-    if (this.hasMore) {
-      // MAKE API REQUEST HERE
-      // I am faking an API request because I don't have one to work with
-      this.mockRemote().subscribe((result: any) => {
-        this.gridApi.updateRowData({ add: result.data });
-        this.hasMore = result.hasMore;
-      });
-    }
+  public changeRowDeleteIds(): void {
+    this.gridOptions.context.rowDeleteIds = ['4', '8'];
+  }
+
+  public deleteConfirm(confirmArgs: SkyAgGridRowDeleteConfirmArgs): void {
+    setTimeout(() => {
+      this.gridData = this.gridData.filter(data => data.id !== confirmArgs.id);
+    }, 3000);
   }
 
   public mockRemote(): Observable<any> {
@@ -143,6 +142,23 @@ export class ReadonlyGridComponent implements OnInit {
     return results;
   }
 
+  public onGridReady(gridReadyEvent: GridReadyEvent): void {
+    this.gridApi = gridReadyEvent.api;
+    this.gridApi.sizeColumnsToFit();
+    this.gridApi.resetRowHeights();
+  }
+
+  public onScrollEnd(): void {
+    if (this.hasMore) {
+      // MAKE API REQUEST HERE
+      // I am faking an API request because I don't have one to work with
+      this.mockRemote().subscribe((result: any) => {
+        this.gridApi.updateRowData({ add: result.data });
+        this.hasMore = result.hasMore;
+      });
+    }
+  }
+
   public statusRenderer(cellRendererParams: ICellRendererParams): string {
     const iconClassMap = {
       [RowStatusNames.BEHIND]: 'fa-warning',
@@ -158,19 +174,4 @@ export class ReadonlyGridComponent implements OnInit {
     }
   }
 
-  public onGridReady(gridReadyEvent: GridReadyEvent): void {
-    this.gridApi = gridReadyEvent.api;
-    this.gridApi.sizeColumnsToFit();
-    this.gridApi.resetRowHeights();
-  }
-
-  public deleteConfirm(confirmArgs: SkyAgGridRowDeleteConfirmArgs): void {
-    setTimeout(() => {
-      this.gridData = this.gridData.filter(data => this.gridData.indexOf(data) !== confirmArgs.index);
-    }, 3000);
-  }
-
-  public changeRowDeleteIds(): void {
-    this.gridOptions.context.rowDeleteIds = ['4', '8'];
-  }
 }

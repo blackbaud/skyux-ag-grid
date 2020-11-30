@@ -3,7 +3,7 @@
  */
 export interface SkyAgGridRowDeleteCancelArgs {
   /**
-   * The index of the row whose deletion has been cancelled.
+   * The id of the data in the row whose deletion has been cancelled.
    */
-  index: number;
+  id: string;
 }

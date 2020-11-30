@@ -189,7 +189,7 @@ describe('SkyAgGridRowDeleteDirective', () => {
           fixture.detectChanges();
           expect(fixture.componentInstance.rowDeleteIds).toEqual(['0', '1']);
           expect(fixture.componentInstance.cancelRowDelete).not.toHaveBeenCalled();
-          expect(fixture.componentInstance.finishRowDelete).toHaveBeenCalledWith({ index: 0 });
+          expect(fixture.componentInstance.finishRowDelete).toHaveBeenCalledWith({ id: '0' });
         });
       });
     });
@@ -210,7 +210,7 @@ describe('SkyAgGridRowDeleteDirective', () => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
           expect(fixture.componentInstance.rowDeleteIds).toEqual(['1']);
-          expect(fixture.componentInstance.cancelRowDelete).toHaveBeenCalledWith({ index: 0 });
+          expect(fixture.componentInstance.cancelRowDelete).toHaveBeenCalledWith({ id: '0' });
           expect(fixture.componentInstance.finishRowDelete).not.toHaveBeenCalled();
         });
       });

@@ -1,5 +1,5 @@
 export class ReadonlyGridRow {
-  public id: number;
+  public id: string;
   public name: string;
   public value: number;
   public startDate: Date;
@@ -17,7 +17,7 @@ export class RowStatusNames {
 
 export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
   {
-    id: 0,
+    id: '0',
     name: 'Yearly team goal 1',
     value: 102,
     startDate: new Date('1/1/2019'),
@@ -26,7 +26,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 1,
+    id: '1',
     name: 'First quarter team goal 1',
     value: 50,
     startDate: new Date('1/1/2019'),
@@ -37,7 +37,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 2,
+    id: '2',
     name: 'First quarter team goal 2',
     value: 25,
     startDate: new Date('1/1/2019'),
@@ -46,7 +46,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 3,
+    id: '3',
     name: 'Yearly department goal 1',
     value: 15,
     startDate: new Date('1/1/2019'),
@@ -56,7 +56,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: true
   },
   {
-    id: 4,
+    id: '4',
     name: 'Yearly department goal 2',
     value: 1005,
     startDate: new Date('1/1/2019'),
@@ -65,7 +65,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 5,
+    id: '5',
     name: 'Second quarter team goal 1',
     value: 91,
     startDate: new Date('4/1/2019'),
@@ -74,7 +74,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 6,
+    id: '6',
     name: 'Second quarter team goal 2',
     value: 500,
     startDate: new Date('4/1/2019'),
@@ -83,7 +83,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: true
   },
   {
-    id: 7,
+    id: '7',
     name: 'Third quarter team goal 1',
     value: 0,
     startDate: new Date('7/1/2019'),
@@ -93,7 +93,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 8,
+    id: '8',
     name: 'Third quarter team goal 2',
     value: 0,
     startDate: new Date('4/1/2019'),
@@ -103,7 +103,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 9,
+    id: '9',
     name: 'Fourth quarter team goal 2',
     value: 0,
     startDate: new Date('10/1/2019'),
@@ -113,7 +113,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 10,
+    id: '10',
     name: 'Yearly team goal 1',
     value: 102,
     startDate: new Date('1/1/2019'),
@@ -122,7 +122,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 11,
+    id: '11',
     name: 'First quarter team goal 1',
     value: 50,
     startDate: new Date('1/1/2019'),
@@ -133,7 +133,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 12,
+    id: '12',
     name: 'First quarter team goal 2',
     value: 25,
     startDate: new Date('1/1/2019'),
@@ -142,7 +142,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 13,
+    id: '13',
     name: 'Yearly department goal 1',
     value: 15,
     startDate: new Date('1/1/2019'),
@@ -152,7 +152,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: true
   },
   {
-    id: 14,
+    id: '14',
     name: 'Yearly department goal 2',
     value: 1005,
     startDate: new Date('1/1/2019'),
@@ -161,7 +161,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 15,
+    id: '15',
     name: 'Second quarter team goal 1',
     value: 91,
     startDate: new Date('4/1/2019'),
@@ -170,7 +170,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 16,
+    id: '16',
     name: 'Second quarter team goal 2',
     value: 500,
     startDate: new Date('4/1/2019'),
@@ -179,7 +179,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: true
   },
   {
-    id: 17,
+    id: '17',
     name: 'Third quarter team goal 1',
     value: 0,
     startDate: new Date('7/1/2019'),
@@ -189,7 +189,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 18,
+    id: '18',
     name: 'Third quarter team goal 2',
     value: 0,
     startDate: new Date('4/1/2019'),
@@ -199,7 +199,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     selected: false
   },
   {
-    id: 19,
+    id: '19',
     name: 'Fourth quarter team goal 2',
     value: 0,
     startDate: new Date('10/1/2019'),
