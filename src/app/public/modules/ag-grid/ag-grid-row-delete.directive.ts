@@ -119,7 +119,7 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
             });
           let affixer = this.affixService.createAffixer(inlineDeleteRef);
 
-          const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + id + '"] div[aria-colindex="1"');
+          const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + id + '"] div[aria-colindex="1"]');
 
           affixer.affixTo(rowElement, {
             autoFitContext: SkyAffixAutoFitContext.Viewport,
