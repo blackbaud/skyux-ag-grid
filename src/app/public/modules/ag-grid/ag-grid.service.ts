@@ -251,9 +251,10 @@ export class SkyAgGridService implements OnDestroy {
       },
       defaultColDef: {
         cellClassRules: editableCellClassRules,
-        sortable: true,
+        minWidth: 100,
         resizable: true,
-        minWidth: 100
+        sortable: true,
+        suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress)
       },
       domLayout: 'autoHeight',
       enterMovesDownAfterEdit: true,
@@ -268,7 +269,6 @@ export class SkyAgGridService implements OnDestroy {
         columnMovePin: this.getIconTemplate('arrows')
       },
       onCellFocused: () => this.onCellFocused(),
-      suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress),
       rowHeight: this.currentTheme?.theme?.name === 'modern' ? 60 : 38,
       rowMultiSelectWithClick: true,
       rowSelection: 'multiple',
