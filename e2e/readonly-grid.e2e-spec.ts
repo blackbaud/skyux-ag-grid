@@ -44,7 +44,7 @@ describe('Readonly grid', () => {
 
   describe('descending sort', () => {
     function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-       SkyHostBrowser.setWindowBreakpoint(screenSize);
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
 
       element(by.css(sortableHeaderCell)).click();
 
@@ -64,7 +64,7 @@ describe('Readonly grid', () => {
 
   describe('ascending sort', () => {
     function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-       SkyHostBrowser.setWindowBreakpoint(screenSize);
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
 
       // click twice to sort by descending then ascending
       element(by.css(sortableHeaderCell)).click();
@@ -81,6 +81,30 @@ describe('Readonly grid', () => {
 
     it('should match previous screenshoton extra small screens', (done) => {
       matchesPreviousAscendingSortGrid('xs', done);
+    });
+  });
+
+  describe('row delete', () => {
+    function matchesPreviousRowDeleteGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      // click twice to sort by descending then ascending
+      element.all(by.css('.sky-dropdown-button')).get(1).click();
+      element.all(by.css('.sky-dropdown-item button')).get(0).click();
+
+      SkyHostBrowser.moveCursorOffScreen();
+
+      expect(readonlyGrid).toMatchBaselineScreenshot(done, {
+        screenshotName: `readonly-grid-row-delete-${screenSize}`
+      });
+    }
+
+    it('should match previous screenshoton large screens', (done) => {
+      matchesPreviousRowDeleteGrid('lg', done);
+    });
+
+    it('should match previous screenshoton extra small screens', (done) => {
+      matchesPreviousRowDeleteGrid('xs', done);
     });
   });
 });

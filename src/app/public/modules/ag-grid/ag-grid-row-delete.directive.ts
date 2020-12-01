@@ -119,7 +119,7 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
             });
           let affixer = this.affixService.createAffixer(inlineDeleteRef);
 
-          const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + id + '"] div');
+          const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + id + '"] div[aria-colindex="1"');
 
           affixer.affixTo(rowElement, {
             autoFitContext: SkyAffixAutoFitContext.Viewport,
@@ -205,7 +205,7 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
           } else {
             // We must reaffix things when the data changes because the rows rerender and the previous eleement that the delete was affixed
             // to is destroyed.
-            const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + config.id + '"] div');
+            const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + config.id + '"] div[aria-colindex="1"]');
 
             this.rowDeleteContents[config.id].affixer.affixTo(rowElement, {
               autoFitContext: SkyAffixAutoFitContext.Viewport,

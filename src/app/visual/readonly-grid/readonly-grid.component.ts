@@ -108,10 +108,6 @@ export class ReadonlyGridComponent implements OnInit {
     this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
 
-  public changeRowDeleteIds(): void {
-    this.gridOptions.context.rowDeleteIds = ['4', '8'];
-  }
-
   public deleteConfirm(confirmArgs: SkyAgGridRowDeleteConfirmArgs): void {
     setTimeout(() => {
       this.gridData = this.gridData.filter(data => data.id !== confirmArgs.id);
