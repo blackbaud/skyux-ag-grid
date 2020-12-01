@@ -1,5 +1,6 @@
 import {
   Injectable,
+  OnDestroy,
   Optional
 } from '@angular/core';
 
@@ -9,6 +10,14 @@ import {
   SuppressKeyboardEventParams,
   ValueFormatterParams
 } from 'ag-grid-community';
+
+import {
+  Subject
+} from 'rxjs';
+
+import {
+  takeUntil
+} from 'rxjs/operators';
 
 import {
   SkyThemeService,
@@ -106,16 +115,24 @@ function dateComparator(date1: any, date2: any): number {
  * A service that provides default styling and behavior for agGrids in SKY UX SPAs.
  */
 @Injectable()
-export class SkyAgGridService {
+export class SkyAgGridService implements OnDestroy {
   public currentTheme: SkyThemeSettings;
+  private ngUnsubscribe = new Subject();
 
   constructor(
-    @Optional() public themeSvc: SkyThemeService,
-    private agGridAdapterService: SkyAgGridAdapterService
+    private agGridAdapterService: SkyAgGridAdapterService,
+    @Optional() private themeSvc: SkyThemeService
   ) {
     if (this.themeSvc) {
-      this.themeSvc.settingsChange.subscribe(settingsChange => this.currentTheme = settingsChange.currentSettings);
+      this.themeSvc.settingsChange
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(settingsChange => this.currentTheme = settingsChange.currentSettings);
     }
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   /**
