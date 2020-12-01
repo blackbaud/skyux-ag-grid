@@ -89,7 +89,7 @@ describe('Readonly grid', () => {
       SkyHostBrowser.setWindowBreakpoint(screenSize);
 
       // click twice to sort by descending then ascending
-      element.all(by.css('.sky-dropdown-button')).get(1).click();
+      element.all(by.css('.sky-dropdown-button')).get(0).click();
       element.all(by.css('.sky-dropdown-item button')).get(0).click();
 
       SkyHostBrowser.moveCursorOffScreen();
