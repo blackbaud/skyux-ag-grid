@@ -121,7 +121,7 @@ export class SkyAgGridService implements OnDestroy {
 
   constructor(
     private agGridAdapterService: SkyAgGridAdapterService,
-    @Optional() private themeSvc: SkyThemeService
+    @Optional() private themeSvc?: SkyThemeService
   ) {
     if (this.themeSvc) {
       this.themeSvc.settingsChange
