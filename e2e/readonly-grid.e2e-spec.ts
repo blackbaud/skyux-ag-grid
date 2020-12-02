@@ -1,6 +1,7 @@
 import {
   expect,
-  SkyHostBrowser
+  SkyHostBrowser,
+  SkyVisualThemeSelector
 } from '@skyux-sdk/e2e';
 
 import {
@@ -13,74 +14,119 @@ import {
 } from 'protractor';
 
 describe('Readonly grid', () => {
-
   // selectors
   const readonlyGrid = '.readonly-grid';
   const sortableHeaderCell = '.ag-header-cell-sortable';
 
-  beforeEach(() => {
-    SkyHostBrowser.get('visual/readonly-grid');
-  });
+  let currentTheme: string;
+  let currentThemeMode: string;
 
-  describe('read mode', () => {
-    function matchesPreviousReadonlyGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-      SkyHostBrowser.setWindowBreakpoint(screenSize);
+  async function selectTheme(theme: string, mode: string): Promise<void> {
+    currentTheme = theme;
+    currentThemeMode = mode;
 
-      SkyHostBrowser.moveCursorOffScreen();
+    return SkyVisualThemeSelector.selectTheme(theme, mode);
+  }
 
-      expect(readonlyGrid).toMatchBaselineScreenshot(done, {
-        screenshotName: `readonly-grid-${screenSize}`
-      });
+  function getScreenshotName(name: string): string {
+    if (currentTheme) {
+      name += '-' + currentTheme;
     }
 
-    it('should match previous screenshot on large screens', (done) => {
-      matchesPreviousReadonlyGrid('lg', done);
-    });
-
-    it('should match previous screenshot on extra small screens', (done) => {
-      matchesPreviousReadonlyGrid('xs', done);
-    });
-  });
-
-  describe('descending sort', () => {
-    function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-       SkyHostBrowser.setWindowBreakpoint(screenSize);
-
-      element(by.css(sortableHeaderCell)).click();
-
-      expect(readonlyGrid).toMatchBaselineScreenshot(done, {
-        screenshotName: `readonly-grid-sort-desc-${screenSize}`
-      });
+    if (currentThemeMode) {
+      name += '-' + currentThemeMode;
     }
 
-    it('should match previous screenshot on large screens', (done) => {
-      matchesPreviousDescendingSortGrid('lg', done);
+    return name;
+  }
+
+  function runTests(): void {
+    describe('read mode', () => {
+      async function matchesPreviousReadonlyGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+        await SkyHostBrowser.moveCursorOffScreen();
+
+        expect(readonlyGrid).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName(`readonly-grid-${screenSize}`)
+        });
+      }
+
+      it('should match previous screenshot on large screens', (done) => {
+        matchesPreviousReadonlyGrid('lg', done);
+      });
+
+      it('should match previous screenshot on extra small screens', (done) => {
+        matchesPreviousReadonlyGrid('xs', done);
+      });
     });
 
-    it('should match previous screenshot on extra small screens', (done) => {
-      matchesPreviousDescendingSortGrid('xs', done);
+    describe('descending sort', () => {
+      async function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+        await element(by.css(sortableHeaderCell)).click();
+
+        expect(readonlyGrid).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName(`readonly-grid-sort-desc-${screenSize}`)
+        });
+      }
+
+      it('should match previous screenshot on large screens', (done) => {
+        matchesPreviousDescendingSortGrid('lg', done);
+      });
+
+      it('should match previous screenshot on extra small screens', (done) => {
+        matchesPreviousDescendingSortGrid('xs', done);
+      });
     });
+
+    describe('ascending sort', () => {
+      async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+        // click twice to sort by descending then ascending
+        await element(by.css(sortableHeaderCell)).click();
+        await element(by.css(sortableHeaderCell)).click();
+
+        expect(readonlyGrid).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName(`readonly-grid-sort-asc-${screenSize}`)
+        });
+      }
+
+      it('should match previous screenshoton large screens', (done) => {
+        matchesPreviousAscendingSortGrid('lg', done);
+      });
+
+      it('should match previous screenshoton extra small screens', (done) => {
+        matchesPreviousAscendingSortGrid('xs', done);
+      });
+    });
+  }
+
+  beforeEach(async () => {
+    await SkyHostBrowser.get('visual/readonly-grid');
   });
 
-  describe('ascending sort', () => {
-    function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-       SkyHostBrowser.setWindowBreakpoint(screenSize);
+  runTests();
 
-      // click twice to sort by descending then ascending
-      element(by.css(sortableHeaderCell)).click();
-      element(by.css(sortableHeaderCell)).click();
+  describe('when modern theme', () => {
 
-      expect(readonlyGrid).toMatchBaselineScreenshot(done, {
-        screenshotName: `readonly-grid-sort-asc-${screenSize}`
-      });
-    }
-
-    it('should match previous screenshoton large screens', (done) => {
-      matchesPreviousAscendingSortGrid('lg', done);
+    beforeEach(async () => {
+      await selectTheme('modern', 'light');
     });
 
-    it('should match previous screenshoton extra small screens', (done) => {
-      matchesPreviousAscendingSortGrid('xs', done);
+    runTests();
+
+  });
+
+  describe('when modern theme in dark mode', () => {
+
+    beforeEach(async () => {
+      await selectTheme('modern', 'dark');
     });
+
+    runTests();
+
   });
 });
