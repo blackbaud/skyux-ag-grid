@@ -1,6 +1,6 @@
 # 4.3.0 (2020-12-02)
 - Added modern theme styling for ag-Grid. [#83](https://github.com/blackbaud/skyux-ag-grid/pull/83)
-- Updated the ag-Grid peer dependencies to allow for any version. [#87](https://github.com/blackbaud/skyux-ag-grid/pull/87)
+- Updated the ag-Grid peer dependencies to allow for any version. [#90](https://github.com/blackbaud/skyux-ag-grid/pull/90)
 
 # 4.2.0 (2020-08-21)
 
