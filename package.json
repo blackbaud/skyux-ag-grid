@@ -20,8 +20,8 @@
   "peerDependencies": {
     "@angular/common": "^9.1.9",
     "@angular/core": "^9.1.9",
-    "ag-grid-angular": "*",
-    "ag-grid-community": "*",
+    "ag-grid-angular": "^23.0.0 || ^24.0.0",
+    "ag-grid-community": "^23.0.0 || ^24.0.0",
     "@skyux/data-manager": "^4.0.0-rc.0",
     "@skyux/datetime": "^4.0.0",
     "@skyux/popovers": "^4.0.0",
