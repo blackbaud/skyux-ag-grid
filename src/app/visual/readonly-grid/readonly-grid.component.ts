@@ -4,6 +4,11 @@ import {
 } from '@angular/core';
 
 import {
+  SkyThemeService,
+  SkyThemeSettings
+} from '@skyux/theme';
+
+import {
   GridApi,
   GridOptions,
   GridReadyEvent,
@@ -83,9 +88,7 @@ export class ReadonlyGridComponent implements OnInit {
       headerName: 'Comment',
       maxWidth: 500,
       autoHeight: true,
-      cellRenderer: (params: ICellRendererParams) => {
-        return `<div style="white-space: normal">${params.value || ''}</div>`;
-      }
+      wrapText: true
     },
     {
       field: 'status',
@@ -95,17 +98,13 @@ export class ReadonlyGridComponent implements OnInit {
       minWidth: 300
     }];
 
-  constructor(private agGridService: SkyAgGridService) { }
+  constructor(
+    private agGridService: SkyAgGridService,
+    public themeSvc: SkyThemeService
+  ) { }
 
   public ngOnInit(): void {
-    this.gridOptions = {
-      columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
-      context: {
-        rowDeleteIds: []
-      }
-    };
-    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
+    this.getGridOptions();
   }
 
   public deleteConfirm(confirmArgs: SkyAgGridRowDeleteConfirmArgs): void {
@@ -170,4 +169,19 @@ export class ReadonlyGridComponent implements OnInit {
     }
   }
 
+  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
+    this.themeSvc.setTheme(themeSettings);
+    this.getGridOptions();
+  }
+
+  private getGridOptions(): void {
+    this.gridOptions = {
+      columnDefs: this.columnDefs,
+      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
+      context: {
+        rowDeleteIds: []
+      }
+    };
+    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
+  }
 }
