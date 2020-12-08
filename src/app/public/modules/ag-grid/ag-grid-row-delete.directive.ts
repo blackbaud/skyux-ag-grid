@@ -14,6 +14,7 @@ import {
 
 import {
   SkyAffixAutoFitContext,
+  SkyAffixer,
   SkyAffixService,
   SkyOverlayService
 } from '@skyux/core';
@@ -99,16 +100,16 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
           {
             $implicit: this.agGrid.api.getRowNode(id),
             tableWidth: () => { return this.tableWidth; },
-            getRowDeleteItem: (row: RowNode) => { return this.getRowDeleteItem(row); },
-            cancelRowDelete: (row: RowNode) => { return this.cancelRowDelete(row); },
-            confirmRowDelete: (row: RowNode) => { this.confirmRowDelete(row); }
+            getRowDeleteItem: (row: RowNode) => this.getRowDeleteItem(row),
+            cancelRowDelete: (row: RowNode) => this.cancelRowDelete(row),
+            confirmRowDelete: (row: RowNode) => this.confirmRowDelete(row)
           });
 
         /**
          * We are manually setting the z-index here because overlays will always be on top of
-         * the omnibar. This manual setting is 1 less than the omnibar's z-index of 1000. We
-         * discussed changing the overlay service to allow for this but decided against that
-         * change at this time due to its niche nature.
+         * the omnibar. This manual setting is 2 less than the omnibar's z-index of 1000 and one less than
+         * the header row's viewkeeper which is 999. We discussed changing the overlay service to allow for this
+         * but decided against that change at this time due to its niche nature.
          */
         overlay.componentRef.instance.zIndex = '998';
 
@@ -119,16 +120,7 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
             });
           let affixer = this.affixService.createAffixer(inlineDeleteRef);
 
-          const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + id + '"] div[aria-colindex="1"]');
-
-          affixer.affixTo(rowElement, {
-            autoFitContext: SkyAffixAutoFitContext.Viewport,
-            isSticky: true,
-            placement: 'above',
-            verticalAlignment: 'top',
-            horizontalAlignment: 'left',
-            enableAutoFit: false
-          });
+          this.affixToRow(affixer, id);
 
           this.rowDeleteContents[id] = {
             affixer: affixer,
@@ -164,7 +156,7 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
   public rowDeleteConfirm = new EventEmitter<SkyAgGridRowDeleteConfirmArgs>();
 
   /**
-   * Emits when the list of ids of the data in the rows where inline delete's are shown changes.
+   * Emits when the list of ids of the data in the rows where inline deletes are shown changes.
    */
   @Output()
   public rowDeleteIdsChange = new EventEmitter<string[]>();
@@ -205,16 +197,7 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
           } else {
             // We must reaffix things when the data changes because the rows rerender and the previous eleement that the delete was affixed
             // to is destroyed.
-            const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + config.id + '"] div[aria-colindex="1"]');
-
-            this.rowDeleteContents[config.id].affixer.affixTo(rowElement, {
-              autoFitContext: SkyAffixAutoFitContext.Viewport,
-              isSticky: true,
-              placement: 'above',
-              verticalAlignment: 'top',
-              horizontalAlignment: 'left',
-              enableAutoFit: false
-            });
+            this.affixToRow(this.rowDeleteContents[config.id].affixer, config.id);
           }
         });
         this.changeDetector.markForCheck();
@@ -248,6 +231,19 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
 
   public getRowDeleteItem(row: RowNode): SkyAgGridRowDeleteConfig {
     return this.rowDeleteConfigs.find(rowDelete => rowDelete.id === row.id);
+  }
+
+  private affixToRow(affixer: SkyAffixer, id: string) {
+    const rowElement: HTMLElement = this.elementRef.nativeElement.querySelector('[row-id="' + id + '"] div[aria-colindex="1"]');
+
+    affixer.affixTo(rowElement, {
+      autoFitContext: SkyAffixAutoFitContext.Viewport,
+      isSticky: true,
+      placement: 'above',
+      verticalAlignment: 'top',
+      horizontalAlignment: 'left',
+      enableAutoFit: false
+    });
   }
 
   private destroyRowDelete(id: string): void {
