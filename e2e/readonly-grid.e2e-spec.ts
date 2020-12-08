@@ -45,13 +45,7 @@ describe('Readonly grid', () => {
       async function matchesPreviousReadonlyGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-<<<<<<< HEAD
-  describe('descending sort', () => {
-    function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-      SkyHostBrowser.setWindowBreakpoint(screenSize);
-=======
         await SkyHostBrowser.moveCursorOffScreen();
->>>>>>> 6dda4e0b26e07d62e58ba24013f554f8355db575
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-${screenSize}`)
@@ -87,11 +81,6 @@ describe('Readonly grid', () => {
       });
     });
 
-<<<<<<< HEAD
-  describe('ascending sort', () => {
-    function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-      SkyHostBrowser.setWindowBreakpoint(screenSize);
-=======
     describe('ascending sort', () => {
       async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         SkyHostBrowser.setWindowBreakpoint(screenSize);
@@ -99,7 +88,6 @@ describe('Readonly grid', () => {
         // click twice to sort by descending then ascending
         await element(by.css(sortableHeaderCell)).click();
         await element(by.css(sortableHeaderCell)).click();
->>>>>>> 6dda4e0b26e07d62e58ba24013f554f8355db575
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-sort-asc-${screenSize}`)
