@@ -191,16 +191,25 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
     this.agGrid.rowDataChanged
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(() => {
-        this.rowDeleteConfigs.forEach((config: SkyAgGridRowDeleteConfig) => {
-          if (!this.agGrid.api.getRowNode(config.id)) {
-            this.destroyRowDelete(config.id);
-          } else {
-            // We must reaffix things when the data changes because the rows rerender and the previous eleement that the delete was affixed
-            // to is destroyed.
-            this.affixToRow(this.rowDeleteContents[config.id].affixer, config.id);
-          }
-        });
-        this.changeDetector.markForCheck();
+        this.updateRowDeleteStates();
+      });
+
+    this.agGrid.rowDataUpdated
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.updateRowDeleteStates();
+      });
+
+    this.agGrid.sortChanged
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.updateRowDeleteStates();
+      });
+
+    this.agGrid.filterChanged
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.updateRowDeleteStates();
       });
 
     this.agGrid.getRowNodeId = (data: any) => {
@@ -259,6 +268,19 @@ export class SkyAgGridRowDeleteDirective implements AfterContentInit, OnDestroy 
       this._rowDeleteIds = this.rowDeleteIds?.filter(arrayId => arrayId !== id);
       this.rowDeleteIdsChange.emit(this._rowDeleteIds);
     }
+  }
+
+  private updateRowDeleteStates(): void {
+    this.rowDeleteConfigs.forEach((config: SkyAgGridRowDeleteConfig) => {
+      if (!this.agGrid.api.getRowNode(config.id)) {
+        this.destroyRowDelete(config.id);
+      } else {
+        // We must reaffix things when the data changes because the rows rerender and the previous element that the delete was affixed
+        // to is destroyed.
+        this.affixToRow(this.rowDeleteContents[config.id].affixer, config.id);
+      }
+    });
+    this.changeDetector.markForCheck();
   }
 
 }

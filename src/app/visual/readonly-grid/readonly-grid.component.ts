@@ -98,6 +98,8 @@ export class ReadonlyGridComponent implements OnInit {
       minWidth: 300
     }];
 
+  private themeSettings: SkyThemeSettings;
+
   constructor(
     private agGridService: SkyAgGridService,
     public themeSvc: SkyThemeService
@@ -148,7 +150,7 @@ export class ReadonlyGridComponent implements OnInit {
       // MAKE API REQUEST HERE
       // I am faking an API request because I don't have one to work with
       this.mockRemote().subscribe((result: any) => {
-        this.gridApi.updateRowData({ add: result.data });
+        this.gridApi.applyTransaction({ add: result.data });
         this.hasMore = result.hasMore;
       });
     }
@@ -170,8 +172,11 @@ export class ReadonlyGridComponent implements OnInit {
   }
 
   public themeSettingsChange(themeSettings: SkyThemeSettings): void {
-    this.themeSvc.setTheme(themeSettings);
-    this.getGridOptions();
+    if (themeSettings.mode !== this.themeSettings?.mode || themeSettings.theme !== this.themeSettings?.theme) {
+      this.themeSvc.setTheme(themeSettings);
+      this.getGridOptions();
+      this.themeSettings = themeSettings;
+    }
   }
 
   private getGridOptions(): void {

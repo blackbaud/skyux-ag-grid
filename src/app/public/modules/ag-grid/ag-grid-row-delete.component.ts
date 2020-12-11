@@ -22,6 +22,7 @@ import {
       #inlineDeleteTemplateRef
     >
       <div
+        class="sky-ag-grid-row-delete"
         [id]="'row-delete-ref-' + row.id"
         [ngStyle]='{
           "height": row.rowHeight + "px",
