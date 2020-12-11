@@ -185,7 +185,7 @@ describe('SkyAgGridRowDeleteDirective', () => {
     expect(fixture.componentInstance.rowDeleteIds).toEqual(['0']);
     expect(document.querySelector('#row-delete-ref-0')).not.toBeNull();
     expect(document.querySelectorAll('.sky-inline-delete-standard').length).toBe(1);
-    expect(document.querySelectorAll('.sky-inline-delete-standard .sky-wait-mask-loading-blocking').length)
+    expect(document.querySelectorAll('.sky-inline-delete-standard .sky-wait-mask-loading-blocking').length);
   });
 
   it('should output the delete event correctly', async () => {
