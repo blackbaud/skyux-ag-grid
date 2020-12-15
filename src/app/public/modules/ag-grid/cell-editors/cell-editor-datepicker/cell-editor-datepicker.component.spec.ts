@@ -40,6 +40,9 @@ import {
 } from '../../types/cell-editor-datepicker-params';
 
 describe('SkyCellEditorDatepickerComponent', () => {
+  // We've had some issue with grid rendering causing the specs to timeout in IE. Extending it slightly to help.
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 7500;
+
   let datepickerEditorFixture: ComponentFixture<SkyAgGridCellEditorDatepickerComponent>;
   let datepickerEditorComponent: SkyAgGridCellEditorDatepickerComponent;
   let datepickerEditorNativeElement: HTMLElement;
@@ -175,8 +178,6 @@ describe('SkyCellEditorDatepickerComponent', () => {
   });
 
   it('should pass accessibility', async () => {
-    datepickerEditorFixture.detectChanges();
-    await datepickerEditorFixture.whenStable();
     datepickerEditorFixture.detectChanges();
     await datepickerEditorFixture.whenStable();
 
