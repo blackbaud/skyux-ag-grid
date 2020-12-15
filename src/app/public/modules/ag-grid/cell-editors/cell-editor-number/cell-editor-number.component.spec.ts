@@ -1,11 +1,11 @@
 import {
-  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
 
 import {
-  expect
+  expect,
+  expectAsync
 } from '@skyux-sdk/testing';
 
 import {
@@ -83,7 +83,7 @@ describe('SkyCellEditorNumberComponent', () => {
 
       let cellEditorParams: ICellEditorParams = {
         value,
-        colDef: { headerName: 'Test number cell'},
+        colDef: { headerName: 'Test number cell' },
         rowIndex: 1,
         column,
         node: undefined,
@@ -150,11 +150,11 @@ describe('SkyCellEditorNumberComponent', () => {
     });
   });
 
-  it('should pass accessibility', async(() => {
+  it('should pass accessibility', async () => {
     numberEditorFixture.detectChanges();
+    await numberEditorFixture.whenStable();
 
-    numberEditorFixture.whenStable().then(() => {
-      expect(numberEditorFixture.nativeElement).toBeAccessible();
-    });
-  }));
+    await expectAsync(numberEditorFixture.nativeElement).toBeAccessible();
+  });
+
 });

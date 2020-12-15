@@ -1,5 +1,4 @@
 import {
-  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -9,7 +8,8 @@ import {
 } from '@skyux-sdk/builder/runtime/testing/browser';
 
 import {
-  expect
+  expect,
+  expectAsync
 } from '@skyux-sdk/testing';
 
 import {
@@ -134,11 +134,11 @@ describe('SkyCellEditorAutocompleteComponent', () => {
     });
   });
 
-  it('should pass accessibility', async(() => {
+  it('should pass accessibility', async () => {
     fixture.detectChanges();
+    await fixture.whenStable();
 
-    fixture.whenStable().then(() => {
-      expect(fixture.nativeElement).toBeAccessible();
-    });
-  }));
+    await expectAsync(fixture.nativeElement).toBeAccessible();
+  });
+
 });

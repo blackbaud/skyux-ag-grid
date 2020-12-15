@@ -1,5 +1,4 @@
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -7,7 +6,7 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect
+  expect, expectAsync
 } from '@skyux-sdk/testing';
 
 import {
@@ -259,11 +258,11 @@ describe('SkyCellRendererCheckboxComponent', () => {
   }));
   });
 
-  it('should pass accessibility', async(() => {
+  it('should pass accessibility', async () => {
     rowSelectorCellFixture.detectChanges();
+    await rowSelectorCellFixture.whenStable();
 
-    rowSelectorCellFixture.whenStable().then(() => {
-      expect(rowSelectorCellNativeElement).toBeAccessible();
-    });
-  }));
+    await expectAsync(rowSelectorCellNativeElement).toBeAccessible();
+  });
+
 });

@@ -1,5 +1,4 @@
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -12,7 +11,8 @@ import {
 } from 'ag-grid-community';
 
 import {
-  expect
+  expect,
+  expectAsync
 } from '@skyux-sdk/testing';
 
 import {
@@ -174,9 +174,11 @@ describe('SkyCellEditorDatepickerComponent', () => {
     });
   });
 
-  it('should pass accessibility', async(() => {
+  it('should pass accessibility', async () => {
     datepickerEditorFixture.detectChanges();
+    await datepickerEditorFixture.whenStable();
 
-    expect(datepickerEditorNativeElement).toBeAccessible();
-  }));
+    await expectAsync(datepickerEditorNativeElement).toBeAccessible();
+  });
+
 });
