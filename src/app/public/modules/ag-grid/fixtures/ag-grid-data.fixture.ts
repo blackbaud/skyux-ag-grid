@@ -25,7 +25,7 @@ export const SKY_AG_GRID_DATA: SkyAgGridRow[] = [
   },
   {
     id: '2',
-    name: 'Jonathan',
+    name: 'Marcus',
     nickname: 'John',
     value: 13,
     target: 9,

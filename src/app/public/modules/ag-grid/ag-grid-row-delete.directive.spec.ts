@@ -51,7 +51,40 @@ describe('SkyAgGridRowDeleteDirective', () => {
     expect(document.querySelector('#row-delete-ref-2')).not.toBeNull();
     expect(document.querySelectorAll('.sky-inline-delete-standard').length).toBe(2);
 
-    fixture.componentInstance.addLongData();
+    fixture.componentInstance.addDataPoint();
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.rowDeleteIds).toEqual(['0', '2']);
+    expect(document.querySelector('#row-delete-ref-0')).not.toBeNull();
+    expect(document.querySelector('#row-delete-ref-2')).not.toBeNull();
+    expect(document.querySelectorAll('.sky-inline-delete-standard').length).toBe(2);
+
+    fixture.componentInstance.sortName();
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.rowDeleteIds).toEqual(['0', '2']);
+    expect(document.querySelector('#row-delete-ref-0')).not.toBeNull();
+    expect(document.querySelector('#row-delete-ref-2')).not.toBeNull();
+    expect(document.querySelectorAll('.sky-inline-delete-standard').length).toBe(2);
+
+    fixture.componentInstance.filterName();
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.rowDeleteIds).toEqual(['0', '2']);
+    expect(document.querySelector('#row-delete-ref-0')).not.toBeNull();
+    expect(document.querySelector('#row-delete-ref-2')).not.toBeNull();
+    expect(document.querySelectorAll('.sky-inline-delete-standard').length).toBe(2);
+
+    fixture.componentInstance.changeToLongData();
 
     fixture.detectChanges();
     await fixture.whenStable();
