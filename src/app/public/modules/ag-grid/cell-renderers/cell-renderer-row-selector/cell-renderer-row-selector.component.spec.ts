@@ -261,6 +261,8 @@ describe('SkyCellRendererCheckboxComponent', () => {
   it('should pass accessibility', async () => {
     rowSelectorCellFixture.detectChanges();
     await rowSelectorCellFixture.whenStable();
+    rowSelectorCellFixture.detectChanges();
+    await rowSelectorCellFixture.whenStable();
 
     await expectAsync(rowSelectorCellNativeElement).toBeAccessible();
   });

@@ -137,6 +137,8 @@ describe('SkyCellEditorAutocompleteComponent', () => {
   it('should pass accessibility', async () => {
     fixture.detectChanges();
     await fixture.whenStable();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
     await expectAsync(fixture.nativeElement).toBeAccessible();
   });

@@ -144,6 +144,8 @@ describe('SkyCellEditorTextComponent', () => {
   it('should pass accessibility', async () => {
     textEditorFixture.detectChanges();
     await textEditorFixture.whenStable();
+    textEditorFixture.detectChanges();
+    await textEditorFixture.whenStable();
 
     await expectAsync(textEditorFixture.nativeElement).toBeAccessible();
   });

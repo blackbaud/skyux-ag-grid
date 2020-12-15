@@ -177,6 +177,8 @@ describe('SkyCellEditorDatepickerComponent', () => {
   it('should pass accessibility', async () => {
     datepickerEditorFixture.detectChanges();
     await datepickerEditorFixture.whenStable();
+    datepickerEditorFixture.detectChanges();
+    await datepickerEditorFixture.whenStable();
 
     await expectAsync(datepickerEditorNativeElement).toBeAccessible();
   });
