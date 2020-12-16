@@ -129,4 +129,28 @@ describe('Readonly grid', () => {
     runTests();
 
   });
+
+  describe('row delete', () => {
+    function matchesPreviousRowDeleteGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
+      SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+      // click twice to sort by descending then ascending
+      element(by.css('[row-id="0"] .sky-dropdown-button')).click();
+      element.all(by.css('.sky-dropdown-item button')).get(0).click();
+
+      SkyHostBrowser.moveCursorOffScreen();
+
+      expect(readonlyGrid).toMatchBaselineScreenshot(done, {
+        screenshotName: `readonly-grid-row-delete-${screenSize}`
+      });
+    }
+
+    it('should match previous screenshoton large screens', (done) => {
+      matchesPreviousRowDeleteGrid('lg', done);
+    });
+
+    it('should match previous screenshoton extra small screens', (done) => {
+      matchesPreviousRowDeleteGrid('xs', done);
+    });
+  });
 });
