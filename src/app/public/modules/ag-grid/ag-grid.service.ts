@@ -68,6 +68,10 @@ import {
   SkyAgGridCellRendererCurrencyComponent
 } from './cell-renderers/cell-renderer-currency/cell-renderer-currency.component';
 
+import {
+  SkyAgGridCellEditorCurrencyComponent
+} from './cell-editors/cell-editor-currency/cell-editor-currency.component';
+
 function autocompleteComparator(value1: { name: string }, value2: { name: string }): number {
   if (value1 && value2) {
     if (value1.name > value2.name) {
@@ -221,7 +225,7 @@ export class SkyAgGridService implements OnDestroy {
             ...editableCellClassRules
           },
           cellRendererFramework: SkyAgGridCellRendererCurrencyComponent,
-          cellEditorFramework: SkyAgGridCellEditorNumberComponent,
+          cellEditorFramework: SkyAgGridCellEditorCurrencyComponent,
           minWidth: 185
         },
         [SkyCellType.Date]: {

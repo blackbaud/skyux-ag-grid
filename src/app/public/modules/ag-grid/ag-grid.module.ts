@@ -95,6 +95,14 @@ import {
   SkyAgGridRowDeleteDirective
 } from './ag-grid-row-delete.directive';
 
+import {
+  SkyAgGridCellEditorCurrencyModule
+} from './cell-editors/cell-editor-currency/cell-editor-currency.module';
+
+import {
+  SkyAgGridCellEditorCurrencyComponent
+} from './cell-editors/cell-editor-currency/cell-editor-currency.component';
+
 @NgModule({
   declarations: [
     SkyAgGridDataManagerAdapterDirective,
@@ -108,6 +116,7 @@ import {
     SkyAgGridCellEditorAutocompleteModule,
     SkyAgGridCellEditorDatepickerModule,
     SkyAgGridCellEditorNumberModule,
+    SkyAgGridCellEditorCurrencyModule,
     SkyAgGridCellRendererCurrencyModule,
     SkyAgGridCellRendererRowSelectorModule,
     SkyAgGridCellEditorTextModule,
@@ -130,6 +139,7 @@ import {
     SkyAgGridCellEditorAutocompleteComponent,
     SkyAgGridCellEditorDatepickerComponent,
     SkyAgGridCellEditorNumberComponent,
+    SkyAgGridCellEditorCurrencyComponent,
     SkyAgGridCellRendererCurrencyComponent,
     SkyAgGridCellRendererRowSelectorComponent,
     SkyAgGridCellEditorTextComponent,
