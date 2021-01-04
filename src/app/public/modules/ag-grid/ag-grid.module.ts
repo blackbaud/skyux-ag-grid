@@ -1,4 +1,8 @@
 import {
+  CommonModule
+} from '@angular/common';
+
+import {
   NgModule
 } from '@angular/core';
 
@@ -14,6 +18,10 @@ import {
 import {
   SkyDataManagerModule
 } from '@skyux/data-manager';
+
+import {
+  SkyInlineDeleteModule
+} from '@skyux/layout';
 
 import {
   SkyAgGridService
@@ -74,15 +82,29 @@ import {
 import {
   SkyAgGridCellRendererCurrencyModule
 } from './cell-renderers/cell-renderer-currency/cell-renderer-currency.module';
-import { SkyAgGridCellRendererCurrencyComponent } from './cell-renderers/cell-renderer-currency/cell-renderer-currency.component';
+
+import {
+  SkyAgGridCellRendererCurrencyComponent
+} from './cell-renderers/cell-renderer-currency/cell-renderer-currency.component';
+
+import {
+  SkyAgGridRowDeleteComponent
+} from './ag-grid-row-delete.component';
+
+import {
+  SkyAgGridRowDeleteDirective
+} from './ag-grid-row-delete.directive';
 
 @NgModule({
   declarations: [
     SkyAgGridDataManagerAdapterDirective,
+    SkyAgGridRowDeleteComponent,
+    SkyAgGridRowDeleteDirective,
     SkyAgGridWrapperComponent
   ],
   imports: [
     AgGridModule,
+    CommonModule,
     SkyAgGridCellEditorAutocompleteModule,
     SkyAgGridCellEditorDatepickerModule,
     SkyAgGridCellEditorNumberModule,
@@ -91,10 +113,13 @@ import { SkyAgGridCellRendererCurrencyComponent } from './cell-renderers/cell-re
     SkyAgGridCellEditorTextModule,
     SkyCoreAdapterModule,
     SkyDataManagerModule,
+    SkyInlineDeleteModule,
     SkyViewkeeperModule
   ],
   exports: [
     SkyAgGridDataManagerAdapterDirective,
+    SkyAgGridRowDeleteComponent,
+    SkyAgGridRowDeleteDirective,
     SkyAgGridWrapperComponent
   ],
   providers: [
@@ -107,7 +132,8 @@ import { SkyAgGridCellRendererCurrencyComponent } from './cell-renderers/cell-re
     SkyAgGridCellEditorNumberComponent,
     SkyAgGridCellRendererCurrencyComponent,
     SkyAgGridCellRendererRowSelectorComponent,
-    SkyAgGridCellEditorTextComponent
+    SkyAgGridCellEditorTextComponent,
+    SkyAgGridRowDeleteComponent
   ]
 })
 export class SkyAgGridModule { }

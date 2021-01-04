@@ -4,6 +4,11 @@ import {
 } from '@angular/core';
 
 import {
+  SkyThemeService,
+  SkyThemeSettings
+} from '@skyux/theme';
+
+import {
   GridApi,
   GridOptions,
   GridReadyEvent,
@@ -11,23 +16,24 @@ import {
 } from 'ag-grid-community';
 
 import {
-  READONLY_GRID_DATA,
-  RowStatusNames
-} from './readonly-grid-data';
+  Observable,
+  Subject
+} from 'rxjs';
 
 import {
   ReadonlyGridContextMenuComponent
 } from './readonly-grid-context-menu.component';
 
 import {
+  READONLY_GRID_DATA,
+  RowStatusNames
+} from './readonly-grid-data';
+
+import {
+  SkyAgGridRowDeleteConfirmArgs,
   SkyAgGridService,
   SkyCellType
 } from '../../public/public_api';
-
-import {
-  Observable,
-  Subject
-} from 'rxjs';
 
 let nextId = 0;
 
@@ -41,6 +47,7 @@ export class ReadonlyGridComponent implements OnInit {
   public gridData = READONLY_GRID_DATA;
   public gridOptions: GridOptions;
   public hasMore = true;
+  public rowDeleteIds: string[];
 
   public columnDefs = [
     {
@@ -81,9 +88,7 @@ export class ReadonlyGridComponent implements OnInit {
       headerName: 'Comment',
       maxWidth: 500,
       autoHeight: true,
-      cellRenderer: (params: ICellRendererParams) => {
-        return `<div style="white-space: normal">${params.value || ''}</div>`;
-      }
+      wrapText: true
     },
     {
       field: 'status',
@@ -93,25 +98,21 @@ export class ReadonlyGridComponent implements OnInit {
       minWidth: 300
     }];
 
-  constructor(private agGridService: SkyAgGridService) { }
+  private themeSettings: SkyThemeSettings;
+
+  constructor(
+    private agGridService: SkyAgGridService,
+    public themeSvc: SkyThemeService
+  ) { }
 
   public ngOnInit(): void {
-    this.gridOptions = {
-      columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
-    };
-    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
+    this.getGridOptions();
   }
 
-  public onScrollEnd(): void {
-    if (this.hasMore) {
-      // MAKE API REQUEST HERE
-      // I am faking an API request because I don't have one to work with
-      this.mockRemote().subscribe((result: any) => {
-        this.gridApi.updateRowData({add: result.data});
-        this.hasMore = result.hasMore;
-      });
-    }
+  public deleteConfirm(confirmArgs: SkyAgGridRowDeleteConfirmArgs): void {
+    setTimeout(() => {
+      this.gridData = this.gridData.filter(data => data.id !== confirmArgs.id);
+    }, 3000);
   }
 
   public mockRemote(): Observable<any> {
@@ -120,7 +121,8 @@ export class ReadonlyGridComponent implements OnInit {
 
     for (let i = 0; i < 8; i++) {
       data.push({
-        name: `Item #${++nextId}`,
+        id: `9${++nextId}`,
+        name: `Item #` + nextId,
         comment: i % 3 === 0 ? lorem : ''
       });
     }
@@ -137,6 +139,23 @@ export class ReadonlyGridComponent implements OnInit {
     return results;
   }
 
+  public onGridReady(gridReadyEvent: GridReadyEvent): void {
+    this.gridApi = gridReadyEvent.api;
+    this.gridApi.sizeColumnsToFit();
+    this.gridApi.resetRowHeights();
+  }
+
+  public onScrollEnd(): void {
+    if (this.hasMore) {
+      // MAKE API REQUEST HERE
+      // I am faking an API request because I don't have one to work with
+      this.mockRemote().subscribe((result: any) => {
+        this.gridApi.applyTransaction({ add: result.data });
+        this.hasMore = result.hasMore;
+      });
+    }
+  }
+
   public statusRenderer(cellRendererParams: ICellRendererParams): string {
     const iconClassMap = {
       [RowStatusNames.BEHIND]: 'fa-warning',
@@ -144,7 +163,7 @@ export class ReadonlyGridComponent implements OnInit {
       [RowStatusNames.COMPLETE]: 'fa-check'
     };
     if (cellRendererParams.value) {
-    return `<div class="status ${cellRendererParams.value.toLowerCase()}">
+      return `<div class="status ${cellRendererParams.value.toLowerCase()}">
               <i class="fa ${iconClassMap[cellRendererParams.value]}"></i> ${cellRendererParams.value}
             </div>`;
     } else {
@@ -152,9 +171,22 @@ export class ReadonlyGridComponent implements OnInit {
     }
   }
 
-  public onGridReady(gridReadyEvent: GridReadyEvent): void {
-    this.gridApi = gridReadyEvent.api;
-    this.gridApi.sizeColumnsToFit();
-    this.gridApi.resetRowHeights();
+  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
+    if (themeSettings.mode !== this.themeSettings?.mode || themeSettings.theme !== this.themeSettings?.theme) {
+      this.themeSvc.setTheme(themeSettings);
+      this.getGridOptions();
+      this.themeSettings = themeSettings;
+    }
+  }
+
+  private getGridOptions(): void {
+    this.gridOptions = {
+      columnDefs: this.columnDefs,
+      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
+      context: {
+        rowDeleteIds: []
+      }
+    };
+    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
   }
 }

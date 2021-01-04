@@ -1,5 +1,7 @@
 import {
-  Injectable
+  Injectable,
+  OnDestroy,
+  Optional
 } from '@angular/core';
 
 import {
@@ -8,6 +10,19 @@ import {
   SuppressKeyboardEventParams,
   ValueFormatterParams
 } from 'ag-grid-community';
+
+import {
+  Subject
+} from 'rxjs';
+
+import {
+  takeUntil
+} from 'rxjs/operators';
+
+import {
+  SkyThemeService,
+  SkyThemeSettings
+} from '@skyux/theme';
 
 import {
   SkyAgGridCellEditorAutocompleteComponent
@@ -104,11 +119,25 @@ function dateComparator(date1: any, date2: any): number {
  * A service that provides default styling and behavior for agGrids in SKY UX SPAs.
  */
 @Injectable()
-export class SkyAgGridService {
+export class SkyAgGridService implements OnDestroy {
+  public currentTheme: SkyThemeSettings;
+  private ngUnsubscribe = new Subject();
 
   constructor(
-    private agGridAdapterService: SkyAgGridAdapterService
-  ) { }
+    private agGridAdapterService: SkyAgGridAdapterService,
+    @Optional() private themeSvc?: SkyThemeService
+  ) {
+    if (this.themeSvc) {
+      this.themeSvc.settingsChange
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(settingsChange => this.currentTheme = settingsChange.currentSettings);
+    }
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   /**
    * Get SKY UX gridOptions to create your agGrid with default SKY styling and behavior.
@@ -201,8 +230,9 @@ export class SkyAgGridService {
             ...editableCellClassRules
           },
           cellEditorFramework: SkyAgGridCellEditorDatepickerComponent,
-          valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale),
-          comparator: dateComparator
+          comparator: dateComparator,
+          minWidth: this.currentTheme?.theme?.name === 'modern' ? 180 : 160,
+          valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale)
         },
         [SkyCellType.Number]: {
           cellClassRules: {
@@ -219,10 +249,10 @@ export class SkyAgGridService {
           },
           cellRendererFramework: SkyAgGridCellRendererRowSelectorComponent,
           headerName: '',
-          minWidth: 50,
-          maxWidth: 50,
+          minWidth: 55,
+          maxWidth: 55,
           sortable: false,
-          width: 50
+          width: 55
         },
         [SkyCellType.Text]: {
           cellClassRules: {
@@ -234,13 +264,14 @@ export class SkyAgGridService {
       },
       defaultColDef: {
         cellClassRules: editableCellClassRules,
-        sortable: true,
+        minWidth: 100,
         resizable: true,
-        minWidth: 100
+        sortable: true,
+        suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress)
       },
       domLayout: 'autoHeight',
       enterMovesDownAfterEdit: true,
-      headerHeight: 37,
+      headerHeight: this.currentTheme?.theme?.name === 'modern' ? 60 : 37,
       icons: {
         sortDescending: this.getIconTemplate('caret-down'),
         sortAscending: this.getIconTemplate('caret-up'),
@@ -251,8 +282,7 @@ export class SkyAgGridService {
         columnMovePin: this.getIconTemplate('arrows')
       },
       onCellFocused: () => this.onCellFocused(),
-      suppressKeyboardEvent: (keypress: SuppressKeyboardEventParams) => this.suppressTab(keypress),
-      rowHeight: 38,
+      rowHeight: this.currentTheme?.theme?.name === 'modern' ? 60 : 38,
       rowMultiSelectWithClick: true,
       rowSelection: 'multiple',
       singleClickEdit: true,
