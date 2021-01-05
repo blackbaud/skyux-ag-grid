@@ -82,7 +82,7 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
     } as SkyCellRendererCurrencyParams;
   });
 
-  it('renders a skyux autonumeric input in an ag grid', () => {
+  it('renders a skyux numeric input in an ag grid', () => {
     let gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
     let gridNativeElement = gridFixture.nativeElement;
 
