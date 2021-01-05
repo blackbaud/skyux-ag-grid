@@ -36,8 +36,8 @@ import {
 } from 'ag-grid-community';
 
 import {
-  SkyCurrencyProperties
-} from '../../types/currency-properties';
+  NumericOptions
+} from '@skyux/core';
 
 describe('SkyAgGridCellRendererCurrencyComponent', () => {
   let currencyFixture: ComponentFixture<SkyAgGridCellRendererCurrencyComponent>;
@@ -78,7 +78,7 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
       $scope: undefined,
       eGridCell: undefined,
       formatValue: undefined,
-      skyComponentProperties: {} as SkyCurrencyProperties
+      skyComponentProperties: {} as NumericOptions
     } as SkyCellRendererCurrencyParams;
   });
 
@@ -96,8 +96,8 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
 
     it('initializes the SkyAgGridCellRendererCurrencyComponent properties', fakeAsync(() => {
       cellRendererParams.value = 123;
-      cellRendererParams.skyComponentProperties.currencySymbol = '$';
-      cellRendererParams.skyComponentProperties.decimalPlaces = 1;
+      cellRendererParams.skyComponentProperties.format = 'currency';
+      cellRendererParams.skyComponentProperties.iso = 'USD';
 
       expect(currencyComponent.value).toBeUndefined();
 

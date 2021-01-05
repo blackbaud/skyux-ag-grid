@@ -4,16 +4,16 @@ import {
 } from '@angular/core';
 
 import {
+  NumericOptions
+} from '@skyux/core';
+
+import {
   ICellRendererAngularComp
 } from 'ag-grid-angular';
 
 import {
   SkyCellRendererCurrencyParams
 } from '../../types/cell-renderer-currency-params';
-
-import {
-  SkyCurrencyProperties
-} from '../../types/currency-properties';
 
 @Component({
   selector: 'sky-ag-grid-cell-renderer-currency',
@@ -24,7 +24,7 @@ import {
 
 export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngularComp {
   public value: number;
-  public skyComponentProperties: SkyCurrencyProperties = {};
+  public skyComponentProperties: NumericOptions = {};
   public columnHeader: string;
   public columnWidth: number;
   public rowHeightWithoutBorders: number;
@@ -43,7 +43,9 @@ export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngu
     this.rowNumber = this.params.rowIndex + 1;
     this.columnWidth = this.params.column.getActualWidth();
     this.rowHeightWithoutBorders = this.params.node && this.params.node.rowHeight - 4;
-    this.skyComponentProperties = this.params.skyComponentProperties || { decimalPlaces: 2 , currencySymbol: '$' };
+    this.skyComponentProperties = this.params.skyComponentProperties || {};
+    this.skyComponentProperties.format = 'currency';
+    this.skyComponentProperties.minDigits = 2;
   }
 
   public refresh(): boolean {

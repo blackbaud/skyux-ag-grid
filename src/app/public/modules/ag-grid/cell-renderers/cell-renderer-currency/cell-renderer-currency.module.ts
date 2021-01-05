@@ -15,14 +15,14 @@ import {
 } from './cell-renderer-currency.component';
 
 import {
-  SkyAutonumericModule
-} from '@skyux/autonumeric';
+  SkyNumericModule
+} from '@skyux/core';
 
 @NgModule({
   imports: [
     SkyAgGridResourcesModule,
     FormsModule,
-    SkyAutonumericModule
+    SkyNumericModule
   ],
   declarations: [
     SkyAgGridCellRendererCurrencyComponent
