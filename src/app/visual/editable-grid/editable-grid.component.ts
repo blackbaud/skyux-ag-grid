@@ -143,7 +143,8 @@ export class EditableGridComponent implements OnInit {
         headerName: 'Currency',
         type: SkyCellType.Currency,
         editable: this.editMode,
-        cellRendererParams: { }
+        cellRendererParams: {},
+        cellEditorParams: {}
       }
     ];
   }
