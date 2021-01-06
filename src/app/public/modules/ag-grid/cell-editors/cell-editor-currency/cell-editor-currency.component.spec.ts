@@ -58,16 +58,8 @@ describe('SkyCellEditorCurrencyComponent', () => {
     gridFixture.detectChanges();
 
     const currencyCellElement = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
-    const currencyCellEditorSelector = `.ag-cell-inline-editing.${SkyCellClass.Currency}`;
-    let inputElement = gridNativeElement.querySelector(currencyCellEditorSelector);
 
-    expect(inputElement).toBeNull();
-
-    currencyCellElement.click();
-
-    inputElement = gridNativeElement.querySelector(currencyCellEditorSelector);
-
-    expect(inputElement).toBeVisible();
+    expect(currencyCellElement).toBeVisible();
   });
 
   describe('agInit', () => {

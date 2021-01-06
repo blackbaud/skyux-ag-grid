@@ -82,11 +82,12 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
     } as SkyCellRendererCurrencyParams;
   });
 
-  it('renders a skyux numeric input in an ag grid', () => {
+  it('renders a skyux numeric element in an ag grid', () => {
     let gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
     let gridNativeElement = gridFixture.nativeElement;
 
     gridFixture.detectChanges();
+    console.log(gridNativeElement);
 
     const element = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
     expect(element).toBeVisible();
