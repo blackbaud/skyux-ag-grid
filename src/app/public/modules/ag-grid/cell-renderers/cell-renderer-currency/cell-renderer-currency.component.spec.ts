@@ -87,7 +87,6 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
     let gridNativeElement = gridFixture.nativeElement;
 
     gridFixture.detectChanges();
-    console.log(gridNativeElement);
 
     const element = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
     expect(element).toBeVisible();
@@ -107,9 +106,6 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
       currencyFixture.detectChanges();
       tick();
       currencyFixture.detectChanges();
-
-      console.log(currencyFixture.nativeElement);
-      console.log(currencyFixture.elementRef);
 
       expect(currencyComponent.value).toBe(123);
     }));
