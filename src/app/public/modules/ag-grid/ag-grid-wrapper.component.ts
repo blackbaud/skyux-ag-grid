@@ -12,6 +12,10 @@ import {
 } from 'ag-grid-angular';
 
 import {
+  DetailGridInfo
+} from 'ag-grid-community';
+
+import {
   SkyAgGridAdapterService
 } from './ag-grid-adapter.service';
 
@@ -62,8 +66,7 @@ export class SkyAgGridWrapperComponent implements AfterContentInit {
   }
 
   public onGridKeydown(event: KeyboardEvent): void {
-    const inEditMode = this.agGrid && this.agGrid.api && this.agGrid.api.getEditingCells().length > 0;
-    if (this.agGrid && !inEditMode && event.key === 'Tab') {
+    if (this.agGrid && !this.isInEditMode && event.key === 'Tab') {
       const idToFocus = event.shiftKey ? this.beforeAnchorId : this.afterAnchorId;
       this.adapterService.setFocusedElementById(this.elementRef.nativeElement, idToFocus);
     }
@@ -84,5 +87,19 @@ export class SkyAgGridWrapperComponent implements AfterContentInit {
         this.agGrid.api.setFocusedCell(rowIndex, firstColumn);
       }
     }
+  }
+
+  private get isInEditMode(): boolean {
+    const primaryGridEditing = this.agGrid && this.agGrid.api && this.agGrid.api.getEditingCells().length > 0;
+    if (primaryGridEditing) {
+      return true;
+    } else {
+      this.agGrid.api.forEachDetailGridInfo((detailGrid: DetailGridInfo) => {
+        if (detailGrid.api.getEditingCells().length > 0) {
+          return true;
+        }
+      });
+    }
+    return false;
   }
 }
