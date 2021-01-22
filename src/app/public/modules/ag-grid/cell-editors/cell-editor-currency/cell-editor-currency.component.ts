@@ -20,6 +20,7 @@ import {
 @Component({
   selector: 'sky-ag-grid-cell-editor-currency',
   templateUrl: './cell-editor-currency.component.html',
+  styleUrls: ['./cell-editor-currency.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
