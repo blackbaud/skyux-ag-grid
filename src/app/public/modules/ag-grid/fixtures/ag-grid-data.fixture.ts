@@ -6,6 +6,7 @@ export class SkyAgGridRow {
   public target: number;
   public date?: Date;
   public selected: boolean;
+  public contactData?: { type: string, value: string }[];
 }
 
 export const SKY_AG_GRID_DATA: SkyAgGridRow[] = [
@@ -15,7 +16,17 @@ export const SKY_AG_GRID_DATA: SkyAgGridRow[] = [
     value: 7,
     target: 10,
     date: new Date('1/1/19'),
-    selected: true
+    selected: true,
+    contactData: [
+      {
+        type: 'phone',
+        value: '8675309'
+      },
+      {
+        type: 'address',
+        value: '123 Mother Goose Ln Storybook, IM'
+      }
+    ]
   },
   {
     id: '1',

@@ -19,6 +19,14 @@ import {
 } from 'ag-grid-community';
 
 import {
+  LicenseManager
+} from 'ag-grid-enterprise';
+
+// This second import initializes enterprise mode for master/detail testing. The first allows us to stub the call that prints a trial
+// warning in the console.
+import 'ag-grid-enterprise';
+
+import {
   SkyAgGridAdapterService
 } from './ag-grid-adapter.service';
 
@@ -29,6 +37,12 @@ import {
 import {
   SkyAgGridWrapperComponent
 } from './ag-grid-wrapper.component';
+
+// This `beforeAll` turns off the printing of the enterprise license warning in test runs. This is done outside of the describe because
+// enterprise being enabled causes the warning on non-enterprise tests in all spec files.
+beforeAll(() => {
+  spyOn(LicenseManager.prototype, <any> 'outputMissingLicenseKey').and.callFake(() => {});
+});
 
 describe('SkyAgGridWrapperComponent', () => {
   let gridAdapterService: SkyAgGridAdapterService;
@@ -100,6 +114,19 @@ describe('SkyAgGridWrapperComponent', () => {
       expect(gridAdapterService.setFocusedElementById).not.toHaveBeenCalled();
     });
 
+    it('should not move focus when tab is pressed but master/detail cells are being edited', () => {
+      let col = { } as Column;
+      spyOn(gridAdapterService, 'setFocusedElementById');
+      spyOn(agGrid.api, 'getEditingCells').and.returnValue([]);
+      spyOn(agGrid.api, 'forEachDetailGridInfo').and.callFake((fn: Function) => {
+        fn({ api: { getEditingCells: (): any[] => { return [{ rowIndex: 0, column: col, rowPinned: '' }]; }}})
+      });
+
+      fireKeydownOnGrid('Tab', false);
+
+      expect(gridAdapterService.setFocusedElementById).not.toHaveBeenCalled();
+    });
+
     it('should not move focus when a non-tab key is pressed', () => {
       spyOn(gridAdapterService, 'setFocusedElementById');
       spyOn(agGrid.api, 'getEditingCells').and.returnValue([]);
@@ -112,6 +139,9 @@ describe('SkyAgGridWrapperComponent', () => {
     it(`should move focus to the anchor after the grid when tab is pressed, no cells are being edited,
       and the grid was previously focused`, () => {
       spyOn(agGrid.api, 'getEditingCells').and.returnValue([]);
+      spyOn(agGrid.api, 'forEachDetailGridInfo').and.callFake((fn: Function) => {
+        fn({ api: { getEditingCells: (): any[] => { return []; } }})
+      });
       spyOn(gridAdapterService, 'getFocusedElement').and.returnValue(skyAgGridDivEl);
       spyOn(gridAdapterService, 'setFocusedElementById');
 
