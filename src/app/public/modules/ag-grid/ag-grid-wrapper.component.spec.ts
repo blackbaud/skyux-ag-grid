@@ -19,14 +19,6 @@ import {
 } from 'ag-grid-community';
 
 import {
-  LicenseManager
-} from 'ag-grid-enterprise';
-
-// This second import initializes enterprise mode for master/detail testing. The first allows us to stub the call that prints a trial
-// warning in the console.
-import 'ag-grid-enterprise';
-
-import {
   SkyAgGridAdapterService
 } from './ag-grid-adapter.service';
 
@@ -37,12 +29,6 @@ import {
 import {
   SkyAgGridWrapperComponent
 } from './ag-grid-wrapper.component';
-
-// This `beforeAll` turns off the printing of the enterprise license warning in test runs. This is done outside of the describe because
-// enterprise being enabled causes the warning on non-enterprise tests in all spec files.
-beforeAll(() => {
-  spyOn(LicenseManager.prototype, <any> 'outputMissingLicenseKey').and.callFake(() => {});
-});
 
 describe('SkyAgGridWrapperComponent', () => {
   let gridAdapterService: SkyAgGridAdapterService;
@@ -119,7 +105,7 @@ describe('SkyAgGridWrapperComponent', () => {
       spyOn(gridAdapterService, 'setFocusedElementById');
       spyOn(agGrid.api, 'getEditingCells').and.returnValue([]);
       spyOn(agGrid.api, 'forEachDetailGridInfo').and.callFake((fn: Function) => {
-        fn({ api: { getEditingCells: (): any[] => { return [{ rowIndex: 0, column: col, rowPinned: '' }]; }}})
+        fn({ api: { getEditingCells: (): any[] => { return [{ rowIndex: 0, column: col, rowPinned: '' }]; }}});
       });
 
       fireKeydownOnGrid('Tab', false);
@@ -140,7 +126,7 @@ describe('SkyAgGridWrapperComponent', () => {
       and the grid was previously focused`, () => {
       spyOn(agGrid.api, 'getEditingCells').and.returnValue([]);
       spyOn(agGrid.api, 'forEachDetailGridInfo').and.callFake((fn: Function) => {
-        fn({ api: { getEditingCells: (): any[] => { return []; } }})
+        fn({ api: { getEditingCells: (): any[] => { return []; } }});
       });
       spyOn(gridAdapterService, 'getFocusedElement').and.returnValue(skyAgGridDivEl);
       spyOn(gridAdapterService, 'setFocusedElementById');

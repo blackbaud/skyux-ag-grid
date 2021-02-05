@@ -49,8 +49,6 @@ import {
   AgGridModule
 } from 'ag-grid-angular';
 
-import 'ag-grid-enterprise';
-
 import {
   SkyAgGridModule
 } from './public/public_api';

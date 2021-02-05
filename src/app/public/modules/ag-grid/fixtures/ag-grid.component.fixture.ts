@@ -71,40 +71,8 @@ export class SkyAgGridFixtureComponent implements OnInit {
     }
   ];
 
-  public masterDetailColumnDefs = [
-    {
-      colId: 'master1',
-      headerName: 'Contact Type',
-      field: 'type',
-      editable: true,
-      type: SkyCellType.Text
-    },
-    {
-      colId: 'master2',
-      headerName: 'Contact Value',
-      field: 'value',
-      editable: true,
-      type: SkyCellType.Text
-    }
-  ];
-
-  public masterDetailEnabled: boolean = false;
-
   public gridOptions: GridOptions = {
-    masterDetail: this.masterDetailEnabled,
-    columnDefs: this.columnDefs,
-    detailCellRendererParams: {
-
-      // provide the Grid Options to use on the Detail Grid
-      detailGridOptions: this.gridService.getEditableGridOptions({ gridOptions: {
-        columnDefs: this.masterDetailColumnDefs
-      }}),
-
-      // get the rows for each Detail Grid
-      getDetailRowData: function (params: any) {
-        params.successCallback(params.data.contactData);
-      }
-    }
+    columnDefs: this.columnDefs
   };
 
   constructor(private gridService: SkyAgGridService) { }
