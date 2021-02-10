@@ -92,7 +92,7 @@ export class SkyAgGridWrapperComponent implements AfterContentInit {
   private get isInEditMode(): boolean {
     /** Sanity check */
     /** istanbul ignore else */
-    if (this.agGrid.api) {
+    if (this.agGrid && this.agGrid.api) {
       const primaryGridEditing = this.agGrid.api.getEditingCells().length > 0;
       if (primaryGridEditing) {
         return true;
