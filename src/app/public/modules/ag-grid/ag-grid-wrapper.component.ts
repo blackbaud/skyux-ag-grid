@@ -90,18 +90,24 @@ export class SkyAgGridWrapperComponent implements AfterContentInit {
   }
 
   private get isInEditMode(): boolean {
-    const primaryGridEditing = this.agGrid && this.agGrid.api && this.agGrid.api.getEditingCells().length > 0;
-    if (primaryGridEditing) {
-      return true;
-    } else {
-      let innerEditing: boolean = false;
-      this.agGrid.api.forEachDetailGridInfo((detailGrid: DetailGridInfo) => {
-        if (detailGrid.api.getEditingCells().length > 0) {
-          innerEditing = true;
-        }
-      });
+    /** Sanity check */
+    /** istanbul ignore else */
+    if (this.agGrid.api) {
+      const primaryGridEditing = this.agGrid.api.getEditingCells().length > 0;
+      if (primaryGridEditing) {
+        return true;
+      } else if (this) {
+        let innerEditing: boolean = false;
+        this.agGrid.api.forEachDetailGridInfo((detailGrid: DetailGridInfo) => {
+          if (detailGrid.api.getEditingCells().length > 0) {
+            innerEditing = true;
+          }
+        });
 
-      return innerEditing;
+        return innerEditing;
+      }
+    } else {
+      return false;
     }
   }
 }
