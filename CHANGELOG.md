@@ -1,6 +1,6 @@
 # 4.5.1 (2021-02-11)
 
-- Fixed the ag-grdi wrapper to properly handle keyboard navigation while a master/detail grid is being used. [#98](https://github.com/blackbaud/skyux-ag-grid/pull/98)
+- Fixed the ag-grid wrapper to properly handle keyboard navigation while a master/detail grid is being used. [#98](https://github.com/blackbaud/skyux-ag-grid/pull/98)
 
 # 4.5.0 (2021-01-26)
 
