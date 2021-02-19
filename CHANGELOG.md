@@ -1,3 +1,7 @@
+# 4.5.2 (2021-02-19)
+
+- Fixed the row delete directive to render on rows which use the `enableCellTextSelection` option in version 23 of ag-Grid. [#101](https://github.com/blackbaud/skyux-ag-grid/pull/101)
+
 # 4.5.1 (2021-02-11)
 
 - Fixed the ag-grid wrapper to properly handle keyboard navigation while a master/detail grid is being used. [#98](https://github.com/blackbaud/skyux-ag-grid/pull/98)
