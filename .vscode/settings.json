@@ -1,7 +1,35 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    // Columns at which to show vertical rulers
-    "editor.rulers": [140],
-
-    "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // Hide files from file explorer.
+  "files.exclude": {
+    "node_modules/": true,
+    ".skypageslocales": true,
+    ".skypagestmp": true,
+    "dist": true
+  },
+  // Exclude files from editor watchers.
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true,
+    "**/.skypageslocales/**": true,
+    "**/.skypagestmp/**": true
+  },
+  // Exclude files from editor searches.
+  "search.exclude": {
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/.skypageslocales/**": true,
+    "**/.skypagestmp/**": true,
+    "package-lock.json": true
+  },
+  "editor.rulers": [
+    140
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.tslint": true
+  }
 }
