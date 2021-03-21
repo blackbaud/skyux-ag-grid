@@ -102,6 +102,10 @@ import {
 import {
   SkyAgGridCellEditorCurrencyComponent
 } from './cell-editors/cell-editor-currency/cell-editor-currency.component';
+import { SkyAgGridCellEditorAutonumericComponent } from './cell-editors/cell-editor-autonumeric/cell-editor-autonumeric.component';
+import { SkyAgGridCellRendererNumericModule } from './cell-renderers/cell-renderer-numeric/cell-renderer-numeric.module';
+import { SkyAgGridCellRendererNumericComponent } from './cell-renderers/cell-renderer-numeric/cell-renderer-numeric.component';
+import { SkyAgGridCellEditorAutonumericModule } from './cell-editors/cell-editor-autonumeric/cell-editor-autonumeric.module';
 
 @NgModule({
   declarations: [
@@ -114,10 +118,12 @@ import {
     AgGridModule,
     CommonModule,
     SkyAgGridCellEditorAutocompleteModule,
+    SkyAgGridCellEditorAutonumericModule,
     SkyAgGridCellEditorDatepickerModule,
     SkyAgGridCellEditorNumberModule,
     SkyAgGridCellEditorCurrencyModule,
     SkyAgGridCellRendererCurrencyModule,
+    SkyAgGridCellRendererNumericModule,
     SkyAgGridCellRendererRowSelectorModule,
     SkyAgGridCellEditorTextModule,
     SkyCoreAdapterModule,
@@ -137,10 +143,12 @@ import {
   ],
   entryComponents: [
     SkyAgGridCellEditorAutocompleteComponent,
+    SkyAgGridCellEditorAutonumericComponent,
     SkyAgGridCellEditorDatepickerComponent,
     SkyAgGridCellEditorNumberComponent,
     SkyAgGridCellEditorCurrencyComponent,
     SkyAgGridCellRendererCurrencyComponent,
+    SkyAgGridCellRendererNumericComponent,
     SkyAgGridCellRendererRowSelectorComponent,
     SkyAgGridCellEditorTextComponent,
     SkyAgGridRowDeleteComponent

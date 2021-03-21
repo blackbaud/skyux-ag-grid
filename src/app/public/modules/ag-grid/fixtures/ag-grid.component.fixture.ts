@@ -68,6 +68,12 @@ export class SkyAgGridFixtureComponent implements OnInit {
       headerName: 'Currency amount',
       editable: true,
       type: SkyCellType.Currency
+    },
+    {
+      field: 'numeric',
+      headerName: 'Numeric amount',
+      editable: true,
+      type: SkyCellType.Numeric
     }
   ];
 
