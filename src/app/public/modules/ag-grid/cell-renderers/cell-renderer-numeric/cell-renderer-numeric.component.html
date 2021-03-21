@@ -1,0 +1,8 @@
+<span
+  [attr.aria-label]="'sky_ag_grid_cell_renderer_numeric_aria_label' | skyLibResources: columnHeader:rowNumber"
+  [style.width.px]="columnWidth"
+  [style.height.px]="rowHeightWithoutBorders"
+  data-test-id="numericText"
+>
+  {{ value | skyNumeric: skyComponentProperties }}
+</span>
