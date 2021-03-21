@@ -5,7 +5,6 @@ import { SkyCellRendererNumericParams } from '../../types/cell-renderer-numeric-
 import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
-  selector: 'sky-ag-grid-cell-renderer-numeric',
   templateUrl: './cell-renderer-numeric.component.html',
   styleUrls: ['./cell-renderer-numeric.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -5,7 +5,6 @@ import { SkyCellEditorAutonumericParams } from '../../types/cell-editor-autonume
 import { ICellEditorParams } from 'ag-grid-community';
 
 @Component({
-  selector: 'sky-ag-grid-cell-editor-autonumeric',
   templateUrl: './cell-editor-autonumeric.component.html',
   styleUrls: ['./cell-editor-autonumeric.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
