@@ -2,7 +2,8 @@ import {
   ComponentFixture,
   TestBed,
   fakeAsync,
-  tick
+  tick,
+  flush
 } from '@angular/core/testing';
 
 import {
@@ -51,15 +52,28 @@ describe('SkyAgGridCellEditorAutonumericComponent', () => {
     fixture.detectChanges();
   });
 
-  it('renders a autonumeric input when editing a Numeric cell in an ag grid', () => {
+  it('renders a autonumeric input when editing a Numeric cell in an ag grid', fakeAsync(() => {
     const gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
     const gridNativeElement = gridFixture.nativeElement;
 
     gridFixture.detectChanges();
+    flush();
+
+    const getEditElement = () => gridNativeElement.querySelector(`.ag-cell-inline-editing.${SkyCellClass.Numeric}`);
 
     const cellElement = gridNativeElement.querySelector(`.${SkyCellClass.Numeric}`);
-    expect(cellElement).toBeVisible();
-  });
+    expect(cellElement).toBeDefined();
+
+    let inputElement = getEditElement();
+    expect(inputElement).toBeNull();
+
+    cellElement.click();
+    gridFixture.detectChanges();
+    tick();
+
+    inputElement = getEditElement();
+    expect(inputElement).toBeVisible();
+  }));
 
   describe('agInit', () => {
     it('initializes the SkyAgGridCellEditorAutonumericComponent properties', () => {

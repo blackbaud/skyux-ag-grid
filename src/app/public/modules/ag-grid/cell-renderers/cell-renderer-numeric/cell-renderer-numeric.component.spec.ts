@@ -45,8 +45,7 @@ import {
   SkyCellRendererNumericParams
 } from '../../types/cell-renderer-numeric-params';
 
-// tslint:disable-next-line: no-focused-tests
-fdescribe('SkyAgGridCellRendererNumericComponent', () => {
+describe('SkyAgGridCellRendererNumericComponent', () => {
   let fixture: ComponentFixture<SkyAgGridCellRendererNumericComponent>;
   let component: SkyAgGridCellRendererNumericComponent;
   let nativeElement: HTMLElement;
