@@ -28,9 +28,18 @@ import {
   SkyCellType,
   SkyCellRendererNumericParams
 } from '../../public/public_api';
-import { SkyCellEditorAutonumericParams } from '../../../../dist/modules/ag-grid/types/cell-editor-autonumeric-params';
-import { SkyCellEditorCurrencyParams } from '../../public/modules/ag-grid/types/cell-editor-currency-params';
-import { SkyCellRendererCurrencyParams } from '../../public/modules/ag-grid/types/cell-renderer-currency-params';
+
+import {
+  SkyCellEditorCurrencyParams
+} from '../../public/modules/ag-grid/types/cell-editor-currency-params';
+
+import {
+  SkyCellRendererCurrencyParams
+} from '../../public/modules/ag-grid/types/cell-renderer-currency-params';
+
+import {
+  SkyCellEditorAutonumericParams
+} from '../../public/modules/ag-grid/types/cell-editor-autonumeric-params';
 
 @Component({
   selector: 'editable-grid-visual',

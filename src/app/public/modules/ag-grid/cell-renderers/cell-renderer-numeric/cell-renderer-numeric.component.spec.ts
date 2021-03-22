@@ -1,14 +1,49 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, async } from '@angular/core/testing';
-import { expect, expectAsync, SkyAppTestUtility } from '@skyux-sdk/testing';
-import { Column, RowNode } from 'ag-grid-community';
-import { NumericOptions } from '@skyux/core';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+  async
+} from '@angular/core/testing';
 
-import { SkyCellClass } from '../../types/cell-class';
-import { SkyAgGridFixtureComponent } from '../../fixtures/ag-grid.component.fixture';
-import { SkyAgGridFixtureModule } from '../../fixtures/ag-grid.module.fixture';
-import { SkyAgGridCellRendererNumericComponent } from './cell-renderer-numeric.component';
-import { SkyCellRendererNumericParams } from '../../types/cell-renderer-numeric-params';
-import { By } from '@angular/platform-browser';
+import {
+  By
+} from '@angular/platform-browser';
+
+import {
+  expect,
+  expectAsync,
+  SkyAppTestUtility
+} from '@skyux-sdk/testing';
+
+import {
+  Column,
+  RowNode
+} from 'ag-grid-community';
+
+import {
+  NumericOptions
+} from '@skyux/core';
+
+import {
+  SkyCellClass
+} from '../../types/cell-class';
+
+import {
+  SkyAgGridFixtureComponent
+} from '../../fixtures/ag-grid.component.fixture';
+
+import {
+  SkyAgGridFixtureModule
+} from '../../fixtures/ag-grid.module.fixture';
+
+import {
+  SkyAgGridCellRendererNumericComponent
+} from './cell-renderer-numeric.component';
+
+import {
+  SkyCellRendererNumericParams
+} from '../../types/cell-renderer-numeric-params';
 
 // tslint:disable-next-line: no-focused-tests
 fdescribe('SkyAgGridCellRendererNumericComponent', () => {

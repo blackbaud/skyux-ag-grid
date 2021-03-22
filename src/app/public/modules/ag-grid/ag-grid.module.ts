@@ -102,10 +102,22 @@ import {
 import {
   SkyAgGridCellEditorCurrencyComponent
 } from './cell-editors/cell-editor-currency/cell-editor-currency.component';
-import { SkyAgGridCellEditorAutonumericComponent } from './cell-editors/cell-editor-autonumeric/cell-editor-autonumeric.component';
-import { SkyAgGridCellRendererNumericModule } from './cell-renderers/cell-renderer-numeric/cell-renderer-numeric.module';
-import { SkyAgGridCellRendererNumericComponent } from './cell-renderers/cell-renderer-numeric/cell-renderer-numeric.component';
-import { SkyAgGridCellEditorAutonumericModule } from './cell-editors/cell-editor-autonumeric/cell-editor-autonumeric.module';
+
+import {
+  SkyAgGridCellEditorAutonumericComponent
+} from './cell-editors/cell-editor-autonumeric/cell-editor-autonumeric.component';
+
+import {
+  SkyAgGridCellRendererNumericModule
+} from './cell-renderers/cell-renderer-numeric/cell-renderer-numeric.module';
+
+import {
+  SkyAgGridCellRendererNumericComponent
+} from './cell-renderers/cell-renderer-numeric/cell-renderer-numeric.component';
+
+import {
+  SkyAgGridCellEditorAutonumericModule
+} from './cell-editors/cell-editor-autonumeric/cell-editor-autonumeric.module';
 
 @NgModule({
   declarations: [

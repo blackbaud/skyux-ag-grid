@@ -1,8 +1,25 @@
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
-import { SkyAutonumericOptions } from '@skyux/autonumeric';
-import { ICellEditorAngularComp } from 'ag-grid-angular';
-import { SkyCellEditorAutonumericParams } from '../../types/cell-editor-autonumeric-params';
-import { ICellEditorParams } from 'ag-grid-community';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
+
+import {
+  SkyAutonumericOptions
+} from '@skyux/autonumeric';
+
+import {
+  ICellEditorAngularComp
+} from 'ag-grid-angular';
+
+import {
+  ICellEditorParams
+} from 'ag-grid-community';
+
+import {
+  SkyCellEditorAutonumericParams
+} from '../../types/cell-editor-autonumeric-params';
 
 @Component({
   templateUrl: './cell-editor-autonumeric.component.html',

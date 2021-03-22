@@ -1,11 +1,35 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { expect, expectAsync } from '@skyux-sdk/testing';
-import { Column, ICellEditorParams } from 'ag-grid-community';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick
+} from '@angular/core/testing';
 
-import { SkyCellClass } from '../../types/cell-class';
-import { SkyAgGridFixtureComponent } from '../../fixtures/ag-grid.component.fixture';
-import { SkyAgGridFixtureModule } from '../../fixtures/ag-grid.module.fixture';
-import { SkyAgGridCellEditorAutonumericComponent } from './cell-editor-autonumeric.component';
+import {
+  expect,
+  expectAsync
+} from '@skyux-sdk/testing';
+
+import {
+  Column,
+  ICellEditorParams
+} from 'ag-grid-community';
+
+import {
+  SkyCellClass
+} from '../../types/cell-class';
+
+import {
+  SkyAgGridFixtureComponent
+} from '../../fixtures/ag-grid.component.fixture';
+
+import {
+  SkyAgGridFixtureModule
+} from '../../fixtures/ag-grid.module.fixture';
+
+import {
+  SkyAgGridCellEditorAutonumericComponent
+} from './cell-editor-autonumeric.component';
 
 describe('SkyAgGridCellEditorAutonumericComponent', () => {
   // We've had some issue with grid rendering causing the specs to timeout in IE. Extending it slightly to help.

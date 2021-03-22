@@ -1,7 +1,18 @@
-import { NgModule } from '@angular/core';
-import { SkyAgGridResourcesModule } from '../../../shared/ag-grid-resources.module';
-import { SkyAgGridCellRendererNumericComponent } from './cell-renderer-numeric.component';
-import { SkyNumericModule } from '@skyux/core';
+import {
+  NgModule
+} from '@angular/core';
+
+import {
+  SkyAgGridResourcesModule
+} from '../../../shared/ag-grid-resources.module';
+
+import {
+  SkyAgGridCellRendererNumericComponent
+} from './cell-renderer-numeric.component';
+
+import {
+  SkyNumericModule
+} from '@skyux/core';
 
 @NgModule({
   imports: [

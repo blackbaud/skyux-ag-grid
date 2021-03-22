@@ -1,8 +1,22 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NumericOptions } from '@skyux/core';
-import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { SkyCellRendererNumericParams } from '../../types/cell-renderer-numeric-params';
-import { ICellRendererParams } from 'ag-grid-community';
+import {
+  ChangeDetectionStrategy,
+  Component
+} from '@angular/core';
+
+import {
+  NumericOptions } from '@skyux/core';
+
+import {
+  ICellRendererAngularComp
+} from 'ag-grid-angular';
+
+import {
+  ICellRendererParams
+} from 'ag-grid-community';
+
+import {
+  SkyCellRendererNumericParams
+} from '../../types/cell-renderer-numeric-params';
 
 @Component({
   templateUrl: './cell-renderer-numeric.component.html',
