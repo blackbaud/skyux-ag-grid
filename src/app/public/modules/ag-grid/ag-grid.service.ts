@@ -72,6 +72,14 @@ import {
   SkyAgGridCellEditorCurrencyComponent
 } from './cell-editors/cell-editor-currency/cell-editor-currency.component';
 
+import {
+  SkyAgGridCellRendererNumericComponent
+} from './cell-renderers/cell-renderer-numeric/cell-renderer-numeric.component';
+
+import {
+  SkyAgGridCellEditorAutonumericComponent
+} from './cell-editors/cell-editor-autonumeric/cell-editor-autonumeric.component';
+
 function autocompleteComparator(value1: { name: string }, value2: { name: string }): number {
   if (value1 && value2) {
     if (value1.name > value2.name) {
@@ -245,6 +253,15 @@ export class SkyAgGridService implements OnDestroy {
           },
           cellEditorFramework: SkyAgGridCellEditorNumberComponent,
           headerClass: SkyHeaderClass.RightAligned
+        },
+        [SkyCellType.Numeric]: {
+          cellClassRules: {
+            [SkyCellClass.Numeric]: cellClassRuleTrueExpression,
+            ...editableCellClassRules
+          },
+          cellRendererFramework: SkyAgGridCellRendererNumericComponent,
+          cellEditorFramework: SkyAgGridCellEditorAutonumericComponent,
+          minWidth: 185
         },
         [SkyCellType.RowSelector]: {
           cellClassRules: {

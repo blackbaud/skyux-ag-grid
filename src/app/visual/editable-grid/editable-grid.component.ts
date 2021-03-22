@@ -25,8 +25,21 @@ import {
 
 import {
   SkyAgGridService,
-  SkyCellType
+  SkyCellType,
+  SkyCellRendererNumericParams
 } from '../../public/public_api';
+
+import {
+  SkyCellEditorCurrencyParams
+} from '../../public/modules/ag-grid/types/cell-editor-currency-params';
+
+import {
+  SkyCellRendererCurrencyParams
+} from '../../public/modules/ag-grid/types/cell-renderer-currency-params';
+
+import {
+  SkyCellEditorAutonumericParams
+} from '../../public/modules/ag-grid/types/cell-editor-autonumeric-params';
 
 @Component({
   selector: 'editable-grid-visual',
@@ -138,13 +151,40 @@ export class EditableGridComponent implements OnInit {
         minWidth: 160
       },
       {
-        colId: 'currencyAmount',
+        colId: 'currencyAmountWithCurrency',
         field: 'currencyAmount',
-        headerName: 'Currency',
+        headerName: 'Currency (Currency)',
         type: SkyCellType.Currency,
         editable: this.editMode,
-        cellRendererParams: {},
-        cellEditorParams: {}
+        cellRendererParams: (): Partial<SkyCellRendererCurrencyParams> => ({}),
+        cellEditorParams: (): Partial<SkyCellEditorCurrencyParams> => ({})
+      },
+      {
+        colId: 'currencyAmount',
+        field: 'currencyAmount',
+        headerName: 'Currency (Numeric)',
+        type: SkyCellType.Numeric,
+        editable: this.editMode,
+        cellRendererParams: (): Partial<SkyCellRendererNumericParams> => {
+          return {
+            skyComponentProperties: {
+              format: 'currency',
+              locale: 'en-US',
+              iso: 'CAD',
+              truncate: false,
+              minDigits: 2,
+              digits: 2
+            }
+          };
+        },
+        cellEditorParams: (): Partial<SkyCellEditorAutonumericParams> => {
+          return {
+            skyComponentProperties: {
+              currencySymbol: 'CA$',
+              decimalPlaces: 2
+            }
+          };
+        }
       }
     ];
   }
