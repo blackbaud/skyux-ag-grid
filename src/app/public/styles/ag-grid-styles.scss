@@ -34,7 +34,7 @@ ag-grid-angular:not(.sky-ag-grid-editable) {
 
   .ag-cell.ag-cell-wrap-text {
     min-height: ag-param(row-height) - 2px;
-    line-height: normal;
+    line-height: $sky-line-height-base;
     padding-top: 7px;
     padding-bottom: 7px;
   }
@@ -163,7 +163,7 @@ ag-grid-angular.sky-ag-grid-editable {
 
   .ag-cell.ag-cell-wrap-text {
     min-height: ag-param(row-height) - 2px;
-    line-height: 1.5;
+    line-height: $sky-theme-modern-font-paragraph-line-height;
     padding-top: 16px;
     padding-bottom: 16px;
   }
