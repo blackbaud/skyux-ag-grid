@@ -1,6 +1,6 @@
 # 4.6.1 (2021-04-15)
 
-- Fixed column sorting when sortOptions are undefined. [#108](https://github.com/blackbaud/skyux-ag-grid/pull/108)
+- Fixed column sorting when `sortOptions` is undefined. [#108](https://github.com/blackbaud/skyux-ag-grid/pull/108)
 
 # 4.6.0 (2021-04-06)
 
