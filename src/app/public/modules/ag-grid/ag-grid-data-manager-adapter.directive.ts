@@ -142,6 +142,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     });
   }
 
+  // TODO fix the displayed columns in here!
   private registerAgGrid(): void {
     this.unregisterAgGrid();
 
@@ -171,7 +172,7 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((event: ColumnMovedEvent) => {
         let columnOrder = agGrid.columnApi.getAllDisplayedVirtualColumns().map(
-          col => col.getColDef().colId
+          col => col.getColDef().colId || col.getColDef().field
         );
 
         if (event.source !== 'api') {

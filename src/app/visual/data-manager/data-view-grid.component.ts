@@ -39,7 +39,6 @@ export class DataViewGridComponent implements OnInit {
 
   public columnDefs: ColDef[] = [
     {
-      colId: 'selected',
       field: 'selected',
       headerName: '',
       maxWidth: 50,
@@ -49,13 +48,11 @@ export class DataViewGridComponent implements OnInit {
       lockVisible: true
     },
     {
-      colId: 'name',
       field: 'name',
       headerName: 'Fruit name',
       width: 150
     },
     {
-      colId: 'description',
       field: 'description',
       headerName: 'Description'
     }

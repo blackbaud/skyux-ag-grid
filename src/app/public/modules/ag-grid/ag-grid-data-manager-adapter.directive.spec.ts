@@ -28,7 +28,8 @@ import {
 
 import {
   SkyDataManagerService,
-  SkyDataManagerState
+  SkyDataManagerState,
+  SkyDataViewState
 } from '@skyux/data-manager';
 
 import {
@@ -145,6 +146,24 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
     agGridComponent.columnMoved.emit(columnMoved);
 
     expect(dataManagerService.updateDataState).toHaveBeenCalledWith(dataState, agGridDataManagerFixtureComponent.viewConfig.id);
+  });
+
+  it('should preserve displayedColumnIds when no colId property is supplied', async () => {
+    await agGridDataManagerFixture.whenStable();
+    const columnMoved = {
+      source: 'uiColumnMoved'
+    } as ColumnMovedEvent;
+    const spy = spyOn(SkyDataManagerState.prototype, 'addOrUpdateView').and.callThrough();
+
+    agGridComponent.columnMoved.emit(columnMoved);
+    expect(spy).toHaveBeenCalledWith(
+      'gridView',
+      new SkyDataViewState({
+        displayedColumnIds: [ 'selected', 'name', 'target' ], // These should match the field names of the columns.
+        viewId: 'gridView',
+        additionalData: undefined
+      })
+    );
   });
 
   it('should update the data state when the sort changes', async () => {
