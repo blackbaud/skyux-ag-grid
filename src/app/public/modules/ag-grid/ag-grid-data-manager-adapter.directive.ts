@@ -142,7 +142,6 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     });
   }
 
-  // TODO fix the displayed columns in here!
   private registerAgGrid(): void {
     this.unregisterAgGrid();
 

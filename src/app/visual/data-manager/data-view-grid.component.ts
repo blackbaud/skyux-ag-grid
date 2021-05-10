@@ -53,6 +53,7 @@ export class DataViewGridComponent implements OnInit {
       width: 150
     },
     {
+      colId: 'description',
       field: 'description',
       headerName: 'Description'
     }
