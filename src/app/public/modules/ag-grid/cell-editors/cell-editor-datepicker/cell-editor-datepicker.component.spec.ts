@@ -20,10 +20,6 @@ import {
 } from '@skyux/datetime/testing';
 
 import {
-  SkyCellClass
-} from '../../types/cell-class';
-
-import {
   SkyAgGridFixtureComponent
 } from '../../fixtures/ag-grid.component.fixture';
 
@@ -32,12 +28,16 @@ import {
 } from '../../fixtures/ag-grid.module.fixture';
 
 import {
-  SkyAgGridCellEditorDatepickerComponent
-} from '../cell-editor-datepicker/cell-editor-datepicker.component';
+  SkyCellClass
+} from '../../types/cell-class';
 
 import {
   SkyCellEditorDatepickerParams
 } from '../../types/cell-editor-datepicker-params';
+
+import {
+  SkyAgGridCellEditorDatepickerComponent
+} from './cell-editor-datepicker.component';
 
 describe('SkyCellEditorDatepickerComponent', () => {
   // We've had some issue with grid rendering causing the specs to timeout in IE. Extending it slightly to help.
@@ -57,6 +57,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     datepickerEditorFixture = TestBed.createComponent(SkyAgGridCellEditorDatepickerComponent);
     datepickerEditorNativeElement = datepickerEditorFixture.nativeElement;
     datepickerEditorComponent = datepickerEditorFixture.componentInstance;
+    datepickerEditorComponent.isModalContext = true;
   });
 
   describe('in ag grid', () => {
@@ -130,6 +131,8 @@ describe('SkyCellEditorDatepickerComponent', () => {
     it('initializes the SkyAgGridCellEditorDatepickerComponent properties', fakeAsync(() => {
       const dateString = '01/01/2019';
       const date = new Date(dateString);
+      datepickerEditorFixture.detectChanges();
+      tick();
       const datepicker = new SkyDatepickerFixture(
         datepickerEditorFixture,
         'cell-datepicker'

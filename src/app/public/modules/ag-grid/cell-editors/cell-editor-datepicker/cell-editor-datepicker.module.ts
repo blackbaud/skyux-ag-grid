@@ -1,4 +1,8 @@
 import {
+  CommonModule
+} from '@angular/common';
+
+import {
   NgModule
 } from '@angular/core';
 
@@ -12,12 +16,13 @@ import {
 
 import {
   SkyAgGridCellEditorDatepickerComponent
-} from '../cell-editor-datepicker/cell-editor-datepicker.component';
+} from './cell-editor-datepicker.component';
 
 @NgModule({
   imports: [
     SkyDatepickerModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   declarations: [
     SkyAgGridCellEditorDatepickerComponent
