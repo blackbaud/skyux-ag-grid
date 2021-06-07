@@ -90,6 +90,7 @@ export class SkyAgGridCellEditorDatepickerComponent extends PopupComponent imple
     return !this.isModalContext;
   }
 
+  /* istanbul ignore next */
   public onDateChange(value: Date): void {
     this.currentDate = value;
     this.params.api.stopEditing(false);
