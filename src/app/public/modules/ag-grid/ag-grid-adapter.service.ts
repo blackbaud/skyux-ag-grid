@@ -6,7 +6,9 @@ import {
   SkyCoreAdapterService
 } from '@skyux/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SkyAgGridAdapterService {
   constructor(
     private skyAdapterService: SkyCoreAdapterService

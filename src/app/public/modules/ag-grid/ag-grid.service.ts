@@ -122,7 +122,9 @@ function dateComparator(date1: any, date2: any): number {
 /**
  * A service that provides default styling and behavior for agGrids in SKY UX SPAs.
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SkyAgGridService implements OnDestroy {
   public currentTheme: SkyThemeSettings;
   private ngUnsubscribe = new Subject();
