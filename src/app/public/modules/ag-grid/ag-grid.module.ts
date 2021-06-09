@@ -24,16 +24,8 @@ import {
 } from '@skyux/layout';
 
 import {
-  SkyAgGridService
-} from './ag-grid.service';
-
-import {
   SkyAgGridWrapperComponent
 } from './ag-grid-wrapper.component';
-
-import {
-  SkyAgGridAdapterService
-} from './ag-grid-adapter.service';
 
 import {
   SkyAgGridCellEditorAutocompleteComponent
@@ -130,10 +122,6 @@ import {
     SkyAgGridRowDeleteComponent,
     SkyAgGridRowDeleteDirective,
     SkyAgGridWrapperComponent
-  ],
-  providers: [
-    SkyAgGridService,
-    SkyAgGridAdapterService
   ],
   entryComponents: [
     SkyAgGridCellEditorAutocompleteComponent,
