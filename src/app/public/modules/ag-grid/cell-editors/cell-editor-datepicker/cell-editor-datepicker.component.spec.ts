@@ -33,7 +33,7 @@ import {
 
 import {
   SkyAgGridCellEditorDatepickerComponent
-} from './cell-editor-datepicker.component';
+} from '../cell-editor-datepicker/cell-editor-datepicker.component';
 
 import {
   SkyCellEditorDatepickerParams
