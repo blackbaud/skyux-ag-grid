@@ -57,7 +57,6 @@ describe('SkyCellEditorDatepickerComponent', () => {
     datepickerEditorFixture = TestBed.createComponent(SkyAgGridCellEditorDatepickerComponent);
     datepickerEditorNativeElement = datepickerEditorFixture.nativeElement;
     datepickerEditorComponent = datepickerEditorFixture.componentInstance;
-    datepickerEditorComponent.isModalContext = true;
   });
 
   describe('in ag grid', () => {

@@ -1,8 +1,9 @@
 <div
   class="sky-ag-grid-cell-editor-datepicker"
 >
-  <sky-datepicker *ngIf="isModalContext; else calendar"
+  <sky-datepicker
     data-sky-id="cell-datepicker"
+    pickerClass="ag-custom-component-popup"
   >
     <input
       skyDatepickerInput
@@ -17,15 +18,4 @@
       #skyCellEditorDatepickerInput
     />
   </sky-datepicker>
-
-  <ng-template #calendar>
-    <sky-datepicker-calendar *ngIf="!isModalContext"
-                             [minDate]="skyComponentProperties.minDate"
-                             [maxDate]="skyComponentProperties.maxDate"
-                             [startingDay]="skyComponentProperties.startingDay"
-                             [selectedDate]="currentDate"
-                             (selectedDateChange)="onDateChange($event)"
-    >
-    </sky-datepicker-calendar>
-  </ng-template>
 </div>
