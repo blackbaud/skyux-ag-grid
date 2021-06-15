@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export class EditableGridPerson {
   public id: string;
   public name: string;
