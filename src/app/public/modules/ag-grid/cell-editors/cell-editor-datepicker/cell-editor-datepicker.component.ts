@@ -73,8 +73,4 @@ export class SkyAgGridCellEditorDatepickerComponent extends PopupComponent imple
   public focusOnDatepickerInput(): void {
     this.datepickerInput.nativeElement.focus();
   }
-
-  public isPopup(): boolean {
-    return true;
-  }
 }

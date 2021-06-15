@@ -24,7 +24,7 @@
     "ag-grid-community": "^23.0.0 || ^24.0.0 || ^25.0.0",
     "@skyux/autonumeric": "^4.0.2",
     "@skyux/data-manager": "^4.0.0-rc.0",
-    "@skyux/datetime": "^4.0.0",
+    "@skyux/datetime": "^4.12.0",
     "@skyux/forms": "^4.0.0",
     "@skyux/indicators": "^4.0.0",
     "@skyux/layout": "^4.2.0",
