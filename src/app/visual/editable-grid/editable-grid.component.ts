@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import {
   Component,
   OnInit

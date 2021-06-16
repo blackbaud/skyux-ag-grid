@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 export class ReadonlyGridRow {
   public id: string;
   public name: string;

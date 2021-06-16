@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 export class SkyAutocompleteOption {
   public id: string;
   public name: string;

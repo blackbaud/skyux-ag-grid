@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import {
   SkyUIConfigService
 } from '@skyux/core';

@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import {
   SkyAgGridDemoRow
 } from './ag-grid-demo-data';
