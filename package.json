@@ -1,6 +1,6 @@
 {
   "name": "@skyux/ag-grid",
-  "version": "4.8.0",
+  "version": "4.8.1",
   "description": "SKY UX styles and utilities to be used with ag-grid.",
   "scripts": {
     "build": "skyux build-public-library && node ./scripts/prepare-package.js",
