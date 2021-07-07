@@ -89,6 +89,14 @@ ag-grid-angular.sky-ag-grid-editable {
 
   .ag-row {
     border-bottom-style: solid;
+
+    &.ag-row-focus {
+      z-index: 1;
+
+      .ag-cell-focus {
+        z-index: 1;
+      }
+    }
   }
 
   .ag-cell {
@@ -228,8 +236,13 @@ ag-grid-angular.sky-ag-grid-editable {
 
   /* fine tune focus cell borders */
   .ag-row {
-    .ag-cell-focus {
+    &.ag-row-focus {
+      z-index: 1;
+    }
+
+    .ag-cell.ag-cell-focus {
       line-height: ag-param(row-height) - 4;
+      z-index: 1;
 
       &.ag-cell-inline-editing,
       &.ag-cell-popup-editing {
