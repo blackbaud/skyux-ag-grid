@@ -143,10 +143,10 @@ ag-grid-angular.sky-ag-grid-editable {
     header-background-color: $sky-theme-modern-background-color-page-default,
     header-column-separator-color: $sky-theme-modern-border-color-neutral-medium,
     header-height: 60px,
-    input-focus-border-color: $sky-theme-modern-color-blue-74,
+    input-focus-border-color: $sky-theme-modern-border-color-primary-dark,
     row-border-color: $sky-theme-modern-border-color-neutral-medium,
     row-height: 60px,
-    range-selection-border-color: $sky-theme-modern-color-blue-74,
+    range-selection-border-color: $sky-theme-modern-border-color-primary-dark,
     secondary-foreground-color: $sky-theme-modern-font-deemphasized-color,
     selected-row-background-color: $sky-background-color-selected
   ));
@@ -167,7 +167,7 @@ ag-grid-angular.sky-ag-grid-editable {
   }
 
   .ag-cell:hover {
-    border: 1px solid $sky-theme-modern-color-blue-74;
+    border: 1px solid $sky-theme-modern-border-color-primary-dark;
   }
 
   .ag-cell.ag-cell-wrap-text {
@@ -194,11 +194,11 @@ ag-grid-angular.sky-ag-grid-editable {
     header-background-color: $sky-theme-modern-background-color-page-default,
     header-column-separator-color: $sky-theme-modern-border-color-neutral-medium,
     header-height: 60px,
-    input-focus-border-color: $sky-theme-modern-color-blue-74,
+    input-focus-border-color: $sky-theme-modern-border-color-primary-dark,
     popup-shadow: none,
     row-border-color: $sky-theme-modern-border-color-neutral-medium,
     row-height: 60px,
-    range-selection-border-color: $sky-theme-modern-color-blue-74,
+    range-selection-border-color: $sky-theme-modern-border-color-primary-dark,
     secondary-foreground-color: $sky-theme-modern-font-deemphasized-color
   ));
 
@@ -227,7 +227,7 @@ ag-grid-angular.sky-ag-grid-editable {
   }
 
   .ag-cell:hover {
-    border: 1px solid $sky-theme-modern-color-blue-74;
+    border: 1px solid $sky-theme-modern-border-color-primary-dark;
   }
 
   .ag-row:not(.ag-row-first) {
@@ -249,7 +249,7 @@ ag-grid-angular.sky-ag-grid-editable {
         height: ag-param(row-height) - 1;
         padding-left: 0;
         padding-right: 0;
-        border: 2px solid $sky-theme-modern-color-blue-74;
+        border: 2px solid $sky-theme-modern-border-color-primary-dark;
         box-shadow: none;
       }
 
