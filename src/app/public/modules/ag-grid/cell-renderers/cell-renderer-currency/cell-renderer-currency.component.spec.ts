@@ -120,7 +120,7 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
   it('should pass accessibility', async () => {
     currencyFixture.detectChanges();
 
-    await currencyFixture.whenStable()
+    await currencyFixture.whenStable();
     return expectAsync(currencyNativeElement).toBeAccessible();
   });
 });
