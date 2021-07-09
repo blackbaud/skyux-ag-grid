@@ -76,7 +76,8 @@ describe('SkyCellRendererCheckboxComponent', () => {
       refreshCell: undefined,
       eGridCell: undefined,
       eParentOfValue: undefined,
-      addRenderedRowListener: undefined
+      addRenderedRowListener: undefined,
+      registerRowDragger: () => {}
     };
   });
 
