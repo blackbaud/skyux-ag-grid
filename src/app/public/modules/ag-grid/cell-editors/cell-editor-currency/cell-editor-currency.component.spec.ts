@@ -149,7 +149,7 @@ describe('SkyCellEditorCurrencyComponent', () => {
     currencyEditorFixture.detectChanges();
     await currencyEditorFixture.whenStable();
 
-    await expectAsync(currencyEditorFixture.nativeElement).toBeAccessible();
+    return expectAsync(currencyEditorFixture.nativeElement).toBeAccessible();
   });
 
 });

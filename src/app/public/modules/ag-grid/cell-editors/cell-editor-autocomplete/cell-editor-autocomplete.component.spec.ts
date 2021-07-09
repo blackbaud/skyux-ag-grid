@@ -141,7 +141,7 @@ describe('SkyCellEditorAutocompleteComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    await expectAsync(fixture.nativeElement).toBeAccessible();
+    return expectAsync(fixture.nativeElement).toBeAccessible();
   });
 
 });

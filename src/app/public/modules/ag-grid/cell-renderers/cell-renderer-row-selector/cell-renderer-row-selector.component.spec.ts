@@ -266,7 +266,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
     rowSelectorCellFixture.detectChanges();
     await rowSelectorCellFixture.whenStable();
 
-    await expectAsync(rowSelectorCellNativeElement).toBeAccessible();
+    return expectAsync(rowSelectorCellNativeElement).toBeAccessible();
   });
 
 });
