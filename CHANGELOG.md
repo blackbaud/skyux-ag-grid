@@ -1,6 +1,6 @@
-# 4.8.2 (2021-07-08)
+# 4.8.2 (2021-07-09)
 
-- Updated styles for AG Grid 24 with modern theme. [#121](https://github.com/blackbaud/skyux-ag-grid/pull/121)
+- Updated styles for AG Grid version 24+ in modern theme. [#121](https://github.com/blackbaud/skyux-ag-grid/pull/121)
 
 # 4.8.1 (2021-06-23)
 
