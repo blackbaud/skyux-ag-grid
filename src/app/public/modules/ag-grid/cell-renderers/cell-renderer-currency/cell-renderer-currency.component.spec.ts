@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed,
   fakeAsync,
@@ -6,8 +7,7 @@ import {
 } from '@angular/core/testing';
 
 import {
-  expect,
-  expectAsync
+  expect, expectAsync
 } from '@skyux-sdk/testing';
 
 import {
@@ -117,10 +117,11 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
     });
   });
 
-  it('should pass accessibility', async () => {
+  it('should pass accessibility', async(() => {
     currencyFixture.detectChanges();
 
-    await currencyFixture.whenStable();
-    return expectAsync(currencyNativeElement).toBeAccessible();
-  });
+    currencyFixture.whenStable().then(() => {
+      return expectAsync(currencyNativeElement).toBeAccessible();
+    });
+  }));
 });

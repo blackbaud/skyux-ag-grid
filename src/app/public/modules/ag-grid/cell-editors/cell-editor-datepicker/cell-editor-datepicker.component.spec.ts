@@ -231,7 +231,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     datepickerEditorFixture.detectChanges();
     await datepickerEditorFixture.whenStable();
 
-    return expectAsync(datepickerEditorNativeElement).toBeAccessible();
+    await expectAsync(datepickerEditorNativeElement).toBeAccessible();
   });
 
 });

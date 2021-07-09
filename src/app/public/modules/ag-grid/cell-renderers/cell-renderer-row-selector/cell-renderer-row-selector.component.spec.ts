@@ -76,8 +76,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
       refreshCell: undefined,
       eGridCell: undefined,
       eParentOfValue: undefined,
-      addRenderedRowListener: undefined,
-      registerRowDragger: () => {}
+      addRenderedRowListener: undefined
     };
   });
 
@@ -266,7 +265,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
     rowSelectorCellFixture.detectChanges();
     await rowSelectorCellFixture.whenStable();
 
-    return expectAsync(rowSelectorCellNativeElement).toBeAccessible();
+    await expectAsync(rowSelectorCellNativeElement).toBeAccessible();
   });
 
 });

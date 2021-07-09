@@ -148,7 +148,7 @@ describe('SkyCellEditorTextComponent', () => {
     textEditorFixture.detectChanges();
     await textEditorFixture.whenStable();
 
-    return expectAsync(textEditorFixture.nativeElement).toBeAccessible();
+    await expectAsync(textEditorFixture.nativeElement).toBeAccessible();
   });
 
 });

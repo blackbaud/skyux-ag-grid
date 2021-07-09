@@ -157,7 +157,7 @@ describe('SkyCellEditorNumberComponent', () => {
     numberEditorFixture.detectChanges();
     await numberEditorFixture.whenStable();
 
-    return expectAsync(numberEditorFixture.nativeElement).toBeAccessible();
+    await expectAsync(numberEditorFixture.nativeElement).toBeAccessible();
   });
 
 });
