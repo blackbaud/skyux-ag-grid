@@ -18,10 +18,6 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyCoreAdapterService
-} from '@skyux/core';
-
-import {
   SkyTheme,
   SkyThemeMode,
   SkyThemeService,
@@ -38,6 +34,10 @@ import {
   SkyCellClass,
   SkyCellType
 } from '../../public_api';
+
+import {
+  SkyAgGridForRootCompatModule
+} from '../shared/ag-grid-for-root-compat.module';
 
 describe('SkyAgGridService', () => {
   let agGridService: SkyAgGridService;
@@ -61,10 +61,12 @@ describe('SkyAgGridService', () => {
       };
 
     TestBed.configureTestingModule({
+      imports: [
+        SkyAgGridForRootCompatModule
+      ],
       providers: [
         SkyAgGridService,
         SkyAgGridAdapterService,
-        SkyCoreAdapterService,
         {
           provide: SkyThemeService,
           useValue: mockThemeSvc

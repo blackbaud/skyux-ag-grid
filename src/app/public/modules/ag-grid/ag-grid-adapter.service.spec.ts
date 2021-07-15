@@ -8,8 +8,8 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyCoreAdapterService
-} from '@skyux/core';
+  SkyAgGridForRootCompatModule
+} from '../shared/ag-grid-for-root-compat.module';
 
 import {
   SkyAgGridAdapterFixtureComponent
@@ -31,9 +31,11 @@ describe('SkyAgGridAdapterService', () => {
 
     TestBed.configureTestingModule({
       declarations: [SkyAgGridAdapterFixtureComponent],
+      imports: [
+        SkyAgGridForRootCompatModule
+      ],
       providers: [
-        SkyAgGridAdapterService,
-        SkyCoreAdapterService
+        SkyAgGridAdapterService
       ]
     });
 

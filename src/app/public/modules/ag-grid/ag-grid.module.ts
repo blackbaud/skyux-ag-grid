@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import {
-  SkyCoreAdapterModule,
   SkyViewkeeperModule
 } from '@skyux/core';
 
@@ -112,7 +111,6 @@ import {
     SkyAgGridCellRendererCurrencyModule,
     SkyAgGridCellRendererRowSelectorModule,
     SkyAgGridCellEditorTextModule,
-    SkyCoreAdapterModule,
     SkyDataManagerModule,
     SkyInlineDeleteModule,
     SkyViewkeeperModule

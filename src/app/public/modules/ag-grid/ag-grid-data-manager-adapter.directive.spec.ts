@@ -32,6 +32,10 @@ import {
 } from '@skyux/data-manager';
 
 import {
+  SkyAgGridForRootCompatModule
+} from '../shared/ag-grid-for-root-compat.module';
+
+import {
   SkyAgGridDataManagerAdapterDirective
 } from './ag-grid-data-manager-adapter.directive';
 
@@ -55,7 +59,10 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [SkyAgGridFixtureModule],
+      imports: [
+        SkyAgGridFixtureModule,
+        SkyAgGridForRootCompatModule
+      ],
       providers: [SkyDataManagerService]
     });
 
@@ -72,7 +79,7 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
     dataManagerService.getDataStateUpdates('test').subscribe(state => dataState = state);
   });
 
-  it('should update the data state when a row is selected', async () => {
+  fit('should update the data state when a row is selected', async () => {
     await agGridDataManagerFixture.whenStable();
 
     const rowNode = new RowNode();
