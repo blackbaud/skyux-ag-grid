@@ -1,3 +1,9 @@
+# 5.0.0-beta.0 (2021-07-16)
+
+- Initial beta release.
+- Added support for `@angular/core@^12`. [#125](https://github.com/blackbaud/skyux-ag-grid/pull/125)
+- Added support for `5.0.0-beta.*` versions of SKY UX component libraries. [#125](https://github.com/blackbaud/skyux-ag-grid/pull/125)
+
 # 4.8.3 (2021-07-13)
 
 - Fixed the AG Grid wrapper to allow for the use of features added in AG Grid 24. [#123](https://github.com/blackbaud/skyux-ag-grid/pull/123)
