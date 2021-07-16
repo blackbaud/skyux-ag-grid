@@ -53,8 +53,6 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
   let agGridDataManagerDirective: SkyAgGridDataManagerAdapterDirective;
 
   beforeEach(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-
     TestBed.configureTestingModule({
       imports: [SkyAgGridFixtureModule],
       providers: [SkyDataManagerService]
