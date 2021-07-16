@@ -19,6 +19,10 @@ import {
 } from '@skyux/data-manager';
 
 import {
+  SkyAgGridForRootCompatModule
+} from '../../shared/ag-grid-for-root-compat.module';
+
+import {
   SkyAgGridFixtureComponent
 } from './ag-grid.component.fixture';
 
@@ -38,6 +42,7 @@ import {
   imports: [
     AgGridModule,
     CommonModule,
+    SkyAgGridForRootCompatModule,
     SkyAgGridModule,
     SkyDataManagerModule,
     NoopAnimationsModule

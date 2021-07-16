@@ -13,20 +13,22 @@ on:
       - 5.0.0-next
     tags:
       - '*.*.*'
-      - '*.*.*-alpha.*'
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
       - uses: blackbaud/skyux-sdk-actions@master
         with:
           browser-stack-access-key: ${{ secrets.BROWSER_STACK_ACCESS_KEY }}
           browser-stack-username: ${{ secrets.BROWSER_STACK_USERNAME }}
           github-token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
-          hook-after-build-public-library-success: ./scripts/after-build-public-library-success.js
           npm-token: ${{ secrets.NPM_TOKEN }}
           slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
       - name: Upload coverage report
