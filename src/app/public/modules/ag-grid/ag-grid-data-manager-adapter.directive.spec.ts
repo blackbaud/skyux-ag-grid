@@ -53,7 +53,6 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
   let agGridDataManagerDirective: SkyAgGridDataManagerAdapterDirective;
 
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [SkyAgGridFixtureModule],
       providers: [SkyDataManagerService]

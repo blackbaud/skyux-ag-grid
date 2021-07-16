@@ -50,6 +50,10 @@ import {
 } from 'ag-grid-angular';
 
 import {
+  SkyAgGridForRootCompatModule
+} from './public/modules/shared/ag-grid-for-root-compat.module';
+
+import {
   SkyAgGridModule
 } from './public/public_api';
 
@@ -68,7 +72,8 @@ import {
 @NgModule({
   declarations: [],
   imports: [
-    AgGridModule.withComponents([ReadonlyGridContextMenuComponent])
+    AgGridModule.withComponents([ReadonlyGridContextMenuComponent]),
+    SkyAgGridForRootCompatModule
   ],
   exports: [
     AgGridModule,

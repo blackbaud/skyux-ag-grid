@@ -1,3 +1,17 @@
+# 5.0.0-beta.0 (2021-07-16)
+
+- Initial beta release.
+- Added support for `@angular/core@^12`. [#125](https://github.com/blackbaud/skyux-ag-grid/pull/125)
+- Added support for `5.0.0-beta.*` versions of SKY UX component libraries. [#125](https://github.com/blackbaud/skyux-ag-grid/pull/125)
+
+# 4.8.3 (2021-07-13)
+
+- Fixed the AG Grid wrapper to allow for the use of features added in AG Grid 24. [#123](https://github.com/blackbaud/skyux-ag-grid/pull/123)
+
+# 4.8.2 (2021-07-09)
+
+- Updated styles for AG Grid version 24+ in modern theme. [#121](https://github.com/blackbaud/skyux-ag-grid/pull/121)
+
 # 4.8.1 (2021-06-23)
 
 - For dark mode, fixed the line height style of multiline cells in read-only mode. [#118](https://github.com/blackbaud/skyux-ag-grid/pull/118)
