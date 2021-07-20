@@ -1,6 +1,6 @@
 {
   "name": "@skyux/ag-grid",
-  "version": "5.0.0-beta.0",
+  "version": "5.0.0-beta.1",
   "description": "SKY UX styles and utilities to be used with ag-grid.",
   "scripts": {
     "build": "skyux build-public-library && node ./scripts/prepare-package.js",
@@ -58,7 +58,7 @@
     "@skyux/avatar": "4.1.4",
     "@skyux/config": "4.4.0",
     "@skyux/core": "4.6.2",
-    "@skyux/data-manager": "4.2.0",
+    "@skyux/data-manager": "4.2.1",
     "@skyux/datetime": "4.12.0",
     "@skyux/docs-tools": "4.9.1",
     "@skyux/errors": "4.0.1",
@@ -76,7 +76,7 @@
     "@skyux/popovers": "4.5.3",
     "@skyux/router": "4.2.2",
     "@skyux/tabs": "4.6.7",
-    "@skyux/theme": "4.17.0",
+    "@skyux/theme": "4.18.0",
     "ag-grid-angular": "24.1.0",
     "ag-grid-community": "24.1.0",
     "codelyzer": "5.2.2",

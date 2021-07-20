@@ -1,3 +1,7 @@
+# 5.0.0-beta.1 (2021-07-20)
+
+- Fixed the build to export `ag-grid-styles.scss`. [#126](https://github.com/blackbaud/skyux-ag-grid/pull/126)
+
 # 5.0.0-beta.0 (2021-07-16)
 
 - Initial beta release.
