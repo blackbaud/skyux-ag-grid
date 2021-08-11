@@ -23,20 +23,28 @@ import {
 })
 
 export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngularComp {
-  public value: number;
-  public skyComponentProperties: NumericOptions = {};
   public columnHeader: string;
   public columnWidth: number;
+  public params: SkyCellRendererCurrencyParams;
   public rowHeightWithoutBorders: number;
   public rowNumber: number;
-
-  private params: SkyCellRendererCurrencyParams;
+  public skyComponentProperties: NumericOptions = {};
+  public value: number;
 
   /**
    * agInit is called by agGrid once after the renderer is created and provides the renderer with the information it needs.
    * @param params The cell renderer params that include data about the cell, column, row, and grid.
    */
   public agInit(params: SkyCellRendererCurrencyParams) {
+    this.updateProperties(params);
+  }
+
+  public refresh(params: SkyCellRendererCurrencyParams): boolean {
+    this.updateProperties(params);
+    return true;
+  }
+
+  private updateProperties(params: SkyCellRendererCurrencyParams) {
     this.params = params;
     this.value = this.params.value;
     this.columnHeader = this.params.colDef && this.params.colDef.headerName;
@@ -46,9 +54,5 @@ export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngu
     this.skyComponentProperties = this.params.skyComponentProperties || {};
     this.skyComponentProperties.format = 'currency';
     this.skyComponentProperties.minDigits = 2;
-  }
-
-  public refresh(): boolean {
-    return false;
   }
 }

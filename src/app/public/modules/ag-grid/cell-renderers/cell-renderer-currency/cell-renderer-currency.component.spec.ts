@@ -112,9 +112,34 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
   });
 
   describe('refresh', () => {
-    it('returns false', () => {
-      expect(currencyComponent.refresh()).toBe(false);
+    it('returns true', () => {
+      expect(currencyComponent.refresh(cellRendererParams)).toBe(true);
     });
+
+    it('updates the value if the params have changed', fakeAsync(() => {
+      cellRendererParams.value = 123;
+      cellRendererParams.skyComponentProperties.format = 'currency';
+      cellRendererParams.skyComponentProperties.iso = 'USD';
+
+      expect(currencyComponent.value).toBeUndefined();
+
+      currencyComponent.agInit(cellRendererParams);
+
+      currencyFixture.detectChanges();
+      tick();
+      currencyFixture.detectChanges();
+
+      expect(currencyComponent.value).toBe(123);
+
+      cellRendererParams.value = 245;
+      currencyComponent.refresh(cellRendererParams);
+
+      currencyFixture.detectChanges();
+      tick();
+      currencyFixture.detectChanges();
+
+      expect(currencyComponent.value).toBe(245);
+    }));
   });
 
   it('should pass accessibility', async(() => {
