@@ -117,8 +117,18 @@ ag-grid-angular.sky-ag-grid-editable {
     border: none;
   }
 
+  .ag-picker-field-wrapper {
+    border-radius: 0;
+  }
+
   .ag-select-list-item {
     cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    &:last-of-type {
+      padding-bottom: 10px;
+    }
 
     &:hover {
       background-color: $sky-background-color-selected;
