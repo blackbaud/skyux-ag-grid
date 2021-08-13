@@ -106,8 +106,14 @@ ag-grid-angular.sky-ag-grid-editable {
 
   .sky-ag-grid-cell-editable {
     background-color: $sky-background-color-page-default;
-  }
 
+    .ag-select {
+      .ag-picker-field-display {
+        margin-top: 2px;
+        margin-left: 9px;
+      }
+    }
+  }
 
   .sky-ag-grid-cell-uneditable {
     background-color: $sky-background-color-neutral-light;
@@ -293,6 +299,13 @@ ag-grid-angular.sky-ag-grid-editable {
 
       &.ag-cell-popup-editing {
         border: none;
+      }
+
+      .ag-select {
+        .ag-picker-field-display {
+          margin-top: 6px;
+          margin-left: 9px;
+        }
       }
     }
   }
