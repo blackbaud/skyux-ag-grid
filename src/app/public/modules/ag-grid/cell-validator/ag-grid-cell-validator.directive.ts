@@ -14,12 +14,21 @@ import {
   SkyCellValidatorParams
 } from '../types/cell-renderer-validator-params';
 
+/**
+ * Directive that can be used inside a cell renderer to validate the value of the cell against a provided validation function.
+ * If invalid, the cell will have a class applied which will style the cell with a read error border.
+ */
 @Directive({
   selector: '[skyAgGridCellValidator]',
   providers: [SkyAgGridCellValidatorAdapterService]
 })
 export class SkyAgGridCellValidatorDirective implements AfterViewInit {
 
+  /**
+   * Sets up the cell validator. These parameters will include a validation function that is used to validate the cell's value.
+   * @param validatorParams The cell renderer paramaters. This will be the same parameters that is passed into the cell renderer
+   * via the `agInit` and `refresh` methods.
+   */
   @Input()
   public set skyAgGridCellValidator(validatorParams: SkyCellValidatorParams) {
     this.validatorParams = validatorParams;
@@ -27,6 +36,9 @@ export class SkyAgGridCellValidatorDirective implements AfterViewInit {
     this.validate();
   }
 
+  /**
+   * Fires when the validation result changes.
+   */
   @Output()
   public skyAgGridCellValidatorChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
