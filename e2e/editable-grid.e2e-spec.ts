@@ -270,3 +270,93 @@ describe('Editable grid', () => {
 
   });
 });
+
+describe('Editable grid, complex cells', () => {
+
+  // selectors
+  const selectCell = '.ag-body-viewport [aria-colindex="2"]';
+  const selectCellTrigger = '.ag-body-viewport [aria-colindex="2"] .ag-picker-field-display';
+  const selectList = '.ag-select-list';
+  const editButton = '#edit-btn';
+
+  let currentTheme: string;
+  let currentThemeMode: string;
+
+  async function selectTheme(theme: string, mode: string): Promise<void> {
+    currentTheme = theme;
+    currentThemeMode = mode;
+
+    return SkyVisualThemeSelector.selectTheme(theme, mode);
+  }
+
+  function getScreenshotName(name: string, size: string): string {
+    if (currentTheme) {
+      name += '-' + currentTheme;
+    }
+
+    if (currentThemeMode) {
+      name += '-' + currentThemeMode;
+    }
+
+    name += '-' + size;
+
+    return name;
+  }
+
+  function runTests(): void {
+
+    describe('select focus', () => {
+      async function matchesPreviousNumberEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+        await element(by.css(editButton)).click();
+
+        await element(by.css(selectCell)).click();
+
+        expect(selectCell).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-select-focus', screenSize)
+        });
+
+        await element(by.css(selectCellTrigger)).click();
+
+        expect(selectList).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-select-list', screenSize)
+        });
+      }
+
+      it('should match previous screenshot on large screens', (done) => {
+        matchesPreviousNumberEditingGrid('lg', done);
+      });
+
+      it('should match previous screenshot on extra small screens', (done) => {
+        matchesPreviousNumberEditingGrid('xs', done);
+      });
+    });
+  }
+
+  beforeEach(async () => {
+    await SkyHostBrowser.get('visual/edit-complex-cells');
+  });
+
+  runTests();
+
+  describe('when modern theme', () => {
+
+    beforeEach(async () => {
+      await selectTheme('modern', 'light');
+    });
+
+    runTests();
+
+  });
+
+  describe('when modern theme in dark mode', () => {
+
+    beforeEach(async () => {
+      await selectTheme('modern', 'dark');
+    });
+
+    runTests();
+
+  });
+});
