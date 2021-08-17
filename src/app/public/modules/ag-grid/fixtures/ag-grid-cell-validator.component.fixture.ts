@@ -45,8 +45,8 @@ export class SkyAgGridCellValidatorFixtureComponent implements ICellRendererAngu
     return true;
   }
 
-  public validationChange(value: boolean): void {
-    // console.log(value);
+  public validationChange(cellValue: number, validationValue: boolean): void {
+    return;
   }
 
   private updateProperties(params: SkyCellValidatorParams) {
