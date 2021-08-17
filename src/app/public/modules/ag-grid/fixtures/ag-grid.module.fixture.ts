@@ -34,6 +34,10 @@ import {
   SkyAgGridRowDeleteFixtureComponent
 } from './ag-grid-row-delete.component.fixture';
 
+import {
+  SkyAgGridCellValidatorFixtureComponent
+} from './ag-grid-cell-validator.component.fixture';
+
 @NgModule({
   imports: [
     AgGridModule,
@@ -45,12 +49,14 @@ import {
   declarations: [
     SkyAgGridDataManagerFixtureComponent,
     SkyAgGridFixtureComponent,
-    SkyAgGridRowDeleteFixtureComponent
+    SkyAgGridRowDeleteFixtureComponent,
+    SkyAgGridCellValidatorFixtureComponent
   ],
   exports: [
     SkyAgGridDataManagerFixtureComponent,
     SkyAgGridFixtureComponent,
-    SkyAgGridRowDeleteFixtureComponent
+    SkyAgGridRowDeleteFixtureComponent,
+    SkyAgGridCellValidatorFixtureComponent
   ]
 })
 export class SkyAgGridFixtureModule { }

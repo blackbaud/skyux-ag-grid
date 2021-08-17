@@ -103,6 +103,14 @@ import {
   SkyAgGridCellEditorCurrencyComponent
 } from './cell-editors/cell-editor-currency/cell-editor-currency.component';
 
+import {
+  SkyAgGridCellValidatorModule
+} from './cell-validator/ag-grid-cell-validator.module';
+
+import {
+  SkyAgGridCellValidatorDirective
+} from './cell-validator/ag-grid-cell-validator.directive';
+
 @NgModule({
   declarations: [
     SkyAgGridDataManagerAdapterDirective,
@@ -119,6 +127,7 @@ import {
     SkyAgGridCellEditorCurrencyModule,
     SkyAgGridCellRendererCurrencyModule,
     SkyAgGridCellRendererRowSelectorModule,
+    SkyAgGridCellValidatorModule,
     SkyAgGridCellEditorTextModule,
     SkyCoreAdapterModule,
     SkyDataManagerModule,
@@ -126,6 +135,7 @@ import {
     SkyViewkeeperModule
   ],
   exports: [
+    SkyAgGridCellValidatorDirective,
     SkyAgGridDataManagerAdapterDirective,
     SkyAgGridRowDeleteComponent,
     SkyAgGridRowDeleteDirective,

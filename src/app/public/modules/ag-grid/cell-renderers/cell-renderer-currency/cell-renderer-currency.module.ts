@@ -7,6 +7,10 @@ import {
 } from '@angular/forms';
 
 import {
+  SkyNumericModule
+} from '@skyux/core';
+
+import {
   SkyAgGridResourcesModule
 } from '../../../shared/ag-grid-resources.module';
 
@@ -15,12 +19,13 @@ import {
 } from './cell-renderer-currency.component';
 
 import {
-  SkyNumericModule
-} from '@skyux/core';
+  SkyAgGridCellValidatorModule
+} from '../../cell-validator/ag-grid-cell-validator.module';
 
 @NgModule({
   imports: [
     SkyAgGridResourcesModule,
+    SkyAgGridCellValidatorModule,
     FormsModule,
     SkyNumericModule
   ],

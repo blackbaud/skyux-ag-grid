@@ -3,9 +3,9 @@ import {
 } from '@skyux/core';
 
 import {
-  ICellRendererParams
-} from 'ag-grid-community';
+  SkyCellValidatorParams
+} from './cell-renderer-validator-params';
 
-export interface SkyCellRendererCurrencyParams extends ICellRendererParams {
+export interface SkyCellRendererCurrencyParams extends SkyCellValidatorParams {
   skyComponentProperties?: NumericOptions;
 }
