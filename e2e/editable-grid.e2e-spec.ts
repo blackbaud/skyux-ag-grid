@@ -15,6 +15,30 @@ import {
   ExpectedConditions
 } from 'protractor';
 
+let currentTheme: string;
+let currentThemeMode: string;
+
+async function selectTheme(theme: string, mode: string): Promise<void> {
+  currentTheme = theme;
+  currentThemeMode = mode;
+
+  return SkyVisualThemeSelector.selectTheme(theme, mode);
+}
+
+function getScreenshotName(name: string, size: string): string {
+  if (currentTheme) {
+    name += '-' + currentTheme;
+  }
+
+  if (currentThemeMode) {
+    name += '-' + currentThemeMode;
+  }
+
+  name += '-' + size;
+
+  return name;
+}
+
 describe('Editable grid', () => {
 
   // selectors
@@ -23,30 +47,6 @@ describe('Editable grid', () => {
   const editButton = '#edit-btn';
   const editableGrid = '.editable-grid';
   const sortableHeaderCell = '.ag-header-cell-sortable';
-
-  let currentTheme: string;
-  let currentThemeMode: string;
-
-  async function selectTheme(theme: string, mode: string): Promise<void> {
-    currentTheme = theme;
-    currentThemeMode = mode;
-
-    return SkyVisualThemeSelector.selectTheme(theme, mode);
-  }
-
-  function getScreenshotName(name: string, size: string): string {
-    if (currentTheme) {
-      name += '-' + currentTheme;
-    }
-
-    if (currentThemeMode) {
-      name += '-' + currentThemeMode;
-    }
-
-    name += '-' + size;
-
-    return name;
-  }
 
   function runTests(): void {
     describe('read mode', () => {
@@ -278,30 +278,6 @@ describe('Editable grid, complex cells', () => {
   const selectCellTrigger = '.ag-body-viewport [aria-colindex="2"] .ag-picker-field-display';
   const selectList = '.ag-select-list';
   const editButton = '#edit-btn';
-
-  let currentTheme: string;
-  let currentThemeMode: string;
-
-  async function selectTheme(theme: string, mode: string): Promise<void> {
-    currentTheme = theme;
-    currentThemeMode = mode;
-
-    return SkyVisualThemeSelector.selectTheme(theme, mode);
-  }
-
-  function getScreenshotName(name: string, size: string): string {
-    if (currentTheme) {
-      name += '-' + currentTheme;
-    }
-
-    if (currentThemeMode) {
-      name += '-' + currentThemeMode;
-    }
-
-    name += '-' + size;
-
-    return name;
-  }
 
   function runTests(): void {
 
