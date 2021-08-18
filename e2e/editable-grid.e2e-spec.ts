@@ -39,6 +39,33 @@ function getScreenshotName(name: string, size: string): string {
   return name;
 }
 
+function cycleThroughThemes(runTests: () => void) {
+  currentTheme = undefined;
+  currentThemeMode = undefined;
+
+  runTests();
+
+  describe('when modern theme', () => {
+
+    beforeEach(async () => {
+      await selectTheme('modern', 'light');
+    });
+
+    runTests();
+
+  });
+
+  describe('when modern theme in dark mode', () => {
+
+    beforeEach(async () => {
+      await selectTheme('modern', 'dark');
+    });
+
+    runTests();
+
+  });
+}
+
 describe('Editable grid', () => {
 
   // selectors
@@ -248,27 +275,7 @@ describe('Editable grid', () => {
     await SkyHostBrowser.get('visual/editable-grid');
   });
 
-  runTests();
-
-  describe('when modern theme', () => {
-
-    beforeEach(async () => {
-      await selectTheme('modern', 'light');
-    });
-
-    runTests();
-
-  });
-
-  describe('when modern theme in dark mode', () => {
-
-    beforeEach(async () => {
-      await selectTheme('modern', 'dark');
-    });
-
-    runTests();
-
-  });
+  cycleThroughThemes(runTests);
 });
 
 describe('Editable grid, complex cells', () => {
@@ -314,25 +321,5 @@ describe('Editable grid, complex cells', () => {
     await SkyHostBrowser.get('visual/edit-complex-cells');
   });
 
-  runTests();
-
-  describe('when modern theme', () => {
-
-    beforeEach(async () => {
-      await selectTheme('modern', 'light');
-    });
-
-    runTests();
-
-  });
-
-  describe('when modern theme in dark mode', () => {
-
-    beforeEach(async () => {
-      await selectTheme('modern', 'dark');
-    });
-
-    runTests();
-
-  });
+  cycleThroughThemes(runTests);
 });
