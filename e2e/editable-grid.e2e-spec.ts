@@ -40,9 +40,6 @@ function getScreenshotName(name: string, size: string): string {
 }
 
 function cycleThroughThemes(runTests: () => void) {
-  currentTheme = undefined;
-  currentThemeMode = undefined;
-
   runTests();
 
   describe('when modern theme', () => {
@@ -272,6 +269,8 @@ describe('Editable grid', () => {
   }
 
   beforeEach(async () => {
+    currentTheme = undefined;
+    currentThemeMode = undefined;
     await SkyHostBrowser.get('visual/editable-grid');
   });
 
@@ -289,7 +288,7 @@ describe('Editable grid, complex cells', () => {
   function runTests(): void {
 
     describe('select focus', () => {
-      async function matchesPreviousNumberEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousSelectFocusAndList(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         await element(by.css(editButton)).click();
@@ -308,16 +307,18 @@ describe('Editable grid, complex cells', () => {
       }
 
       it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousNumberEditingGrid('lg', done);
+        matchesPreviousSelectFocusAndList('lg', done);
       });
 
       it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousNumberEditingGrid('xs', done);
+        matchesPreviousSelectFocusAndList('xs', done);
       });
     });
   }
 
   beforeEach(async () => {
+    currentTheme = undefined;
+    currentThemeMode = undefined;
     await SkyHostBrowser.get('visual/edit-complex-cells');
   });
 
