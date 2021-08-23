@@ -275,7 +275,7 @@ export class SkyAgGridService implements OnDestroy {
               if (typeof param.colDef?.cellRendererParams?.validator === 'function') {
                 return !param.colDef.cellRendererParams.validator(param.value);
               }
-              return false
+              return false;
             }
           },
           cellRendererSelector: (params) => {
