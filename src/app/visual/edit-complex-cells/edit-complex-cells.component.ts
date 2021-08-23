@@ -76,14 +76,25 @@ export class EditComplexCellsComponent implements OnInit {
         editable: this.editMode
       },
       {
-        colId: 'text2',
-        field: 'text2',
-        editable: this.editMode
-      },
+        colId: 'validationText',
+        field: 'validationText',
+        editable: this.editMode,
+        type: [SkyCellType.Validator],
+        cellRendererParams: {
+          validator: (value: any) => !!value,
+          validatorMessage: () => 'Please enter a value'
+        }
+      }
+      ,
       {
-        colId: 'text3',
-        field: 'text3',
-        editable: this.editMode
+        colId: 'validationDate',
+        field: 'validationDate',
+        editable: this.editMode,
+        type: [SkyCellType.Date, SkyCellType.Validator],
+        cellRendererParams: {
+          validator: (value: Date) => !!value && value > new Date(),
+          validatorMessage: 'Please enter a future date'
+        }
       }
     ];
   }

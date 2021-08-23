@@ -12,6 +12,14 @@ import {
 } from '@skyux/core';
 
 import {
+  SkyStatusIndicatorModule
+} from '@skyux/indicators';
+
+import {
+  SkyPopoverModule
+} from '@skyux/popovers';
+
+import {
   AgGridModule
 } from 'ag-grid-angular';
 
@@ -104,6 +112,10 @@ import {
 } from './cell-editors/cell-editor-currency/cell-editor-currency.component';
 
 import {
+  SkyAgGridCellValidatorTooltipComponent
+} from './cell-validator/ag-grid-cell-validator-tooltip.component';
+
+import {
   SkyAgGridCellValidatorModule
 } from './cell-validator/ag-grid-cell-validator.module';
 
@@ -113,6 +125,7 @@ import {
 
 @NgModule({
   declarations: [
+    SkyAgGridCellValidatorTooltipComponent,
     SkyAgGridDataManagerAdapterDirective,
     SkyAgGridRowDeleteComponent,
     SkyAgGridRowDeleteDirective,
@@ -132,10 +145,13 @@ import {
     SkyCoreAdapterModule,
     SkyDataManagerModule,
     SkyInlineDeleteModule,
+    SkyPopoverModule,
+    SkyStatusIndicatorModule,
     SkyViewkeeperModule
   ],
   exports: [
     SkyAgGridCellValidatorDirective,
+    SkyAgGridCellValidatorTooltipComponent,
     SkyAgGridDataManagerAdapterDirective,
     SkyAgGridRowDeleteComponent,
     SkyAgGridRowDeleteDirective,
@@ -153,6 +169,7 @@ import {
     SkyAgGridCellRendererCurrencyComponent,
     SkyAgGridCellRendererRowSelectorComponent,
     SkyAgGridCellEditorTextComponent,
+    SkyAgGridCellValidatorTooltipComponent,
     SkyAgGridRowDeleteComponent
   ]
 })

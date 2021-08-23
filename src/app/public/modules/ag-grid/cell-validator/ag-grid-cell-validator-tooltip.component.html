@@ -1,0 +1,25 @@
+<div
+  #focusableField
+  [skyPopover]="validatorPopover"
+  (keyup.arrowDown)="showPopover()"
+  (keyup.arrowLeft)="showPopover()"
+  (keyup.arrowRight)="showPopover()"
+  (keyup.arrowUp)="showPopover()"
+  class="sky-validator-cell"
+  tabindex="0"
+>
+  {{ value }}
+  <sky-status-indicator *ngIf="indicatorShouldShow"
+    descriptionType="none"
+    indicatorType="danger"
+    class="sky-pull-right"
+  ></sky-status-indicator>
+</div>
+<sky-popover
+  #validatorPopover
+  (popoverClosed)="showIndicator()"
+  (popoverOpened)="hideIndicator()"
+  popoverType="danger"
+>
+  {{ validatorMessage }}
+</sky-popover>

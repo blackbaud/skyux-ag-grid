@@ -4,4 +4,5 @@ import {
 
 export interface SkyCellValidatorParams extends ICellRendererParams {
   validator?: (value: any) => boolean;
+  validatorMessage?: string | ((value: any) => string);
 }

@@ -3,6 +3,7 @@ export enum SkyCellType {
   Currency = 'skyCellCurrency',
   Date = 'skyCellDate',
   Number = 'skyCellNumber',
+  RowSelector = 'skyCellRowSelector',
   Text = 'skyCellText',
-  RowSelector = 'skyCellRowSelector'
+  Validator = 'skyCellValidator'
 }
