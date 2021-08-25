@@ -1,34 +1,61 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { SkyPopoverComponent } from '@skyux/popovers/modules/popover/popover.component';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy } from '@angular/core';
+import { SkyPopoverMessage, SkyPopoverMessageType } from '@skyux/popovers';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { SkyCellValidatorParams } from '../types/cell-renderer-validator-params';
+import { Events, ICellRendererParams } from 'ag-grid-community';
+import { Subject } from 'rxjs';
+import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-params';
 
 @Component({
   selector: 'sky-ag-grid-cell-validator-tooltip',
   styleUrls: ['ag-grid-cell-validator-tooltip.component.scss'],
-  templateUrl: 'ag-grid-cell-validator-tooltip.component.html'
+  templateUrl: 'ag-grid-cell-validator-tooltip.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngularComp {
+export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngularComp, OnDestroy {
+  @Input()
   public value: string;
+
+  @Input()
   public validatorMessage: string;
 
-  @ViewChild('validatorPopover')
-  public validatorPopover: ElementRef<SkyPopoverComponent>;
+  @Input()
+  public set parameters(value: SkyCellRendererCurrencyParams) {
+    this.agInit(value);
+  }
 
-  @ViewChild('focusableField')
-  public focusableField: ElementRef<HTMLElement>;
-
+  public display = true;
   public indicatorShouldShow = true;
+  public popoverMessageStream = new Subject<SkyPopoverMessage>();
 
-  public agInit(params: SkyCellValidatorParams): void {
-    this.value = params.value;
-    this.validatorMessage = typeof params.validatorMessage === 'function' ? params.validatorMessage(params.value) : params.validatorMessage;
+  private cellRendererParams: ICellRendererParams;
+
+  constructor(
+    private changeDetector: ChangeDetectorRef
+  ) {
+  }
+
+  public ngOnDestroy(): void {
+  }
+
+  public agInit(params: ICellRendererParams): void {
+    this.cellRendererParams = params;
+    this.cellRendererParams.api.addEventListener(Events.EVENT_CELL_FOCUSED, () => {
+      this.hidePopover();
+    });
+    this.cellRendererParams.api.addEventListener(Events.EVENT_CELL_EDITING_STARTED, () => {
+      this.hidePopover();
+    });
   }
 
   public hideIndicator(): void {
     setTimeout(() => {
       this.indicatorShouldShow = false;
+      this.changeDetector.markForCheck();
     });
+  }
+
+  public hidePopover() {
+    this.popoverMessageStream.next({ type: SkyPopoverMessageType.Close });
   }
 
   public refresh(params: any): boolean {
@@ -38,11 +65,11 @@ export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngu
   public showIndicator(): void {
     setTimeout(() => {
       this.indicatorShouldShow = true;
+      this.changeDetector.markForCheck();
     });
   }
 
   public showPopover() {
-    // @ts-ignore
-    this.validatorPopover.positionNextTo(this.focusableField);
+    this.popoverMessageStream.next({ type: SkyPopoverMessageType.Open });
   }
 }

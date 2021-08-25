@@ -7,6 +7,7 @@ import {
 import {
   CellClassParams,
   GridOptions,
+  ICellRendererParams,
   SuppressKeyboardEventParams,
   ValueFormatterParams
 } from 'ag-grid-community';
@@ -45,8 +46,8 @@ import {
 } from './cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.component';
 
 import {
-  SkyAgGridCellValidatorTooltipComponent
-} from './cell-validator/ag-grid-cell-validator-tooltip.component';
+  SkyAgGridCellRendererValidatorTooltipComponent
+} from './cell-renderers/cell-renderer-validator-tooltip/cell-renderer-validator-tooltip.component';
 
 import {
   SkyCellClass
@@ -121,6 +122,22 @@ function dateComparator(date1: any, date2: any): number {
   }
 
   return date1value ? 1 : -1;
+}
+
+function getValidatorCellRendererSelector(component: string) {
+  return (params: ICellRendererParams) => {
+    if (typeof params.colDef?.cellRendererParams?.validator === 'function') {
+      if (!params.colDef.cellRendererParams.validator(params.value)) {
+        return {
+          component,
+          params: {
+            ...params.colDef?.cellRendererParams
+          }
+        };
+      }
+    }
+    return undefined;
+  };
 }
 
 /**
@@ -271,26 +288,14 @@ export class SkyAgGridService implements OnDestroy {
         },
         [SkyCellType.Validator]: {
           cellClassRules: {
-            'sky-ag-grid-cell-invalid': (param: CellClassParams) => {
+            [SkyCellClass.Invalid]: (param: CellClassParams) => {
               if (typeof param.colDef?.cellRendererParams?.validator === 'function') {
                 return !param.colDef.cellRendererParams.validator(param.value);
               }
               return false;
             }
           },
-          cellRendererSelector: (params) => {
-            if (typeof params.colDef?.cellRendererParams?.validator === 'function') {
-              if (!params.colDef.cellRendererParams.validator(params.value)) {
-                return {
-                  component: 'sky-ag-grid-cell-validator-tooltip',
-                  params: {
-                    ...params.colDef?.cellRendererParams
-                  }
-                };
-              }
-            }
-            return undefined;
-          }
+          cellRendererSelector: getValidatorCellRendererSelector('sky-ag-grid-cell-renderer-validator-tooltip')
         }
       },
       defaultColDef: {
@@ -303,7 +308,7 @@ export class SkyAgGridService implements OnDestroy {
       domLayout: 'autoHeight',
       enterMovesDownAfterEdit: true,
       frameworkComponents: {
-        'sky-ag-grid-cell-validator-tooltip': SkyAgGridCellValidatorTooltipComponent
+        'sky-ag-grid-cell-renderer-validator-tooltip': SkyAgGridCellRendererValidatorTooltipComponent
       },
       headerHeight: this.currentTheme?.theme?.name === 'modern' ? 60 : 37,
       icons: {
@@ -325,6 +330,16 @@ export class SkyAgGridService implements OnDestroy {
       stopEditingWhenGridLosesFocus: false,
       suppressRowClickSelection: true,
       suppressDragLeaveHidesColumns: true
+    };
+
+    defaultSkyGridOptions.columnTypes[SkyCellType.CurrencyValidator] = {
+      ...defaultSkyGridOptions.columnTypes[SkyCellType.Validator],
+      ...defaultSkyGridOptions.columnTypes[SkyCellType.Currency],
+      cellClassRules: {
+        ...defaultSkyGridOptions.columnTypes[SkyCellType.Validator].cellClassRules,
+        ...defaultSkyGridOptions.columnTypes[SkyCellType.Currency].cellClassRules
+      },
+      cellRendererSelector: getValidatorCellRendererSelector('sky-ag-grid-cell-renderer-currency-validator')
     };
 
     return defaultSkyGridOptions;

@@ -1,6 +1,6 @@
 <div
-  #focusableField
   [skyPopover]="validatorPopover"
+  [skyPopoverMessageStream]="popoverMessageStream"
   (keyup.arrowDown)="showPopover()"
   (keyup.arrowLeft)="showPopover()"
   (keyup.arrowRight)="showPopover()"
@@ -8,7 +8,7 @@
   class="sky-validator-cell"
   tabindex="0"
 >
-  {{ value }}
+  <ng-content></ng-content>
   <sky-status-indicator *ngIf="indicatorShouldShow"
     descriptionType="none"
     indicatorType="danger"

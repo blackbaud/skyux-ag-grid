@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component
+  Component, Input
 } from '@angular/core';
 
 import {
@@ -23,6 +23,11 @@ import {
 })
 
 export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngularComp {
+  @Input()
+  public set parameters(value: SkyCellRendererCurrencyParams) {
+    this.updateProperties(value);
+  }
+
   public columnHeader: string;
   public columnWidth: number;
   public params: SkyCellRendererCurrencyParams;
