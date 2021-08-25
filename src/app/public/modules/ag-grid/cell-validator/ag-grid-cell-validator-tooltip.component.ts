@@ -41,13 +41,12 @@ export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngu
       if (eventParams.column.getColId() !== this.cellRendererParams.column.getColId() ||
         eventParams.rowIndex !== this.cellRendererParams.rowIndex) {
         this.hidePopover();
-      } else {
-        // This timeout is needed to ensure that we are not conflicting with the native click trigger when the cell is focused using a
-        // click. Without this, the popover will close as soon as it opens when a cilck is used as this opens it and then the click is
-        // registered as one that closes the popover.
-        setTimeout(() => {
-          this.showPopover();
-        }, 100);
+      }
+    });
+
+    this.cellRendererParams.eGridCell.addEventListener('keyup', (event) => {
+      if (['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)) {
+        this.showPopover();
       }
     });
 
