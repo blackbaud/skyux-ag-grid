@@ -1,12 +1,7 @@
 <div
   [skyPopover]="validatorPopover"
   [skyPopoverMessageStream]="popoverMessageStream"
-  (keyup.arrowDown)="showPopover()"
-  (keyup.arrowLeft)="showPopover()"
-  (keyup.arrowRight)="showPopover()"
-  (keyup.arrowUp)="showPopover()"
   class="sky-validator-cell"
-  tabindex="0"
 >
   <ng-content></ng-content>
   <sky-status-indicator *ngIf="indicatorShouldShow"

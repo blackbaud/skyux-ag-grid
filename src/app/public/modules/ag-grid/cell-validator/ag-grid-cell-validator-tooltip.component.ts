@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { SkyPopoverMessage, SkyPopoverMessageType } from '@skyux/popovers';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { Events, ICellRendererParams } from 'ag-grid-community';
+import { CellFocusedEvent, Events, ICellRendererParams } from 'ag-grid-community';
 import { Subject } from 'rxjs';
 import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-params';
 
@@ -11,7 +11,7 @@ import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-p
   templateUrl: 'ag-grid-cell-validator-tooltip.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngularComp, OnDestroy {
+export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngularComp {
   @Input()
   public value: string;
 
@@ -31,17 +31,26 @@ export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngu
 
   constructor(
     private changeDetector: ChangeDetectorRef
-  ) {
-  }
-
-  public ngOnDestroy(): void {
-  }
+  ) { }
 
   public agInit(params: ICellRendererParams): void {
     this.cellRendererParams = params;
-    this.cellRendererParams.api.addEventListener(Events.EVENT_CELL_FOCUSED, () => {
-      this.hidePopover();
+
+    this.cellRendererParams.api.addEventListener(Events.EVENT_CELL_FOCUSED, (eventParams: CellFocusedEvent) => {
+      // We want to close any popovers that are opened when other cells are focused, but open a popover if the current cell is focused.
+      if (eventParams.column.getColId() !== this.cellRendererParams.column.getColId() ||
+        eventParams.rowIndex !== this.cellRendererParams.rowIndex) {
+        this.hidePopover();
+      } else {
+        // This timeout is needed to ensure that we are not conflicting with the native click trigger when the cell is focused using a
+        // click. Without this, the popover will close as soon as it opens when a cilck is used as this opens it and then the click is
+        // registered as one that closes the popover.
+        setTimeout(() => {
+          this.showPopover();
+        }, 100);
+      }
     });
+
     this.cellRendererParams.api.addEventListener(Events.EVENT_CELL_EDITING_STARTED, () => {
       this.hidePopover();
     });
