@@ -5,6 +5,9 @@ import { SkyAgGridFixtureComponent } from '../fixtures/ag-grid.component.fixture
 import { SkyAgGridFixtureModule } from '../fixtures/ag-grid.module.fixture';
 import { SkyCellClass } from '../types/cell-class';
 
+// Borrowed from skyux-lookup src/app/public/modules/lookup/lookup.component.spec.ts
+const isIE = window.navigator.userAgent.indexOf('rv:11.0') >= 0;
+
 describe('SkyAgGridCellValidatorTooltipComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,6 +23,8 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
   });
+
+  if (!isIE) {
 
   it('should load a grid with validator columns', fakeAsync(() => {
     const gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
@@ -87,7 +92,7 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
 
     const cellElement = gridFixture.nativeElement.querySelector(cellSelector);
     expect(cellElement).toBeTruthy();
-    (cellElement as HTMLElement).dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowUp' }));
+    (cellElement as HTMLElement).dispatchEvent(new KeyboardEvent('keyup', {key: 'ArrowUp'}));
 
     tick();
     flush();
@@ -110,4 +115,7 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
     const editorElement = gridFixture.nativeElement.querySelector(`${cellSelector}.ag-cell-inline-editing`);
     expect(editorElement).toBeTruthy();
   }));
+
+  }
+
 });
