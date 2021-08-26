@@ -40,6 +40,7 @@ import {
 import {
   SkyAgGridCellEditorTextComponent
 } from './cell-editors/cell-editor-text/cell-editor-text.component';
+import { SkyAgGridCellRendererCurrencyValidatorComponent } from './cell-renderers/cell-renderer-currency/cell-renderer-currency-validator.component';
 
 import {
   SkyAgGridCellRendererRowSelectorComponent
@@ -126,6 +127,7 @@ function dateComparator(date1: any, date2: any): number {
 
 function getValidatorCellRendererSelector(component: string) {
   return (params: ICellRendererParams) => {
+    /*istanbul ignore else*/
     if (typeof params.colDef?.cellRendererParams?.validator === 'function') {
       if (!params.colDef.cellRendererParams.validator(params.value)) {
         return {
@@ -152,6 +154,7 @@ export class SkyAgGridService implements OnDestroy {
     private agGridAdapterService: SkyAgGridAdapterService,
     @Optional() private themeSvc?: SkyThemeService
   ) {
+    /*istanbul ignore else*/
     if (this.themeSvc) {
       this.themeSvc.settingsChange
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -289,9 +292,11 @@ export class SkyAgGridService implements OnDestroy {
         [SkyCellType.Validator]: {
           cellClassRules: {
             [SkyCellClass.Invalid]: (param: CellClassParams) => {
+              /*istanbul ignore next*/
               if (typeof param.colDef?.cellRendererParams?.validator === 'function') {
                 return !param.colDef.cellRendererParams.validator(param.value);
               }
+              /*istanbul ignore next*/
               return false;
             }
           },
@@ -308,6 +313,7 @@ export class SkyAgGridService implements OnDestroy {
       domLayout: 'autoHeight',
       enterMovesDownAfterEdit: true,
       frameworkComponents: {
+        'sky-ag-grid-cell-renderer-currency-validator': SkyAgGridCellRendererCurrencyValidatorComponent,
         'sky-ag-grid-cell-renderer-validator-tooltip': SkyAgGridCellRendererValidatorTooltipComponent
       },
       headerHeight: this.currentTheme?.theme?.name === 'modern' ? 60 : 37,
@@ -339,7 +345,33 @@ export class SkyAgGridService implements OnDestroy {
         ...defaultSkyGridOptions.columnTypes[SkyCellType.Validator].cellClassRules,
         ...defaultSkyGridOptions.columnTypes[SkyCellType.Currency].cellClassRules
       },
-      cellRendererSelector: getValidatorCellRendererSelector('sky-ag-grid-cell-renderer-currency-validator')
+      cellRendererFramework: undefined,
+      cellRendererSelector: getValidatorCellRendererSelector('sky-ag-grid-cell-renderer-currency-validator'),
+      cellRendererParams: {
+        validator: (value: any) => {
+          if (!value) {
+            return false;
+          }
+          // TODO: This needs to be tightened up around which currencies to allow and more specific matching.
+          return !!`${value}`.match(/^[^0-9]*(\d+[,.]?)+\d*[^0-9]*$/);
+        },
+        validatorMessage: 'Please enter a valid currency'
+      }
+    };
+
+    defaultSkyGridOptions.columnTypes[SkyCellType.NumberValidator] = {
+      ...defaultSkyGridOptions.columnTypes[SkyCellType.Validator],
+      ...defaultSkyGridOptions.columnTypes[SkyCellType.Number],
+      cellClassRules: {
+        ...defaultSkyGridOptions.columnTypes[SkyCellType.Validator].cellClassRules,
+        ...defaultSkyGridOptions.columnTypes[SkyCellType.Number].cellClassRules
+      },
+      cellRendererParams: {
+        validator: (value: any) => {
+          return !!value && !isNaN(parseFloat(value));
+        },
+        validatorMessage: 'Please enter a valid number'
+      }
     };
 
     return defaultSkyGridOptions;

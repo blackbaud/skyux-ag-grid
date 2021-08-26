@@ -8,6 +8,7 @@ import { SkyCellRendererCurrencyParams } from '../../types/cell-renderer-currenc
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyAgGridCellRendererCurrencyValidatorComponent implements ICellRendererAngularComp {
+  public value: string;
   public validatorMessage: string;
   public cellRendererParams: SkyCellRendererCurrencyParams;
 
@@ -18,9 +19,12 @@ export class SkyAgGridCellRendererCurrencyValidatorComponent implements ICellRen
 
   public agInit(params: SkyCellRendererCurrencyParams): void {
     this.cellRendererParams = params;
+    this.value = params.value;
+    this.validatorMessage = typeof params.validatorMessage === 'function' ? params.validatorMessage(params.value) : params.validatorMessage;
     this.changeDetector.markForCheck();
   }
 
+  /*istanbul ignore next*/
   public refresh(params: any): boolean {
     this.agInit(params);
     return false;

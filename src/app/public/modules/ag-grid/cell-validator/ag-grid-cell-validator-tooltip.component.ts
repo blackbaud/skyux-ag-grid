@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { SkyPopoverMessage, SkyPopoverMessageType } from '@skyux/popovers';
-import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { CellFocusedEvent, Events, ICellRendererParams } from 'ag-grid-community';
+import { CellFocusedEvent, Events } from 'ag-grid-community';
 import { Subject } from 'rxjs';
 import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-params';
 
@@ -11,7 +10,7 @@ import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-p
   templateUrl: 'ag-grid-cell-validator-tooltip.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngularComp {
+export class SkyAgGridCellValidatorTooltipComponent {
   @Input()
   public value: string;
 
@@ -20,40 +19,37 @@ export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngu
 
   @Input()
   public set parameters(value: SkyCellRendererCurrencyParams) {
-    this.agInit(value);
-  }
+    this.cellRendererParams = value;
 
-  public display = true;
-  public indicatorShouldShow = true;
-  public popoverMessageStream = new Subject<SkyPopoverMessage>();
-
-  private cellRendererParams: ICellRendererParams;
-
-  constructor(
-    private changeDetector: ChangeDetectorRef
-  ) { }
-
-  public agInit(params: ICellRendererParams): void {
-    this.cellRendererParams = params;
-
-    this.cellRendererParams.api.addEventListener(Events.EVENT_CELL_FOCUSED, (eventParams: CellFocusedEvent) => {
+    this.cellRendererParams.api?.addEventListener(Events.EVENT_CELL_FOCUSED, (eventParams: CellFocusedEvent) => {
       // We want to close any popovers that are opened when other cells are focused, but open a popover if the current cell is focused.
+      /*istanbul ignore else*/
       if (eventParams.column.getColId() !== this.cellRendererParams.column.getColId() ||
         eventParams.rowIndex !== this.cellRendererParams.rowIndex) {
         this.hidePopover();
       }
     });
 
-    this.cellRendererParams.eGridCell.addEventListener('keyup', (event) => {
+    this.cellRendererParams.eGridCell?.addEventListener('keyup', (event) => {
+      /*istanbul ignore else*/
       if (['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)) {
         this.showPopover();
       }
     });
 
-    this.cellRendererParams.api.addEventListener(Events.EVENT_CELL_EDITING_STARTED, () => {
+    this.cellRendererParams.api?.addEventListener(Events.EVENT_CELL_EDITING_STARTED, () => {
       this.hidePopover();
     });
   }
+
+  public indicatorShouldShow = true;
+  public popoverMessageStream = new Subject<SkyPopoverMessage>();
+
+  private cellRendererParams: SkyCellRendererCurrencyParams;
+
+  constructor(
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   public hideIndicator(): void {
     setTimeout(() => {
@@ -64,10 +60,6 @@ export class SkyAgGridCellValidatorTooltipComponent implements ICellRendererAngu
 
   public hidePopover() {
     this.popoverMessageStream.next({ type: SkyPopoverMessageType.Close });
-  }
-
-  public refresh(params: any): boolean {
-    return false;
   }
 
   public showIndicator(): void {

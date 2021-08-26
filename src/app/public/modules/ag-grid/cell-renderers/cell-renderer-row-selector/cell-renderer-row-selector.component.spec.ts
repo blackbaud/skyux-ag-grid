@@ -43,7 +43,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
   let rowSelectorCellFixture: ComponentFixture<SkyAgGridCellRendererRowSelectorComponent>;
   let rowSelectorCellComponent: SkyAgGridCellRendererRowSelectorComponent;
   let rowSelectorCellNativeElement: HTMLElement;
-  let cellRendererParams: ICellRendererParams;
+  let cellRendererParams: {registerRowDragger?: any} & ICellRendererParams;
   let dataField = 'selected';
 
   beforeEach(() => {

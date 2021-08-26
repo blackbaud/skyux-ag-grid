@@ -5,7 +5,8 @@ import {
 } from '@angular/core';
 
 import {
-  GridOptions
+  GridApi,
+  GridOptions, GridReadyEvent
 } from 'ag-grid-community';
 
 import {
@@ -68,6 +69,31 @@ export class SkyAgGridFixtureComponent implements OnInit {
       headerName: 'Currency amount',
       editable: true,
       type: SkyCellType.Currency
+    },
+    {
+      field: 'validNumber',
+      headerName: 'Valid number',
+      editable: true,
+      type: SkyCellType.NumberValidator
+    },
+    {
+      field: 'validCurrency',
+      headerName: 'Valid currency',
+      editable: true,
+      type: SkyCellType.CurrencyValidator
+    },
+    {
+      field: 'validDate',
+      headerName: 'Valid date',
+      editable: true,
+      type: [SkyCellType.Date, SkyCellType.Validator],
+      cellRendererParams: {
+        validator: (value: Date) => {
+          const dt = new Date(1985, 10, 5, 12);
+          return !!value && value > dt;
+        },
+        validatorMessage: 'Please enter a future date'
+      }
     }
   ];
 
@@ -75,9 +101,19 @@ export class SkyAgGridFixtureComponent implements OnInit {
     columnDefs: this.columnDefs
   };
 
+  public gridApi: GridApi;
+
   constructor(private gridService: SkyAgGridService) { }
+
+  public gridReady($event: GridReadyEvent) {
+    this.gridApi = $event.api;
+  }
 
   public ngOnInit(): void {
     this.gridOptions = this.gridService.getEditableGridOptions({ gridOptions: this.gridOptions });
+  }
+
+  public refresh(params?: any): void {
+    this.gridApi.refreshCells(params);
   }
 }
