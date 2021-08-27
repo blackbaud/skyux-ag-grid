@@ -21,22 +21,23 @@ export class SkyAgGridCellValidatorTooltipComponent {
   public set parameters(value: SkyCellRendererCurrencyParams) {
     this.cellRendererParams = value;
 
+    /*istanbul ignore next*/
     this.cellRendererParams.api?.addEventListener(Events.EVENT_CELL_FOCUSED, (eventParams: CellFocusedEvent) => {
       // We want to close any popovers that are opened when other cells are focused, but open a popover if the current cell is focused.
-      /*istanbul ignore else*/
       if (eventParams.column.getColId() !== this.cellRendererParams.column.getColId() ||
         eventParams.rowIndex !== this.cellRendererParams.rowIndex) {
         this.hidePopover();
       }
     });
 
+    /*istanbul ignore next*/
     this.cellRendererParams.eGridCell?.addEventListener('keyup', (event) => {
-      /*istanbul ignore else*/
       if (['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)) {
         this.showPopover();
       }
     });
 
+    /*istanbul ignore next*/
     this.cellRendererParams.api?.addEventListener(Events.EVENT_CELL_EDITING_STARTED, () => {
       this.hidePopover();
     });

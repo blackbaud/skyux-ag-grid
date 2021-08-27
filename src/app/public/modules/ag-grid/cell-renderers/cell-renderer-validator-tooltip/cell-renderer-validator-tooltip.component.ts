@@ -20,7 +20,7 @@ export class SkyAgGridCellRendererValidatorTooltipComponent implements ICellRend
 
   public agInit(params: SkyCellValidatorParams): void {
     this.cellRendererParams = params;
-    if (typeof params.colDef.valueFormatter === 'function') {
+    if (typeof params.colDef?.valueFormatter === 'function') {
       this.value = params.colDef.valueFormatter(params as ValueFormatterParams);
     } else {
       this.value = params.value;

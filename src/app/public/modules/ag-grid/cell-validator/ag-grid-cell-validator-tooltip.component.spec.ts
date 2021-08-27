@@ -1,9 +1,8 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { expect } from '@skyux-sdk/testing';
 import { SkyAgGridCellValidatorTooltipFixtureComponent } from '../fixtures/ag-grid-cell-validator-tooltip.component.fixture';
 import { SkyAgGridFixtureComponent } from '../fixtures/ag-grid.component.fixture';
 import { SkyAgGridFixtureModule } from '../fixtures/ag-grid.module.fixture';
-import { SkyCellClass } from '../types/cell-class';
 import { SkyAgGridCellValidatorTooltipComponent } from './ag-grid-cell-validator-tooltip.component';
 
 // Borrowed from skyux-lookup src/app/public/modules/lookup/lookup.component.spec.ts
@@ -69,71 +68,6 @@ if (!isIE) {
       flush();
       expect(gridFixture.componentInstance.gridReady).toHaveBeenCalled();
     }));
-
-    describe('events', () => {
-      const cellSelector = `.${SkyCellClass.Number}.${SkyCellClass.Invalid}`;
-      let fixture: ComponentFixture<SkyAgGridFixtureComponent>;
-      let component: SkyAgGridFixtureComponent;
-
-      beforeEach(() => {
-        fixture = TestBed.createComponent(SkyAgGridFixtureComponent);
-        component = fixture.componentInstance;
-      });
-
-      it('should trigger editing events', fakeAsync(() => {
-        fixture.detectChanges();
-        tick();
-        flush();
-        fixture.whenStable().then(() => {
-          const api = component.gridApi;
-          api.setFocusedCell(1, 'name');
-          tick();
-          flush();
-          api.startEditingCell({
-            colKey: 'nickname',
-            rowIndex: 1
-          });
-          tick();
-          flush();
-          api.stopEditing(true);
-          tick();
-          flush();
-          const cellElement = fixture.nativeElement.querySelector(cellSelector);
-          expect(cellElement).toBeTruthy();
-        });
-      }));
-
-      it('should trigger key navigation events', fakeAsync(() => {
-        fixture.detectChanges();
-        tick();
-        flush();
-        fixture.whenStable().then(() => {
-          const api = component.gridApi;
-          const cellElement = fixture.nativeElement.querySelector(cellSelector);
-          expect(cellElement).toBeTruthy();
-          (cellElement as HTMLElement).dispatchEvent(new KeyboardEvent('keyup', {key: 'ArrowUp'}));
-          tick();
-          flush();
-          fixture.whenStable().then(() => {
-            let docElement: Element = cellElement.parentElement;
-            while (docElement.parentElement) {
-              docElement = docElement.parentElement;
-            }
-            const popoverElement = docElement.querySelector('.sky-popover-body');
-            expect(popoverElement).toBeTruthy();
-
-            api.startEditingCell({
-              colKey: 'validNumber',
-              rowIndex: 3
-            });
-            tick();
-            flush();
-            const editorElement = fixture.nativeElement.querySelector(`${cellSelector}.ag-cell-inline-editing`);
-            expect(editorElement).toBeTruthy();
-          });
-        });
-      }));
-    });
   });
 
 }
