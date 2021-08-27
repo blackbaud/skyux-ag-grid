@@ -283,6 +283,7 @@ describe('Editable grid, complex cells', () => {
   const selectCell = '.ag-body-viewport [aria-colindex="2"]';
   const selectCellTrigger = '.ag-body-viewport [aria-colindex="2"] .ag-picker-field-display';
   const selectList = '.ag-select-list';
+  const validatorCell = '.ag-body-viewport [row-id="1"] [aria-colindex="4"]';
   const editButton = '#edit-btn';
 
   function runTests(): void {
@@ -312,6 +313,26 @@ describe('Editable grid, complex cells', () => {
 
       it('should match previous screenshot on extra small screens', (done) => {
         matchesPreviousSelectFocusAndList('xs', done);
+      });
+    });
+
+    describe('validator', () => {
+      async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+        SkyHostBrowser.scrollTo(validatorCell);
+
+        expect(validatorCell).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid', screenSize)
+        });
+      }
+
+      it('should match previous screenshot on large screens', (done) => {
+        matchesPreviousValidator('lg', done);
+      });
+
+      it('should match previous screenshot on extra small screens', (done) => {
+        matchesPreviousValidator('xs', done);
       });
     });
   }
