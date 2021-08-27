@@ -371,6 +371,7 @@ export class SkyAgGridService implements OnDestroy {
       },
       cellRendererParams: {
         validator: (value: any) => {
+          /*istanbul ignore next*/
           return !!value && !isNaN(parseFloat(value));
         },
         validatorMessage: 'Please enter a valid number'

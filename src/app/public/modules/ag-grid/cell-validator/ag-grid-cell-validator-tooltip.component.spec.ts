@@ -1,7 +1,6 @@
-import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { expect } from '@skyux-sdk/testing';
 import { SkyAgGridCellValidatorTooltipFixtureComponent } from '../fixtures/ag-grid-cell-validator-tooltip.component.fixture';
-import { SkyAgGridFixtureComponent } from '../fixtures/ag-grid.component.fixture';
 import { SkyAgGridFixtureModule } from '../fixtures/ag-grid.module.fixture';
 import { SkyAgGridCellValidatorTooltipComponent } from './ag-grid-cell-validator-tooltip.component';
 
@@ -53,14 +52,5 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
     fixture.componentInstance.showIndicator();
     tick();
     expect(fixture.componentInstance.indicatorShouldShow).toBeTrue();
-  }));
-
-  it('should load a grid with validator columns', fakeAsync(() => {
-    const gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
-    spyOn(gridFixture.componentInstance, 'gridReady');
-    gridFixture.detectChanges();
-    tick();
-    flush();
-    expect(gridFixture.componentInstance.gridReady).toHaveBeenCalled();
   }));
 });
