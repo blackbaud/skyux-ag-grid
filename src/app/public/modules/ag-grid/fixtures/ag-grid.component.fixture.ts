@@ -5,8 +5,7 @@ import {
 } from '@angular/core';
 
 import {
-  GridApi,
-  GridOptions, GridReadyEvent
+  GridOptions
 } from 'ag-grid-community';
 
 import {
@@ -101,19 +100,9 @@ export class SkyAgGridFixtureComponent implements OnInit {
     columnDefs: this.columnDefs
   };
 
-  public gridApi: GridApi;
-
   constructor(private gridService: SkyAgGridService) { }
-
-  public gridReady($event: GridReadyEvent) {
-    this.gridApi = $event.api;
-  }
 
   public ngOnInit(): void {
     this.gridOptions = this.gridService.getEditableGridOptions({ gridOptions: this.gridOptions });
-  }
-
-  public refresh(params?: any): void {
-    this.gridApi.refreshCells(params);
   }
 }
