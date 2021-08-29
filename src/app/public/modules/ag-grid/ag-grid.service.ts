@@ -291,6 +291,7 @@ export class SkyAgGridService implements OnDestroy {
         },
         [SkyCellType.Validator]: {
           cellClassRules: {
+            /*istanbul ignore next*/
             [SkyCellClass.Invalid]: (param: CellClassParams) => {
               /*istanbul ignore next*/
               if (typeof param.colDef?.cellRendererParams?.validator === 'function') {
@@ -350,13 +351,9 @@ export class SkyAgGridService implements OnDestroy {
       cellRendererParams: {
         /*istanbul ignore next*/
         validator: (value: any) => {
-          /*istanbul ignore next*/
-          if (!value) {
-            return false;
-          }
           // TODO: This needs to be tightened up around which currencies to allow and more specific matching.
           /*istanbul ignore next*/
-          return !!`${value}`.match(/^[^0-9]*(\d+[,.]?)+\d*[^0-9]*$/);
+          return !!`${value || ''}`.match(/^[^0-9]*(\d+[,.]?)+\d*[^0-9]*$/);
         },
         validatorMessage: 'Please enter a valid currency'
       }
@@ -370,6 +367,7 @@ export class SkyAgGridService implements OnDestroy {
         ...defaultSkyGridOptions.columnTypes[SkyCellType.Number].cellClassRules
       },
       cellRendererParams: {
+        /*istanbul ignore next*/
         validator: (value: any) => {
           /*istanbul ignore next*/
           return !!value && !isNaN(parseFloat(value));
