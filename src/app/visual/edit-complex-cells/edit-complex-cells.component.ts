@@ -17,6 +17,8 @@ import {
 
 import {
   EDITABLE_GRID_DATA,
+  EDITABLE_GRID_OPTIONS,
+  EditableGridOption,
   EditableGridRow
 } from './edit-complex-cells-data';
 
@@ -71,9 +73,19 @@ export class EditComplexCellsComponent implements OnInit {
         editable: this.editMode
       },
       {
-        colId: 'text',
-        field: 'text',
-        editable: this.editMode
+        colId: 'validationAutocomplete',
+        field: 'validationAutocomplete',
+        editable: this.editMode,
+        type: [SkyCellType.Autocomplete, SkyCellType.Validator],
+        cellEditorParams: {
+          skyComponentProperties: {
+            data: EDITABLE_GRID_OPTIONS
+          }
+        },
+        cellRendererParams: {
+          validator: (value: EditableGridOption) => !!value.validOption,
+          validatorMessage: 'Please choose an odd number option'
+        }
       },
       {
         colId: 'validationText',
@@ -84,15 +96,14 @@ export class EditComplexCellsComponent implements OnInit {
           validator: (value: any) => !!value,
           validatorMessage: () => 'Please enter a value'
         }
-      }
-      ,
+      },
       {
         colId: 'validationDate',
         field: 'validationDate',
         editable: this.editMode,
         type: [SkyCellType.Date, SkyCellType.Validator],
         cellRendererParams: {
-          validator: (value: Date) => !!value && value > new Date(),
+          validator: (value: Date) => !!value && value > new Date(1985, 9, 26),
           validatorMessage: 'Please enter a future date'
         }
       }

@@ -13,7 +13,10 @@ import {
 import {
   SkyAgGridResourcesModule
 } from '../../../shared/ag-grid-resources.module';
- import { SkyAgGridCellRendererCurrencyValidatorComponent } from './cell-renderer-currency-validator.component';
+
+import {
+  SkyAgGridCellRendererCurrencyValidatorComponent
+} from './cell-renderer-currency-validator.component';
 
 import {
   SkyAgGridCellRendererCurrencyComponent

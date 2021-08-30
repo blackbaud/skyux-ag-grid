@@ -283,7 +283,9 @@ describe('Editable grid, complex cells', () => {
   const selectCell = '.ag-body-viewport [aria-colindex="2"]';
   const selectCellTrigger = '.ag-body-viewport [aria-colindex="2"] .ag-picker-field-display';
   const selectList = '.ag-select-list';
-  const validatorCell = '.ag-body-viewport [row-id="1"] [aria-colindex="4"]';
+  const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] [aria-colindex="3"]';
+  const validatorCellDate = '.ag-body-viewport [row-id="1"] [aria-colindex="5"]';
+  const validatorCellText = '.ag-body-viewport [row-id="1"] [aria-colindex="4"]';
   const editButton = '#edit-btn';
 
   function runTests(): void {
@@ -320,10 +322,18 @@ describe('Editable grid, complex cells', () => {
       async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        SkyHostBrowser.scrollTo(validatorCell);
+        SkyHostBrowser.scrollTo(validatorCellDate);
 
-        expect(validatorCell).toMatchBaselineScreenshot(done, {
+        expect(validatorCellText).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid', screenSize)
+        });
+
+        expect(validatorCellAutocomplete).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-autocomplete', screenSize)
+        });
+
+        expect(validatorCellDate).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-date', screenSize)
         });
       }
 

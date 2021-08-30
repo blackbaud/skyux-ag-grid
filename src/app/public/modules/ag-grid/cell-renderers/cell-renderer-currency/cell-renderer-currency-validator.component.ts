@@ -24,7 +24,6 @@ export class SkyAgGridCellRendererCurrencyValidatorComponent implements ICellRen
     this.changeDetector.markForCheck();
   }
 
-  /*istanbul ignore next*/
   public refresh(params: any): boolean {
     this.agInit(params);
     return false;
