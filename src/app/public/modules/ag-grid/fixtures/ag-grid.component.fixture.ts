@@ -79,7 +79,7 @@ export class SkyAgGridFixtureComponent implements OnInit {
       field: 'validCurrency',
       headerName: 'Valid currency',
       editable: true,
-      type: SkyCellType.CurrencyValidator
+      type: SkyCellType.Currency
     },
     {
       field: 'validDate',
@@ -87,11 +87,13 @@ export class SkyAgGridFixtureComponent implements OnInit {
       editable: true,
       type: [SkyCellType.Date, SkyCellType.Validator],
       cellRendererParams: {
-        validator: (value: Date) => {
-          const dt = new Date(1985, 10, 5, 12);
-          return !!value && value > dt;
-        },
-        validatorMessage: 'Please enter a future date'
+        skyComponentProperties: {
+          validator: (value: Date) => {
+            const dt = new Date(1985, 10, 5, 12);
+            return !!value && value > dt;
+          },
+          validatorMessage: 'Please enter a future date'
+        }
       }
     }
   ];

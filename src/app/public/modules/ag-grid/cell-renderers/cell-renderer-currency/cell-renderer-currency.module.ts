@@ -1,4 +1,5 @@
- import {
+import { CommonModule } from '@angular/common';
+import {
   NgModule
 } from '@angular/core';
 
@@ -15,10 +16,6 @@ import {
 } from '../../../shared/ag-grid-resources.module';
 
 import {
-  SkyAgGridCellRendererCurrencyValidatorComponent
-} from './cell-renderer-currency-validator.component';
-
-import {
   SkyAgGridCellRendererCurrencyComponent
 } from './cell-renderer-currency.component';
 
@@ -28,18 +25,17 @@ import {
 
 @NgModule({
   imports: [
+    CommonModule,
     SkyAgGridResourcesModule,
     SkyAgGridCellValidatorModule,
     FormsModule,
     SkyNumericModule
   ],
   declarations: [
-    SkyAgGridCellRendererCurrencyComponent,
-    SkyAgGridCellRendererCurrencyValidatorComponent
+    SkyAgGridCellRendererCurrencyComponent
   ],
   exports: [
-    SkyAgGridCellRendererCurrencyComponent,
-    SkyAgGridCellRendererCurrencyValidatorComponent
+    SkyAgGridCellRendererCurrencyComponent
   ]
 })
 export class SkyAgGridCellRendererCurrencyModule {

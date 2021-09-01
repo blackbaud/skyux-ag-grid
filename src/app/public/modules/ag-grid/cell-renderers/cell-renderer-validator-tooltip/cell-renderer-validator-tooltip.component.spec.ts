@@ -17,6 +17,7 @@ describe('SkyAgGridCellRendererValidatorTooltipComponent', () => {
       $scope: undefined,
       addRenderedRowListener(eventType: string, listener: Function): void {
       },
+      // @ts-ignore
       api: undefined,
       colDef: undefined,
       column: undefined,
@@ -41,11 +42,17 @@ describe('SkyAgGridCellRendererValidatorTooltipComponent', () => {
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
 
-    expect(fixture.componentInstance.refresh(fixture.componentInstance.cellRendererParams)).toBeFalse();
+    fixture.componentInstance.parameters = {
+      ...fixture.componentInstance.cellRendererParams
+    };
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
+
+    expect(fixture.componentInstance.refresh(fixture.componentInstance.cellRendererParams)).toBeTrue();
 
     fixture.componentInstance.cellRendererParams.colDef = {
       valueFormatter: (value) => `${value.value}`.toUpperCase()
     };
-    expect(fixture.componentInstance.refresh(fixture.componentInstance.cellRendererParams)).toBeFalse();
+    expect(fixture.componentInstance.refresh(fixture.componentInstance.cellRendererParams)).toBeTrue();
   });
 });

@@ -83,19 +83,17 @@ export class EditComplexCellsComponent implements OnInit {
           }
         },
         cellRendererParams: {
-          validator: (value: EditableGridOption) => !!value.validOption,
-          validatorMessage: 'Please choose an odd number option'
+          skyComponentProperties: {
+            validator: (value: EditableGridOption) => !!value.validOption,
+            validatorMessage: 'Please choose an odd number option'
+          }
         }
       },
       {
-        colId: 'validationText',
-        field: 'validationText',
+        colId: 'validationCurrency',
+        field: 'validationCurrency',
         editable: this.editMode,
-        type: [SkyCellType.Validator],
-        cellRendererParams: {
-          validator: (value: any) => !!value,
-          validatorMessage: () => 'Please enter a value'
-        }
+        type: [SkyCellType.CurrencyValidator]
       },
       {
         colId: 'validationDate',
@@ -103,8 +101,10 @@ export class EditComplexCellsComponent implements OnInit {
         editable: this.editMode,
         type: [SkyCellType.Date, SkyCellType.Validator],
         cellRendererParams: {
-          validator: (value: Date) => !!value && value > new Date(1985, 9, 26),
-          validatorMessage: 'Please enter a future date'
+          skyComponentProperties: {
+            validator: (value: Date) => !!value && value > new Date(1985, 9, 26),
+            validatorMessage: 'Please enter a future date'
+          }
         }
       }
     ];

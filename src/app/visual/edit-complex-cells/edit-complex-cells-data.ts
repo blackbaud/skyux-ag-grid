@@ -8,7 +8,7 @@ export class EditableGridRow {
   public name: string;
   public language: 'English' | 'Spanish' | 'French' | 'Portuguese' | '(other)';
   public validationAutocomplete?: EditableGridOption;
-  public validationText: string;
+  public validationCurrency: string;
   public validationDate: Date;
 }
 
@@ -43,7 +43,7 @@ export const EDITABLE_GRID_DATA: EditableGridRow[] = Array.from(Array(10).keys()
     name: `Person ${i + 1}`,
     language: 'English',
     validationAutocomplete: EDITABLE_GRID_OPTIONS[i % EDITABLE_GRID_OPTIONS.length],
-    validationText: (i % 3 === 0 ? 'valid' : ''),
+    validationCurrency: (i % 3 === 0 ? `$${(1.23 * i).toFixed(2)}` : ''),
     validationDate: getDay(i + 1)
   };
 });

@@ -2,6 +2,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { expect } from '@skyux-sdk/testing';
 import { SkyAgGridCellValidatorTooltipFixtureComponent } from '../fixtures/ag-grid-cell-validator-tooltip.component.fixture';
 import { SkyAgGridFixtureModule } from '../fixtures/ag-grid.module.fixture';
+import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-params';
 import { SkyAgGridCellValidatorTooltipComponent } from './ag-grid-cell-validator-tooltip.component';
 
 describe('SkyAgGridCellValidatorTooltipComponent', () => {
@@ -15,30 +16,40 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
 
   it('should create an instance', () => {
     const fixture = TestBed.createComponent(SkyAgGridCellValidatorTooltipFixtureComponent);
-    fixture.componentInstance.parameters = {};
+    fixture.componentInstance.parameters = {
+      api: undefined,
+      column: undefined,
+      eGridCell: undefined,
+      rowIndex: 0,
+      skyComponentProperties: undefined,
+      value: undefined
+    };
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
   });
 
   it('should toggle popover', fakeAsync(() => {
     const fixture = TestBed.createComponent(SkyAgGridCellValidatorTooltipComponent);
-    fixture.componentInstance.validatorMessage = 'Test message ABC';
-    fixture.componentInstance.parameters = {
+    const parameters: SkyCellRendererCurrencyParams = {
       // @ts-ignore
       api: {
-        addEventListener(eventType: string, listener: Function) {
-        }
+        addEventListener() {}
       },
+      // @ts-ignore
       eGridCell: {
-        // @ts-ignore
-        addEventListener(eventType: string, listener: Function) {
-        }
+        addEventListener() {}
       },
       // @ts-ignore
       column: {
         colId: () => -1
       },
       rowIndex: -1
+    };
+    fixture.componentInstance.parameters = {
+      ...parameters,
+      skyComponentProperties: {
+        validatorMessage: 'Test message ABC'
+      }
     };
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
@@ -52,5 +63,13 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
     fixture.componentInstance.showIndicator();
     tick();
     expect(fixture.componentInstance.indicatorShouldShow).toBeTrue();
+
+    fixture.componentInstance.parameters = {
+      ...parameters,
+      skyComponentProperties: {
+        validatorMessage: () => 'Test message XYZ'
+      }
+    };
+    expect(fixture.componentInstance.validatorMessage).toBe('Test message XYZ');
   }));
 });

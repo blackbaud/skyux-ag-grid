@@ -1,8 +1,11 @@
-import {
-  ICellRendererParams
-} from 'ag-grid-community';
+import { Column, GridApi } from 'ag-grid-community';
+import { SkyComponentProperties } from './sky-component-properties';
 
-export interface SkyCellValidatorParams extends ICellRendererParams {
-  validator?: (value: any) => boolean;
-  validatorMessage?: string | ((value: any) => string);
+export interface SkyCellRendererValidatorParams {
+  value: any;
+  api: GridApi;
+  column: Column;
+  eGridCell: HTMLElement;
+  rowIndex: number;
+  skyComponentProperties: SkyComponentProperties;
 }

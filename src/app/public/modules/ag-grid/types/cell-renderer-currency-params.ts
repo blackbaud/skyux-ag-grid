@@ -1,11 +1,11 @@
 import {
-  NumericOptions
-} from '@skyux/core';
+  ICellRendererParams
+} from 'ag-grid-community';
 
 import {
-  SkyCellValidatorParams
-} from './cell-renderer-validator-params';
+  SkyComponentProperties
+} from './sky-component-properties';
 
-export interface SkyCellRendererCurrencyParams extends SkyCellValidatorParams {
-  skyComponentProperties?: NumericOptions;
+export interface SkyCellRendererCurrencyParams extends ICellRendererParams {
+  skyComponentProperties?: SkyComponentProperties;
 }
