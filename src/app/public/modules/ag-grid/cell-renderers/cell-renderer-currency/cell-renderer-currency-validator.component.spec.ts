@@ -1,8 +1,20 @@
-import { TestBed } from '@angular/core/testing';
-import { SkyAgGridFixtureModule } from '../../fixtures/ag-grid.module.fixture';
-import { SkyAgGridCellRendererValidatorTooltipComponent } from './cell-renderer-validator-tooltip.component';
+import {
+  TestBed
+} from '@angular/core/testing';
 
-describe('SkyAgGridCellRendererValidatorTooltipComponent', () => {
+import {
+  expect
+} from '@skyux-sdk/testing';
+
+import {
+  SkyAgGridFixtureModule
+} from '../../fixtures/ag-grid.module.fixture';
+
+import {
+  SkyAgGridCellRendererCurrencyValidatorComponent
+} from './cell-renderer-currency-validator.component';
+
+describe('SkyAgGridCellRendererCurrencyValidatorComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -12,8 +24,8 @@ describe('SkyAgGridCellRendererValidatorTooltipComponent', () => {
   });
 
   it('should create an instance', () => {
-    const fixture = TestBed.createComponent(SkyAgGridCellRendererValidatorTooltipComponent);
-    fixture.componentInstance.cellRendererParams = {
+    const fixture = TestBed.createComponent(SkyAgGridCellRendererCurrencyValidatorComponent);
+    fixture.componentInstance.parameters = {
       $scope: undefined,
       addRenderedRowListener(): void {},
       // @ts-ignore
@@ -41,17 +53,12 @@ describe('SkyAgGridCellRendererValidatorTooltipComponent', () => {
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
 
-    fixture.componentInstance.params = {
-      ...fixture.componentInstance.cellRendererParams
+    fixture.componentInstance.parameters = {
+      ...fixture.componentInstance.parameters
     };
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
 
-    expect(fixture.componentInstance.refresh(fixture.componentInstance.cellRendererParams)).toBeTrue();
-
-    fixture.componentInstance.cellRendererParams.colDef = {
-      valueFormatter: (value) => `${value.value}`.toUpperCase()
-    };
-    expect(fixture.componentInstance.refresh(fixture.componentInstance.cellRendererParams)).toBeTrue();
+    expect(fixture.componentInstance.refresh(fixture.componentInstance.parameters)).toBeTrue();
   });
 });

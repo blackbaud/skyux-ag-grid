@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgZone } from '@angular/core';
 import { SkyPopoverMessage, SkyPopoverMessageType } from '@skyux/popovers';
-import { CellFocusedEvent, Column, Events, GridApi } from 'ag-grid-community';
+import { CellFocusedEvent, Events } from 'ag-grid-community';
 import { Subject } from 'rxjs';
-import { SkyCellRendererValidatorParams } from '../types/cell-renderer-validator-params';
-import { SkyComponentProperties } from '../types/sky-component-properties';
+import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-params';
 
 @Component({
   selector: 'sky-ag-grid-cell-validator-tooltip',
@@ -11,52 +10,51 @@ import { SkyComponentProperties } from '../types/sky-component-properties';
   templateUrl: 'ag-grid-cell-validator-tooltip.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAgGridCellValidatorTooltipComponent implements OnInit, SkyCellRendererValidatorParams {
+export class SkyAgGridCellValidatorTooltipComponent {
   @Input()
-  public api: GridApi;
+  public set params(value: SkyCellRendererCurrencyParams) {
+    this.cellRendererParams = value;
 
-  @Input()
-  public column: Column;
+    /*istanbul ignore next*/
+    this.cellRendererParams.api?.addEventListener(Events.EVENT_CELL_FOCUSED, (eventParams: CellFocusedEvent) => {
+      // We want to close any popovers that are opened when other cells are focused, but open a popover if the current cell is focused.
+      if (eventParams.column.getColId() !== this.cellRendererParams.column.getColId() ||
+        eventParams.rowIndex !== this.cellRendererParams.rowIndex) {
+        this.hidePopover();
+      }
+    });
 
-  @Input()
-  public eGridCell: HTMLElement;
+    /*istanbul ignore next*/
+    this.cellRendererParams.eGridCell?.addEventListener('keyup', (event) => {
+      if (['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)) {
+        this.showPopover();
+      }
+    });
 
-  @Input()
-  public rowIndex: number;
+    /*istanbul ignore next*/
+    this.cellRendererParams.api?.addEventListener(Events.EVENT_CELL_EDITING_STARTED, () => {
+      this.hidePopover();
+    });
 
-  @Input()
-  public skyComponentProperties: SkyComponentProperties;
+    if (typeof this.cellRendererParams.skyComponentProperties?.validatorMessage === 'function') {
+      this.validatorMessage = this.cellRendererParams.skyComponentProperties.validatorMessage(this.cellRendererParams.value);
+    } else {
+      this.validatorMessage = this.cellRendererParams.skyComponentProperties?.validatorMessage;
+    }
 
-  @Input()
-  public set value(value: any) {
-    this._value = value;
-    this.updateValidatorMessage();
     this.changeDetector.markForCheck();
   }
 
   public indicatorShouldShow = true;
-
-  public set parameters(value: SkyCellRendererValidatorParams) {
-    this.api = value.api;
-    this.column = value.column;
-    this.eGridCell = value.eGridCell;
-    this.rowIndex = value.rowIndex;
-    this.skyComponentProperties = value.skyComponentProperties;
-    this.agInit();
-  }
-
   public popoverMessageStream = new Subject<SkyPopoverMessage>();
   public validatorMessage: string;
-  private _value: any;
+
+  public cellRendererParams: SkyCellRendererCurrencyParams;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
     private zone: NgZone
   ) { }
-
-  public ngOnInit(): void {
-    this.agInit();
-  }
 
   public hideIndicator(): void {
     this.zone.run(() => {
@@ -78,40 +76,5 @@ export class SkyAgGridCellValidatorTooltipComponent implements OnInit, SkyCellRe
 
   public showPopover(): void {
     this.popoverMessageStream.next({ type: SkyPopoverMessageType.Open });
-  }
-
-  private agInit() {
-    this.updateValidatorMessage();
-
-    /*istanbul ignore next*/
-    this.api?.addEventListener(Events.EVENT_CELL_FOCUSED, (eventParams: CellFocusedEvent) => {
-      // We want to close any popovers that are opened when other cells are focused, but open a popover if the current cell is focused.
-      if (eventParams.column.getColId() !== this.column.getColId() ||
-        eventParams.rowIndex !== this.rowIndex) {
-        this.hidePopover();
-      }
-    });
-
-    /*istanbul ignore next*/
-    this.eGridCell?.addEventListener('keyup', (event) => {
-      if (['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)) {
-        this.showPopover();
-      }
-    });
-
-    /*istanbul ignore next*/
-    this.api?.addEventListener(Events.EVENT_CELL_EDITING_STARTED, () => {
-      this.hidePopover();
-    });
-
-    this.changeDetector.markForCheck();
-  }
-
-  private updateValidatorMessage(): void {
-    if (typeof this.skyComponentProperties?.validatorMessage === 'function') {
-      this.validatorMessage = this.skyComponentProperties.validatorMessage(this._value);
-    } else {
-      this.validatorMessage = this.skyComponentProperties?.validatorMessage;
-    }
   }
 }

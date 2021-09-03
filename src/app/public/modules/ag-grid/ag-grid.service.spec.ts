@@ -563,4 +563,56 @@ describe('SkyAgGridService', () => {
       expect(editable).toBeFalsy();
     });
   });
+
+  describe('getDefaultGridOptions getValidatorFn', () => {
+    let cellClassRuleValidatorFunction: Function;
+    let cellClassParams: CellClassParams;
+
+    beforeEach(() => {
+      const cellClassRuleValidator = defaultGridOptions.columnTypes[SkyCellType.Validator].cellClassRules[SkyCellClass.Invalid];
+      if (typeof cellClassRuleValidator === 'function') {
+        cellClassRuleValidatorFunction = cellClassRuleValidator;
+      }
+
+      cellClassParams = {
+        value: undefined,
+        data: undefined,
+        node: undefined,
+        rowIndex: undefined,
+        $scope: undefined,
+        api: undefined,
+        columnApi: new ColumnApi(),
+        context: undefined,
+        colDef: {}
+      };
+    });
+
+    it('should return false when there is no validator function', () => {
+      const invalidClass = cellClassRuleValidatorFunction(cellClassParams);
+
+      expect(invalidClass).toBeFalsy();
+    });
+
+    it('should return false when the validator function passes', () => {
+      cellClassParams.colDef.cellRendererParams = {
+        skyComponentProperties: {
+          validator: () => true
+        }
+      };
+      const invalidClass = cellClassRuleValidatorFunction(cellClassParams);
+
+      expect(invalidClass).toBeFalsy();
+    });
+
+    it('should return true when the validator function fails', () => {
+      cellClassParams.colDef.cellRendererParams = {
+        skyComponentProperties: {
+          validator: () => false
+        }
+      };
+      const invalidClass = cellClassRuleValidatorFunction(cellClassParams);
+
+      expect(invalidClass).toBeTruthy();
+    });
+  });
 });

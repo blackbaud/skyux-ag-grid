@@ -117,14 +117,14 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
 
   describe('parameters', () => {
 
-    it('sets the SkyAgGridCellRendererCurrencyComponent parameters', fakeAsync(() => {
+    it('sets the SkyAgGridCellRendererCurrencyComponent params', fakeAsync(() => {
       cellRendererParams.value = 123;
       cellRendererParams.skyComponentProperties.format = 'currency';
       cellRendererParams.skyComponentProperties.iso = 'USD';
 
       expect(currencyComponent.value).toBeUndefined();
 
-      currencyComponent.parameters = cellRendererParams;
+      currencyComponent.params = cellRendererParams;
 
       currencyFixture.detectChanges();
       tick();
@@ -162,28 +162,6 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
       currencyFixture.detectChanges();
 
       expect(currencyComponent.value).toBe(245);
-    }));
-  });
-
-  describe('validator', () => {
-    it('pass the validator', fakeAsync(() => {
-      currencyComponent.agInit({
-        ...cellRendererParams,
-        skyComponentProperties: {
-          validator: () => true,
-          validatorMessage: 'TEST'
-        }
-      });
-      expect(currencyFixture.componentInstance.showValidationTooltip).toBeFalse();
-
-      currencyComponent.refresh({
-        ...cellRendererParams,
-        skyComponentProperties: {
-          validator: () => false,
-          validatorMessage: 'TEST'
-        }
-      });
-      expect(currencyFixture.componentInstance.showValidationTooltip).toBeTrue();
     }));
   });
 

@@ -1,4 +1,3 @@
-<ng-template #display>
 <span
   [attr.aria-label]="
     'sky_ag_grid_cell_renderer_currency_aria_label'
@@ -9,15 +8,3 @@
 >
   {{ value | skyNumeric: skyComponentProperties }}
 </span>
-</ng-template>
-<ng-template *ngIf="showValidationTooltip; else display">
-  <sky-ag-grid-cell-validator-tooltip
-    [api]="api"
-    [column]="column"
-    [eGridCell]="eGridCell"
-    [rowIndex]="rowIndex"
-    [skyComponentProperties]="skyComponentProperties"
-  >
-    <ng-container [ngTemplateOutlet]="display"></ng-container>
-  </sky-ag-grid-cell-validator-tooltip>
-</ng-template>

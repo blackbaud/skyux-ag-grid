@@ -1,35 +1,18 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { Column, GridApi, ValueFormatterParams } from 'ag-grid-community';
+import { ValueFormatterParams } from 'ag-grid-community';
 import { SkyCellRendererCurrencyParams } from '../../types/cell-renderer-currency-params';
-import { SkyCellRendererValidatorParams } from '../../types/cell-renderer-validator-params';
-import { SkyComponentProperties } from '../../types/sky-component-properties';
 
 @Component({
   selector: 'sky-ag-grid-cell-renderer-validator-tooltip',
   templateUrl: 'cell-renderer-validator-tooltip.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAgGridCellRendererValidatorTooltipComponent implements ICellRendererAngularComp, SkyCellRendererValidatorParams {
+export class SkyAgGridCellRendererValidatorTooltipComponent implements ICellRendererAngularComp {
   @Input()
-  public api: GridApi;
-
-  @Input()
-  public column: Column;
-
-  @Input()
-  public eGridCell: HTMLElement;
-
-  @Input()
-  public set parameters(value: SkyCellRendererCurrencyParams) {
+  public set params(value: SkyCellRendererCurrencyParams) {
     this.agInit(value);
   }
-
-  @Input()
-  public rowIndex: number;
-
-  @Input()
-  public skyComponentProperties: SkyComponentProperties;
 
   public cellRendererParams: SkyCellRendererCurrencyParams;
   public value: any;

@@ -17,12 +17,28 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
   it('should create an instance', () => {
     const fixture = TestBed.createComponent(SkyAgGridCellValidatorTooltipFixtureComponent);
     fixture.componentInstance.parameters = {
+      $scope: undefined,
+      addRenderedRowListener(): void {},
       api: undefined,
-      column: undefined,
+      colDef: undefined,
+      // @ts-ignore
+      column: {
+        getActualWidth(): number { return -1; }
+      },
+      columnApi: undefined,
+      context: undefined,
+      data: undefined,
       eGridCell: undefined,
+      eParentOfValue: undefined,
+      formatValue(): any {},
+      getValue(): any {},
+      node: undefined,
+      refreshCell(): void {},
       rowIndex: 0,
+      setValue(): void {},
       skyComponentProperties: undefined,
-      value: undefined
+      value: undefined,
+      valueFormatted: undefined
     };
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
@@ -31,21 +47,30 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
   it('should toggle popover', fakeAsync(() => {
     const fixture = TestBed.createComponent(SkyAgGridCellValidatorTooltipComponent);
     const parameters: SkyCellRendererCurrencyParams = {
-      // @ts-ignore
-      api: {
-        addEventListener() {}
-      },
-      // @ts-ignore
-      eGridCell: {
-        addEventListener() {}
-      },
+      $scope: undefined,
+      addRenderedRowListener(): void {},
+      api: undefined,
+      colDef: undefined,
       // @ts-ignore
       column: {
-        colId: () => -1
+        getActualWidth(): number { return -1; }
       },
-      rowIndex: -1
+      columnApi: undefined,
+      context: undefined,
+      data: undefined,
+      eGridCell: undefined,
+      eParentOfValue: undefined,
+      formatValue(): any {},
+      getValue(): any {},
+      node: undefined,
+      refreshCell(): void {},
+      rowIndex: 0,
+      setValue(): void {},
+      skyComponentProperties: undefined,
+      value: undefined,
+      valueFormatted: undefined
     };
-    fixture.componentInstance.parameters = {
+    fixture.componentInstance.params = {
       ...parameters,
       skyComponentProperties: {
         validatorMessage: 'Test message ABC'
@@ -64,7 +89,7 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
     tick();
     expect(fixture.componentInstance.indicatorShouldShow).toBeTrue();
 
-    fixture.componentInstance.parameters = {
+    fixture.componentInstance.params = {
       ...parameters,
       skyComponentProperties: {
         validatorMessage: () => 'Test message XYZ'

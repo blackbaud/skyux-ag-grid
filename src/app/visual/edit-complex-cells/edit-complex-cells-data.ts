@@ -43,7 +43,7 @@ export const EDITABLE_GRID_DATA: EditableGridRow[] = Array.from(Array(10).keys()
     name: `Person ${i + 1}`,
     language: 'English',
     validationAutocomplete: EDITABLE_GRID_OPTIONS[i % EDITABLE_GRID_OPTIONS.length],
-    validationCurrency: (i % 3 === 0 ? `$${(1.23 * i).toFixed(2)}` : ''),
+    validationCurrency: (i % 3 === 0 ? `${(1.23 * i).toFixed(2)}` : (i % 3 === 2 ? 'other value' : '')),
     validationDate: getDay(i + 1)
   };
 });

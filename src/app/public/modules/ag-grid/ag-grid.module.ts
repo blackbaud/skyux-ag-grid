@@ -68,6 +68,10 @@ import {
 } from './cell-editors/cell-editor-text/cell-editor-text.module';
 
 import {
+  SkyAgGridCellRendererCurrencyValidatorComponent
+} from './cell-renderers/cell-renderer-currency/cell-renderer-currency-validator.component';
+
+import {
   SkyAgGridCellRendererRowSelectorComponent
 } from './cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.component';
 
@@ -155,6 +159,7 @@ import {
     SkyAgGridCellEditorNumberComponent,
     SkyAgGridCellEditorCurrencyComponent,
     SkyAgGridCellRendererCurrencyComponent,
+    SkyAgGridCellRendererCurrencyValidatorComponent,
     SkyAgGridCellRendererRowSelectorComponent,
     SkyAgGridCellRendererValidatorTooltipComponent,
     SkyAgGridCellEditorTextComponent,

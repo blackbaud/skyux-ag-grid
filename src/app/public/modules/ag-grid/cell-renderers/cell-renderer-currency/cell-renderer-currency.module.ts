@@ -16,6 +16,10 @@ import {
 } from '../../../shared/ag-grid-resources.module';
 
 import {
+  SkyAgGridCellRendererCurrencyValidatorComponent
+} from './cell-renderer-currency-validator.component';
+
+import {
   SkyAgGridCellRendererCurrencyComponent
 } from './cell-renderer-currency.component';
 
@@ -32,10 +36,12 @@ import {
     SkyNumericModule
   ],
   declarations: [
-    SkyAgGridCellRendererCurrencyComponent
+    SkyAgGridCellRendererCurrencyComponent,
+    SkyAgGridCellRendererCurrencyValidatorComponent
   ],
   exports: [
-    SkyAgGridCellRendererCurrencyComponent
+    SkyAgGridCellRendererCurrencyComponent,
+    SkyAgGridCellRendererCurrencyValidatorComponent
   ]
 })
 export class SkyAgGridCellRendererCurrencyModule {
