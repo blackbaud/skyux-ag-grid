@@ -283,9 +283,10 @@ describe('Editable grid, complex cells', () => {
   const selectCell = '.ag-body-viewport [aria-colindex="2"]';
   const selectCellTrigger = '.ag-body-viewport [aria-colindex="2"] .ag-picker-field-display';
   const selectList = '.ag-select-list';
-  const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] [aria-colindex="3"]';
-  const validatorCellDate = '.ag-body-viewport [row-id="1"] [aria-colindex="5"]';
-  const validatorCellText = '.ag-body-viewport [row-id="1"] [aria-colindex="4"]';
+  const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
+  const validatorCellCurrency = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
+  const validatorCellDate = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-date.sky-ag-grid-cell-invalid';
+  const columnHorizontalScroll = '.ag-body-viewport .ag-center-cols-viewport';
   const editButton = '#edit-btn';
 
   function runTests(): void {
@@ -322,16 +323,26 @@ describe('Editable grid, complex cells', () => {
       async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        SkyHostBrowser.scrollTo(validatorCellDate);
+        await browser.wait(
+          ExpectedConditions.presenceOf(element(by.css(columnHorizontalScroll))),
+          5000,
+          'Grid took too long to appear.'
+        );
+        await SkyHostBrowser.moveCursorOffScreen();
 
-        expect(validatorCellText).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid', screenSize)
-        });
-
+        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellAutocomplete) + ').scrollIntoView();');
         expect(validatorCellAutocomplete).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-autocomplete', screenSize)
         });
 
+        await browser.executeScript('document.querySelector(' + JSON.stringify(columnHorizontalScroll) + ').scrollLeft = 1000');
+        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellCurrency) + ').scrollIntoView();');
+        expect(validatorCellCurrency).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid', screenSize)
+        });
+
+        await browser.executeScript('document.querySelector(' + JSON.stringify(columnHorizontalScroll) + ').scrollLeft = 1000');
+        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellDate) + ').scrollIntoView();');
         expect(validatorCellDate).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-date', screenSize)
         });
