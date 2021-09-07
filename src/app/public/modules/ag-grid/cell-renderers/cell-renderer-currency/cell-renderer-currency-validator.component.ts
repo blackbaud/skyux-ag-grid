@@ -45,7 +45,6 @@ export class SkyAgGridCellRendererCurrencyValidatorComponent implements ICellRen
   }
 
   public refresh(params: SkyCellRendererValidatorParams): boolean {
-    this.agInit(params);
-    return true;
+    return false;
   }
 }

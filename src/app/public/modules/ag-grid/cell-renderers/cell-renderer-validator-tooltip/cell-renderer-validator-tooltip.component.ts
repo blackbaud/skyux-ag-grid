@@ -33,7 +33,6 @@ export class SkyAgGridCellRendererValidatorTooltipComponent implements ICellRend
   }
 
   public refresh(params: any): boolean {
-    this.agInit(params);
-    return true;
+    return false;
   }
 }
