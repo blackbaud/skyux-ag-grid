@@ -13,8 +13,8 @@ import {
 } from '../../types/cell-renderer-currency-params';
 
 import {
-  SkyComponentProperties
-} from '../../types/sky-component-properties';
+  ValidatorOptions
+} from '../../types/validator-options';
 
 @Component({
   selector: 'sky-ag-grid-cell-renderer-currency',
@@ -33,7 +33,7 @@ export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngu
   public columnWidth: number;
   public rowHeightWithoutBorders: number;
   public rowNumber: number;
-  public skyComponentProperties: SkyComponentProperties = {};
+  public skyComponentProperties: NumericOptions & ValidatorOptions = {};
   public numericOptions: NumericOptions = {};
   public value: number;
 

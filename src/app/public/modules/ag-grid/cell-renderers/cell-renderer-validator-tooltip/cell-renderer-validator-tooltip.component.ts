@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ValueFormatterParams } from 'ag-grid-community';
-import { SkyCellRendererCurrencyParams } from '../../types/cell-renderer-currency-params';
+import { SkyCellRendererValidatorParams } from '../../types/cell-renderer-validator-params';
 
 @Component({
   selector: 'sky-ag-grid-cell-renderer-validator-tooltip',
@@ -10,11 +10,11 @@ import { SkyCellRendererCurrencyParams } from '../../types/cell-renderer-currenc
 })
 export class SkyAgGridCellRendererValidatorTooltipComponent implements ICellRendererAngularComp {
   @Input()
-  public set params(value: SkyCellRendererCurrencyParams) {
+  public set params(value: SkyCellRendererValidatorParams) {
     this.agInit(value);
   }
 
-  public cellRendererParams: SkyCellRendererCurrencyParams;
+  public cellRendererParams: SkyCellRendererValidatorParams;
   public value: any;
 
   constructor(
@@ -22,7 +22,7 @@ export class SkyAgGridCellRendererValidatorTooltipComponent implements ICellRend
   ) {
   }
 
-  public agInit(params: SkyCellRendererCurrencyParams): void {
+  public agInit(params: SkyCellRendererValidatorParams): void {
     this.cellRendererParams = params;
     if (typeof params.colDef?.valueFormatter === 'function') {
       this.value = params.colDef.valueFormatter(params as ValueFormatterParams);

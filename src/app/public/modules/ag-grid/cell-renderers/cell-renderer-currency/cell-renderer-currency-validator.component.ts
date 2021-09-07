@@ -9,22 +9,21 @@ import {
 } from 'ag-grid-angular';
 
 import {
-  SkyCellRendererValidatorParams
-} from '../../types/cell-renderer-validator-params';
+  SkyCellRendererCurrencyParams
+} from '../../types/cell-renderer-currency-params';
 
 @Component({
   selector: 'sky-ag-grid-cell-renderer-currency-validator',
   templateUrl: 'cell-renderer-currency-validator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class SkyAgGridCellRendererCurrencyValidatorComponent implements ICellRendererAngularComp {
   @Input()
-  public set parameters(value: SkyCellRendererValidatorParams) {
+  public set parameters(value: SkyCellRendererCurrencyParams) {
     this.agInit(value);
   }
 
-  public cellRendererParams: SkyCellRendererValidatorParams;
+  public cellRendererParams: SkyCellRendererCurrencyParams;
 
   constructor(
     private changeDetector: ChangeDetectorRef
@@ -35,7 +34,7 @@ export class SkyAgGridCellRendererCurrencyValidatorComponent implements ICellRen
    * agInit is called by agGrid once after the renderer is created and provides the renderer with the information it needs.
    * @param params The cell renderer params that include data about the cell, column, row, and grid.
    */
-  public agInit(params: SkyCellRendererValidatorParams) {
+  public agInit(params: SkyCellRendererCurrencyParams) {
     this.cellRendererParams = params;
     this.changeDetector.markForCheck();
   }
@@ -44,7 +43,7 @@ export class SkyAgGridCellRendererCurrencyValidatorComponent implements ICellRen
     return !isNaN(parseFloat(value));
   }
 
-  public refresh(params: SkyCellRendererValidatorParams): boolean {
+  public refresh(params: SkyCellRendererCurrencyParams): boolean {
     return false;
   }
 }

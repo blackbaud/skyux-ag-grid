@@ -59,6 +59,6 @@ describe('SkyAgGridCellRendererCurrencyValidatorComponent', () => {
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
 
-    expect(fixture.componentInstance.refresh(fixture.componentInstance.parameters)).toBeTrue();
+    expect(fixture.componentInstance.refresh(fixture.componentInstance.parameters)).toBeFalse();
   });
 });

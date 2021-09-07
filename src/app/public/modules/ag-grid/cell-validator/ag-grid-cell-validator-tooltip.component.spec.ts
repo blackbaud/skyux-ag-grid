@@ -2,7 +2,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { expect } from '@skyux-sdk/testing';
 import { SkyAgGridCellValidatorTooltipFixtureComponent } from '../fixtures/ag-grid-cell-validator-tooltip.component.fixture';
 import { SkyAgGridFixtureModule } from '../fixtures/ag-grid.module.fixture';
-import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-params';
+import { SkyCellRendererValidatorParams } from '../types/cell-renderer-validator-params';
 import { SkyAgGridCellValidatorTooltipComponent } from './ag-grid-cell-validator-tooltip.component';
 
 describe('SkyAgGridCellValidatorTooltipComponent', () => {
@@ -46,7 +46,7 @@ describe('SkyAgGridCellValidatorTooltipComponent', () => {
 
   it('should toggle popover', fakeAsync(() => {
     const fixture = TestBed.createComponent(SkyAgGridCellValidatorTooltipComponent);
-    const parameters: SkyCellRendererCurrencyParams = {
+    const parameters: SkyCellRendererValidatorParams = {
       $scope: undefined,
       addRenderedRowListener(): void {},
       api: undefined,

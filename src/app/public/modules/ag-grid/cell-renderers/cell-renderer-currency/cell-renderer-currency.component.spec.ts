@@ -9,6 +9,7 @@ import {
 import {
   expect, expectAsync
 } from '@skyux-sdk/testing';
+import { NumericOptions } from '@skyux/core';
 
 import {
   SkyCellClass
@@ -23,8 +24,8 @@ import {
 } from '../../fixtures/ag-grid.module.fixture';
 
 import {
-  SkyComponentProperties
-} from '../../types/sky-component-properties';
+  ValidatorOptions
+} from '../../types/validator-options';
 
 import {
   SkyAgGridCellRendererCurrencyComponent
@@ -82,7 +83,7 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
       $scope: undefined,
       eGridCell: undefined,
       formatValue: undefined,
-      skyComponentProperties: {} as SkyComponentProperties
+      skyComponentProperties: {} as NumericOptions & ValidatorOptions
     } as SkyCellRendererCurrencyParams;
   });
 

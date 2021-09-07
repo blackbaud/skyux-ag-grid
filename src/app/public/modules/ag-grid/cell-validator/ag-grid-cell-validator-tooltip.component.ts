@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgZone } 
 import { SkyPopoverMessage, SkyPopoverMessageType } from '@skyux/popovers';
 import { CellFocusedEvent, Events } from 'ag-grid-community';
 import { Subject } from 'rxjs';
-import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-params';
+import { SkyCellRendererValidatorParams } from '../types/cell-renderer-validator-params';
 
 @Component({
   selector: 'sky-ag-grid-cell-validator-tooltip',
@@ -12,7 +12,7 @@ import { SkyCellRendererCurrencyParams } from '../types/cell-renderer-currency-p
 })
 export class SkyAgGridCellValidatorTooltipComponent {
   @Input()
-  public set params(value: SkyCellRendererCurrencyParams) {
+  public set params(value: SkyCellRendererValidatorParams) {
     this.cellRendererParams = value;
 
     /*istanbul ignore next*/
@@ -49,7 +49,7 @@ export class SkyAgGridCellValidatorTooltipComponent {
   public popoverMessageStream = new Subject<SkyPopoverMessage>();
   public validatorMessage: string;
 
-  public cellRendererParams: SkyCellRendererCurrencyParams;
+  public cellRendererParams: SkyCellRendererValidatorParams;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
