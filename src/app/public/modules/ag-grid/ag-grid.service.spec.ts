@@ -568,7 +568,7 @@ describe('SkyAgGridService', () => {
   describe('getDefaultGridOptions validator', () => {
     let cellClassRuleValidatorFunction: Function;
     let cellClassParams: CellClassParams;
-    let cellRendererParams: ICellRendererParams
+    let cellRendererParams: ICellRendererParams;
 
     beforeEach(() => {
       const cellClassRuleValidator = defaultGridOptions.columnTypes[SkyCellType.Validator].cellClassRules[SkyCellClass.Invalid];
