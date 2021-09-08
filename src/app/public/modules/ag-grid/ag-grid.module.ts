@@ -68,6 +68,10 @@ import {
 } from './cell-editors/cell-editor-text/cell-editor-text.module';
 
 import {
+  SkyAgGridCellRendererCurrencyValidatorComponent
+} from './cell-renderers/cell-renderer-currency/cell-renderer-currency-validator.component';
+
+import {
   SkyAgGridCellRendererRowSelectorComponent
 } from './cell-renderers/cell-renderer-row-selector/cell-renderer-row-selector.component';
 
@@ -104,12 +108,16 @@ import {
 } from './cell-editors/cell-editor-currency/cell-editor-currency.component';
 
 import {
-  SkyAgGridCellValidatorModule
-} from './cell-validator/ag-grid-cell-validator.module';
+  SkyAgGridCellRendererValidatorTooltipComponent
+} from './cell-renderers/cell-renderer-validator-tooltip/cell-renderer-validator-tooltip.component';
 
 import {
-  SkyAgGridCellValidatorDirective
-} from './cell-validator/ag-grid-cell-validator.directive';
+  SkyAgGridCellRendererValidatorTooltipModule
+} from './cell-renderers/cell-renderer-validator-tooltip/cell-renderer-validator-tooltip.module';
+
+import {
+  SkyAgGridCellValidatorModule
+} from './cell-validator/ag-grid-cell-validator.module';
 
 @NgModule({
   declarations: [
@@ -127,6 +135,7 @@ import {
     SkyAgGridCellEditorCurrencyModule,
     SkyAgGridCellRendererCurrencyModule,
     SkyAgGridCellRendererRowSelectorModule,
+    SkyAgGridCellRendererValidatorTooltipModule,
     SkyAgGridCellValidatorModule,
     SkyAgGridCellEditorTextModule,
     SkyCoreAdapterModule,
@@ -135,7 +144,6 @@ import {
     SkyViewkeeperModule
   ],
   exports: [
-    SkyAgGridCellValidatorDirective,
     SkyAgGridDataManagerAdapterDirective,
     SkyAgGridRowDeleteComponent,
     SkyAgGridRowDeleteDirective,
@@ -151,7 +159,9 @@ import {
     SkyAgGridCellEditorNumberComponent,
     SkyAgGridCellEditorCurrencyComponent,
     SkyAgGridCellRendererCurrencyComponent,
+    SkyAgGridCellRendererCurrencyValidatorComponent,
     SkyAgGridCellRendererRowSelectorComponent,
+    SkyAgGridCellRendererValidatorTooltipComponent,
     SkyAgGridCellEditorTextComponent,
     SkyAgGridRowDeleteComponent
   ]

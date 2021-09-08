@@ -1,11 +1,8 @@
 import {
   ChangeDetectionStrategy,
-  Component
+  Component, Input
 } from '@angular/core';
-
-import {
-  NumericOptions
-} from '@skyux/core';
+import { NumericOptions } from '@skyux/core';
 
 import {
   ICellRendererAngularComp
@@ -15,6 +12,10 @@ import {
   SkyCellRendererCurrencyParams
 } from '../../types/cell-renderer-currency-params';
 
+import {
+  ValidatorOptions
+} from '../../types/validator-options';
+
 @Component({
   selector: 'sky-ag-grid-cell-renderer-currency',
   templateUrl: './cell-renderer-currency.component.html',
@@ -23,13 +24,20 @@ import {
 })
 
 export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngularComp {
+  @Input()
+  public set params(value: SkyCellRendererCurrencyParams) {
+    this.agInit(value);
+  }
+
   public columnHeader: string;
   public columnWidth: number;
-  public params: SkyCellRendererCurrencyParams;
   public rowHeightWithoutBorders: number;
   public rowNumber: number;
-  public skyComponentProperties: NumericOptions = {};
+  public skyComponentProperties: NumericOptions & ValidatorOptions = {};
+  public numericOptions: NumericOptions = {};
   public value: number;
+
+  private _params: SkyCellRendererCurrencyParams;
 
   /**
    * agInit is called by agGrid once after the renderer is created and provides the renderer with the information it needs.
@@ -45,14 +53,15 @@ export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngu
   }
 
   private updateProperties(params: SkyCellRendererCurrencyParams) {
-    this.params = params;
-    this.value = this.params.value;
-    this.columnHeader = this.params.colDef && this.params.colDef.headerName;
-    this.rowNumber = this.params.rowIndex + 1;
-    this.columnWidth = this.params.column.getActualWidth();
-    this.rowHeightWithoutBorders = this.params.node && this.params.node.rowHeight - 4;
-    this.skyComponentProperties = this.params.skyComponentProperties || {};
+    this._params = params;
+    this.value = this._params.value;
+    this.columnHeader = this._params.colDef && this._params.colDef.headerName;
+    this.rowNumber = this._params.rowIndex + 1;
+    this.columnWidth = this._params.column?.getActualWidth();
+    this.rowHeightWithoutBorders = this._params.node && this._params.node.rowHeight - 4;
+    this.skyComponentProperties = this._params.skyComponentProperties || {};
     this.skyComponentProperties.format = 'currency';
     this.skyComponentProperties.minDigits = 2;
+    this.skyComponentProperties.truncate = false;
   }
 }

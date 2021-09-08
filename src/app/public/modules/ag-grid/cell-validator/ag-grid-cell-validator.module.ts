@@ -1,17 +1,22 @@
+import { CommonModule } from '@angular/common';
 import {
   NgModule
 } from '@angular/core';
-
-import {
-  SkyAgGridCellValidatorDirective
-} from './ag-grid-cell-validator.directive';
+import { SkyStatusIndicatorModule } from '@skyux/indicators';
+import { SkyPopoverModule } from '@skyux/popovers';
+import { SkyAgGridCellValidatorTooltipComponent } from './ag-grid-cell-validator-tooltip.component';
 
 @NgModule({
   declarations: [
-    SkyAgGridCellValidatorDirective
+    SkyAgGridCellValidatorTooltipComponent
   ],
   exports: [
-    SkyAgGridCellValidatorDirective
+    SkyAgGridCellValidatorTooltipComponent
+  ],
+  imports: [
+    CommonModule,
+    SkyPopoverModule,
+    SkyStatusIndicatorModule
   ]
 })
 export class SkyAgGridCellValidatorModule {}

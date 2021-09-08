@@ -17,6 +17,9 @@ import {
 import {
   SkyDataManagerModule
 } from '@skyux/data-manager';
+import { SkyAgGridCellRendererCurrencyModule } from '../cell-renderers/cell-renderer-currency/cell-renderer-currency.module';
+import { SkyAgGridCellValidatorModule } from '../cell-validator/ag-grid-cell-validator.module';
+import { SkyAgGridCellValidatorTooltipFixtureComponent } from './ag-grid-cell-validator-tooltip.component.fixture';
 
 import {
   SkyAgGridFixtureComponent
@@ -34,29 +37,27 @@ import {
   SkyAgGridRowDeleteFixtureComponent
 } from './ag-grid-row-delete.component.fixture';
 
-import {
-  SkyAgGridCellValidatorFixtureComponent
-} from './ag-grid-cell-validator.component.fixture';
-
 @NgModule({
   imports: [
     AgGridModule,
     CommonModule,
     SkyAgGridModule,
     SkyDataManagerModule,
+    SkyAgGridCellRendererCurrencyModule,
+    SkyAgGridCellValidatorModule,
     NoopAnimationsModule
   ],
   declarations: [
     SkyAgGridDataManagerFixtureComponent,
     SkyAgGridFixtureComponent,
     SkyAgGridRowDeleteFixtureComponent,
-    SkyAgGridCellValidatorFixtureComponent
+    SkyAgGridCellValidatorTooltipFixtureComponent
   ],
   exports: [
     SkyAgGridDataManagerFixtureComponent,
     SkyAgGridFixtureComponent,
     SkyAgGridRowDeleteFixtureComponent,
-    SkyAgGridCellValidatorFixtureComponent
+    SkyAgGridCellValidatorTooltipFixtureComponent
   ]
 })
 export class SkyAgGridFixtureModule { }
