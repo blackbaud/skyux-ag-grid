@@ -1,6 +1,6 @@
 # 5.0.0-beta.2 (2021-09-08)
 
-- Added bug fixes and features from the `master` branch.
+- Added bug fixes and features from the `master` branch. [#136](https://github.com/blackbaud/skyux-ag-grid/pull/136)
 
 # 4.10.0  (2021-09-08)
 
