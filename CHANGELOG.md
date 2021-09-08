@@ -1,3 +1,16 @@
+# 5.0.0-beta.2 (2021-09-08)
+
+- Added bug fixes and features from the `master` branch.
+
+# 4.10.0  (2021-09-08)
+
+- Added a validator option for cells. [#134](https://github.com/blackbaud/skyux-ag-grid/pull/134)
+
+# 4.9.0 (2021-08-19)
+
+- Added styles to support `agSelectCellEditor` in both default and modern themes. [#127](https://github.com/blackbaud/skyux-ag-grid/pull/127)
+- Added visual regression coverage for `agSelectCellEditor` styles. [#129](https://github.com/blackbaud/skyux-ag-grid/pull/129)
+
 # 5.0.0-beta.1 (2021-07-20)
 
 - Fixed the build to export `ag-grid-styles.scss`. [#126](https://github.com/blackbaud/skyux-ag-grid/pull/126)
