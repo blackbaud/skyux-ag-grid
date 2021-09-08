@@ -1,6 +1,6 @@
-# 4.10.0
+# 4.10.0  (2021-09-08)
 
-- Added validator option for cells. [#134](https://github.com/blackbaud/skyux-ag-grid/pull/134)
+- Added a validator option for cells. [#134](https://github.com/blackbaud/skyux-ag-grid/pull/134)
 
 # 4.9.0 (2021-08-19)
 
