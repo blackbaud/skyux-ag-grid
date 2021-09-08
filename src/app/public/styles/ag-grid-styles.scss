@@ -39,6 +39,10 @@ ag-grid-angular:not(.sky-ag-grid-editable) {
     padding-bottom: 7px;
   }
 
+  .ag-cell.sky-ag-grid-cell-invalid {
+    border: 1px solid $sky-highlight-color-danger
+  }
+
   .ag-root-wrapper {
     border: none;
   }
@@ -104,17 +108,53 @@ ag-grid-angular.sky-ag-grid-editable {
     border-block-start: none;
   }
 
-  .sky-ag-grid-cell-editable {
-    background-color: $sky-background-color-page-default;
+  .ag-cell.sky-ag-grid-cell-invalid {
+    border: 1px solid $sky-highlight-color-danger
   }
 
+  .sky-ag-grid-cell-editable {
+    background-color: $sky-background-color-page-default;
+
+    .ag-select {
+      .ag-picker-field-display {
+        margin-top: 2px;
+        margin-left: 9px;
+      }
+    }
+  }
 
   .sky-ag-grid-cell-uneditable {
     background-color: $sky-background-color-neutral-light;
   }
 
-  .ag-popup-editor {
-    border: none;
+  .ag-popup {
+    .ag-popup-editor {
+      border: none;
+    }
+
+    .ag-select-list {
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+
+      .ag-select-list-item {
+        cursor: pointer;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        height: 30px;
+
+        &:last-of-type {
+          padding-bottom: 10px;
+          height: 35px;
+        }
+
+        &:hover {
+          background-color: $sky-background-color-selected;
+        }
+      }
+    }
+  }
+
+  .ag-picker-field-wrapper {
+    border-radius: 0;
   }
 
   /* fine tune focus cell borders */
@@ -170,6 +210,10 @@ ag-grid-angular.sky-ag-grid-editable {
     border: 1px solid $sky-theme-modern-border-color-primary-dark;
   }
 
+  .ag-cell.sky-ag-grid-cell-invalid {
+    border: 1px solid $sky-highlight-color-danger
+  }
+
   .ag-cell.ag-cell-wrap-text {
     min-height: ag-param(row-height) - 2px;
     line-height: $sky-theme-modern-font-paragraph-line-height;
@@ -206,6 +250,20 @@ ag-grid-angular.sky-ag-grid-editable {
     .ag-popup-editor {
       border: none;
     }
+
+    .ag-select-list {
+      box-shadow: $sky-theme-modern-elevation-4-shadow-size $sky-theme-modern-elevation-4-shadow-color;
+
+      .ag-select-list-item {
+        cursor: pointer;
+        border: 1px solid transparent;
+
+        &:hover {
+          background-color: transparent;
+          border-color: $sky-theme-modern-border-color-primary-dark;
+        }
+      }
+    }
   }
 
   border-top: $sky-standard-border;
@@ -228,6 +286,10 @@ ag-grid-angular.sky-ag-grid-editable {
 
   .ag-cell:hover {
     border: 1px solid $sky-theme-modern-border-color-primary-dark;
+  }
+
+  .ag-cell.sky-ag-grid-cell-invalid {
+    border: 1px solid $sky-highlight-color-danger
   }
 
   .ag-row:not(.ag-row-first) {
@@ -255,6 +317,13 @@ ag-grid-angular.sky-ag-grid-editable {
 
       &.ag-cell-popup-editing {
         border: none;
+      }
+
+      .ag-select {
+        .ag-picker-field-display {
+          margin-top: 6px;
+          margin-left: 9px;
+        }
       }
     }
   }
@@ -297,6 +366,10 @@ ag-grid-angular.sky-ag-grid-editable {
 
   .ag-cell:hover {
     border: 1px solid $sky-theme-modern-mode-dark-background-color-primary-dark;
+  }
+
+  .ag-cell.sky-ag-grid-cell-invalid {
+    border: 1px solid $sky-highlight-color-danger
   }
 
   .ag-cell.ag-cell-wrap-text {
@@ -343,6 +416,10 @@ ag-grid-angular.sky-ag-grid-editable {
     border: 1px solid $sky-theme-modern-mode-dark-background-color-primary-dark;
   }
 
+  .ag-cell.sky-ag-grid-cell-invalid {
+    border: 1px solid $sky-highlight-color-danger
+  }
+
   .sky-ag-grid-cell-editable {
     background-color: $sky-theme-modern-mode-dark-background-color-page-default;
   }
@@ -365,6 +442,26 @@ ag-grid-angular.sky-ag-grid-editable {
       &.ag-cell-inline-editing,
       &.ag-cell-popup-editing {
         border: 2px solid $sky-theme-modern-mode-dark-text-color-action-primary;
+      }
+    }
+  }
+
+  .ag-popup {
+    .ag-popup-editor {
+      border: none;
+    }
+
+    .ag-select-list {
+      .ag-select-list-item {
+        cursor: pointer;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        height: 30px;
+
+        &:last-of-type {
+          padding-bottom: 10px;
+          height: 35px;
+        }
       }
     }
   }
