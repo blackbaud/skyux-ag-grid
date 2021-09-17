@@ -3,6 +3,8 @@ import {
   OnInit
 } from '@angular/core';
 
+import { SkyThemeService } from '@skyux/theme';
+
 import {
   ColDef,
   GridApi,
@@ -36,13 +38,18 @@ export class EditComplexCellsComponent implements OnInit {
   public columnDefs: ColDef[];
 
   constructor(
-    private agGridService: SkyAgGridService
+    private agGridService: SkyAgGridService,
+    public themeSvc: SkyThemeService
   ) { }
 
   public ngOnInit(): void {
     this.setColumnDefs();
 
     this.getGridOptions();
+
+    this.themeSvc.settingsChange.subscribe(() => {
+      this.getGridOptions();
+    });
 
     this.uneditedGridData = this.cloneGridData(this.gridData);
   }

@@ -18,7 +18,7 @@ import {
 import {
   SkyCellType,
   SkyAgGridService
-} from '../../public/public_api';
+} from '@skyux/ag-grid';
 
 import {
   SkyModalService,
@@ -91,7 +91,8 @@ export class SkyAgGridDemoComponent implements OnInit {
 
   constructor(
     private agGridService: SkyAgGridService,
-    private modalService: SkyModalService
+    private modalService: SkyModalService,
+    public themeSvc: SkyThemeService
   ) { }
 
   public ngOnInit(): void {

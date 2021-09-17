@@ -2,6 +2,7 @@ import {
   Component,
   OnInit
 } from '@angular/core';
+import { SkyThemeService } from '@skyux/theme';
 
 import {
   CellClassParams,
@@ -37,13 +38,18 @@ export class EditableGridComponent implements OnInit {
   public columnDefs: ColDef[];
 
   constructor(
-    private agGridService: SkyAgGridService
+    private agGridService: SkyAgGridService,
+    public themeSvc: SkyThemeService
   ) { }
 
   public ngOnInit(): void {
     this.setColumnDefs();
 
     this.getGridOptions();
+
+    this.themeSvc.settingsChange.subscribe(() => {
+      this.getGridOptions();
+    });
 
     this.gridData.forEach(row => {
       row.total = this.calculateRowTotal(row);

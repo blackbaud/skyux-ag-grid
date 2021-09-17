@@ -84,12 +84,12 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous editable grid on large screens', (done) => {
-        matchesPreviousEditableGrid('lg', done);
+      it('should match previous editable grid on large screens', async (done) => {
+        await matchesPreviousEditableGrid('lg', done);
       });
 
-      it('should match previous editable grid on extra small screens', (done) => {
-        matchesPreviousEditableGrid('xs', done);
+      it('should match previous editable grid on extra small screens', async (done) => {
+        await matchesPreviousEditableGrid('xs', done);
       });
     });
 
@@ -104,12 +104,12 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous editable grid on large screens', (done) => {
-        matchesPreviousEditableGridInEditMode('lg', done);
+      it('should match previous editable grid on large screens', async (done) => {
+        await matchesPreviousEditableGridInEditMode('lg', done);
       });
 
-      it('should match previous editable grid on extra small screens', (done) => {
-        matchesPreviousEditableGridInEditMode('xs', done);
+      it('should match previous editable grid on extra small screens', async (done) => {
+        await matchesPreviousEditableGridInEditMode('xs', done);
       });
     });
 
@@ -124,12 +124,12 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousDescendingSortGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousDescendingSortGrid('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousDescendingSortGrid('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousDescendingSortGrid('xs', done);
       });
     });
 
@@ -146,12 +146,12 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousAscendingSortGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousAscendingSortGrid('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousAscendingSortGrid('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousAscendingSortGrid('xs', done);
       });
     });
 
@@ -168,12 +168,12 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousNumberEditingGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousNumberEditingGrid('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousNumberEditingGrid('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousNumberEditingGrid('xs', done);
       });
     });
 
@@ -190,12 +190,12 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousTextEditingGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousTextEditingGrid('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousTextEditingGrid('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousTextEditingGrid('xs', done);
       });
     });
 
@@ -212,12 +212,12 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousDateTextEditingGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousDateTextEditingGrid('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousDateTextEditingGrid('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousDateTextEditingGrid('xs', done);
       });
     });
 
@@ -234,8 +234,8 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousAutocompleteInputEditingGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousAutocompleteInputEditingGrid('lg', done);
       });
     });
 
@@ -262,8 +262,8 @@ describe('Editable grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousAutocompleteDropdownEditingGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousAutocompleteDropdownEditingGrid('lg', done);
       });
     });
   }
@@ -310,12 +310,12 @@ describe('Editable grid, complex cells', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousSelectFocusAndList('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousSelectFocusAndList('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousSelectFocusAndList('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousSelectFocusAndList('xs', done);
       });
     });
 
@@ -348,12 +348,12 @@ describe('Editable grid, complex cells', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousValidator('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousValidator('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousValidator('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousValidator('xs', done);
       });
     });
   }

@@ -5,7 +5,7 @@ const path = require('path');
 
 function copyScss() {
   const result = sass.renderSync({
-    file: path.resolve(__dirname, '../src/app/public/styles/ag-grid-styles.scss'),
+    file: path.resolve(__dirname, '../projects/ag-grid/src/styles/ag-grid-styles.scss'),
     importer: tildeImporter
   });
 

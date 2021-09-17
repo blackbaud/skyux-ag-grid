@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { SkyThemeService } from '@skyux/theme';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +18,7 @@ import {
     AppRoutingModule,
     VisualModule
   ],
-  providers: [],
+  providers: [SkyThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

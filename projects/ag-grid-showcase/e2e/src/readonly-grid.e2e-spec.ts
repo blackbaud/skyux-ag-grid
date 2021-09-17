@@ -52,12 +52,12 @@ describe('Readonly grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousReadonlyGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousReadonlyGrid('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousReadonlyGrid('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousReadonlyGrid('xs', done);
       });
     });
 
@@ -72,18 +72,18 @@ describe('Readonly grid', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousDescendingSortGrid('lg', done);
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousDescendingSortGrid('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousDescendingSortGrid('xs', done);
+      it('should match previous screenshot on extra small screens', async (done) => {
+        await matchesPreviousDescendingSortGrid('xs', done);
       });
     });
 
     describe('ascending sort', () => {
       async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         // click twice to sort by descending then ascending
         await element.all(by.css(sortableHeaderCell)).get(1).click();
@@ -94,12 +94,12 @@ describe('Readonly grid', () => {
         });
       }
 
-      it('should match previous screenshoton large screens', (done) => {
-        matchesPreviousAscendingSortGrid('lg', done);
+      it('should match previous screenshoton large screens', async (done) => {
+        await matchesPreviousAscendingSortGrid('lg', done);
       });
 
-      it('should match previous screenshoton extra small screens', (done) => {
-        matchesPreviousAscendingSortGrid('xs', done);
+      it('should match previous screenshoton extra small screens', async (done) => {
+        await matchesPreviousAscendingSortGrid('xs', done);
       });
     });
   }
@@ -131,26 +131,26 @@ describe('Readonly grid', () => {
   });
 
   describe('row delete', () => {
-    function matchesPreviousRowDeleteGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): void {
-      SkyHostBrowser.setWindowBreakpoint(screenSize);
+    async function matchesPreviousRowDeleteGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn) {
+      await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
       // click twice to sort by descending then ascending
-      element(by.css('[row-id="0"] .sky-dropdown-button')).click();
-      element.all(by.css('.sky-dropdown-item button')).get(0).click();
+      await element(by.css('[row-id="0"] .sky-dropdown-button')).click();
+      await element.all(by.css('.sky-dropdown-item button')).get(0).click();
 
-      SkyHostBrowser.moveCursorOffScreen();
+      await SkyHostBrowser.moveCursorOffScreen();
 
       expect(readonlyGrid).toMatchBaselineScreenshot(done, {
         screenshotName: `readonly-grid-row-delete-${screenSize}`
       });
     }
 
-    it('should match previous screenshoton large screens', (done) => {
-      matchesPreviousRowDeleteGrid('lg', done);
+    it('should match previous screenshoton large screens', async (done) => {
+      await matchesPreviousRowDeleteGrid('lg', done);
     });
 
-    it('should match previous screenshoton extra small screens', (done) => {
-      matchesPreviousRowDeleteGrid('xs', done);
+    it('should match previous screenshoton extra small screens', async (done) => {
+      await matchesPreviousRowDeleteGrid('xs', done);
     });
   });
 });

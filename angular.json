@@ -12,7 +12,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ag-grid/ng-package.json"
+            "project": "projects/ag-grid/ng-package.json",
+            "stylePreprocessorOptions": {
+              "includePaths": []
+            }
           },
           "configurations": {
             "production": {
@@ -100,6 +103,7 @@
             "styles": [
               "node_modules/@skyux/theme/css/sky.css",
               "node_modules/@skyux/theme/css/themes/modern/styles.css",
+              "projects/ag-grid/src/styles/ag-grid-styles.scss",
               "projects/ag-grid-showcase/src/styles.scss"
             ],
             "scripts": []
@@ -167,9 +171,7 @@
               "projects/ag-grid-showcase/src/favicon.ico",
               "projects/ag-grid-showcase/src/assets"
             ],
-            "styles": [
-              "projects/ag-grid-showcase/src/styles.scss"
-            ],
+            "styles": [],
             "scripts": []
           }
         },

@@ -2,6 +2,7 @@ import {
   Component,
   OnInit
 } from '@angular/core';
+import { SkyThemeService } from '@skyux/theme';
 
 import {
   GridApi,
@@ -94,7 +95,8 @@ export class ReadonlyGridComponent implements OnInit {
     }];
 
   constructor(
-    private agGridService: SkyAgGridService
+    private agGridService: SkyAgGridService,
+    public themeSvc: SkyThemeService
   ) { }
 
   public ngOnInit(): void {

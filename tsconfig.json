@@ -3,6 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@skyux/ag-grid": ["projects/ag-grid/src/public-api.ts"],
       "ag-grid": [
         "dist/ag-grid/ag-grid",
         "dist/ag-grid"
