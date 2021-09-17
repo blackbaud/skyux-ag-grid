@@ -48,7 +48,6 @@ export class SkyAgGridCellRendererCurrencyComponent implements ICellRendererAngu
   }
 
   public refresh(params: SkyCellRendererCurrencyParams): boolean {
-    this.updateProperties(params);
     return false;
   }
 
