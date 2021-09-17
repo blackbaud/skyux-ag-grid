@@ -295,7 +295,7 @@ describe('Editable grid, complex cells', () => {
   const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
   const validatorCellCurrency = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
   const validatorCellDate = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-date.sky-ag-grid-cell-invalid';
-  const columnHorizontalScroll = '.ag-body-viewport .ag-center-cols-viewport';
+  const columnHorizontalScroll = '.ag-body-horizontal-scroll .ag-body-horizontal-scroll-viewport';
   const editButton = '#edit-btn';
 
   function runTests(): void {
@@ -333,29 +333,16 @@ describe('Editable grid, complex cells', () => {
       async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(
-          ExpectedConditions.presenceOf(element(by.css(columnHorizontalScroll))),
-          5000,
-          'Grid took too long to appear.'
-        );
         await SkyHostBrowser.moveCursorOffScreen();
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(validatorCellAutocomplete)))
-        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellAutocomplete) + ').scrollIntoView();');
         expect(validatorCellAutocomplete).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-autocomplete', screenSize)
         });
 
-        await browser.executeScript('document.querySelector(' + JSON.stringify(columnHorizontalScroll) + ').scrollLeft = 1000');
-        await browser.wait(ExpectedConditions.elementToBeClickable($(validatorCellCurrency)))
-        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellCurrency) + ').scrollIntoView();');
         expect(validatorCellCurrency).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid', screenSize)
         });
 
-        await browser.executeScript('document.querySelector(' + JSON.stringify(columnHorizontalScroll) + ').scrollLeft = 1000');
-        await browser.wait(ExpectedConditions.elementToBeClickable($(validatorCellDate)))
-        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellDate) + ').scrollIntoView();');
         expect(validatorCellDate).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-date', screenSize)
         });
@@ -363,10 +350,6 @@ describe('Editable grid, complex cells', () => {
 
       it('should match previous screenshot on large screens', async (done) => {
         await matchesPreviousValidator('lg', done);
-      });
-
-      it('should match previous screenshot on extra small screens', async (done) => {
-        await matchesPreviousValidator('xs', done);
       });
     });
   }
