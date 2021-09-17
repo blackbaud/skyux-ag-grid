@@ -12,10 +12,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ag-grid/ng-package.json",
-            "stylePreprocessorOptions": {
-              "includePaths": []
-            }
+            "project": "projects/ag-grid/ng-package.json"
           },
           "configurations": {
             "production": {
