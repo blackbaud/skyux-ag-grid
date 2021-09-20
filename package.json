@@ -47,6 +47,8 @@
     "@skyux/router": "^5.0.0-beta.2",
     "@skyux/tabs": "^5.0.0-beta.3",
     "@skyux/theme": "^5.0.0-beta.5",
+    "ag-grid-angular": "24.1.0",
+    "ag-grid-community": "24.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -68,8 +70,6 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.28.2",
-    "ag-grid-angular": "24.1.0",
-    "ag-grid-community": "24.1.0",
     "eslint": "^7.26.0",
     "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~7.0.0",
