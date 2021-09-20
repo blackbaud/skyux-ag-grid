@@ -1,4 +1,4 @@
-# 4.10.2 (2021-09-17)
+# 4.10.2 (2021-09-20)
 
 - Fixed the cell renderer to refresh when the validator status changes. [#143](https://github.com/blackbaud/skyux-ag-grid/pull/143) (Thanks @[blackbaud-jeremymorgan](https://github.com/blackbaud-jeremymorgan)!)
 
