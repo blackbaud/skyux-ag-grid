@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DataManagerVisualComponent } from './visual/data-manager/data-manager-visual.component';
 import { EditComplexCellsComponent } from './visual/edit-complex-cells/edit-complex-cells.component';
-import { SkyAgGridEditModalComponent } from './visual/edit-in-modal-grid/ag-grid-edit-modal.component';
+import { SkyAgGridDemoComponent } from './visual/edit-in-modal-grid/ag-grid-demo.component';
 import { EditStopWhenLosesFocusComponent } from './visual/edit-stop-when-loses-focus/edit-stop-when-loses-focus.component';
 import { EditableGridComponent } from './visual/editable-grid/editable-grid.component';
 import { ReadonlyGridComponent } from './visual/readonly-grid/readonly-grid.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'visual/edit-in-modal-grid',
-    component: SkyAgGridEditModalComponent
+    component: SkyAgGridDemoComponent
   },
   {
     path: 'visual/edit-stop-when-loses-focus',
