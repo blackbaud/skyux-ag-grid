@@ -57,9 +57,10 @@ describe('SkyCellEditorCurrencyComponent', () => {
 
     gridFixture.detectChanges();
 
-    const currencyCellElement = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
-
-    expect(currencyCellElement).toBeVisible();
+    setTimeout(() => {
+      const currencyCellElement = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
+      expect(currencyCellElement).toBeVisible();
+    }, 10);
   });
 
   describe('agInit', () => {

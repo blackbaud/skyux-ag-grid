@@ -93,8 +93,10 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
 
     gridFixture.detectChanges();
 
-    const element = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
-    expect(element).toBeVisible();
+    setTimeout(() => {
+      const element = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
+      expect(element).toBeVisible();
+    }, 10);
   });
 
   describe('agInit', () => {

@@ -17,10 +17,6 @@ import {
 } from 'ag-grid-community';
 
 import {
-  ComponentSelectorResult
-} from 'ag-grid-community/dist/lib/components/framework/userComponentFactory';
-
-import {
   Subject
 } from 'rxjs';
 
@@ -136,8 +132,8 @@ function dateComparator(date1: any, date2: any): number {
   return date1value ? 1 : -1;
 }
 
-function getValidatorCellRendererSelector(component: string, fallback?: ComponentSelectorResult) {
-  return (params: ICellRendererParams): ComponentSelectorResult => {
+function getValidatorCellRendererSelector(component: string, fallback?: any) {
+  return (params: ICellRendererParams) => {
     if (params.colDef && typeof params.colDef.cellRendererParams?.skyComponentProperties?.validator === 'function') {
       if (!params.colDef.cellRendererParams.skyComponentProperties.validator(params.value, params.data, params.rowIndex)) {
         return {
@@ -232,6 +228,7 @@ export class SkyAgGridService implements OnDestroy {
 
         if (typeof isEditable === 'function') {
           const column = params.columnApi.getColumn(params.colDef.field);
+          // @ts-ignore
           isEditable = isEditable({ ...params, column });
         }
 

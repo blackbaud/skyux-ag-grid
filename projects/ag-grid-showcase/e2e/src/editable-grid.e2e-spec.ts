@@ -214,6 +214,7 @@ describe('Editable grid', () => {
 
         await element(by.css(dateCell)).click();
 
+        await browser.wait(ExpectedConditions.visibilityOf($(editableGrid)), 30000);
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-date', screenSize)
         });

@@ -9,9 +9,14 @@ import {
 } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 import {
+  browser,
   by,
   element
 } from 'protractor';
+
+function browserPause() {
+  return browser.wait(new Promise((resolve) => setTimeout(resolve, 100)));
+}
 
 describe('Readonly grid', () => {
   // selectors
@@ -46,6 +51,7 @@ describe('Readonly grid', () => {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         await SkyHostBrowser.moveCursorOffScreen();
+        await browserPause();
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-${screenSize}`)
@@ -66,6 +72,7 @@ describe('Readonly grid', () => {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         await element.all(by.css(sortableHeaderCell)).get(1).click();
+        await browserPause();
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-sort-desc-${screenSize}`)
@@ -88,6 +95,7 @@ describe('Readonly grid', () => {
         // click twice to sort by descending then ascending
         await element.all(by.css(sortableHeaderCell)).get(1).click();
         await element.all(by.css(sortableHeaderCell)).get(1).click();
+        await browserPause();
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-sort-asc-${screenSize}`)
@@ -137,6 +145,7 @@ describe('Readonly grid', () => {
       // click twice to sort by descending then ascending
       await element(by.css('[row-id="0"] .sky-dropdown-button')).click();
       await element.all(by.css('.sky-dropdown-item button')).get(0).click();
+      await browserPause();
 
       await SkyHostBrowser.moveCursorOffScreen();
 
