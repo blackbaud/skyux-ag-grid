@@ -15,6 +15,7 @@ import {
   SuppressKeyboardEventParams,
   ValueFormatterParams
 } from 'ag-grid-community';
+import { EditableCallbackParams } from 'ag-grid-community/dist/lib/entities/colDef';
 
 import {
   Subject
@@ -228,8 +229,7 @@ export class SkyAgGridService implements OnDestroy {
 
         if (typeof isEditable === 'function') {
           const column = params.columnApi.getColumn(params.colDef.field);
-          // @ts-ignore
-          isEditable = isEditable({ ...params, column });
+          isEditable = isEditable({ ...params, column } as EditableCallbackParams);
         }
 
         return isUneditable ? !isEditable : isEditable;
