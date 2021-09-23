@@ -87,9 +87,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-              "ng2-dragula"
-            ],
             "outputPath": "dist/ag-grid-showcase",
             "index": "projects/ag-grid-showcase/src/index.html",
             "main": "projects/ag-grid-showcase/src/main.ts",
