@@ -8,7 +8,7 @@
     "ag-grid-community": "^26.0.0",
     "@skyux/autonumeric": "^5.0.0-beta.3",
     "@skyux/data-manager": "^5.0.0-beta.6",
-    "@skyux/datetime": "^5.0.0-beta.4",
+    "@skyux/datetime": "^5.0.0-beta.5",
     "@skyux/forms": "^5.0.0-beta.5",
     "@skyux/i18n": "^5.0.0-beta.7",
     "@skyux/indicators": "^5.0.0-beta.4",
