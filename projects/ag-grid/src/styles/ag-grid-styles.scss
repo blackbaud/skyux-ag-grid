@@ -32,6 +32,10 @@ ag-grid-angular:not(.sky-ag-grid-editable) {
 
   border-top: $sky-standard-border;
 
+  .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
+    align-items: flex-start;
+  }
+
   .ag-cell.ag-cell-wrap-text {
     min-height: ag-param(row-height) - 2px;
     line-height: $sky-line-height-base;
@@ -101,6 +105,10 @@ ag-grid-angular.sky-ag-grid-editable {
         z-index: 1;
       }
     }
+  }
+
+  .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
+    align-items: flex-start;
   }
 
   .ag-cell {
@@ -195,6 +203,10 @@ ag-grid-angular.sky-ag-grid-editable {
     text-transform: uppercase;
   }
 
+  .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
+    align-items: flex-start;
+  }
+
   // set 1px of top and bottom padding when a cell is not focused and remove it when it is focused to prevent the 2px border causing contents to shift
   .ag-cell {
     padding-top: 1px;
@@ -270,6 +282,10 @@ ag-grid-angular.sky-ag-grid-editable {
 
   .ag-header-cell-text {
     font-weight: 700;
+  }
+
+  .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
+    align-items: flex-start;
   }
 
   // set 1px of top and bottom padding when a cell is not focused and remove it when it is focused to prevent the 2px border causing contents to shift
@@ -353,6 +369,10 @@ ag-grid-angular.sky-ag-grid-editable {
     text-transform: uppercase;
   }
 
+  .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
+    align-items: flex-start;
+  }
+
   // set 1px of top and bottom padding when a cell is not focused and remove it when it is focused to prevent the 2px border causing contents to shift
   .ag-cell {
     padding-top: 1px;
@@ -404,6 +424,10 @@ ag-grid-angular.sky-ag-grid-editable {
     range-selection-border-color: $sky-theme-modern-mode-dark-background-color-primary-dark,
     secondary-foreground-color: $sky-theme-modern-mode-dark-font-deemphasized-color
   ));
+
+  .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
+    align-items: flex-start;
+  }
 
   // set 1px of top and bottom padding when a cell is not focused and remove it when it is focused to prevent the 2px border causing contents to shift
   .ag-cell {
