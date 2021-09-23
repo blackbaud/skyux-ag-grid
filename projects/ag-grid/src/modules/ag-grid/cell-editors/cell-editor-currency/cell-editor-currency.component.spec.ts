@@ -51,16 +51,15 @@ describe('SkyCellEditorCurrencyComponent', () => {
     currencyEditorFixture.detectChanges();
   });
 
-  it('renders a numeric input when editing a currency cell in an ag grid', async () => {
+  it('renders a numeric input when editing a currency cell in an ag grid', () => {
     const gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
     const gridNativeElement = gridFixture.nativeElement;
 
     gridFixture.detectChanges();
 
-    setTimeout(() => {
-      const currencyCellElement = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
-      expect(currencyCellElement).toBeVisible();
-    }, 10);
+    const currencyCellElement = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
+
+    expect(currencyCellElement).toBeVisible();
   });
 
   describe('agInit', () => {

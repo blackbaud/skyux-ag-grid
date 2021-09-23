@@ -87,16 +87,14 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
     } as SkyCellRendererCurrencyParams;
   });
 
-  it('renders a skyux numeric element in an ag grid', async () => {
+  it('renders a skyux numeric element in an ag grid', () => {
     let gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
     let gridNativeElement = gridFixture.nativeElement;
 
     gridFixture.detectChanges();
 
-    setTimeout(() => {
-      const element = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
-      expect(element).toBeVisible();
-    }, 10);
+    const element = gridNativeElement.querySelector(`.${SkyCellClass.Currency}`);
+    expect(element).toBeVisible();
   });
 
   describe('agInit', () => {

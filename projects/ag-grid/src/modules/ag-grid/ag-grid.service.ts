@@ -15,7 +15,10 @@ import {
   SuppressKeyboardEventParams,
   ValueFormatterParams
 } from 'ag-grid-community';
-import { EditableCallbackParams } from 'ag-grid-community/dist/lib/entities/colDef';
+
+import {
+  EditableCallbackParams
+} from 'ag-grid-community/dist/lib/entities/colDef';
 
 import {
   Subject

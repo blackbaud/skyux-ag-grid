@@ -1,11 +1,12 @@
 import {
-  Component,
-  OnInit,
+  Component, EventEmitter,
+  OnInit, Output,
   ViewEncapsulation
 } from '@angular/core';
 
 import {
-  GridOptions
+  GridApi,
+  GridOptions, GridReadyEvent
 } from 'ag-grid-community';
 
 import {
@@ -27,6 +28,9 @@ import {
   encapsulation: ViewEncapsulation.None
 })
 export class SkyAgGridFixtureComponent implements OnInit {
+  @Output()
+  public gridReady$ = new EventEmitter<GridReadyEvent>();
+
   public gridData = SKY_AG_GRID_DATA;
   public columnDefs = [
     {
@@ -106,5 +110,9 @@ export class SkyAgGridFixtureComponent implements OnInit {
 
   public ngOnInit(): void {
     this.gridOptions = this.gridService.getEditableGridOptions({ gridOptions: this.gridOptions });
+  }
+
+  public gridReady($event: GridReadyEvent) {
+    this.gridReady$.emit($event);
   }
 }
