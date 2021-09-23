@@ -1,4 +1,5 @@
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
+/* istanbul ignore file */
 
 import 'zone.js';
 import 'zone.js/testing';
@@ -26,3 +27,9 @@ getTestBed().initTestEnvironment(
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
+
+// Find any tests included in the "testing" entry point.
+try {
+  const testingContext = require.context('../testing/', true, /\.spec\.ts$/);
+  testingContext.keys().map(testingContext);
+} catch (err) {}
