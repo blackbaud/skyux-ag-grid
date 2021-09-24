@@ -32,7 +32,8 @@
             "karmaConfig": "projects/ag-grid/karma.conf.js",
             "codeCoverage": true,
             "codeCoverageExclude": [
-              "**/fixtures/**"
+              "**/fixtures/**",
+              "projects/ag-grid/src/test.ts"
             ],
             "styles": [
               "@skyux/theme/css/sky.css",

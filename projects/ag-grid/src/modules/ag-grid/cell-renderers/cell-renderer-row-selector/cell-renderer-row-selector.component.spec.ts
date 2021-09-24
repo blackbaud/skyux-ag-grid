@@ -34,7 +34,7 @@ import {
 
 import {
   SkyAgGridCellRendererRowSelectorComponent
-} from '../cell-renderer-row-selector/cell-renderer-row-selector.component';
+} from './cell-renderer-row-selector.component';
 
 describe('SkyCellRendererCheckboxComponent', () => {
   // We've had some issue with grid rendering causing the specs to timeout in IE. Extending it slightly to help.
@@ -43,7 +43,7 @@ describe('SkyCellRendererCheckboxComponent', () => {
   let rowSelectorCellFixture: ComponentFixture<SkyAgGridCellRendererRowSelectorComponent>;
   let rowSelectorCellComponent: SkyAgGridCellRendererRowSelectorComponent;
   let rowSelectorCellNativeElement: HTMLElement;
-  let cellRendererParams: {registerRowDragger?: any} & ICellRendererParams;
+  let cellRendererParams: ICellRendererParams;
   let dataField = 'selected';
 
   beforeEach(() => {
@@ -76,7 +76,6 @@ describe('SkyCellRendererCheckboxComponent', () => {
       refreshCell: undefined,
       eGridCell: undefined,
       eParentOfValue: undefined,
-      addRenderedRowListener: undefined,
       registerRowDragger: undefined
     };
   });
