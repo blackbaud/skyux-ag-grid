@@ -1,6 +1,6 @@
 # 5.0.0-beta.4 (2021-09-27)
 
-- Added bug fixes and features from the `master` branch.
+- Added bug fixes and features from the `master` branch. [#149](https://github.com/blackbaud/skyux-ag-grid/pull/149)
 - Updated the peer dependency to AG Grid 26. [#146](https://github.com/blackbaud/skyux-ag-grid/pull/146)
 
 # 4.11.0 (2021-09-24)
