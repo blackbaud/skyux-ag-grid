@@ -1,6 +1,6 @@
 # 4.11.0 (2021-09-24)
 
-- Fixed the currency column type to use right alignment. [#147](https://github.com/blackbaud/skyux-ag-grid/pull/147)
+- Fixed the currency column type so the values are right-aligned. [#147](https://github.com/blackbaud/skyux-ag-grid/pull/147)
 
 # 4.10.2 (2021-09-20)
 
