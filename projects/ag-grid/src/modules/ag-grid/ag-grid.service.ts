@@ -280,6 +280,7 @@ export class SkyAgGridService implements OnDestroy {
             { component: 'sky-ag-grid-cell-renderer-currency' }
           ),
           cellEditorFramework: SkyAgGridCellEditorCurrencyComponent,
+          headerClass: SkyHeaderClass.RightAligned,
           minWidth: 185
         },
         [SkyCellType.Date]: {
