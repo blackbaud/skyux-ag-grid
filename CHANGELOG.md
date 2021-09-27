@@ -1,3 +1,12 @@
+# 5.0.0-beta.4 (2021-09-27)
+
+- Added bug fixes and features from the `master` branch. [#149](https://github.com/blackbaud/skyux-ag-grid/pull/149)
+- Updated the peer dependency to AG Grid 26. [#146](https://github.com/blackbaud/skyux-ag-grid/pull/146)
+
+# 4.11.0 (2021-09-24)
+
+- Fixed the currency column type so the values are right-aligned. [#147](https://github.com/blackbaud/skyux-ag-grid/pull/147)
+
 # 5.0.0-beta.3 (2021-09-20)
 
 - Added bug fixes and features from the `master` branch. [#141](https://github.com/blackbaud/skyux-ag-grid/pull/141)
