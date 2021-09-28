@@ -1,3 +1,7 @@
+# 5.0.0-beta.5 (2021-09-28)
+
+- Updated the `e2e` tests to produce more consistent results. [#151](https://github.com/blackbaud/skyux-ag-grid/pull/151)
+
 # 5.0.0-beta.4 (2021-09-27)
 
 - Added bug fixes and features from the `master` branch. [#149](https://github.com/blackbaud/skyux-ag-grid/pull/149)
