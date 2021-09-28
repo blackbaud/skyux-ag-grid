@@ -47,6 +47,7 @@ function cycleThroughThemes(runTests: () => void) {
 
     beforeEach(async () => {
       await selectTheme('modern', 'light');
+      await browserPause();
     });
 
     runTests();
@@ -57,11 +58,16 @@ function cycleThroughThemes(runTests: () => void) {
 
     beforeEach(async () => {
       await selectTheme('modern', 'dark');
+      await browserPause();
     });
 
     runTests();
 
   });
+}
+
+function browserPause() {
+  return browser.wait(new Promise((resolve) => setTimeout(resolve, 100)));
 }
 
 describe('Editable grid', () => {
@@ -79,6 +85,7 @@ describe('Editable grid', () => {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         await SkyHostBrowser.moveCursorOffScreen();
+        await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-read', screenSize)
@@ -100,6 +107,7 @@ describe('Editable grid', () => {
 
         await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
         await element(by.css(editButton)).click();
+        await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit', screenSize)
@@ -121,6 +129,7 @@ describe('Editable grid', () => {
 
         await browser.wait(ExpectedConditions.elementToBeClickable($(sortableHeaderCell)))
         await element(by.css(sortableHeaderCell)).click();
+        await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-sort-desc', screenSize)
@@ -144,6 +153,7 @@ describe('Editable grid', () => {
         await browser.wait(ExpectedConditions.elementToBeClickable($(sortableHeaderCell)))
         await element(by.css(sortableHeaderCell)).click();
         await element(by.css(sortableHeaderCell)).click();
+        await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-sort-asc', screenSize)
@@ -167,6 +177,7 @@ describe('Editable grid', () => {
         await element(by.css(editButton)).click();
 
         await element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')).click();
+        await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-number', screenSize)
@@ -213,6 +224,7 @@ describe('Editable grid', () => {
         await element(by.css(editButton)).click();
 
         await element(by.css(dateCell)).click();
+        await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-date', screenSize)
@@ -236,6 +248,7 @@ describe('Editable grid', () => {
         await element(by.css(editButton)).click();
 
         await element(by.css(autocompleteCell)).click();
+        await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-autocomplete-input', screenSize)
@@ -295,7 +308,6 @@ describe('Editable grid, complex cells', () => {
   const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
   const validatorCellCurrency = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
   const validatorCellDate = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-date.sky-ag-grid-cell-invalid';
-  const columnHorizontalScroll = '.ag-body-horizontal-scroll .ag-body-horizontal-scroll-viewport';
   const editButton = '#edit-btn';
 
   function runTests(): void {
@@ -303,6 +315,7 @@ describe('Editable grid, complex cells', () => {
     describe('select focus', () => {
       async function matchesPreviousSelectFocusAndList(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await browserPause();
 
         await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
         await element(by.css(editButton)).click();
@@ -334,6 +347,7 @@ describe('Editable grid, complex cells', () => {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         await SkyHostBrowser.moveCursorOffScreen();
+        await browserPause();
 
         expect(validatorCellAutocomplete).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-autocomplete', screenSize)

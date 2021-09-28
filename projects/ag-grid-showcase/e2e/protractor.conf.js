@@ -13,6 +13,14 @@ exports.config = {
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
+    chromeOptions: {
+      args: [
+        '--disable-gpu',
+        '--disable-setuid-sandbox',
+        '--headless',
+        '--no-sandbox'
+      ]
+    },
     browserName: 'chrome'
   },
   directConnect: true,

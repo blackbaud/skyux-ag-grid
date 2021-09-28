@@ -1,5 +1,6 @@
 import {
   Component,
+  HostListener,
   OnInit
 } from '@angular/core';
 
@@ -30,6 +31,11 @@ import {
   styleUrls: ['./edit-complex-cells.component.scss']
 })
 export class EditComplexCellsComponent implements OnInit {
+  @HostListener('window:resize')
+  public onWindowResize() {
+    this.sizeGrid();
+  }
+
   public gridData = EDITABLE_GRID_DATA;
   public editMode = false;
   public uneditedGridData: EditableGridRow[];

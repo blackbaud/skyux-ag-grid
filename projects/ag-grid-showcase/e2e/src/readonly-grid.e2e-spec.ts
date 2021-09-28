@@ -91,11 +91,11 @@ describe('Readonly grid', () => {
     describe('ascending sort', () => {
       async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await browserPause();
 
         // click twice to sort by descending then ascending
         await element.all(by.css(sortableHeaderCell)).get(1).click();
         await element.all(by.css(sortableHeaderCell)).get(1).click();
-        await browserPause();
 
         expect(readonlyGrid).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName(`readonly-grid-sort-asc-${screenSize}`)
@@ -141,11 +141,11 @@ describe('Readonly grid', () => {
   describe('row delete', () => {
     async function matchesPreviousRowDeleteGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn) {
       await SkyHostBrowser.setWindowBreakpoint(screenSize);
+      await browserPause();
 
       // click twice to sort by descending then ascending
       await element(by.css('[row-id="0"] .sky-dropdown-button')).click();
       await element.all(by.css('.sky-dropdown-item button')).get(0).click();
-      await browserPause();
 
       await SkyHostBrowser.moveCursorOffScreen();
 
