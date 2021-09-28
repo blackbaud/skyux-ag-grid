@@ -193,11 +193,6 @@
             },
             "development": {
               "devServerTarget": "ag-grid-showcase:serve:development"
-            },
-            "headless": {
-              "devServerTarget": "ag-grid-showcase:serve:development",
-              "protractorConfig": "projects/ag-grid-showcase/e2e/protractor-headless.conf.js",
-              "webdriverUpdate": true
             }
           },
           "defaultConfiguration": "development"
