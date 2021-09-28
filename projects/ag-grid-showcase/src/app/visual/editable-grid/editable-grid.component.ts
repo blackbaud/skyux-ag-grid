@@ -1,5 +1,6 @@
 import {
   Component,
+  HostListener,
   OnInit
 } from '@angular/core';
 import { SkyThemeService } from '@skyux/theme';
@@ -30,6 +31,11 @@ import {
   styleUrls: ['./editable-grid.component.scss']
 })
 export class EditableGridComponent implements OnInit {
+  @HostListener('window:resize')
+  public onWindowResize() {
+    this.sizeGrid();
+  }
+
   public gridData = EDITABLE_GRID_DATA;
   public editMode = false;
   public uneditedGridData: EditableGridRow[];

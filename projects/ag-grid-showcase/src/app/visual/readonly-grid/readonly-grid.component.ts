@@ -1,5 +1,6 @@
 import {
   Component,
+  HostListener,
   OnInit
 } from '@angular/core';
 import { SkyThemeService } from '@skyux/theme';
@@ -39,6 +40,13 @@ let nextId = 0;
   styleUrls: ['./readonly-grid.component.scss']
 })
 export class ReadonlyGridComponent implements OnInit {
+  @HostListener('window:resize')
+  public onWindowResize() {
+    if (this.gridApi) {
+      this.gridApi.sizeColumnsToFit();
+    }
+  }
+
   public gridApi: GridApi;
   public gridData = READONLY_GRID_DATA;
   public gridOptions: GridOptions;
