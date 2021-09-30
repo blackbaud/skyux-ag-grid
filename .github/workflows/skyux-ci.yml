@@ -5,10 +5,12 @@ on:
     branches:
       - master
       - 3.x.x
+      - 4.x.x
   push:
     branches:
       - master
       - 3.x.x
+      - 4.x.x
     tags:
       - '*.*.*'
 
@@ -26,5 +28,6 @@ jobs:
           hook-after-build-public-library-success: ./scripts/after-build-public-library-success.js
           npm-token: ${{ secrets.NPM_TOKEN }}
           slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
+          visual-baselines-branch: 4.x.x
       - name: Upload coverage report
         run: bash <(curl -s https://codecov.io/bash)
