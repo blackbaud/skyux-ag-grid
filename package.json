@@ -10,8 +10,7 @@
     "skyux:generate-lib-resources-module": "ng generate @skyux/i18n:lib-resources-module",
     "lint": "ng lint",
     "skyux:generate-documentation": "ng generate @skyux-sdk/documentation-schematics:documentation",
-    "prebuild": "node ./scripts/prepare-package.js",
-    "postbuild": "npm run skyux:generate-documentation",
+    "postbuild": "node ./scripts/prepare-package.js && npm run skyux:generate-documentation",
     "e2e": "ng e2e"
   },
   "private": true,
