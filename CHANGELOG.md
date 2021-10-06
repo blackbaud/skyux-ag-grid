@@ -1,6 +1,6 @@
 # 5.0.1 (2021-10-06)
 
-- Fixed an issue where the css file was missing from the package. [#155](https://github.com/blackbaud/skyux-ag-grid/pull/155)
+- Fixed an issue so the css file is now included in the package. [#155](https://github.com/blackbaud/skyux-ag-grid/pull/155)
 
 # 5.0.0 (2021-10-01)
 
