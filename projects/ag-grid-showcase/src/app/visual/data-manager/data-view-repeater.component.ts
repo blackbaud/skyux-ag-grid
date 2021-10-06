@@ -13,7 +13,7 @@ import {
 } from '@skyux/data-manager';
 
 @Component({
-  selector: 'data-view-repeater',
+  selector: 'app-data-view-repeater',
   templateUrl: './data-view-repeater.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

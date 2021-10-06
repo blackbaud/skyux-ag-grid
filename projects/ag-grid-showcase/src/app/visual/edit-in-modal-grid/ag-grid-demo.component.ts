@@ -38,7 +38,7 @@ import {
 } from './ag-grid-demo-data';
 
 @Component({
-  selector: 'sky-ag-grid-demo',
+  selector: 'app-ag-grid-demo',
   templateUrl: './ag-grid-demo.component.html'
 })
 export class SkyAgGridDemoComponent implements OnInit {

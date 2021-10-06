@@ -26,7 +26,7 @@ import {
 } from '@skyux/ag-grid';
 
 @Component({
-  selector: 'editable-grid-visual',
+  selector: 'app-editable-grid-visual',
   templateUrl: './editable-grid.component.html',
   styleUrls: ['./editable-grid.component.scss']
 })

@@ -37,7 +37,7 @@ import {
 } from './ag-grid-edit-modal-context';
 
 @Component({
-  selector: 'sky-demo-edit-modal-form',
+  selector: 'app-demo-edit-modal-form',
   templateUrl: './ag-grid-edit-modal.component.html'
 })
 export class SkyAgGridEditModalComponent implements OnInit {

@@ -26,7 +26,7 @@ import {
 } from '@skyux/ag-grid';
 
 @Component({
-  selector: 'edit-stop-when-loses-focus-visual',
+  selector: 'app-edit-stop-when-loses-focus-visual',
   templateUrl: './edit-stop-when-loses-focus.component.html',
   styleUrls: ['./edit-stop-when-loses-focus.component.scss']
 })

@@ -12,7 +12,7 @@ import {
 } from '@skyux/data-manager';
 
 @Component({
-  selector: 'sky-demo-filter-modal-form',
+  selector: 'app-demo-filter-modal-form',
   templateUrl: './data-filter-modal.component.html'
 })
 export class SkyDataManagerFiltersModalVisualComponent {

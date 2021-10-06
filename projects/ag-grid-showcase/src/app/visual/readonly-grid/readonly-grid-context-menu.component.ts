@@ -12,7 +12,7 @@ import {
 } from 'ag-grid-community';
 
 @Component({
-  selector: 'readonly-grid-context-menu',
+  selector: 'app-readonly-grid-context-menu',
   templateUrl: './readonly-grid-context-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

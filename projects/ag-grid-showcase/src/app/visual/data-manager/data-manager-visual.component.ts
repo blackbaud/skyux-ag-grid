@@ -21,7 +21,7 @@ import {
 } from '@skyux/data-manager';
 
 @Component({
-  selector: 'data-manager-visual',
+  selector: 'app-data-manager-visual',
   templateUrl: './data-manager-visual.component.html',
   providers: [SkyDataManagerService, {
     provide: SkyUIConfigService,

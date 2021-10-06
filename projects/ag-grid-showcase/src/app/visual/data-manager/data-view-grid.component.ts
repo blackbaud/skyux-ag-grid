@@ -26,7 +26,7 @@ import {
 } from '@skyux/data-manager';
 
 @Component({
-  selector: 'data-view-grid',
+  selector: 'app-data-view-grid',
   templateUrl: './data-view-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

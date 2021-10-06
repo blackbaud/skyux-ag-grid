@@ -26,7 +26,7 @@ import {
 } from '@skyux/ag-grid';
 
 @Component({
-  selector: 'edit-complex-cells-visual',
+  selector: 'app-edit-complex-cells-visual',
   templateUrl: './edit-complex-cells.component.html',
   styleUrls: ['./edit-complex-cells.component.scss']
 })

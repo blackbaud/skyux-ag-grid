@@ -35,7 +35,7 @@ import {
 let nextId = 0;
 
 @Component({
-  selector: 'readonly-grid-visual',
+  selector: 'app-readonly-grid-visual',
   templateUrl: './readonly-grid.component.html',
   styleUrls: ['./readonly-grid.component.scss']
 })
