@@ -9,7 +9,7 @@ function copyScss() {
     importer: tildeImporter
   });
 
-  const target = path.resolve(__dirname, '../dist/css/sky-ag-grid.css');
+  const target = path.resolve(__dirname, '../dist/ag-grid/css/sky-ag-grid.css');
 
   fs.ensureFileSync(target);
   fs.writeFileSync(target, result.css);
