@@ -9,6 +9,8 @@ export class SkyAgGridRow {
   public validNumber?: number;
   public validCurrency?: string;
   public validDate?: Date;
+  public lookupSingle?: { id: string, name: string }[];
+  public lookupMultiple?: { id: string, name: string }[];
 }
 
 export const SKY_AG_GRID_DATA: SkyAgGridRow[] = [
@@ -50,7 +52,29 @@ export const SKY_AG_GRID_DATA: SkyAgGridRow[] = [
     target: 8,
     selected: true
   }
-];
+].map((row: SkyAgGridRow, i) => {
+  row.lookupSingle = [
+    {
+      id: `record_${(i * 3) + 1}`,
+      name: `Record ${(i * 3) + 1}`
+    }
+  ];
+  row.lookupMultiple = [
+    {
+      id: `record_${(i * 3) + 2}`,
+      name: `Record ${(i * 3) + 2}`
+    },
+    {
+      id: `record_${(i * 3) + 3}`,
+      name: `Record ${(i * 3) + 3}`
+    },
+    {
+      id: `record_${(i * 3) + 4}`,
+      name: `Record ${(i * 3) + 4}`
+    }
+  ];
+  return row;
+});
 
 export const SKY_AG_GRID_LONG_DATA: SkyAgGridRow[] = [
   {
@@ -94,4 +118,33 @@ export const SKY_AG_GRID_LONG_DATA: SkyAgGridRow[] = [
     target: 7,
     selected: false
   }
-];
+].map((row: SkyAgGridRow, i) => {
+  row.lookupSingle = [
+    {
+      id: `record_${(i * 3) + 1}`,
+      name: `Record ${(i * 3) + 1}`
+    }
+  ];
+  row.lookupMultiple = [
+    {
+      id: `record_${(i * 3) + 2}`,
+      name: `Record ${(i * 3) + 2}`
+    },
+    {
+      id: `record_${(i * 3) + 3}`,
+      name: `Record ${(i * 3) + 3}`
+    },
+    {
+      id: `record_${(i * 3) + 4}`,
+      name: `Record ${(i * 3) + 4}`
+    }
+  ];
+  return row;
+});
+
+export const SKY_AG_GRID_LOOKUP = Array.from(Array(50).keys()).map((i) => {
+  return {
+    id: `record_${i + 1}`,
+    name: `Record ${i + 1}`
+  };
+})

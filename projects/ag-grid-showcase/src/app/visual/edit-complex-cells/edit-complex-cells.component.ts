@@ -1,29 +1,17 @@
-import {
-  Component,
-  HostListener,
-  OnInit
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+
+import { SkyAgGridService, SkyCellType } from '@skyux/ag-grid';
 
 import { SkyThemeService } from '@skyux/theme';
 
-import {
-  ColDef,
-  GridApi,
-  GridReadyEvent,
-  GridOptions
-} from 'ag-grid-community';
+import { ColDef, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
 
 import {
-  EDITABLE_GRID_DATA,
+  EDITABLE_GRID_DATA, EDITABLE_GRID_LOOKUP,
   EDITABLE_GRID_OPTIONS,
   EditableGridOption,
   EditableGridRow
 } from './edit-complex-cells-data';
-
-import {
-  SkyAgGridService,
-  SkyCellType
-} from '@skyux/ag-grid';
 
 @Component({
   selector: 'edit-complex-cells-visual',
@@ -73,6 +61,8 @@ export class EditComplexCellsComponent implements OnInit {
       {
         colId: 'language',
         field: 'language',
+        minWidth: 185,
+        maxWidth: 235,
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
           values: ['English', 'Spanish', 'French', 'Portuguese', '(other)']
@@ -82,6 +72,8 @@ export class EditComplexCellsComponent implements OnInit {
       {
         colId: 'validationAutocomplete',
         field: 'validationAutocomplete',
+        minWidth: 185,
+        maxWidth: 235,
         editable: this.editMode,
         type: [SkyCellType.Autocomplete, SkyCellType.Validator],
         cellEditorParams: {
@@ -99,18 +91,65 @@ export class EditComplexCellsComponent implements OnInit {
       {
         colId: 'validationCurrency',
         field: 'validationCurrency',
+        minWidth: 185,
+        maxWidth: 235,
         editable: this.editMode,
         type: [SkyCellType.CurrencyValidator]
       },
       {
         colId: 'validationDate',
         field: 'validationDate',
+        minWidth: 185,
+        maxWidth: 235,
         editable: this.editMode,
         type: [SkyCellType.Date, SkyCellType.Validator],
         cellRendererParams: {
           skyComponentProperties: {
             validator: (value: Date) => !!value && value > new Date(1985, 9, 26),
             validatorMessage: 'Please enter a future date'
+          }
+        }
+      },
+      {
+        colId: 'lookupSingle',
+        field: 'lookupSingle',
+        minWidth: 185,
+        maxWidth: 235,
+        editable: this.editMode,
+        type: SkyCellType.Lookup,
+        cellEditorParams: {
+          skyComponentProperties: {
+            data: EDITABLE_GRID_LOOKUP,
+            idProperty: 'id',
+            descriptorProperty: 'name',
+            selectMode: 'single'
+          }
+        },
+        cellRendererParams: {
+          skyComponentProperties: {
+            descriptorProperty: 'name'
+          }
+        }
+      },
+      {
+        colId: 'lookupMultiple',
+        field: 'lookupMultiple',
+        minWidth: 185,
+        maxWidth: 235,
+        editable: this.editMode,
+        type: SkyCellType.Lookup,
+        cellEditorParams: {
+          skyComponentProperties: {
+            data: EDITABLE_GRID_LOOKUP,
+            idProperty: 'id',
+            descriptorProperty: 'name',
+            selectMode: 'multiple',
+            enableShowMore: true
+          }
+        },
+        cellRendererParams: {
+          skyComponentProperties: {
+            descriptorProperty: 'name'
           }
         }
       }
@@ -158,11 +197,14 @@ export class EditComplexCellsComponent implements OnInit {
 
   private getGridOptions(): void {
     this.gridOptions = {
+      suppressColumnVirtualisation: true,
       columnDefs: this.columnDefs,
+      domLayout: 'normal',
+      popupParent: document.body,
       onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
       onGridSizeChanged: () => { this.sizeGrid(); }
     };
     this.gridOptions = this.agGridService.getEditableGridOptions({ gridOptions: this.gridOptions });
-    this.gridOptions.stopEditingWhenGridLosesFocus = true;
+    this.gridOptions.stopEditingWhenCellsLoseFocus = true;
   }
 }

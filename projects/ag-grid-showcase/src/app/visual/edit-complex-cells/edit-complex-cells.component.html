@@ -41,6 +41,7 @@
     </sky-toolbar>
     <sky-ag-grid-wrapper>
       <ag-grid-angular
+        style="height: calc(100vh - 100px); width: 100vw;"
         [ngClass]="{'sky-ag-grid-editable': editMode}"
         [gridOptions]="gridOptions"
         [rowData]="gridData"

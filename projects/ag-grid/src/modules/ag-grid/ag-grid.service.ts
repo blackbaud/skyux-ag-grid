@@ -40,6 +40,7 @@ import {
 import {
   SkyAgGridCellEditorDatepickerComponent
 } from './cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
+import { SkyAgGridCellEditorLookupComponent } from './cell-editors/cell-editor-lookup/cell-editor-lookup.component';
 
 import {
   SkyAgGridCellEditorNumberComponent
@@ -52,6 +53,7 @@ import {
 import {
   SkyAgGridCellRendererCurrencyValidatorComponent
 } from './cell-renderers/cell-renderer-currency/cell-renderer-currency-validator.component';
+import { SkyAgGridCellRendererLookupComponent } from './cell-renderers/cell-renderer-lookup/cell-renderer-lookup.component';
 
 import {
   SkyAgGridCellRendererRowSelectorComponent
@@ -292,6 +294,15 @@ export class SkyAgGridService implements OnDestroy {
           comparator: dateComparator,
           minWidth: this.currentTheme?.theme?.name === 'modern' ? 180 : 160,
           valueFormatter: (params: ValueFormatterParams) => this.dateFormatter(params, args.locale)
+        },
+        [SkyCellType.Lookup]: {
+          cellClassRules: {
+            [SkyCellClass.Lookup]: cellClassRuleTrueExpression,
+            ...editableCellClassRules
+          },
+          cellEditorFramework: SkyAgGridCellEditorLookupComponent,
+          cellRendererFramework: SkyAgGridCellRendererLookupComponent,
+          minWidth: 185
         },
         [SkyCellType.Number]: {
           cellClassRules: {

@@ -10,6 +10,8 @@ export class EditableGridRow {
   public validationAutocomplete?: EditableGridOption;
   public validationCurrency: string;
   public validationDate: Date;
+  public lookupSingle: { id: string, name: string, interestingFact: string }[];
+  public lookupMultiple: { id: string, name: string, interestingFact: string }[];
 }
 
 function getDay(i: number) {
@@ -44,6 +46,38 @@ export const EDITABLE_GRID_DATA: EditableGridRow[] = Array.from(Array(10).keys()
     language: 'English',
     validationAutocomplete: EDITABLE_GRID_OPTIONS[i % EDITABLE_GRID_OPTIONS.length],
     validationCurrency: (i % 3 === 0 ? `${(1.23 * i).toFixed(2)}` : (i % 3 === 2 ? 'other value' : '')),
-    validationDate: getDay(i + 1)
+    validationDate: getDay(i + 1),
+    lookupSingle: [
+      {
+        id: `record_${(i * 3) + 1}`,
+        name: `Record ${(i * 3) + 1}`,
+        interestingFact: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis venenatis enim, ut elementum ante pellentesque quis.`
+      }
+    ],
+    lookupMultiple: [
+      {
+        id: `record_${(i * 3) + 2}`,
+        name: `Record ${(i * 3) + 2}`,
+        interestingFact: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis venenatis enim, ut elementum ante pellentesque quis.`
+      },
+      {
+        id: `record_${(i * 3) + 3}`,
+        name: `Record ${(i * 3) + 3}`,
+        interestingFact: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis venenatis enim, ut elementum ante pellentesque quis.`
+      },
+      {
+        id: `record_${(i * 3) + 4}`,
+        name: `Record ${(i * 3) + 4}`,
+        interestingFact: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis venenatis enim, ut elementum ante pellentesque quis.`
+      }
+    ]
   };
 });
+
+export const EDITABLE_GRID_LOOKUP = Array.from(Array(50).keys()).map((i) => {
+  return {
+    id: `record_${i + 1}`,
+    name: `Record ${i + 1}`,
+    interestingFact: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis venenatis enim, ut elementum ante pellentesque quis.`
+  };
+})
