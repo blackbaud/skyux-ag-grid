@@ -1,3 +1,5 @@
+import { EDITABLE_GRID_LOOKUP } from '../../../../../ag-grid-showcase/src/app/visual/edit-complex-cells/edit-complex-cells-data';
+
 export class SkyAgGridRow {
   public id: string;
   public name: string;
@@ -76,6 +78,13 @@ export const SKY_AG_GRID_DATA: SkyAgGridRow[] = [
   return row;
 });
 
+export const SKY_AG_GRID_LOOKUP = Array.from(Array(50).keys()).map((i) => {
+  return {
+    id: `record_${i + 1}`,
+    name: `Record ${i + 1}`
+  };
+});
+
 export const SKY_AG_GRID_LONG_DATA: SkyAgGridRow[] = [
   {
     id: '0',
@@ -119,32 +128,15 @@ export const SKY_AG_GRID_LONG_DATA: SkyAgGridRow[] = [
     selected: false
   }
 ].map((row: SkyAgGridRow, i) => {
-  row.lookupSingle = [
-    {
-      id: `record_${(i * 3) + 1}`,
-      name: `Record ${(i * 3) + 1}`
-    }
-  ];
-  row.lookupMultiple = [
-    {
-      id: `record_${(i * 3) + 2}`,
-      name: `Record ${(i * 3) + 2}`
-    },
-    {
-      id: `record_${(i * 3) + 3}`,
-      name: `Record ${(i * 3) + 3}`
-    },
-    {
-      id: `record_${(i * 3) + 4}`,
-      name: `Record ${(i * 3) + 4}`
-    }
-  ];
+  row.lookupSingle = SKY_AG_GRID_LOOKUP.filter((value) => {
+    return `record_${(i * 3) + 1}` === value.id;
+  });
+  row.lookupMultiple = SKY_AG_GRID_LOOKUP.filter((value) => {
+    return [
+      `record_${(i * 3) + 2}`,
+      `record_${(i * 3) + 3}`,
+      `record_${(i * 3) + 4}`
+    ].includes(value.id);
+  });
   return row;
 });
-
-export const SKY_AG_GRID_LOOKUP = Array.from(Array(50).keys()).map((i) => {
-  return {
-    id: `record_${i + 1}`,
-    name: `Record ${i + 1}`
-  };
-})

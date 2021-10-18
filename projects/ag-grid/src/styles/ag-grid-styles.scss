@@ -172,7 +172,7 @@ ag-grid-angular.sky-ag-grid-editable {
     }
 
     .ag-cell-focus.ag-cell-inline-editing,
-    .ag-cell-focus.ag-cell-popup-editing {
+    .ag-cell-focus.ag-cell-popup-editing:not(.sky-ag-grid-cell-lookup) {
       height: ag-param(row-height) - 1;
       @include sky-field-status(active)
     }
