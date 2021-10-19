@@ -1,17 +1,30 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-
-import { SkyAgGridService, SkyCellType } from '@skyux/ag-grid';
+import {
+  Component,
+  HostListener,
+  OnInit
+} from '@angular/core';
 
 import { SkyThemeService } from '@skyux/theme';
 
-import { ColDef, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import {
+  ColDef,
+  GridApi,
+  GridOptions,
+  GridReadyEvent
+} from 'ag-grid-community';
 
 import {
-  EDITABLE_GRID_DATA, EDITABLE_GRID_LOOKUP,
+  EDITABLE_GRID_DATA,
+  EDITABLE_GRID_LOOKUP,
   EDITABLE_GRID_OPTIONS,
   EditableGridOption,
   EditableGridRow
 } from './edit-complex-cells-data';
+
+import {
+  SkyAgGridService,
+  SkyCellType
+} from '@skyux/ag-grid';
 
 @Component({
   selector: 'edit-complex-cells-visual',

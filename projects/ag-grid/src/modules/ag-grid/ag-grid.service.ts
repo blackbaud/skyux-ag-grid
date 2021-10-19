@@ -40,7 +40,10 @@ import {
 import {
   SkyAgGridCellEditorDatepickerComponent
 } from './cell-editors/cell-editor-datepicker/cell-editor-datepicker.component';
-import { SkyAgGridCellEditorLookupComponent } from './cell-editors/cell-editor-lookup/cell-editor-lookup.component';
+
+import {
+  SkyAgGridCellEditorLookupComponent
+} from './cell-editors/cell-editor-lookup/cell-editor-lookup.component';
 
 import {
   SkyAgGridCellEditorNumberComponent
@@ -53,7 +56,10 @@ import {
 import {
   SkyAgGridCellRendererCurrencyValidatorComponent
 } from './cell-renderers/cell-renderer-currency/cell-renderer-currency-validator.component';
-import { SkyAgGridCellRendererLookupComponent } from './cell-renderers/cell-renderer-lookup/cell-renderer-lookup.component';
+
+import {
+  SkyAgGridCellRendererLookupComponent
+} from './cell-renderers/cell-renderer-lookup/cell-renderer-lookup.component';
 
 import {
   SkyAgGridCellRendererRowSelectorComponent

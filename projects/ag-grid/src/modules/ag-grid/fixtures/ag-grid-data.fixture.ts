@@ -1,5 +1,3 @@
-import { EDITABLE_GRID_LOOKUP } from '../../../../../ag-grid-showcase/src/app/visual/edit-complex-cells/edit-complex-cells-data';
-
 export class SkyAgGridRow {
   public id: string;
   public name: string;
