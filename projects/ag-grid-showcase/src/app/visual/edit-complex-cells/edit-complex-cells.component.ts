@@ -9,8 +9,8 @@ import { SkyThemeService } from '@skyux/theme';
 import {
   ColDef,
   GridApi,
-  GridOptions,
-  GridReadyEvent
+  GridReadyEvent,
+  GridOptions
 } from 'ag-grid-community';
 
 import {
