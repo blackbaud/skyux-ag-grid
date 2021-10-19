@@ -50,6 +50,11 @@ export class SkyAgGridCellEditorLookupComponent extends NgControl implements ICe
     return null;
   }
 
+  public async destroy() {
+    // Enough time for lookup to push changes.
+    await new Promise((resolve) => setTimeout(resolve, 10));
+  }
+
   public getGui(): HTMLElement {
     return this.elementRef.nativeElement;
   }

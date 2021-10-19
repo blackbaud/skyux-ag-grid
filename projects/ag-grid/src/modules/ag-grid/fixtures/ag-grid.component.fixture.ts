@@ -17,8 +17,8 @@ import {
 } from '../ag-grid.service';
 
 import {
-  SKY_AG_GRID_DATA,
-  SKY_AG_GRID_LOOKUP
+  SKY_AG_GRID_LOOKUP,
+  SKY_AG_GRID_DATA
 } from './ag-grid-data.fixture';
 
 @Component({
