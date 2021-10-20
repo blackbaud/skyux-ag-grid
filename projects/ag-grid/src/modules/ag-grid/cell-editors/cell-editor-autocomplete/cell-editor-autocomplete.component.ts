@@ -47,10 +47,10 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
 
   public destroy() {
     // Enough time for lookup to push changes.
-    const end = Date.now()*1000+(new Date).getMilliseconds()+10;
-    let now = Date.now()*1000+(new Date).getMilliseconds();
+    const end = Date.now()+10;
+    let now = Date.now();
     while (now < end) {
-      now = Date.now()*1000+(new Date).getMilliseconds();
+      now = Date.now();
     }
   }
 

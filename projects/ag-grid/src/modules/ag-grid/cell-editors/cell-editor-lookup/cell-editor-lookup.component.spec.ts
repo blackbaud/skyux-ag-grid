@@ -60,10 +60,10 @@ describe('SkyAgGridCellEditorLookupComponent', () => {
   });
 
   it('should block time on destroy', () => {
-    const time = Date.now()*1000+(new Date).getMilliseconds();
+    const time = Date.now();
     fixture.detectChanges();
     component.destroy();
-    expect(Date.now()*1000+(new Date).getMilliseconds()).toBeGreaterThan(time);
+    expect(Date.now()).toBeGreaterThan(time);
   });
 
   it('should initialize with empty value', () => {

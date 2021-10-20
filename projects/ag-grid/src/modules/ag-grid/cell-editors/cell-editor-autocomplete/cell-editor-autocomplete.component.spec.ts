@@ -129,10 +129,10 @@ describe('SkyCellEditorAutocompleteComponent', () => {
 
   describe('destroy', () => {
     it('should block time', () => {
-      const time = Date.now()*1000+(new Date).getMilliseconds();
+      const time = Date.now();
       fixture.detectChanges();
       component.destroy();
-      expect(Date.now()*1000+(new Date).getMilliseconds()).toBeGreaterThan(time);
+      expect(Date.now()).toBeGreaterThan(time);
     });
   });
 
