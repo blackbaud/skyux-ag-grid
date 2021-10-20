@@ -45,9 +45,13 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
     this.input.nativeElement.focus();
   }
 
-  public async destroy() {
+  public destroy() {
     // Enough time for lookup to push changes.
-    await new Promise((resolve) => setTimeout(resolve, 10));
+    const end = Date.now()*1000+(new Date).getMilliseconds()+10;
+    let now = Date.now()*1000+(new Date).getMilliseconds();
+    while (now < end) {
+      now = Date.now()*1000+(new Date).getMilliseconds();
+    }
   }
 
   public getValue(): any {

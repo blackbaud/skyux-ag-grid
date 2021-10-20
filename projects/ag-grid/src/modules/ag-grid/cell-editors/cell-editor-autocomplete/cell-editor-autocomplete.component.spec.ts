@@ -127,6 +127,15 @@ describe('SkyCellEditorAutocompleteComponent', () => {
     });
   });
 
+  describe('destroy', () => {
+    it('should block time', () => {
+      const time = Date.now()*1000+(new Date).getMilliseconds();
+      fixture.detectChanges();
+      component.destroy();
+      expect(Date.now()*1000+(new Date).getMilliseconds()).toBeGreaterThan(time);
+    });
+  });
+
   it('should pass accessibility', async () => {
     fixture.detectChanges();
     await fixture.whenStable();

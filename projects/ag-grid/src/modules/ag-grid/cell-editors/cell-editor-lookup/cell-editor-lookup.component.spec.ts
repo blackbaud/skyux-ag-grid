@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { expect } from '@skyux-sdk/testing';
 import { SkyInputBoxModule } from '@skyux/forms';
 import { SkyLookupModule } from '@skyux/lookup';
 import { SkyAgGridCellEditorLookupComponent } from './cell-editor-lookup.component';
@@ -56,6 +57,13 @@ describe('SkyAgGridCellEditorLookupComponent', () => {
     component.viewToModelUpdate([]);
     expect(component.getValue()).toBeTruthy();
     expect(component.isPopup()).toBeTrue();
+  });
+
+  it('should block time on destroy', () => {
+    const time = Date.now()*1000+(new Date).getMilliseconds();
+    fixture.detectChanges();
+    component.destroy();
+    expect(Date.now()*1000+(new Date).getMilliseconds()).toBeGreaterThan(time);
   });
 
   it('should initialize with empty value', () => {
