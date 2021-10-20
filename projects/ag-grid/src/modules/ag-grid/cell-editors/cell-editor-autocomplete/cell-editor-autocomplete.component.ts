@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   ViewChild
@@ -24,6 +25,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngularComp {
+  public alive = true;
   public currentSelection: any;
   public columnHeader: string;
   public rowNumber: number;
@@ -32,6 +34,11 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
 
   @ViewChild('skyCellEditorAutocomplete', {read: ElementRef})
   public input: ElementRef;
+
+  constructor(
+    private changeDetector: ChangeDetectorRef
+  ) {
+  }
 
   public agInit(params: SkyCellEditorAutocompleteParams) {
     this.params = params;
@@ -46,12 +53,8 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
   }
 
   public destroy() {
-    // Enough time for lookup to push changes.
-    const end = Date.now()+10;
-    let now = Date.now();
-    while (now < end) {
-      now = Date.now();
-    }
+    this.alive = false;
+    this.changeDetector.detectChanges();
   }
 
   public getValue(): any {

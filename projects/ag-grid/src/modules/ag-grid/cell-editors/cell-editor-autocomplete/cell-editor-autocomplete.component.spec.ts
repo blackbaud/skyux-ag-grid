@@ -128,11 +128,10 @@ describe('SkyCellEditorAutocompleteComponent', () => {
   });
 
   describe('destroy', () => {
-    it('should block time', () => {
-      const time = Date.now();
-      fixture.detectChanges();
+    it('should no longer be alive', () => {
+      expect(component.alive).toBeTrue();
       component.destroy();
-      expect(Date.now()).toBeGreaterThan(time);
+      expect(component.alive).toBeFalse();
     });
   });
 

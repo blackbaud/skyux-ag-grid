@@ -30,7 +30,7 @@ function getDay(i: number) {
   return dates[i];
 }
 
-export const EDITABLE_GRID_OPTIONS: EditableGridOption[] = Array.from(Array(4).keys()).map((i) => {
+export const EDITABLE_GRID_OPTIONS: EditableGridOption[] = Array.from(Array(52).keys()).map((i) => {
   return {
     id: i,
     name: `Option ${i + 1}`,
