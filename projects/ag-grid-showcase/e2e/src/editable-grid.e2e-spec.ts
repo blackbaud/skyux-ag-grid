@@ -306,7 +306,7 @@ describe('Editable grid, complex cells', () => {
   const selectCellTrigger = '.ag-body-viewport [aria-colindex="2"] .ag-picker-field-display';
   const selectList = '.ag-select-list';
   const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
-  const validatorCellCurrency = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
+  const validatorCellCurrency = '.ag-body-viewport [row-id="2"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
   const validatorCellDate = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-date.sky-ag-grid-cell-invalid';
   const editButton = '#edit-btn';
 
@@ -321,12 +321,14 @@ describe('Editable grid, complex cells', () => {
         await element(by.css(editButton)).click();
 
         await element(by.css(selectCell)).click();
+        await browserPause();
 
         expect(selectCell).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-select-focus', screenSize)
         });
 
         await element(by.css(selectCellTrigger)).click();
+        await browserPause();
 
         expect(selectList).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-select-list', screenSize)
