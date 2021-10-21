@@ -213,8 +213,7 @@ export class EditComplexCellsComponent implements OnInit {
       columnDefs: this.columnDefs,
       domLayout: 'normal',
       onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
-      onGridSizeChanged: () => { this.sizeGrid(); },
-      suppressColumnVirtualisation: true
+      onGridSizeChanged: () => { this.sizeGrid(); }
     };
     this.gridOptions = this.agGridService.getEditableGridOptions({ gridOptions: this.gridOptions });
     this.gridOptions.stopEditingWhenCellsLoseFocus = true;
