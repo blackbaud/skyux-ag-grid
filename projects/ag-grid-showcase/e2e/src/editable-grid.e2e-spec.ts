@@ -302,8 +302,8 @@ describe('Editable grid', () => {
 describe('Editable grid, complex cells', () => {
 
   // selectors
-  const selectCell = '.ag-body-viewport [aria-colindex="2"]';
-  const selectCellTrigger = '.ag-body-viewport [aria-colindex="2"] .ag-picker-field-display';
+  const selectCell = '.ag-body-viewport [row-id="0"] [aria-colindex="2"]';
+  const selectCellTrigger = selectCell + ' .ag-picker-field-display';
   const selectList = '.ag-select-list';
   const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
   const validatorCellCurrency = '.ag-body-viewport [row-id="2"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
