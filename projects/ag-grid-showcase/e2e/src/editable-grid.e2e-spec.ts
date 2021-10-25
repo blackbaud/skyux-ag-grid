@@ -327,10 +327,14 @@ describe('Editable grid, complex cells', () => {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
         await browserPause();
 
+        console.log(`wait for ${editButton} to be clickable...`)
         await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        console.log(`click ${editButton}`)
         await element(by.css(editButton)).click();
 
+        console.log(`scroll ${selectCell} into view...`)
         await scrollIntoView(selectCell);
+        console.log(`click ${selectCell}`)
         await element(by.css(selectCell)).click();
         await browserPause();
 
@@ -338,7 +342,9 @@ describe('Editable grid, complex cells', () => {
           screenshotName: getScreenshotName('editable-grid-edit-select-focus', screenSize)
         });
 
+        console.log(`scroll ${selectCellTrigger} into view...`)
         await scrollIntoView(selectCellTrigger);
+        console.log(`click ${selectCellTrigger}`)
         await element(by.css(selectCellTrigger)).click();
         await browserPause();
 
@@ -363,14 +369,19 @@ describe('Editable grid, complex cells', () => {
         await SkyHostBrowser.moveCursorOffScreen();
         await browserPause();
 
+        console.log(`expect ${validatorCellAutocomplete} to match baseline screenshot`)
         expect(validatorCellAutocomplete).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-autocomplete', screenSize)
         });
+        await browserPause();
 
+        console.log(`expect ${validatorCellCurrency} to match baseline screenshot`)
         expect(validatorCellCurrency).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid', screenSize)
         });
+        await browserPause();
 
+        console.log(`expect ${validatorCellDate} to match baseline screenshot`)
         expect(validatorCellDate).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-date', screenSize)
         });
