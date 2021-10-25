@@ -330,6 +330,7 @@ describe('Editable grid, complex cells', () => {
         await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
         await element(by.css(editButton)).click();
 
+        await scrollIntoView(selectCell);
         await element(by.css(selectCell)).click();
         await browserPause();
 
@@ -337,6 +338,7 @@ describe('Editable grid, complex cells', () => {
           screenshotName: getScreenshotName('editable-grid-edit-select-focus', screenSize)
         });
 
+        await scrollIntoView(selectCellTrigger);
         await element(by.css(selectCellTrigger)).click();
         await browserPause();
 
