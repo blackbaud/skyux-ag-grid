@@ -13,7 +13,7 @@ import {
   browser,
   by,
   element,
-  ExpectedConditions
+  ExpectedConditions, Key
 } from 'protractor';
 
 let currentTheme: string;
@@ -67,7 +67,13 @@ function cycleThroughThemes(runTests: () => void) {
 }
 
 function browserPause() {
-  return browser.wait(new Promise((resolve) => setTimeout(resolve, 100)));
+  return new Promise((resolve) => setTimeout(resolve, 100));
+}
+
+function scrollIntoView(selector: string) {
+  return browser.executeScript(`return document.querySelector(${
+    JSON.stringify(selector)
+  }).scrollIntoView({ block: "center", inline: "center" })`);
 }
 
 describe('Editable grid', () => {
@@ -176,6 +182,7 @@ describe('Editable grid', () => {
         await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
         await element(by.css(editButton)).click();
 
+        await scrollIntoView('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number');
         await element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')).click();
         await browserPause();
 
@@ -308,6 +315,9 @@ describe('Editable grid, complex cells', () => {
   const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
   const validatorCellCurrency = '.ag-body-viewport [row-id="2"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
   const validatorCellDate = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-date.sky-ag-grid-cell-invalid';
+  const lookupCellSingle = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-lookup[col-id="lookupSingle"]';
+  const lookupCellMultiple = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-lookup[col-id="lookupMultiple"]';
+  const popupEditor = '.ag-popup-editor';
   const editButton = '#edit-btn';
 
   function runTests(): void {
@@ -361,6 +371,48 @@ describe('Editable grid, complex cells', () => {
 
         expect(validatorCellDate).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-date', screenSize)
+        });
+      }
+
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousValidator('lg', done);
+      });
+    });
+
+    describe('lookup single value', () => {
+      async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await SkyHostBrowser.moveCursorOffScreen();
+
+        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await element(by.css(editButton)).click();
+
+        await scrollIntoView(lookupCellSingle);
+        await element(by.css(lookupCellSingle)).click();
+        await browserPause();
+        expect(popupEditor).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-lookup-single-value', screenSize)
+        });
+      }
+
+      it('should match previous screenshot on large screens', async (done) => {
+        await matchesPreviousValidator('lg', done);
+      });
+    });
+
+    describe('lookup multi value', () => {
+      async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await SkyHostBrowser.moveCursorOffScreen();
+
+        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await element(by.css(editButton)).click();
+
+        await scrollIntoView(lookupCellMultiple);
+        await element(by.css(lookupCellMultiple)).click();
+        await browserPause();
+        expect(popupEditor).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('editable-grid-edit-lookup-multiple-value', screenSize)
         });
       }
 
