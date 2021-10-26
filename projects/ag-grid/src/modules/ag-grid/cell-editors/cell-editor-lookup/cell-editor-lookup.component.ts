@@ -4,9 +4,11 @@ import {
   Component,
   ElementRef
 } from '@angular/core';
-import { AbstractControl, NgControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { IPopupComponent } from 'ag-grid-community/dist/lib/interfaces/iPopupComponent';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { SkyCellEditorLookupParams } from '../../types/cell-editor-lookup-params';
 import { applySkyLookupPropertiesDefaults, SkyLookupProperties } from '../../types/lookup-properties';
 
@@ -16,19 +18,24 @@ import { applySkyLookupPropertiesDefaults, SkyLookupProperties } from '../../typ
   styleUrls: ['./cell-editor-lookup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyAgGridCellEditorLookupComponent extends NgControl implements ICellEditorAngularComp, IPopupComponent<any> {
+export class SkyAgGridCellEditorLookupComponent implements ICellEditorAngularComp, IPopupComponent<any> {
 
-  public currentSelection: any[];
   public skyComponentProperties?: SkyLookupProperties;
   public isAlive = true;
+  public lookupForm = new FormGroup({
+    currentSelection: new FormControl({
+      value: [],
+      disabled: false
+    })
+  });
 
   private params: SkyCellEditorLookupParams;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private formBuilder: FormBuilder
   ) {
-    super();
   }
 
   public agInit(params: SkyCellEditorLookupParams): void {
@@ -36,13 +43,13 @@ export class SkyAgGridCellEditorLookupComponent extends NgControl implements ICe
     if (!Array.isArray(this.params.value)) {
       throw new Error(`Lookup value must be an array`);
     }
-    this.currentSelection = this.params.value;
+    const control = this.lookupForm.get('currentSelection');
+    control.setValue(this.params.value);
+    if (this.params.skyComponentProperties.disabled) {
+      control.disable();
+    }
     this.skyComponentProperties = this.updateComponentProperties(this.params);
     this.changeDetector.markForCheck();
-  }
-
-  public get control(): AbstractControl | null {
-    return null;
   }
 
   public isCancelAfterEnd(): boolean {
@@ -56,17 +63,12 @@ export class SkyAgGridCellEditorLookupComponent extends NgControl implements ICe
     return this.elementRef.nativeElement;
   }
 
-  public getValue(): any {
-    return this.currentSelection;
+  public getValue(): any[] {
+    return this.lookupForm.get('currentSelection').value;
   }
 
   public isPopup(): boolean {
     return true;
-  }
-
-  public viewToModelUpdate(newValue: any[]): void {
-    this.currentSelection = newValue;
-    this.changeDetector.markForCheck();
   }
 
   /*istanbul ignore next*/

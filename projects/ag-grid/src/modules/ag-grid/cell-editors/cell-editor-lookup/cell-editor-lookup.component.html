@@ -1,5 +1,6 @@
 <sky-input-box *ngIf="isAlive"
-  [disabled]="skyComponentProperties?.disabled"
+               [disabled]="skyComponentProperties?.disabled"
+               [formGroup]="lookupForm"
 >
   <sky-lookup
     [ariaLabel]="skyComponentProperties?.ariaLabel"
@@ -7,8 +8,8 @@
     [data]="skyComponentProperties?.data"
     [debounceTime]="skyComponentProperties?.debounceTime"
     [descriptorProperty]="skyComponentProperties?.descriptorProperty"
-    [disabled]="skyComponentProperties?.disabled"
     [enableShowMore]="skyComponentProperties?.enableShowMore"
+    formControlName="currentSelection"
     [idProperty]="skyComponentProperties?.idProperty"
     [placeholderText]="skyComponentProperties?.placeholderText"
     [propertiesToSearch]="skyComponentProperties?.propertiesToSearch"
@@ -21,8 +22,6 @@
     [showAddButton]="skyComponentProperties?.showAddButton"
     [showMoreConfig]="skyComponentProperties?.showMoreConfig"
     [wrapperClass]="skyComponentProperties?.wrapperClass"
-    [(ngModel)]="currentSelection"
-    (ngModelChange)="viewToModelUpdate($event)"
   >
   </sky-lookup>
 </sky-input-box>

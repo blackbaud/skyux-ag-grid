@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { expect } from '@skyux-sdk/testing';
 import { SkyInputBoxModule } from '@skyux/forms';
@@ -38,7 +38,11 @@ describe('SkyAgGridCellEditorLookupComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SkyAgGridCellEditorLookupComponent ],
-      imports: [ FormsModule, NoopAnimationsModule, SkyInputBoxModule, SkyLookupModule ]
+      imports: [
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        SkyInputBoxModule,
+        SkyLookupModule ]
     })
       .compileComponents();
   });
@@ -51,10 +55,8 @@ describe('SkyAgGridCellEditorLookupComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.control).toBeFalsy();
     expect(component.getGui()).toBeTruthy();
-    expect(component.getValue()).toBeFalsy();
-    component.viewToModelUpdate([]);
+    expect(component.getValue()).toEqual([]);
     expect(component.getValue()).toBeTruthy();
     expect(component.isPopup()).toBeTrue();
     expect(component.isCancelAfterEnd()).toBeFalse();
@@ -70,6 +72,18 @@ describe('SkyAgGridCellEditorLookupComponent', () => {
     component.agInit({
       ...params,
       value: [{ name: 'hello world' }]
+    });
+    fixture.detectChanges();
+    expect(component).toBeTruthy();
+  });
+
+  it('should initialize with disabled control', () => {
+    component.agInit({
+      ...params,
+      skyComponentProperties: {
+        ...params.skyComponentProperties,
+        disabled: true
+      }
     });
     fixture.detectChanges();
     expect(component).toBeTruthy();
