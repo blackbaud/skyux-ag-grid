@@ -323,28 +323,33 @@ describe('Editable grid, complex cells', () => {
   function runTests(): void {
 
     describe('select focus', () => {
-      async function matchesPreviousSelectFocusAndList(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousSelectFocus(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
         await browserPause();
 
-        console.log(`wait for ${editButton} to be clickable...`)
         await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
-        console.log(`click ${editButton}`)
         await element(by.css(editButton)).click();
 
-        console.log(`scroll ${selectCell} into view...`)
         await scrollIntoView(selectCell);
-        console.log(`click ${selectCell}`)
         await element(by.css(selectCell)).click();
         await browserPause();
 
         expect(selectCell).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-select-focus', screenSize)
         });
+      }
 
-        console.log(`scroll ${selectCellTrigger} into view...`)
-        await scrollIntoView(selectCellTrigger);
-        console.log(`click ${selectCellTrigger}`)
+
+      async function matchesPreviousSelectList(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await browserPause();
+
+        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await element(by.css(editButton)).click();
+
+        await scrollIntoView(selectCell);
+        await element(by.css(selectCell)).click();
+        await browserPause();
         await element(by.css(selectCellTrigger)).click();
         await browserPause();
 
@@ -353,42 +358,51 @@ describe('Editable grid, complex cells', () => {
         });
       }
 
-      it('should match previous screenshot on large screens', async (done) => {
-        await matchesPreviousSelectFocusAndList('lg', done);
+      it('should match previous screenshot on large screens - focus', async (done) => {
+        await matchesPreviousSelectFocus('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', async (done) => {
-        await matchesPreviousSelectFocusAndList('xs', done);
+      it('should match previous screenshot on large screens - list', async (done) => {
+        await matchesPreviousSelectList('lg', done);
+      });
+
+      it('should match previous screenshot on extra small screens - focus', async (done) => {
+        await matchesPreviousSelectFocus('xs', done);
+      });
+
+      it('should match previous screenshot on extra small screens - list', async (done) => {
+        await matchesPreviousSelectList('xs', done);
       });
     });
 
     describe('validator', () => {
-      async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
-        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+      [
+        {
+          summary: 'invalid',
+          selector: validatorCellCurrency
+        },
+        {
+          summary: 'invalid-autocomplete',
+          selector: validatorCellAutocomplete
+        },
+        {
+          summary: 'invalid-date',
+          selector: validatorCellDate
+        }
+      ].forEach((scenario) => {
+        it(`should match previous screenshot on large screens - ${scenario.summary}`, async (done) => {
+          const screenSize = 'lg';
+          await SkyHostBrowser.setWindowBreakpoint(screenSize);
+          await SkyHostBrowser.moveCursorOffScreen();
+          await browserPause();
 
-        await SkyHostBrowser.moveCursorOffScreen();
-        await browserPause();
-
-        console.log(`expect ${validatorCellAutocomplete} to match baseline screenshot`)
-        expect(validatorCellAutocomplete).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-autocomplete', screenSize)
+          expect(scenario.selector).toMatchBaselineScreenshot(done, {
+            screenshotName: getScreenshotName(
+              `editable-grid-edit-validator-${scenario.summary}`,
+              screenSize
+            )
+          });
         });
-        await browserPause();
-
-        console.log(`expect ${validatorCellCurrency} to match baseline screenshot`)
-        expect(validatorCellCurrency).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid', screenSize)
-        });
-        await browserPause();
-
-        console.log(`expect ${validatorCellDate} to match baseline screenshot`)
-        expect(validatorCellDate).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-date', screenSize)
-        });
-      }
-
-      it('should match previous screenshot on large screens', async (done) => {
-        await matchesPreviousValidator('lg', done);
       });
     });
 
