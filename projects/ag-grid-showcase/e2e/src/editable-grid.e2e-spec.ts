@@ -429,30 +429,12 @@ describe('Editable grid, complex cells', () => {
           await element(by.css(scenario.selector)).click();
           await browserPause();
           expect(popupEditor).toMatchBaselineScreenshot(done, {
-            screenshotName: getScreenshotName(`editable-grid-edit-lookup-${scenario.summary}-value`, screenSize)
+            screenshotName: getScreenshotName(
+              `editable-grid-edit-lookup-${scenario.summary}-value`,
+              screenSize
+            )
           });
         });
-      });
-    });
-
-    describe('lookup multi value', () => {
-      async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
-        await SkyHostBrowser.setWindowBreakpoint(screenSize);
-        await SkyHostBrowser.moveCursorOffScreen();
-
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
-        await element(by.css(editButton)).click();
-
-        await scrollIntoView(lookupCellMultiple);
-        await element(by.css(lookupCellMultiple)).click();
-        await browserPause();
-        expect(popupEditor).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-lookup-multiple-value', screenSize)
-        });
-      }
-
-      it('should match previous screenshot on large screens', async (done) => {
-        await matchesPreviousValidator('lg', done);
       });
     });
   }
