@@ -13,7 +13,7 @@ import {
   browser,
   by,
   element,
-  ExpectedConditions, Key
+  ExpectedConditions
 } from 'protractor';
 
 let currentTheme: string;
@@ -153,7 +153,7 @@ describe('Editable grid', () => {
 
     describe('ascending sort', () => {
       async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         // click twice to sort by descending then ascending
         await browser.wait(ExpectedConditions.elementToBeClickable($(sortableHeaderCell)))
@@ -406,24 +406,32 @@ describe('Editable grid, complex cells', () => {
       });
     });
 
-    describe('lookup single value', () => {
-      async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
-        await SkyHostBrowser.setWindowBreakpoint(screenSize);
-        await SkyHostBrowser.moveCursorOffScreen();
-
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
-        await element(by.css(editButton)).click();
-
-        await scrollIntoView(lookupCellSingle);
-        await element(by.css(lookupCellSingle)).click();
-        await browserPause();
-        expect(popupEditor).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-lookup-single-value', screenSize)
-        });
+    [
+      {
+        summary: 'single',
+        selector: lookupCellSingle
+      },
+      {
+        summary: 'multiple',
+        selector: lookupCellMultiple
       }
+    ].forEach((scenario) => {
+      describe(`lookup ${scenario.summary} value`, () => {
+        it('should match previous screenshot on large screens', async (done) => {
+          const screenSize = 'lg';
+          await SkyHostBrowser.setWindowBreakpoint(screenSize);
+          await SkyHostBrowser.moveCursorOffScreen();
 
-      it('should match previous screenshot on large screens', async (done) => {
-        await matchesPreviousValidator('lg', done);
+          await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+          await element(by.css(editButton)).click();
+
+          await scrollIntoView(scenario.selector);
+          await element(by.css(scenario.selector)).click();
+          await browserPause();
+          expect(popupEditor).toMatchBaselineScreenshot(done, {
+            screenshotName: getScreenshotName(`editable-grid-edit-lookup-${scenario.summary}-value`, screenSize)
+          });
+        });
       });
     });
 

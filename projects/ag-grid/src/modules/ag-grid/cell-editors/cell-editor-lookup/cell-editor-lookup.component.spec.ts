@@ -57,13 +57,7 @@ describe('SkyAgGridCellEditorLookupComponent', () => {
     component.viewToModelUpdate([]);
     expect(component.getValue()).toBeTruthy();
     expect(component.isPopup()).toBeTrue();
-  });
-
-  it('should block time on destroy', () => {
-    const time = Date.now();
-    fixture.detectChanges();
-    component.destroy();
-    expect(Date.now()).toBeGreaterThan(time);
+    expect(component.isCancelAfterEnd()).toBeFalse();
   });
 
   it('should initialize with empty value', () => {

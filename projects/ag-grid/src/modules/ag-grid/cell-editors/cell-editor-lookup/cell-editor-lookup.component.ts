@@ -20,6 +20,7 @@ export class SkyAgGridCellEditorLookupComponent extends NgControl implements ICe
 
   public currentSelection: any[];
   public skyComponentProperties?: SkyLookupProperties;
+  public isAlive = true;
 
   private params: SkyCellEditorLookupParams;
 
@@ -44,13 +45,11 @@ export class SkyAgGridCellEditorLookupComponent extends NgControl implements ICe
     return null;
   }
 
-  public destroy() {
-    // Enough time for lookup to push changes.
-    const end = Date.now()+10;
-    let now = Date.now();
-    while (now < end) {
-      now = Date.now();
-    }
+  public isCancelAfterEnd(): boolean {
+    // Shut down components to commit values before final value syncs to grid.
+    this.isAlive = false;
+    this.changeDetector.detectChanges();
+    return false;
   }
 
   public getGui(): HTMLElement {
