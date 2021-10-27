@@ -52,9 +52,10 @@ export class SkyAgGridCellEditorAutocompleteComponent implements ICellEditorAngu
     this.input.nativeElement.focus();
   }
 
-  public destroy() {
+  public isCancelAfterEnd(): boolean {
     this.alive = false;
     this.changeDetector.detectChanges();
+    return false;
   }
 
   public getValue(): any {

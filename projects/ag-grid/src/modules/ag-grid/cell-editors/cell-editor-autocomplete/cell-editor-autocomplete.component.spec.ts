@@ -128,9 +128,9 @@ describe('SkyCellEditorAutocompleteComponent', () => {
   });
 
   describe('destroy', () => {
-    it('should no longer be alive', () => {
+    it('should destroy component', () => {
       expect(component.alive).toBeTrue();
-      component.destroy();
+      expect(component.isCancelAfterEnd()).toBeFalse();
       expect(component.alive).toBeFalse();
     });
   });
