@@ -11,6 +11,7 @@ import { applySkyLookupPropertiesDefaults, SkyLookupProperties } from '../../typ
 })
 export class SkyAgGridCellRendererLookupComponent implements ICellRendererAngularComp {
   public value: string = '';
+  public summaryCount = 0;
   private lookupProperties: SkyLookupProperties;
 
   constructor(
@@ -20,10 +21,8 @@ export class SkyAgGridCellRendererLookupComponent implements ICellRendererAngula
 
   public agInit(params: SkyCellRendererLookupParams): void {
     this.lookupProperties = applySkyLookupPropertiesDefaults(params);
-    this.value = (params.value || [])
-      .map((value) => value[this.lookupProperties.descriptorProperty])
-      .filter((value) => value !== '' && value !== undefined)
-      .join(', ');
+    this.summaryCount = params.value?.length || 0;
+    this.value = `${params.valueFormatted}`;
     this.changeDetector.markForCheck();
   }
 

@@ -56,6 +56,15 @@ describe('CellRendererLookupComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should initialize with formatted value', () => {
+    component.agInit({
+      ...params,
+      valueFormatted: 'hello world'
+    });
+    fixture.detectChanges();
+    expect(component).toBeTruthy();
+  });
+
   it('should refresh', () => {
     component.refresh({...params});
     fixture.detectChanges();

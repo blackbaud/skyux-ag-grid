@@ -80,6 +80,7 @@ import {
 import {
   SkyHeaderClass
 } from './types/header-class';
+import { applySkyLookupPropertiesDefaults } from './types/lookup-properties';
 
 import {
   SkyGetGridOptionsArgs
@@ -308,6 +309,15 @@ export class SkyAgGridService implements OnDestroy {
           },
           cellEditorFramework: SkyAgGridCellEditorLookupComponent,
           cellRendererFramework: SkyAgGridCellRendererLookupComponent,
+          valueFormatter: (params) => {
+            const lookupProperties = applySkyLookupPropertiesDefaults(params);
+            return (params.value || [])
+              .map((value) => {
+                return value[lookupProperties.descriptorProperty];
+              })
+              .filter((value) => value !== '' && value !== undefined)
+              .join('; ')
+          },
           minWidth: 185
         },
         [SkyCellType.Number]: {
