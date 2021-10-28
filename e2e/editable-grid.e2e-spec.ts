@@ -63,6 +63,16 @@ function cycleThroughThemes(runTests: () => void) {
   });
 }
 
+function browserPause() {
+  return new Promise((resolve) => setTimeout(resolve, 100));
+}
+
+function scrollIntoView(selector: string) {
+  return browser.executeScript(`return document.querySelector(${
+    JSON.stringify(selector)
+  }).scrollIntoView({ block: "center", inline: "center" })`);
+}
+
 describe('Editable grid', () => {
 
   // selectors
@@ -135,7 +145,7 @@ describe('Editable grid', () => {
 
     describe('ascending sort', () => {
       async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
-        SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         // click twice to sort by descending then ascending
         await element(by.css(sortableHeaderCell)).click();
@@ -161,6 +171,7 @@ describe('Editable grid', () => {
 
         await element(by.css(editButton)).click();
 
+        await scrollIntoView('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number');
         await element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')).click();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
@@ -280,80 +291,129 @@ describe('Editable grid', () => {
 describe('Editable grid, complex cells', () => {
 
   // selectors
-  const selectCell = '.ag-body-viewport [aria-colindex="2"]';
-  const selectCellTrigger = '.ag-body-viewport [aria-colindex="2"] .ag-picker-field-display';
+  const selectCell = '.ag-body-viewport [row-id="0"] [aria-colindex="2"]';
+  const selectCellTrigger = selectCell + ' .ag-picker-field-display';
   const selectList = '.ag-select-list';
   const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
-  const validatorCellCurrency = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
+  const validatorCellCurrency = '.ag-body-viewport [row-id="2"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
   const validatorCellDate = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-date.sky-ag-grid-cell-invalid';
-  const columnHorizontalScroll = '.ag-body-viewport .ag-center-cols-viewport';
+  const lookupCellSingle = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-lookup[col-id="lookupSingle"]';
+  const lookupCellMultiple = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-lookup[col-id="lookupMultiple"]';
+  const popupEditor = '.ag-popup-editor';
   const editButton = '#edit-btn';
 
   function runTests(): void {
 
     describe('select focus', () => {
-      async function matchesPreviousSelectFocusAndList(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousSelectFocus(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         await element(by.css(editButton)).click();
 
+        await scrollIntoView(selectCell);
         await element(by.css(selectCell)).click();
+        await browserPause();
 
         expect(selectCell).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-select-focus', screenSize)
         });
+      }
 
+      async function matchesPreviousSelectList(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+        await browserPause();
+
+        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css(editButton))));
+        await element(by.css(editButton)).click();
+
+        await scrollIntoView(selectCell);
+        await element(by.css(selectCell)).click();
+        await browserPause();
         await element(by.css(selectCellTrigger)).click();
+        await browserPause();
 
         expect(selectList).toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('editable-grid-edit-select-list', screenSize)
         });
       }
 
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousSelectFocusAndList('lg', done);
+      it('should match previous screenshot on large screens - focus', async (done) => {
+        await matchesPreviousSelectFocus('lg', done);
       });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousSelectFocusAndList('xs', done);
+      it('should match previous screenshot on large screens - list', async (done) => {
+        await matchesPreviousSelectList('lg', done);
+      });
+
+      it('should match previous screenshot on extra small screens - focus', async (done) => {
+        await matchesPreviousSelectFocus('xs', done);
+      });
+
+      it('should match previous screenshot on extra small screens - list', async (done) => {
+        await matchesPreviousSelectList('xs', done);
       });
     });
 
     describe('validator', () => {
-      async function matchesPreviousValidator(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
-        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+      [
+        {
+          summary: 'invalid',
+          selector: validatorCellCurrency
+        },
+        {
+          summary: 'invalid-autocomplete',
+          selector: validatorCellAutocomplete
+        },
+        {
+          summary: 'invalid-date',
+          selector: validatorCellDate
+        }
+      ].forEach((scenario) => {
+        it(`should match previous screenshot on large screens - ${scenario.summary}`, async (done) => {
+          const screenSize = 'lg';
+          await SkyHostBrowser.setWindowBreakpoint(screenSize);
+          await SkyHostBrowser.moveCursorOffScreen();
+          await browserPause();
 
-        await browser.wait(
-          ExpectedConditions.presenceOf(element(by.css(columnHorizontalScroll))),
-          5000,
-          'Grid took too long to appear.'
-        );
-        await SkyHostBrowser.moveCursorOffScreen();
-
-        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellAutocomplete) + ').scrollIntoView();');
-        expect(validatorCellAutocomplete).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-autocomplete', screenSize)
+          expect(scenario.selector).toMatchBaselineScreenshot(done, {
+            screenshotName: getScreenshotName(
+              `editable-grid-edit-validator-${scenario.summary}`,
+              screenSize
+            )
+          });
         });
-
-        await browser.executeScript('document.querySelector(' + JSON.stringify(columnHorizontalScroll) + ').scrollLeft = 1000');
-        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellCurrency) + ').scrollIntoView();');
-        expect(validatorCellCurrency).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid', screenSize)
-        });
-
-        await browser.executeScript('document.querySelector(' + JSON.stringify(columnHorizontalScroll) + ').scrollLeft = 1000');
-        await browser.executeScript('document.querySelector(' + JSON.stringify(validatorCellDate) + ').scrollIntoView();');
-        expect(validatorCellDate).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-validator-invalid-date', screenSize)
-        });
-      }
-
-      it('should match previous screenshot on large screens', (done) => {
-        matchesPreviousValidator('lg', done);
       });
+    });
 
-      it('should match previous screenshot on extra small screens', (done) => {
-        matchesPreviousValidator('xs', done);
+    [
+      {
+        summary: 'single',
+        selector: lookupCellSingle
+      },
+      {
+        summary: 'multiple',
+        selector: lookupCellMultiple
+      }
+    ].forEach((scenario) => {
+      describe(`lookup ${scenario.summary} value`, () => {
+        it('should match previous screenshot on large screens', async (done) => {
+          const screenSize = 'lg';
+          await SkyHostBrowser.setWindowBreakpoint(screenSize);
+          await SkyHostBrowser.moveCursorOffScreen();
+
+          await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css(editButton))));
+          await element(by.css(editButton)).click();
+
+          await scrollIntoView(scenario.selector);
+          await element(by.css(scenario.selector)).click();
+          await browserPause();
+          expect(popupEditor).toMatchBaselineScreenshot(done, {
+            screenshotName: getScreenshotName(
+              `editable-grid-edit-lookup-${scenario.summary}-value`,
+              screenSize
+            )
+          });
+        });
       });
     });
   }
