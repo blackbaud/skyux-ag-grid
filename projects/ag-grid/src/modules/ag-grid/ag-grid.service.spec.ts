@@ -5,7 +5,8 @@ import {
 import {
   CellClassParams,
   ColumnApi,
-  GridOptions, ValueFormatterFunc,
+  GridOptions,
+  ValueFormatterFunc,
   ValueFormatterParams
 } from 'ag-grid-community';
 

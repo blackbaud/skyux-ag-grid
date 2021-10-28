@@ -4,11 +4,9 @@ import {
   Component,
   ElementRef
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { IPopupComponent } from 'ag-grid-community/dist/lib/interfaces/iPopupComponent';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { SkyCellEditorLookupParams } from '../../types/cell-editor-lookup-params';
 import { applySkyLookupPropertiesDefaults, SkyLookupProperties } from '../../types/lookup-properties';
 
@@ -33,8 +31,7 @@ export class SkyAgGridCellEditorLookupComponent implements ICellEditorAngularCom
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef,
-    private formBuilder: FormBuilder
+    private elementRef: ElementRef
   ) {
   }
 
