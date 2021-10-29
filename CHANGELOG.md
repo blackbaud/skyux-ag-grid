@@ -1,3 +1,7 @@
+# 4.12.0 (2021-10-29)
+
+- Added bug fixes and features from the `master` branch. [#161](https://github.com/blackbaud/skyux-ag-grid/pull/161)
+
 # 4.11.0 (2021-09-24)
 
 - Fixed the currency column type so the values are right-aligned. [#147](https://github.com/blackbaud/skyux-ag-grid/pull/147)
