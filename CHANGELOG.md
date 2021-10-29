@@ -1,6 +1,6 @@
 # 5.1.0 (2021-10-28)
 
-- Added the lookup column type. [#157](https://github.com/blackbaud/skyux-ag-grid/pull/157)
+- Added the lookup cell type. [#157](https://github.com/blackbaud/skyux-ag-grid/pull/157)
 
 # 5.0.2 (2021-10-20)
 
