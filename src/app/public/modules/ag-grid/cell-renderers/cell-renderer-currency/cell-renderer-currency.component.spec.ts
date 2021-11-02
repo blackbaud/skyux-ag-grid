@@ -113,6 +113,13 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
       currencyFixture.detectChanges();
 
       expect(currencyComponent.value).toBe(123);
+
+      cellRendererParams.skyComponentProperties = undefined;
+      // @ts-ignore
+      cellRendererParams.column = undefined;
+      currencyComponent.agInit(cellRendererParams);
+
+      expect(currencyComponent.skyComponentProperties.format).toBe('currency');
     }));
   });
 

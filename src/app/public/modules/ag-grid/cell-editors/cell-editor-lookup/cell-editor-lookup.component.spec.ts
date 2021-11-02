@@ -9,6 +9,7 @@ import { SkyAgGridCellEditorLookupComponent } from './cell-editor-lookup.compone
 describe('SkyAgGridCellEditorLookupComponent', () => {
   let component: SkyAgGridCellEditorLookupComponent;
   let fixture: ComponentFixture<SkyAgGridCellEditorLookupComponent>;
+  // @ts-ignore
   const params = {
     $scope: undefined,
     api: undefined,

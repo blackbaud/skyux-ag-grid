@@ -17,8 +17,8 @@ import {
 } from 'ag-grid-community';
 
 import {
-  ComponentSelectorResult
-} from 'ag-grid-community/dist/lib/components/framework/userComponentFactory';
+  EditableCallbackParams
+} from 'ag-grid-community/dist/lib/entities/colDef';
 
 import {
   Subject
@@ -145,14 +145,14 @@ function dateComparator(date1: any, date2: any): number {
   return date1value ? 1 : -1;
 }
 
-function getValidatorCellRendererSelector(component: string, fallback?: ComponentSelectorResult) {
-  return (params: ICellRendererParams): ComponentSelectorResult => {
-    if (typeof params.colDef?.cellRendererParams?.skyComponentProperties?.validator === 'function') {
+function getValidatorCellRendererSelector(component: string, fallback?: any) {
+  return (params: ICellRendererParams) => {
+    if (params.colDef && typeof params.colDef.cellRendererParams?.skyComponentProperties?.validator === 'function') {
       if (!params.colDef.cellRendererParams.skyComponentProperties.validator(params.value, params.data, params.rowIndex)) {
         return {
           component,
           params: {
-            ...params.colDef?.cellRendererParams
+            ...params.colDef.cellRendererParams
           }
         };
       }
@@ -239,7 +239,7 @@ export class SkyAgGridService implements OnDestroy {
 
         if (typeof isEditable === 'function') {
           const column = params.columnApi.getColumn(params.colDef.field);
-          isEditable = isEditable({ ...params, column });
+          isEditable = isEditable({ ...params, column } as EditableCallbackParams);
         }
 
         return isUneditable ? !isEditable : isEditable;
@@ -253,7 +253,7 @@ export class SkyAgGridService implements OnDestroy {
 
     function getValidatorFn(): ((params: CellClassParams) => boolean) {
       return function (param: CellClassParams) {
-        if (typeof param.colDef?.cellRendererParams?.skyComponentProperties?.validator === 'function') {
+        if (param.colDef && typeof param.colDef.cellRendererParams?.skyComponentProperties?.validator === 'function') {
           return !param.colDef.cellRendererParams.skyComponentProperties.validator(param.value, param.data, param.rowIndex);
         }
         return false;
@@ -400,9 +400,12 @@ export class SkyAgGridService implements OnDestroy {
         }
       }
     };
-    this.resources?.getString('sky_ag_grid_cell_renderer_currency_validator_message').subscribe((value) => {
-      defaultSkyGridOptions.columnTypes[SkyCellType.CurrencyValidator].cellRendererParams.skyComponentProperties.validatorMessage = value;
-    });
+    /*istanbul ignore else*/
+    if (this.resources) {
+      this.resources.getString('sky_ag_grid_cell_renderer_currency_validator_message').subscribe((value) => {
+        defaultSkyGridOptions.columnTypes[SkyCellType.CurrencyValidator].cellRendererParams.skyComponentProperties.validatorMessage = value;
+      });
+    }
 
     defaultSkyGridOptions.columnTypes[SkyCellType.NumberValidator] = {
       ...defaultSkyGridOptions.columnTypes[SkyCellType.Validator],
@@ -420,9 +423,12 @@ export class SkyAgGridService implements OnDestroy {
         }
       }
     };
-    this.resources?.getString('sky_ag_grid_cell_renderer_number_validator_message').subscribe((value) => {
-      defaultSkyGridOptions.columnTypes[SkyCellType.NumberValidator].cellRendererParams.skyComponentProperties.validatorMessage = value;
-    });
+    /*istanbul ignore else*/
+    if (this.resources) {
+      this.resources.getString('sky_ag_grid_cell_renderer_number_validator_message').subscribe((value) => {
+        defaultSkyGridOptions.columnTypes[SkyCellType.NumberValidator].cellRendererParams.skyComponentProperties.validatorMessage = value;
+      });
+    }
 
     return defaultSkyGridOptions;
   }
@@ -449,6 +455,7 @@ export class SkyAgGridService implements OnDestroy {
       date = new Date(params.value);
     }
 
+    // @ts-ignore
     let formattedDate = date && date.toLocaleDateString && date.toLocaleDateString(locale, dateConfig);
 
     if (date && date.getTime && !isNaN(date.getTime())) {

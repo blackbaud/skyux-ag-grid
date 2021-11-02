@@ -9,6 +9,7 @@ import {
   ValueFormatterFunc,
   ValueFormatterParams
 } from 'ag-grid-community';
+
 import { ICellRendererParams } from 'ag-grid-community/dist/lib/rendering/cellRenderers/iCellRenderer';
 
 import {
@@ -635,6 +636,7 @@ describe('SkyAgGridService', () => {
         getValue(): any {},
         node: undefined,
         refreshCell(): void {},
+        registerRowDragger(): void {},
         rowIndex: 0,
         setValue(): void {},
         value: 1.23,
@@ -718,6 +720,37 @@ describe('SkyAgGridService', () => {
         value: 1.23
       } as ICellRendererParams;
       expect(cellRendererSelector(params).component).toBe('sky-ag-grid-cell-renderer-currency');
+
+      const paramsWithEmptyComponentProperties = {
+        ...cellRendererParams,
+        colDef: {
+          cellRendererParams: {
+            skyComponentProperties: undefined
+          }
+        },
+        value: 1.23
+      } as ICellRendererParams;
+      expect(cellRendererSelector(paramsWithEmptyComponentProperties).component).toBe('sky-ag-grid-cell-renderer-currency');
+
+      const paramsWithoutComponentProperties = {
+        ...cellRendererParams,
+        colDef: {
+          cellRendererParams: {
+            skyComponentProperties: undefined
+          }
+        },
+        value: 1.23
+      } as ICellRendererParams;
+      expect(cellRendererSelector(paramsWithoutComponentProperties).component).toBe('sky-ag-grid-cell-renderer-currency');
+
+      const paramsWithoutRendererParams = {
+        ...cellRendererParams,
+        colDef: {
+          cellRendererParams: undefined
+        },
+        value: 1.23
+      } as ICellRendererParams;
+      expect(cellRendererSelector(paramsWithoutRendererParams).component).toBe('sky-ag-grid-cell-renderer-currency');
     });
 
     it('should select validator cell renderer when the value is empty', () => {

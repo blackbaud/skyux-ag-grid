@@ -43,7 +43,7 @@ import {
 export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, OnDestroy {
 
   @Input()
-  private viewId: string;
+  public viewId: string;
 
   @ContentChildren(AgGridAngular, { descendants: true })
   public agGridList: QueryList<AgGridAngular>;
@@ -215,10 +215,15 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
           const activeSortColumn = agGrid.columnApi.getColumn(activeSortModel.colId);
           const dataManagerConfig = this.dataManagerSvc.getCurrentDataManagerConfig();
 
-          sortOption = dataManagerConfig.sortOptions?.find((option: SkyDataManagerSortOption) => {
-            return option.propertyName === activeSortColumn.getColDef().field &&
-              option.descending === (activeSortModel.sort === 'desc');
-          });
+          /* istanbul ignore else */
+          if (dataManagerConfig.sortOptions) {
+            sortOption = dataManagerConfig.sortOptions.find((option: SkyDataManagerSortOption) => {
+              return option.propertyName === activeSortColumn.getColDef().field &&
+                option.descending === (activeSortModel.sort === 'desc');
+            });
+          } else {
+            sortOption = undefined;
+          }
         }
         this.currentDataState.activeSortOption = sortOption;
         this.dataManagerSvc.updateDataState(this.currentDataState, this.viewConfig.id);
@@ -228,7 +233,11 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
   private displayColumns(dataState: SkyDataManagerState): void {
     const agGrid = this.currentAgGrid;
     const viewState = dataState.getViewStateById(this.viewConfig.id);
-    const displayedColumnIds = viewState.displayedColumnIds || [];
+    let displayedColumnIds: string[] = [];
+    /*istanbul ignore else*/
+    if (viewState.displayedColumnIds) {
+      displayedColumnIds = viewState.displayedColumnIds;
+    }
     const columns = agGrid.columnApi.getAllColumns();
 
     for (const column of columns) {

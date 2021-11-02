@@ -69,7 +69,7 @@
     "@skyux/inline-form": "4.1.1",
     "@skyux/layout": "4.7.3",
     "@skyux/lists": "4.9.2",
-    "@skyux/lookup": "4.17.6",
+    "@skyux/lookup": "file:.yalc/@skyux/lookup",
     "@skyux/modals": "4.6.1",
     "@skyux/navbar": "4.0.0",
     "@skyux/omnibar-interop": "4.0.1",

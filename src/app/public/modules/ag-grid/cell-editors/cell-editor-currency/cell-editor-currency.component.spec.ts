@@ -104,6 +104,15 @@ describe('SkyCellEditorCurrencyComponent', () => {
 
       expect(currencyEditorComponent.value).toEqual(value);
       expect(currencyEditorComponent.columnWidth).toEqual(columnWidth);
+
+      // @ts-ignore
+      cellEditorParams.node = {
+        rowHeight: 100
+      };
+
+      currencyEditorComponent.agInit(cellEditorParams);
+
+      expect(currencyEditorComponent.rowHeightWithoutBorders).toEqual(96);
     });
   });
 
