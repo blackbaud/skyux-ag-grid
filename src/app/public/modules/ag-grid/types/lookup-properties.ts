@@ -2,7 +2,6 @@ import { TemplateRef } from '@angular/core';
 import {
   SkyAutocompleteSearchFunction,
   SkyAutocompleteSearchFunctionFilter,
-  SkyLookupSelectModeType,
   SkyLookupShowMoreConfig
 } from '@skyux/lookup';
 
@@ -22,7 +21,7 @@ export interface SkyLookupProperties {
   searchResultsLimit?: number;
   searchResultTemplate?: TemplateRef<any>;
   searchTextMinimumCharacters?: number;
-  selectMode?: SkyLookupSelectModeType;
+  selectMode?: 'single' | 'multiple';
   showAddButton?: boolean;
   showMoreConfig?: SkyLookupShowMoreConfig;
   wrapperClass?: string;

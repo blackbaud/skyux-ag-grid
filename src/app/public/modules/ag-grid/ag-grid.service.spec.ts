@@ -6,7 +6,6 @@ import {
   CellClassParams,
   ColumnApi,
   GridOptions,
-  ValueFormatterFunc,
   ValueFormatterParams
 } from 'ag-grid-community';
 
@@ -439,7 +438,7 @@ describe('SkyAgGridService', () => {
   });
 
   describe('lookup value formatter', () => {
-    let lookupValueFormatter: ValueFormatterFunc;
+    let lookupValueFormatter: (params: ValueFormatterParams) => string;
     const baseParameters = {
       api: undefined,
       colDef: undefined,
@@ -449,10 +448,10 @@ describe('SkyAgGridService', () => {
       data: undefined,
       node: undefined,
       value: undefined
-    };
+    } as ValueFormatterParams;
 
     beforeEach(() => {
-      lookupValueFormatter = defaultGridOptions.columnTypes[SkyCellType.Lookup].valueFormatter as ValueFormatterFunc;
+      lookupValueFormatter = defaultGridOptions.columnTypes[SkyCellType.Lookup].valueFormatter as (params: ValueFormatterParams) => string;
     });
 
     it('should format an empty value', () => {

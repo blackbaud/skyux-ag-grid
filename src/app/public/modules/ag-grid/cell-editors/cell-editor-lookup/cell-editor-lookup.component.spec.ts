@@ -4,12 +4,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { expect } from '@skyux-sdk/testing';
 import { SkyInputBoxModule } from '@skyux/forms';
 import { SkyLookupModule } from '@skyux/lookup';
+import { SkyAgGridResourcesModule } from '../../../shared/ag-grid-resources.module';
+import { SkyCellEditorLookupParams } from '../../types/cell-editor-lookup-params';
 import { SkyAgGridCellEditorLookupComponent } from './cell-editor-lookup.component';
 
 describe('SkyAgGridCellEditorLookupComponent', () => {
   let component: SkyAgGridCellEditorLookupComponent;
   let fixture: ComponentFixture<SkyAgGridCellEditorLookupComponent>;
-  // @ts-ignore
   const params = {
     $scope: undefined,
     api: undefined,
@@ -34,7 +35,7 @@ describe('SkyAgGridCellEditorLookupComponent', () => {
     },
     stopEditing(): void {},
     value: []
-  };
+  } as SkyCellEditorLookupParams;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -42,6 +43,7 @@ describe('SkyAgGridCellEditorLookupComponent', () => {
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
+        SkyAgGridResourcesModule,
         SkyInputBoxModule,
         SkyLookupModule ]
     })

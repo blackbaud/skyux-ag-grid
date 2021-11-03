@@ -215,6 +215,11 @@ export class EditComplexCellsComponent implements OnInit {
       suppressColumnVirtualisation: true
     };
     this.gridOptions = this.agGridService.getEditableGridOptions({ gridOptions: this.gridOptions });
-    this.gridOptions.stopEditingWhenCellsLoseFocus = true;
+    if ('stopEditingWhenCellsLoseFocus' in this.gridOptions) {
+      // @ts-ignore
+      this.gridOptions.stopEditingWhenCellsLoseFocus = true;
+    } else {
+      this.gridOptions.stopEditingWhenGridLosesFocus = true;
+    }
   }
 }

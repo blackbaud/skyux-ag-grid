@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SkyAgGridResourcesModule } from '../../../shared/ag-grid-resources.module';
+import { SkyCellRendererLookupParams } from '../../types/cell-renderer-lookup-params';
 
 import { SkyAgGridCellRendererLookupComponent } from './cell-renderer-lookup.component';
 
@@ -22,11 +24,12 @@ describe('CellRendererLookupComponent', () => {
       data: [],
       descriptorProperty: 'name'
     }
-  };
+  } as unknown as SkyCellRendererLookupParams;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SkyAgGridCellRendererLookupComponent ]
+      declarations: [ SkyAgGridCellRendererLookupComponent ],
+      imports: [ SkyAgGridResourcesModule ]
     })
     .compileComponents();
   });
