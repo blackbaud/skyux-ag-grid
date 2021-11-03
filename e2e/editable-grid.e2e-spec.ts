@@ -249,7 +249,7 @@ describe('Editable grid', () => {
         await cell.click();
         const input = element(by.css(`${autocompleteCell} input`));
         input.value = 'j';
-        await browser.actions().sendKeys('j').perform();
+        await input.sendKeys('j');
 
         await browser.wait(
           ExpectedConditions.presenceOf(element(by.css('.sky-autocomplete-results'))),
