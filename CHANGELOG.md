@@ -1,4 +1,4 @@
-# 4.12.0 (2021-10-29)
+# 4.12.0 (2021-11-03)
 
 - Added bug fixes and features from the `master` branch. [#161](https://github.com/blackbaud/skyux-ag-grid/pull/161)
 
