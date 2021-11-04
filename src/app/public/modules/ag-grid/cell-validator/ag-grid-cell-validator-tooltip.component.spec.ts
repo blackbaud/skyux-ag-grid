@@ -6,6 +6,14 @@ import { SkyCellRendererValidatorParams } from '../types/cell-renderer-validator
 import { SkyAgGridCellValidatorTooltipComponent } from './ag-grid-cell-validator-tooltip.component';
 
 describe('SkyAgGridCellValidatorTooltipComponent', () => {
+  const isIE = window.navigator.userAgent.indexOf('.NET CLR') > -1;
+  if (isIE) {
+    it('should skip tests in IE', () => {
+      expect(isIE).toBeTrue();
+    });
+    return;
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [

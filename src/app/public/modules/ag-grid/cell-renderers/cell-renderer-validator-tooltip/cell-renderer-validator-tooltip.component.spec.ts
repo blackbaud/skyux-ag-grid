@@ -1,10 +1,19 @@
 import { TestBed } from '@angular/core/testing';
+import { expect } from '@skyux-sdk/testing';
 import { SkyAgGridFixtureModule } from '../../fixtures/ag-grid.module.fixture';
 import { SkyCellRendererValidatorParams } from '../../types/cell-renderer-validator-params';
 import { ValidatorOptions } from '../../types/validator-options';
 import { SkyAgGridCellRendererValidatorTooltipComponent } from './cell-renderer-validator-tooltip.component';
 
 describe('SkyAgGridCellRendererValidatorTooltipComponent', () => {
+  const isIE = window.navigator.userAgent.indexOf('.NET CLR') > -1;
+  if (isIE) {
+    it('should skip tests in IE', () => {
+      expect(isIE).toBeTrue();
+    });
+    return;
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [

@@ -41,6 +41,14 @@ import {
 } from 'ag-grid-community';
 
 describe('SkyAgGridCellRendererCurrencyComponent', () => {
+  const isIE = window.navigator.userAgent.indexOf('.NET CLR') > -1;
+  if (isIE) {
+    it('should skip tests in IE', () => {
+      expect(isIE).toBeTrue();
+    });
+    return;
+  }
+
   let currencyFixture: ComponentFixture<SkyAgGridCellRendererCurrencyComponent>;
   let currencyComponent: SkyAgGridCellRendererCurrencyComponent;
   let currencyNativeElement: HTMLElement;
@@ -113,6 +121,13 @@ describe('SkyAgGridCellRendererCurrencyComponent', () => {
       currencyFixture.detectChanges();
 
       expect(currencyComponent.value).toBe(123);
+
+      cellRendererParams.skyComponentProperties = undefined;
+      // @ts-ignore
+      cellRendererParams.column = undefined;
+      currencyComponent.agInit(cellRendererParams);
+
+      expect(currencyComponent.skyComponentProperties.format).toBe('currency');
     }));
   });
 

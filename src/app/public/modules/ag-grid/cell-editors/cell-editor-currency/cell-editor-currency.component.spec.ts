@@ -30,8 +30,13 @@ import {
 } from './cell-editor-currency.component';
 
 describe('SkyCellEditorCurrencyComponent', () => {
-  // We've had some issue with grid rendering causing the specs to timeout in IE. Extending it slightly to help.
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 7500;
+  const isIE = window.navigator.userAgent.indexOf('.NET CLR') > -1;
+  if (isIE) {
+    it('should skip tests in IE', () => {
+      expect(isIE).toBeTrue();
+    });
+    return;
+  }
 
   let currencyEditorFixture: ComponentFixture<SkyAgGridCellEditorCurrencyComponent>;
   let currencyEditorComponent: SkyAgGridCellEditorCurrencyComponent;
@@ -104,6 +109,15 @@ describe('SkyCellEditorCurrencyComponent', () => {
 
       expect(currencyEditorComponent.value).toEqual(value);
       expect(currencyEditorComponent.columnWidth).toEqual(columnWidth);
+
+      // @ts-ignore
+      cellEditorParams.node = {
+        rowHeight: 100
+      };
+
+      currencyEditorComponent.agInit(cellEditorParams);
+
+      expect(currencyEditorComponent.rowHeightWithoutBorders).toEqual(96);
     });
   });
 

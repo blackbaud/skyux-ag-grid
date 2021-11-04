@@ -8,6 +8,7 @@ import {
   GridOptions,
   ValueFormatterParams
 } from 'ag-grid-community';
+
 import { ICellRendererParams } from 'ag-grid-community/dist/lib/rendering/cellRenderers/iCellRenderer';
 
 import {
@@ -436,6 +437,37 @@ describe('SkyAgGridService', () => {
     });
   });
 
+  describe('lookup value formatter', () => {
+    let lookupValueFormatter: (params: ValueFormatterParams) => string;
+    const baseParameters = {
+      api: undefined,
+      colDef: undefined,
+      column: undefined,
+      columnApi: undefined,
+      context: undefined,
+      data: undefined,
+      node: undefined,
+      value: undefined
+    } as ValueFormatterParams;
+
+    beforeEach(() => {
+      lookupValueFormatter = defaultGridOptions.columnTypes[SkyCellType.Lookup].valueFormatter as (params: ValueFormatterParams) => string;
+    });
+
+    it('should format an empty value', () => {
+      expect(lookupValueFormatter({...baseParameters})).toBe('');
+    });
+
+    it('should format a single value', () => {
+      expect(lookupValueFormatter({
+        ...baseParameters,
+        value: [
+          { name: 'expected'}
+        ]
+      })).toBe('expected');
+    });
+  });
+
   describe('suppressKeyboardEvent', () => {
     const mockEl = document.createElement('div');
     let suppressKeypressFunction: Function;
@@ -603,6 +635,7 @@ describe('SkyAgGridService', () => {
         getValue(): any {},
         node: undefined,
         refreshCell(): void {},
+        registerRowDragger(): void {},
         rowIndex: 0,
         setValue(): void {},
         value: 1.23,
@@ -686,6 +719,37 @@ describe('SkyAgGridService', () => {
         value: 1.23
       } as ICellRendererParams;
       expect(cellRendererSelector(params).component).toBe('sky-ag-grid-cell-renderer-currency');
+
+      const paramsWithEmptyComponentProperties = {
+        ...cellRendererParams,
+        colDef: {
+          cellRendererParams: {
+            skyComponentProperties: undefined
+          }
+        },
+        value: 1.23
+      } as ICellRendererParams;
+      expect(cellRendererSelector(paramsWithEmptyComponentProperties).component).toBe('sky-ag-grid-cell-renderer-currency');
+
+      const paramsWithoutComponentProperties = {
+        ...cellRendererParams,
+        colDef: {
+          cellRendererParams: {
+            skyComponentProperties: undefined
+          }
+        },
+        value: 1.23
+      } as ICellRendererParams;
+      expect(cellRendererSelector(paramsWithoutComponentProperties).component).toBe('sky-ag-grid-cell-renderer-currency');
+
+      const paramsWithoutRendererParams = {
+        ...cellRendererParams,
+        colDef: {
+          cellRendererParams: undefined
+        },
+        value: 1.23
+      } as ICellRendererParams;
+      expect(cellRendererSelector(paramsWithoutRendererParams).component).toBe('sky-ag-grid-cell-renderer-currency');
     });
 
     it('should select validator cell renderer when the value is empty', () => {

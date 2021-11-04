@@ -45,15 +45,20 @@ import {
 
 import {
   SkyAgGridCellEditorDatepickerComponent
-} from '../cell-editor-datepicker/cell-editor-datepicker.component';
+} from './cell-editor-datepicker.component';
 
 import {
   SkyCellEditorDatepickerParams
 } from '../../types/cell-editor-datepicker-params';
 
 describe('SkyCellEditorDatepickerComponent', () => {
-  // We've had some issue with grid rendering causing the specs to timeout in IE. Extending it slightly to help.
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 7500;
+  const isIE = window.navigator.userAgent.indexOf('.NET CLR') > -1;
+  if (isIE) {
+    it('should skip tests in IE', () => {
+      expect(isIE).toBeTrue();
+    });
+    return;
+  }
 
   let datepickerEditorFixture: ComponentFixture<SkyAgGridCellEditorDatepickerComponent>;
   let datepickerEditorComponent: SkyAgGridCellEditorDatepickerComponent;
@@ -124,6 +129,7 @@ describe('SkyCellEditorDatepickerComponent', () => {
     let cellEditorParams: SkyCellEditorDatepickerParams;
     let column: Column;
     const columnWidth = 200;
+    // @ts-ignore
     const rowNode = new RowNode();
     rowNode.rowHeight = 37;
 
@@ -234,4 +240,51 @@ describe('SkyCellEditorDatepickerComponent', () => {
     await expectAsync(datepickerEditorNativeElement).toBeAccessible();
   });
 
+});
+
+describe('SkyCellEditorDatepickerComponent without theme', () => {
+  // We've had some issue with grid rendering causing the specs to timeout in IE. Extending it slightly to help.
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 7500;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyAgGridFixtureModule
+      ],
+      providers: [
+        {
+          provide: SkyThemeService,
+          useValue: undefined
+        }
+      ]
+    });
+  });
+
+  describe('in ag grid', () => {
+    let gridFixture: ComponentFixture<SkyAgGridFixtureComponent>;
+    let gridNativeElement: HTMLElement;
+    let dateCellElement: HTMLElement;
+
+    beforeEach(() => {
+      gridFixture = TestBed.createComponent(SkyAgGridFixtureComponent);
+      gridNativeElement = gridFixture.nativeElement;
+
+      gridFixture.detectChanges();
+
+      dateCellElement = gridNativeElement.querySelector(`.${SkyCellClass.Date}`) as HTMLElement;
+    });
+
+    it('renders a skyux datepicker', () => {
+      const datepickerEditorSelector = `.sky-ag-grid-cell-editor-datepicker`;
+      let datepickerEditorElement = gridNativeElement.querySelector(datepickerEditorSelector);
+
+      expect(datepickerEditorElement).toBeNull();
+
+      dateCellElement.click();
+
+      datepickerEditorElement = gridNativeElement.querySelector(datepickerEditorSelector);
+
+      expect(datepickerEditorElement).toBeVisible();
+    });
+  });
 });
