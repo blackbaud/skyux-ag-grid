@@ -15,6 +15,14 @@ import {
 } from './cell-renderer-currency-validator.component';
 
 describe('SkyAgGridCellRendererCurrencyValidatorComponent', () => {
+  const isIE = window.navigator.userAgent.indexOf('.NET CLR') > -1;
+  if (isIE) {
+    it('should skip tests in IE', () => {
+      expect(isIE).toBeTrue();
+    });
+    return;
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [

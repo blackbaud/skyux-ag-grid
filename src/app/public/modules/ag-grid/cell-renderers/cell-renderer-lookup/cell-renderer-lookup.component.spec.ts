@@ -1,10 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { expect } from '@skyux-sdk/testing';
 import { SkyAgGridResourcesModule } from '../../../shared/ag-grid-resources.module';
 import { SkyCellRendererLookupParams } from '../../types/cell-renderer-lookup-params';
 
 import { SkyAgGridCellRendererLookupComponent } from './cell-renderer-lookup.component';
 
 describe('CellRendererLookupComponent', () => {
+  const isIE = window.navigator.userAgent.indexOf('.NET CLR') > -1;
+  if (isIE) {
+    it('should skip tests in IE', () => {
+      expect(isIE).toBeTrue();
+    });
+    return;
+  }
+
   let component: SkyAgGridCellRendererLookupComponent;
   let fixture: ComponentFixture<SkyAgGridCellRendererLookupComponent>;
   const params = {

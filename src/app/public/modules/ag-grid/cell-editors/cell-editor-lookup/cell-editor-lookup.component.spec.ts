@@ -9,6 +9,14 @@ import { SkyCellEditorLookupParams } from '../../types/cell-editor-lookup-params
 import { SkyAgGridCellEditorLookupComponent } from './cell-editor-lookup.component';
 
 describe('SkyAgGridCellEditorLookupComponent', () => {
+  const isIE = window.navigator.userAgent.indexOf('.NET CLR') > -1;
+  if (isIE) {
+    it('should skip tests in IE', () => {
+      expect(isIE).toBeTrue();
+    });
+    return;
+  }
+
   let component: SkyAgGridCellEditorLookupComponent;
   let fixture: ComponentFixture<SkyAgGridCellEditorLookupComponent>;
   const params = {
