@@ -70,7 +70,7 @@ function browserPause() {
   return new Promise((resolve) => setTimeout(resolve, 100));
 }
 
-function scrollIntoView(selector: string) {
+async function scrollIntoView(selector: string) {
   return browser.executeScript(`return document.querySelector(${
     JSON.stringify(selector)
   }).scrollIntoView({ block: "center", inline: "center" })`);
@@ -309,7 +309,7 @@ describe('Editable grid', () => {
 describe('Editable grid, complex cells', () => {
 
   // selectors
-  const selectCell = '.ag-body-viewport [row-id="0"] [aria-colindex="2"]';
+  const selectCell = '.ag-body-viewport [row-id="0"] [aria-colindex="3"]';
   const selectCellTrigger = selectCell + ' .ag-picker-field-display';
   const selectList = '.ag-select-list';
   const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
