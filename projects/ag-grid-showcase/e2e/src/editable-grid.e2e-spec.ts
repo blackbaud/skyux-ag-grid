@@ -158,6 +158,7 @@ describe('Editable grid', () => {
         // click twice to sort by descending then ascending
         await browser.wait(ExpectedConditions.elementToBeClickable($(sortableHeaderCell)))
         await element(by.css(sortableHeaderCell)).click();
+        await browserPause();
         await element(by.css(sortableHeaderCell)).click();
         await browserPause();
 
@@ -272,13 +273,14 @@ describe('Editable grid', () => {
         const cell = element(by.css(autocompleteCell));
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)));
         await element(by.css(editButton)).click();
 
+        await browser.wait(ExpectedConditions.elementToBeClickable(cell));
         await cell.click();
         const input = element(by.css(`${autocompleteCell} input`));
         input.value = 'j';
-        await browser.actions().sendKeys('j').perform();
+        await input.sendKeys('j');
 
         await browser.wait(
           ExpectedConditions.presenceOf(element(by.css('.sky-autocomplete-results'))),
@@ -309,7 +311,7 @@ describe('Editable grid', () => {
 describe('Editable grid, complex cells', () => {
 
   // selectors
-  const selectCell = '.ag-body-viewport [row-id="0"] [aria-colindex="3"]';
+  const selectCell = '.ag-body-viewport [row-id="0"] [col-id="language"]';
   const selectCellTrigger = selectCell + ' .ag-picker-field-display';
   const selectList = '.ag-select-list';
   const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
