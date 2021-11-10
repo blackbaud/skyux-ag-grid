@@ -1,3 +1,8 @@
+/**
+ * These column types can be used by setting the AG Grid {@link https://www.ag-grid.com/javascript-grid-column-properties/ | column definition `type`} to one of the following values.
+ *
+ * Any {@link https://developer.blackbaud.com/skyux/components | SKY UX component} can be made into a {@link https://www.ag-grid.com/javascript-grid-cell-editor/ | cell editor} or {@link https://www.ag-grid.com/javascript-grid-cell-rendering-components/ | cell renderer} component. If you would like to use a component that does not have a column definition yet, please consider {@link https://developer.blackbaud.com/skyux/contribute/contribution-process | contributing it} to the SKY UX data entry grid module, or {@link https://developer.blackbaud.com/skyux/contribute/contribution-process/file-issue | file an issue} in the {@link https://github.com/blackbaud/skyux-ag-grid | @skyux/ag-grid repo}.
+ */
 export enum SkyCellType {
   /**
    * **Edit mode**

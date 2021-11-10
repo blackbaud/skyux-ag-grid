@@ -162,7 +162,7 @@ function getValidatorCellRendererSelector(component: string, fallback?: any) {
 }
 
 /**
- * A service that provides default styling and behavior for agGrids in SKY UX SPAs.
+ * `SkyAgGridService` provides methods to get AG Grid `gridOptions` to ensure grids match SKY UX functionality. The `gridOptions` can be overridden, and include registered SKY UX column types.
  */
 @Injectable({
   providedIn: 'root'
