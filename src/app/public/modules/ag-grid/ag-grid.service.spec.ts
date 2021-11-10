@@ -6,6 +6,7 @@ import {
   CellClassParams,
   ColumnApi,
   GridOptions,
+  RowNode,
   ValueFormatterParams
 } from 'ag-grid-community';
 
@@ -799,6 +800,36 @@ describe('SkyAgGridService', () => {
         value: 'valuable'
       } as ICellRendererParams;
       expect(cellRendererSelector(paramsValid).component).toBe('sky-ag-grid-cell-renderer-currency');
+    });
+  });
+
+  describe('getRowNodeId', () => {
+    it('should use the id field when available', () => {
+      expect(defaultGridOptions.getRowNodeId({ id: 123 })).toEqual('123');
+    });
+
+    it('should generate an id regardless', () => {
+      expect(defaultGridOptions.getRowNodeId({})).toBeTruthy();
+    });
+  });
+
+  describe('getRowClass', () => {
+    const params = {
+      node: {} as RowNode,
+      rowIndex: 0
+    };
+
+    it('should use the row id for the row class', () => {
+      expect(defaultGridOptions.getRowClass({
+        ...params,
+        node: {
+          id: '123'
+        }
+      })).toEqual('sky-ag-grid-row-123');
+    });
+
+    it('should not generate a class without an id', () => {
+      expect(defaultGridOptions.getRowClass(params)).toBeFalsy();
     });
   });
 });
