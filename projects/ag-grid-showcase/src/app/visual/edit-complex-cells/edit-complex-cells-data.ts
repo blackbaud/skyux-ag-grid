@@ -5,6 +5,7 @@ export class EditableGridOption {
 }
 
 export class EditableGridRow {
+  public id: string;
   public name: string;
   public language: 'English' | 'Spanish' | 'French' | 'Portuguese' | '(other)';
   public validationAutocomplete?: EditableGridOption;
@@ -48,22 +49,36 @@ export const EDITABLE_GRID_LOOKUP = Array.from(Array(50).keys()).map((i) => {
   };
 })
 
-export const EDITABLE_GRID_DATA: EditableGridRow[] = Array.from(Array(10).keys()).map((i) => {
-  return {
-    name: `Person ${i + 1}`,
-    language: 'English',
-    validationAutocomplete: EDITABLE_GRID_OPTIONS[i % EDITABLE_GRID_OPTIONS.length],
-    validationCurrency: (i % 3 === 0 ? `${(1.23 * i).toFixed(2)}` : (i % 3 === 2 ? 'other value' : '')),
-    validationDate: getDay(i + 1),
-    lookupSingle: EDITABLE_GRID_LOOKUP.filter((value) => {
-      return `record_${(i * 3) + 1}` === value.id;
-    }),
-    lookupMultiple: EDITABLE_GRID_LOOKUP.filter((value) => {
-      return [
-        `record_${(i * 3) + 2}`,
-        `record_${(i * 3) + 3}`,
-        `record_${(i * 3) + 4}`
-      ].includes(value.id);
-    })
-  };
-});
+export const EDITABLE_GRID_DATA_FACTORY = function (
+  startAt: number,
+  numberOfRows: number,
+  skipIds: string[] = []
+): EditableGridRow[] {
+  const editableGridRows: EditableGridRow[] = Array.from(Array(numberOfRows).keys()).map((n) => {
+    const i = n + startAt;
+    const lookupKey = i % Math.floor(EDITABLE_GRID_LOOKUP.length / 4);
+    return {
+      id: `${i}`,
+      name: `Person ${i + 1}`,
+      language: 'English',
+      validationAutocomplete: EDITABLE_GRID_OPTIONS[i % EDITABLE_GRID_OPTIONS.length],
+      validationCurrency: (i % 3 === 0 ? `${(1.23 * i).toFixed(2)}` : (i % 3 === 2 ? 'other value' : '')),
+      validationDate: getDay(i + 1),
+      lookupSingle: EDITABLE_GRID_LOOKUP.filter((value) => {
+        return `record_${(lookupKey * 3) + 1}` === value.id;
+      }),
+      lookupMultiple: EDITABLE_GRID_LOOKUP.filter((value) => {
+        return [
+          `record_${(lookupKey * 3) + 2}`,
+          `record_${(lookupKey * 3) + 3}`,
+          `record_${(lookupKey * 3) + 4}`
+        ].includes(value.id);
+      })
+    };
+  });
+  return editableGridRows.filter((value) => {
+    return !(skipIds || []).includes(value.id)
+  });
+};
+
+export const EDITABLE_GRID_DATA: EditableGridRow[] = EDITABLE_GRID_DATA_FACTORY(0, 10);

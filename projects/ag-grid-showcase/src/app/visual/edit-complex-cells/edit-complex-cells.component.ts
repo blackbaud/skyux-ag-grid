@@ -10,11 +10,17 @@ import {
   ColDef,
   GridApi,
   GridReadyEvent,
-  GridOptions
+  GridOptions,
+  IGetRowsParams,
+  RowNode,
+  RowSelectedEvent
 } from 'ag-grid-community';
+import { BehaviorSubject } from 'rxjs';
+import { skip } from 'rxjs/operators';
 
 import {
   EDITABLE_GRID_DATA,
+  EDITABLE_GRID_DATA_FACTORY,
   EDITABLE_GRID_LOOKUP,
   EDITABLE_GRID_OPTIONS,
   EditableGridOption,
@@ -22,6 +28,8 @@ import {
 } from './edit-complex-cells-data';
 
 import {
+  SkyAgGridRowDeleteCancelArgs,
+  SkyAgGridRowDeleteConfirmArgs,
   SkyAgGridService,
   SkyCellType
 } from '@skyux/ag-grid';
@@ -43,6 +51,11 @@ export class EditComplexCellsComponent implements OnInit {
   public gridOptions: GridOptions;
   public gridApi: GridApi;
   public columnDefs: ColDef[];
+  public refresh = new BehaviorSubject<boolean>(true);
+  public rowDeleteIds: string[] = [];
+  public rowModelType: 'clientSide' | 'infinite' = 'clientSide';
+
+  private deletedRowIds: string[] = [];
 
   constructor(
     private agGridService: SkyAgGridService,
@@ -54,15 +67,23 @@ export class EditComplexCellsComponent implements OnInit {
 
     this.getGridOptions();
 
-    this.themeSvc.settingsChange.subscribe(() => {
-      this.getGridOptions();
-    });
+    this.themeSvc.settingsChange
+      .pipe(skip(1))
+      .subscribe(() => {
+        this.getGridOptions();
+        this.refresh.next(!this.refresh.getValue());
+      });
 
     this.uneditedGridData = this.cloneGridData(this.gridData);
   }
 
   public setColumnDefs(): void {
     this.columnDefs = [
+      {
+        field: 'selected',
+        colId: 'selected',
+        type: SkyCellType.RowSelector
+      },
       {
         colId: 'name',
         field: 'name',
@@ -96,7 +117,7 @@ export class EditComplexCellsComponent implements OnInit {
         },
         cellRendererParams: {
           skyComponentProperties: {
-            validator: (value: EditableGridOption) => !!value.validOption,
+            validator: (value: EditableGridOption) => !!value?.validOption,
             validatorMessage: 'Please choose an odd number option'
           }
         }
@@ -199,7 +220,28 @@ export class EditComplexCellsComponent implements OnInit {
   public onGridReady(gridReadyEvent: GridReadyEvent): void {
     this.gridApi = gridReadyEvent.api;
 
+    this.gridApi.addEventListener(RowNode.EVENT_ROW_SELECTED, ($event: RowSelectedEvent) => {
+      if (this.editMode && $event.node.isSelected()) {
+        this.rowDeleteIds = this.rowDeleteIds.concat([$event.node.id]);
+      } else {
+        this.rowDeleteIds = this.rowDeleteIds.filter((id) => id !== $event.node.id);
+      }
+    });
+
     this.sizeGrid();
+  }
+
+  public rowDeleteCancel($event: SkyAgGridRowDeleteCancelArgs): void {
+    this.rowDeleteIds = this.rowDeleteIds.filter((id) => id !== $event.id);
+  }
+
+  public rowDeleteConfirm($event: SkyAgGridRowDeleteConfirmArgs): void {
+    if (this.rowModelType === 'clientSide') {
+      this.gridData = this.gridData.filter((row) => row.id !== $event.id);
+    } else if (this.rowModelType === 'infinite') {
+      this.deletedRowIds = (this.deletedRowIds || []).concat([$event.id]);
+      this.gridApi.purgeInfiniteCache();
+    }
   }
 
   public sizeGrid(): void {
@@ -208,9 +250,27 @@ export class EditComplexCellsComponent implements OnInit {
     }
   }
 
+  public switchRowModelTypeTo(rowModelType: 'clientSide' | 'infinite'): void {
+    this.rowModelType = rowModelType;
+    this.refresh.next(!this.refresh.getValue());
+  }
+
   private getGridOptions(): void {
     this.gridOptions = {
       columnDefs: this.columnDefs,
+      datasource: {
+        getRows(params: IGetRowsParams) {
+          setTimeout(() => {
+            const rowsThisBlock = EDITABLE_GRID_DATA_FACTORY(
+              params.startRow,
+              params.endRow - params.startRow,
+              this.deletedRowIds
+            );
+            params.successCallback(rowsThisBlock, 300);
+          });
+        },
+        rowCount: 300
+      },
       domLayout: 'normal',
       onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
       onGridSizeChanged: () => { this.sizeGrid(); },
