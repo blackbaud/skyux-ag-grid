@@ -57,9 +57,9 @@
     </sky-toolbar>
     <sky-ag-grid-wrapper
       skyAgGridRowDelete
-      [(rowDeleteIds)]="rowDeleteIds"
       (rowDeleteCancel)="rowDeleteCancel($event)"
       (rowDeleteConfirm)="rowDeleteConfirm($event)"
+      [(rowDeleteIds)]="rowDeleteIds"
     >
       <ag-grid-angular
         [ngClass]="{'sky-ag-grid-editable': editMode}"

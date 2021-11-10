@@ -231,11 +231,11 @@ export class EditComplexCellsComponent implements OnInit {
     this.sizeGrid();
   }
 
-  public rowDeleteCancel($event: SkyAgGridRowDeleteCancelArgs) {
+  public rowDeleteCancel($event: SkyAgGridRowDeleteCancelArgs): void {
     this.rowDeleteIds = this.rowDeleteIds.filter((id) => id !== $event.id);
   }
 
-  public rowDeleteConfirm($event: SkyAgGridRowDeleteConfirmArgs) {
+  public rowDeleteConfirm($event: SkyAgGridRowDeleteConfirmArgs): void {
     if (this.rowModelType === 'clientSide') {
       this.gridData = this.gridData.filter((row) => row.id !== $event.id);
     } else if (this.rowModelType === 'infinite') {
@@ -250,7 +250,7 @@ export class EditComplexCellsComponent implements OnInit {
     }
   }
 
-  public switchRowModelTypeTo(rowModelType: 'clientSide' | 'infinite') {
+  public switchRowModelTypeTo(rowModelType: 'clientSide' | 'infinite'): void {
     this.rowModelType = rowModelType;
     this.refresh.next(!this.refresh.getValue());
   }
