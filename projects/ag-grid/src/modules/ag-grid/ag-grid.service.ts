@@ -190,8 +190,9 @@ export class SkyAgGridService implements OnDestroy {
   }
 
   /**
-   * Get SKY UX gridOptions to create your agGrid with default SKY styling and behavior.
-   * @param args options to be applied to the default SKY UX agGrid gridOptions.
+   * Returns AG Grid {@link https://www.ag-grid.com/javascript-grid-properties/ | gridOptions} with default SKY UX options, styling, and cell renderers registered for read-only grids.
+   * @param args
+   * @returns
    */
   public getGridOptions(args: SkyGetGridOptionsArgs): GridOptions {
     const defaultGridOptions = this.getDefaultGridOptions(args);
@@ -200,6 +201,11 @@ export class SkyAgGridService implements OnDestroy {
     return mergedGridOptions;
   }
 
+  /**
+   * Returns AG Grid {@link https://www.ag-grid.com/javascript-grid-properties/ | gridOptions} with default SKY UX options, styling, and cell editors registered for editable grids.
+   * @param args
+   * @returns
+   */
   public getEditableGridOptions(args: SkyGetGridOptionsArgs): GridOptions {
     const defaultGridOptions = this.getDefaultEditableGridOptions(args);
     const mergedGridOptions = this.mergeGridOptions(defaultGridOptions, args.gridOptions);
