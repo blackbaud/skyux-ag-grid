@@ -12,6 +12,8 @@ import {
   CellClassParams,
   GridOptions,
   ICellRendererParams,
+  RowClassParams,
+  RowNode,
   SuppressKeyboardEventParams,
   ValueFormatterParams
 } from 'ag-grid-community';
@@ -160,6 +162,8 @@ function getValidatorCellRendererSelector(component: string, fallback?: any) {
     return fallback;
   };
 }
+
+let rowNodeId = 1;
 
 /**
  * `SkyAgGridService` provides methods to get AG Grid `gridOptions` to ensure grids match SKY UX functionality. The `gridOptions` can be overridden, and include registered SKY UX column types.
@@ -377,6 +381,19 @@ export class SkyAgGridService implements OnDestroy {
         'sky-ag-grid-cell-renderer-currency': SkyAgGridCellRendererCurrencyComponent,
         'sky-ag-grid-cell-renderer-currency-validator': SkyAgGridCellRendererCurrencyValidatorComponent,
         'sky-ag-grid-cell-renderer-validator-tooltip': SkyAgGridCellRendererValidatorTooltipComponent
+      },
+      getRowNodeId(data: any): string {
+        if ('id' in data && data.id) {
+          return `${data.id}`;
+        }
+        return `${rowNodeId++}`;
+      },
+      getRowClass: (params: RowClassParams) => {
+        if (params.node.id) {
+          return `sky-ag-grid-row-${params.node.id}`;
+        } else {
+          return undefined;
+        }
       },
       headerHeight: this.currentTheme?.theme?.name === 'modern' ? 60 : 37,
       icons: {

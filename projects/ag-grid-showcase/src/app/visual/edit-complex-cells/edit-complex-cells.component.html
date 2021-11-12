@@ -2,7 +2,7 @@
 
 <ng-container
   *ngIf="
-    (themeSvc?.settingsChange | async)?.currentSettings?.theme?.name === 'modern';
+    (refresh | async);
     then grid else grid
   "
 >
@@ -38,12 +38,34 @@
           Cancel
         </button>
       </sky-toolbar-item>
+      <sky-toolbar-item *ngIf="rowModelType === 'clientSide'">
+        <button
+          class="sky-btn sky-btn-default"
+          (click)="switchRowModelTypeTo('infinite')"
+        >
+          Use infinite row model
+        </button>
+      </sky-toolbar-item>
+      <sky-toolbar-item *ngIf="rowModelType === 'infinite'">
+        <button
+          class="sky-btn sky-btn-default"
+          (click)="switchRowModelTypeTo('clientSide')"
+        >
+          Use client-side row model
+        </button>
+      </sky-toolbar-item>
     </sky-toolbar>
-    <sky-ag-grid-wrapper>
+    <sky-ag-grid-wrapper
+      skyAgGridRowDelete
+      (rowDeleteCancel)="rowDeleteCancel($event)"
+      (rowDeleteConfirm)="rowDeleteConfirm($event)"
+      [(rowDeleteIds)]="rowDeleteIds"
+    >
       <ag-grid-angular
         [ngClass]="{'sky-ag-grid-editable': editMode}"
         [gridOptions]="gridOptions"
         [rowData]="gridData"
+        [rowModelType]="rowModelType"
       >
       </ag-grid-angular>
     </sky-ag-grid-wrapper>
