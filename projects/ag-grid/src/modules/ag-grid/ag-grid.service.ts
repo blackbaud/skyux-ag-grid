@@ -168,6 +168,9 @@ function getValidatorCellRendererSelector(component: string, fallback?: any) {
   providedIn: 'root'
 })
 export class SkyAgGridService implements OnDestroy {
+  /**
+   * @internal
+   */
   public currentTheme: SkyThemeSettings;
   private ngUnsubscribe = new Subject();
 
@@ -190,7 +193,7 @@ export class SkyAgGridService implements OnDestroy {
   }
 
   /**
-   * Returns AG Grid {@link https://www.ag-grid.com/javascript-grid-properties/ | gridOptions} with default SKY UX options, styling, and cell renderers registered for read-only grids.
+   * Returns [AG Grid `gridOptions`](https://www.ag-grid.com/javascript-grid-properties/) with default SKY UX options, styling, and cell renderers registered for read-only grids.
    * @param args
    * @returns
    */
@@ -202,7 +205,7 @@ export class SkyAgGridService implements OnDestroy {
   }
 
   /**
-   * Returns AG Grid {@link https://www.ag-grid.com/javascript-grid-properties/ | gridOptions} with default SKY UX options, styling, and cell editors registered for editable grids.
+   * Returns [AG Grid `gridOptions`](https://www.ag-grid.com/javascript-grid-properties/) with default SKY UX options, styling, and cell editors registered for editable grids.
    * @param args
    * @returns
    */
