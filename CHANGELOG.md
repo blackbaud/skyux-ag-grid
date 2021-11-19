@@ -1,6 +1,6 @@
 # 5.1.3 (2021-11-19)
 
-- Added support for Prettier code formatting and updated the builder to support StackBlitz. []()
+- Added support for Prettier code formatting and updated the builder to support StackBlitz. [#169](https://github.com/blackbaud/skyux-ag-grid/pull/169)
 
 # 5.1.1 (2021-11-10)
 
