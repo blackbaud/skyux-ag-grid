@@ -1,6 +1,6 @@
 # 5.1.2 (2021-11-19)
 
-- Documented the Data Grid & Data Entry Grid components using JSDoc [#167](https://github.com/blackbaud/skyux-ag-grid/pull/167)
+- Added  AG Grid component documentation. [#167](https://github.com/blackbaud/skyux-ag-grid/pull/167)
 
 # 5.1.1 (2021-11-10)
 
