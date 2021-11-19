@@ -1,45 +1,27 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {
-  SkyThemeService,
-  SkyThemeSettings
-} from '@skyux/theme';
+import { SkyThemeService, SkyThemeSettings } from '@skyux/theme';
 
 import {
   GridApi,
   GridReadyEvent,
   GridOptions,
-  ValueFormatterParams
+  ValueFormatterParams,
 } from 'ag-grid-community';
 
-import {
-  SkyCellType,
-  SkyAgGridService
-} from '@skyux/ag-grid';
+import { SkyCellType, SkyAgGridService } from '@skyux/ag-grid';
 
-import {
-  SkyModalService,
-  SkyModalCloseArgs
-} from '@skyux/modals';
+import { SkyModalService, SkyModalCloseArgs } from '@skyux/modals';
 
-import {
-  SkyAgGridEditModalContext
-} from './ag-grid-edit-modal-context';
+import { SkyAgGridEditModalContext } from './ag-grid-edit-modal-context';
 
-import {
-  SkyAgGridEditModalComponent
-} from './ag-grid-edit-modal.component';
+import { SkyAgGridEditModalComponent } from './ag-grid-edit-modal.component';
 
-import {
-  SKY_AG_GRID_DEMO_DATA
-} from './ag-grid-demo-data';
+import { SKY_AG_GRID_DEMO_DATA } from './ag-grid-demo-data';
 
 @Component({
-  selector: 'sky-ag-grid-demo',
-  templateUrl: './ag-grid-demo.component.html'
+  selector: 'app-ag-grid-demo',
+  templateUrl: './ag-grid-demo.component.html',
 })
 export class SkyAgGridDemoComponent implements OnInit {
   public gridData = SKY_AG_GRID_DEMO_DATA;
@@ -49,40 +31,40 @@ export class SkyAgGridDemoComponent implements OnInit {
       headerName: '',
       maxWidth: 50,
       sortable: false,
-      type: SkyCellType.RowSelector
+      type: SkyCellType.RowSelector,
     },
     {
       field: 'name',
-      headerName: 'Name'
+      headerName: 'Name',
     },
     {
       field: 'age',
       headerName: 'Age',
       type: SkyCellType.Number,
-      maxWidth: 60
+      maxWidth: 60,
     },
     {
       field: 'startDate',
       headerName: 'Start Date',
       type: SkyCellType.Date,
-      sort: 'asc'
+      sort: 'asc',
     },
     {
       field: 'endDate',
       headerName: 'End Date',
       type: SkyCellType.Date,
-      valueFormatter: this.endDateFormatter
+      valueFormatter: this.endDateFormatter,
     },
     {
       field: 'department',
       headerName: 'Department',
-      type: SkyCellType.Autocomplete
+      type: SkyCellType.Autocomplete,
     },
     {
       field: 'jobTitle',
       headerName: 'Title',
-      type: SkyCellType.Autocomplete
-    }
+      type: SkyCellType.Autocomplete,
+    },
   ];
 
   public gridOptions: GridOptions;
@@ -93,7 +75,7 @@ export class SkyAgGridDemoComponent implements OnInit {
     private agGridService: SkyAgGridService,
     private modalService: SkyModalService,
     public themeSvc: SkyThemeService
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     this.getGridOptions();
@@ -112,10 +94,13 @@ export class SkyAgGridDemoComponent implements OnInit {
     const options: any = {
       providers: [{ provide: SkyAgGridEditModalContext, useValue: context }],
       ariaDescribedBy: 'docs-edit-grid-modal-content',
-      size: 'large'
+      size: 'large',
     };
 
-    const modalInstance = this.modalService.open(SkyAgGridEditModalComponent, options);
+    const modalInstance = this.modalService.open(
+      SkyAgGridEditModalComponent,
+      options
+    );
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
       if (result.reason === 'cancel') {
@@ -135,14 +120,18 @@ export class SkyAgGridDemoComponent implements OnInit {
 
   private endDateFormatter(params: ValueFormatterParams) {
     const dateConfig = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return params.value ? params.value.toLocaleDateString('en-us', dateConfig) : 'N/A';
+    return params.value
+      ? params.value.toLocaleDateString('en-us', dateConfig)
+      : 'N/A';
   }
 
   private getGridOptions(): void {
     this.gridOptions = {
       columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent)
+      onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),
     };
-    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
+    this.gridOptions = this.agGridService.getGridOptions({
+      gridOptions: this.gridOptions,
+    });
   }
 }

@@ -1,20 +1,8 @@
-import {
-  expect,
-  SkyHostBrowser,
-  SkyVisualThemeSelector
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser, SkyVisualThemeSelector } from '@skyux-sdk/e2e';
 
-import {
-  SkyHostBrowserBreakpoint
-} from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
+import { SkyHostBrowserBreakpoint } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
-import {
-  $,
-  browser,
-  by,
-  element,
-  ExpectedConditions
-} from 'protractor';
+import { $, browser, by, element, ExpectedConditions } from 'protractor';
 
 let currentTheme: string;
 let currentThemeMode: string;
@@ -44,25 +32,21 @@ function cycleThroughThemes(runTests: () => void) {
   runTests();
 
   describe('when modern theme', () => {
-
     beforeEach(async () => {
       await selectTheme('modern', 'light');
       await browserPause();
     });
 
     runTests();
-
   });
 
   describe('when modern theme in dark mode', () => {
-
     beforeEach(async () => {
       await selectTheme('modern', 'dark');
       await browserPause();
     });
 
     runTests();
-
   });
 }
 
@@ -71,30 +55,35 @@ function browserPause() {
 }
 
 async function scrollIntoView(selector: string) {
-  return browser.executeScript(`return document.querySelector(${
-    JSON.stringify(selector)
-  }).scrollIntoView({ block: "center", inline: "center" })`);
+  return browser.executeScript(
+    `return document.querySelector(${JSON.stringify(
+      selector
+    )}).scrollIntoView({ block: "center", inline: "center" })`
+  );
 }
 
 describe('Editable grid', () => {
-
   // selectors
   const dateCell = '.sky-ag-grid-cell-editable.sky-ag-grid-cell-date';
-  const autocompleteCell = '.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete';
+  const autocompleteCell =
+    '.sky-ag-grid-cell-editable.sky-ag-grid-cell-autocomplete';
   const editButton = '#edit-btn';
   const editableGrid = '.editable-grid';
   const sortableHeaderCell = '.ag-header-cell-sortable';
 
   function runTests(): void {
     describe('read mode', () => {
-      async function matchesPreviousEditableGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousEditableGrid(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         await SkyHostBrowser.moveCursorOffScreen();
         await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-read', screenSize)
+          screenshotName: getScreenshotName('editable-grid-read', screenSize),
         });
       }
 
@@ -108,15 +97,20 @@ describe('Editable grid', () => {
     });
 
     describe('edit mode', () => {
-      async function matchesPreviousEditableGridInEditMode(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousEditableGridInEditMode(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(editButton))
+        );
         await element(by.css(editButton)).click();
         await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit', screenSize)
+          screenshotName: getScreenshotName('editable-grid-edit', screenSize),
         });
       }
 
@@ -130,15 +124,23 @@ describe('Editable grid', () => {
     });
 
     describe('descending sort', () => {
-      async function matchesPreviousDescendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousDescendingSortGrid(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(sortableHeaderCell)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(sortableHeaderCell))
+        );
         await element(by.css(sortableHeaderCell)).click();
         await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-sort-desc', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-sort-desc',
+            screenSize
+          ),
         });
       }
 
@@ -152,18 +154,26 @@ describe('Editable grid', () => {
     });
 
     describe('ascending sort', () => {
-      async function matchesPreviousAscendingSortGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousAscendingSortGrid(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
         // click twice to sort by descending then ascending
-        await browser.wait(ExpectedConditions.elementToBeClickable($(sortableHeaderCell)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(sortableHeaderCell))
+        );
         await element(by.css(sortableHeaderCell)).click();
         await browserPause();
         await element(by.css(sortableHeaderCell)).click();
         await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-sort-asc', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-sort-asc',
+            screenSize
+          ),
         });
       }
 
@@ -177,18 +187,30 @@ describe('Editable grid', () => {
     });
 
     describe('number editing', () => {
-      async function matchesPreviousNumberEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousNumberEditingGrid(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(editButton))
+        );
         await element(by.css(editButton)).click();
 
-        await scrollIntoView('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number');
-        await element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')).click();
+        await scrollIntoView(
+          '.sky-ag-grid-cell-editable.sky-ag-grid-cell-number'
+        );
+        await element(
+          by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-number')
+        ).click();
         await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-number', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-edit-number',
+            screenSize
+          ),
         });
       }
 
@@ -202,16 +224,26 @@ describe('Editable grid', () => {
     });
 
     describe('text editing', () => {
-      async function matchesPreviousTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousTextEditingGrid(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(editButton))
+        );
         await element(by.css(editButton)).click();
 
-        await element(by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-text')).click();
+        await element(
+          by.css('.sky-ag-grid-cell-editable.sky-ag-grid-cell-text')
+        ).click();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-text', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-edit-text',
+            screenSize
+          ),
         });
       }
 
@@ -225,17 +257,25 @@ describe('Editable grid', () => {
     });
 
     describe('date text input editing', () => {
-      async function matchesPreviousDateTextEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousDateTextEditingGrid(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(editButton))
+        );
         await element(by.css(editButton)).click();
 
         await element(by.css(dateCell)).click();
         await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-date', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-edit-date',
+            screenSize
+          ),
         });
       }
 
@@ -249,17 +289,25 @@ describe('Editable grid', () => {
     });
 
     describe('autocomplete input editing', () => {
-      async function matchesPreviousAutocompleteInputEditingGrid (screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousAutocompleteInputEditingGrid(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(editButton))
+        );
         await element(by.css(editButton)).click();
 
         await element(by.css(autocompleteCell)).click();
         await browserPause();
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-autocomplete-input', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-edit-autocomplete-input',
+            screenSize
+          ),
         });
       }
 
@@ -269,11 +317,16 @@ describe('Editable grid', () => {
     });
 
     describe('autocomplete dropdown editing', () => {
-      async function matchesPreviousAutocompleteDropdownEditingGrid(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousAutocompleteDropdownEditingGrid(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         const cell = element(by.css(autocompleteCell));
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)));
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(editButton))
+        );
         await element(by.css(editButton)).click();
 
         await browser.wait(ExpectedConditions.elementToBeClickable(cell));
@@ -283,13 +336,18 @@ describe('Editable grid', () => {
         await input.sendKeys('j');
 
         await browser.wait(
-          ExpectedConditions.presenceOf(element(by.css('.sky-autocomplete-results'))),
+          ExpectedConditions.presenceOf(
+            element(by.css('.sky-autocomplete-results'))
+          ),
           1200,
           'Autocomplete results dropdown took too long to appear.'
         );
 
         expect(editableGrid).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-autocomplete-dropdown', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-edit-autocomplete-dropdown',
+            screenSize
+          ),
         });
       }
 
@@ -309,27 +367,35 @@ describe('Editable grid', () => {
 });
 
 describe('Editable grid, complex cells', () => {
-
   // selectors
   const selectCell = '.ag-body-viewport [row-id="0"] [col-id="language"]';
   const selectCellTrigger = selectCell + ' .ag-picker-field-display';
   const selectList = '.ag-select-list';
-  const validatorCellAutocomplete = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
-  const validatorCellCurrency = '.ag-body-viewport [row-id="2"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
-  const validatorCellDate = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-date.sky-ag-grid-cell-invalid';
-  const lookupCellSingle = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-lookup[col-id="lookupSingle"]';
-  const lookupCellMultiple = '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-lookup[col-id="lookupMultiple"]';
+  const validatorCellAutocomplete =
+    '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-autocomplete.sky-ag-grid-cell-invalid';
+  const validatorCellCurrency =
+    '.ag-body-viewport [row-id="2"] > .ag-cell.sky-ag-grid-cell-currency.sky-ag-grid-cell-invalid';
+  const validatorCellDate =
+    '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-date.sky-ag-grid-cell-invalid';
+  const lookupCellSingle =
+    '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-lookup[col-id="lookupSingle"]';
+  const lookupCellMultiple =
+    '.ag-body-viewport [row-id="1"] > .ag-cell.sky-ag-grid-cell-lookup[col-id="lookupMultiple"]';
   const popupEditor = '.ag-popup-editor';
   const editButton = '#edit-btn';
 
   function runTests(): void {
-
     describe('select focus', () => {
-      async function matchesPreviousSelectFocus(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousSelectFocus(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
         await browserPause();
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(editButton))
+        );
         await element(by.css(editButton)).click();
 
         await scrollIntoView(selectCell);
@@ -337,16 +403,23 @@ describe('Editable grid, complex cells', () => {
         await browserPause();
 
         expect(selectCell).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-select-focus', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-edit-select-focus',
+            screenSize
+          ),
         });
       }
 
-
-      async function matchesPreviousSelectList(screenSize: SkyHostBrowserBreakpoint, done: DoneFn): Promise<void> {
+      async function matchesPreviousSelectList(
+        screenSize: SkyHostBrowserBreakpoint,
+        done: DoneFn
+      ): Promise<void> {
         await SkyHostBrowser.setWindowBreakpoint(screenSize);
         await browserPause();
 
-        await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable($(editButton))
+        );
         await element(by.css(editButton)).click();
 
         await scrollIntoView(selectCell);
@@ -356,7 +429,10 @@ describe('Editable grid, complex cells', () => {
         await browserPause();
 
         expect(selectList).toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('editable-grid-edit-select-list', screenSize)
+          screenshotName: getScreenshotName(
+            'editable-grid-edit-select-list',
+            screenSize
+          ),
         });
       }
 
@@ -381,16 +457,16 @@ describe('Editable grid, complex cells', () => {
       [
         {
           summary: 'invalid',
-          selector: validatorCellCurrency
+          selector: validatorCellCurrency,
         },
         {
           summary: 'invalid-autocomplete',
-          selector: validatorCellAutocomplete
+          selector: validatorCellAutocomplete,
         },
         {
           summary: 'invalid-date',
-          selector: validatorCellDate
-        }
+          selector: validatorCellDate,
+        },
       ].forEach((scenario) => {
         it(`should match previous screenshot on large screens - ${scenario.summary}`, async (done) => {
           const screenSize = 'lg';
@@ -402,7 +478,7 @@ describe('Editable grid, complex cells', () => {
             screenshotName: getScreenshotName(
               `editable-grid-edit-validator-${scenario.summary}`,
               screenSize
-            )
+            ),
           });
         });
       });
@@ -411,12 +487,12 @@ describe('Editable grid, complex cells', () => {
     [
       {
         summary: 'single',
-        selector: lookupCellSingle
+        selector: lookupCellSingle,
       },
       {
         summary: 'multiple',
-        selector: lookupCellMultiple
-      }
+        selector: lookupCellMultiple,
+      },
     ].forEach((scenario) => {
       describe(`lookup ${scenario.summary} value`, () => {
         it('should match previous screenshot on large screens', async (done) => {
@@ -424,7 +500,9 @@ describe('Editable grid, complex cells', () => {
           await SkyHostBrowser.setWindowBreakpoint(screenSize);
           await SkyHostBrowser.moveCursorOffScreen();
 
-          await browser.wait(ExpectedConditions.elementToBeClickable($(editButton)))
+          await browser.wait(
+            ExpectedConditions.elementToBeClickable($(editButton))
+          );
           await element(by.css(editButton)).click();
 
           await scrollIntoView(scenario.selector);
@@ -434,7 +512,7 @@ describe('Editable grid, complex cells', () => {
             screenshotName: getScreenshotName(
               `editable-grid-edit-lookup-${scenario.summary}-value`,
               screenSize
-            )
+            ),
           });
         });
       });

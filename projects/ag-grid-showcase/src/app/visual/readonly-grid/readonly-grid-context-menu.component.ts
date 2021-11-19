@@ -1,22 +1,17 @@
-import {
-  ChangeDetectionStrategy,
-  Component
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import {
-  ICellRendererAngularComp
-} from 'ag-grid-angular';
+import { ICellRendererAngularComp } from 'ag-grid-angular';
 
-import {
-  ICellRendererParams
-} from 'ag-grid-community';
+import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
-  selector: 'readonly-grid-context-menu',
+  selector: 'app-readonly-grid-context-menu',
   templateUrl: './readonly-grid-context-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReadonlyGridContextMenuComponent implements ICellRendererAngularComp {
+export class ReadonlyGridContextMenuComponent
+  implements ICellRendererAngularComp
+{
   public goalName: string;
   private params: ICellRendererParams;
 
@@ -34,6 +29,8 @@ export class ReadonlyGridContextMenuComponent implements ICellRendererAngularCom
   }
 
   public triggerRowDelete(): void {
-    this.params.context.rowDeleteIds = this.params.context.rowDeleteIds.concat(this.params.data.id.toString());
+    this.params.context.rowDeleteIds = this.params.context.rowDeleteIds.concat(
+      this.params.data.id.toString()
+    );
   }
 }

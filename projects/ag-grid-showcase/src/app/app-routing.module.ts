@@ -12,40 +12,40 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'visual'
+    redirectTo: 'visual',
   },
   {
     path: 'visual',
-    component: VisualComponent
+    component: VisualComponent,
   },
   {
     path: 'visual/data-manager',
-    component: DataManagerVisualComponent
+    component: DataManagerVisualComponent,
   },
   {
     path: 'visual/edit-complex-cells',
-    component: EditComplexCellsComponent
+    component: EditComplexCellsComponent,
   },
   {
     path: 'visual/edit-in-modal-grid',
-    component: SkyAgGridDemoComponent
+    component: SkyAgGridDemoComponent,
   },
   {
     path: 'visual/edit-stop-when-loses-focus',
-    component: EditStopWhenLosesFocusComponent
+    component: EditStopWhenLosesFocusComponent,
   },
   {
     path: 'visual/editable-grid',
-    component: EditableGridComponent
+    component: EditableGridComponent,
   },
   {
     path: 'visual/readonly-grid',
-    component: ReadonlyGridComponent
-  }
+    component: ReadonlyGridComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
