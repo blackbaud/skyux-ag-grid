@@ -3,35 +3,31 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  OnInit
+  OnInit,
 } from '@angular/core';
 
-import {
-  SkyAgGridService,
-  SkyCellType
-} from '@skyux/ag-grid';
+import { SkyAgGridService, SkyCellType } from '@skyux/ag-grid';
 
 import {
   ColDef,
   ColumnApi,
   GridApi,
   GridOptions,
-  GridReadyEvent
+  GridReadyEvent,
 } from 'ag-grid-community';
 
 import {
   SkyDataManagerState,
   SkyDataViewConfig,
-  SkyDataManagerService
+  SkyDataManagerService,
 } from '@skyux/data-manager';
 
 @Component({
-  selector: 'data-view-grid',
+  selector: 'app-data-view-grid',
   templateUrl: './data-view-grid.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataViewGridComponent implements OnInit {
-
   @Input()
   public items: any[];
 
@@ -46,19 +42,19 @@ export class DataViewGridComponent implements OnInit {
       type: SkyCellType.RowSelector,
       suppressMovable: true,
       lockPosition: true,
-      lockVisible: true
+      lockVisible: true,
     },
     {
       colId: 'name',
       field: 'name',
       headerName: 'Fruit name',
-      width: 150
+      width: 150,
     },
     {
       colId: 'description',
       field: 'description',
-      headerName: 'Description'
-    }
+      headerName: 'Description',
+    },
   ];
 
   public dataState = new SkyDataManagerState({});
@@ -76,19 +72,19 @@ export class DataViewGridComponent implements OnInit {
       {
         id: 'selected',
         alwaysDisplayed: true,
-        label: 'selected'
+        label: 'selected',
       },
       {
         id: 'name',
         label: 'Fruit name',
-        description: 'The name of the fruit.'
+        description: 'The name of the fruit.',
       },
       {
         id: 'description',
         label: 'Description',
-        description: 'Some information about the fruit.'
-      }
-    ]
+        description: 'Some information about the fruit.',
+      },
+    ],
   };
 
   public columnApi: ColumnApi;
@@ -109,23 +105,24 @@ export class DataViewGridComponent implements OnInit {
 
     this.dataManagerService.initDataView(this.viewConfig);
 
-    this.gridOptions = this.agGridService.getGridOptions(
-      {
-        gridOptions: {
-          columnDefs: this.columnDefs,
-          onGridReady: this.onGridReady.bind(this)
-        }
-      });
-
-    this.dataManagerService.getDataStateUpdates(this.viewId).subscribe(state => {
-      this.dataState = state;
-      this.setInitialColumnOrder();
-      this.updateData();
-      this.changeDetector.detectChanges();
+    this.gridOptions = this.agGridService.getGridOptions({
+      gridOptions: {
+        columnDefs: this.columnDefs,
+        onGridReady: this.onGridReady.bind(this),
+      },
     });
 
-    this.dataManagerService.getActiveViewIdUpdates().subscribe(id => {
-        this.isActive = id === this.viewId;
+    this.dataManagerService
+      .getDataStateUpdates(this.viewId)
+      .subscribe((state) => {
+        this.dataState = state;
+        this.setInitialColumnOrder();
+        this.updateData();
+        this.changeDetector.detectChanges();
+      });
+
+    this.dataManagerService.getActiveViewIdUpdates().subscribe((id) => {
+      this.isActive = id === this.viewId;
     });
   }
 
@@ -134,7 +131,7 @@ export class DataViewGridComponent implements OnInit {
     this.displayedItems = this.filterItems(this.searchItems(this.items));
 
     if (this.dataState.onlyShowSelected) {
-      this.displayedItems = this.displayedItems.filter(item => item.selected);
+      this.displayedItems = this.displayedItems.filter((item) => item.selected);
     }
   }
 
@@ -143,18 +140,22 @@ export class DataViewGridComponent implements OnInit {
     let visibleColumns = viewState.displayedColumnIds;
 
     this.columnDefs.sort((col1, col2) => {
-        let col1Index = visibleColumns.findIndex((colId: string) => colId === col1.colId);
-        let col2Index = visibleColumns.findIndex((colId: string) => colId === col2.colId);
+      let col1Index = visibleColumns.findIndex(
+        (colId: string) => colId === col1.colId
+      );
+      let col2Index = visibleColumns.findIndex(
+        (colId: string) => colId === col2.colId
+      );
 
-        if (col1Index === -1) {
-          col1.hide = true;
-          return 0;
-        } else if (col2Index === -1) {
-          col2.hide = true;
-          return 0;
-        } else {
-          return col1Index - col2Index;
-        }
+      if (col1Index === -1) {
+        col1.hide = true;
+        return 0;
+      } else if (col2Index === -1) {
+        col2.hide = true;
+        return 0;
+      } else {
+        return col1Index - col2Index;
+      }
     });
 
     this.gridInitialized = true;
@@ -171,7 +172,7 @@ export class DataViewGridComponent implements OnInit {
     let sortOption = this.dataState.activeSortOption;
     if (this.columnApi && sortOption) {
       const allColumns = this.columnApi.getAllColumns();
-      allColumns.forEach(column => {
+      allColumns.forEach((column) => {
         if (column.getColId() === sortOption.propertyName) {
           column.setSort(sortOption.descending ? 'desc' : 'asc');
         } else {
@@ -190,7 +191,10 @@ export class DataViewGridComponent implements OnInit {
         let property: any;
 
         for (property in item) {
-          if (item.hasOwnProperty(property) && (property === 'name' || property === 'description')) {
+          if (
+            item.hasOwnProperty(property) &&
+            (property === 'name' || property === 'description')
+          ) {
             const propertyText = item[property].toLowerCase();
             if (propertyText.indexOf(searchText) > -1) {
               return true;
@@ -211,10 +215,15 @@ export class DataViewGridComponent implements OnInit {
     if (filterData && filterData.filters) {
       let filters = filterData.filters;
       filteredItems = items.filter((item: any) => {
-        if (((filters.hideOrange && item.color !== 'orange') || !filters.hideOrange) &&
-            ((filters.type !== 'any' && item.type === filters.type) || (!filters.type || filters.type === 'any'))) {
-              return true;
-            }
+        if (
+          ((filters.hideOrange && item.color !== 'orange') ||
+            !filters.hideOrange) &&
+          ((filters.type !== 'any' && item.type === filters.type) ||
+            !filters.type ||
+            filters.type === 'any')
+        ) {
+          return true;
+        }
         return false;
       });
     }

@@ -3,19 +3,19 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  OnInit
+  OnInit,
 } from '@angular/core';
 
 import {
   SkyDataManagerState,
   SkyDataViewConfig,
-  SkyDataManagerService
+  SkyDataManagerService,
 } from '@skyux/data-manager';
 
 @Component({
-  selector: 'data-view-repeater',
+  selector: 'app-data-view-repeater',
   templateUrl: './data-view-repeater.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataViewRepeaterComponent implements OnInit {
   @Input()
@@ -33,38 +33,40 @@ export class DataViewRepeaterComponent implements OnInit {
     filterButtonEnabled: true,
     multiselectToolbarEnabled: true,
     onClearAllClick: this.clearAll.bind(this),
-    onSelectAllClick: this.selectAll.bind(this)
+    onSelectAllClick: this.selectAll.bind(this),
   };
 
   constructor(
     private changeDetector: ChangeDetectorRef,
     private dataManagerService: SkyDataManagerService
-    ) { }
+  ) {}
 
   public ngOnInit(): void {
     this.displayedItems = this.items;
 
     this.dataManagerService.initDataView(this.viewConfig);
 
-    this.dataManagerService.getDataStateUpdates(this.viewId).subscribe(state => {
-      this.dataState = state;
-      this.updateData();
-    });
+    this.dataManagerService
+      .getDataStateUpdates(this.viewId)
+      .subscribe((state) => {
+        this.dataState = state;
+        this.updateData();
+      });
 
-    this.dataManagerService.getActiveViewIdUpdates().subscribe(id => {
+    this.dataManagerService.getActiveViewIdUpdates().subscribe((id) => {
       this.isActive = id === this.viewId;
     });
   }
 
   public updateData(): void {
     let selectedIds = this.dataState.selectedIds || [];
-    this.items.forEach(item => {
+    this.items.forEach((item) => {
       item.selected = selectedIds.indexOf(item.id) !== -1;
     });
     this.displayedItems = this.filterItems(this.searchItems(this.items));
 
     if (this.dataState.onlyShowSelected) {
-      this.displayedItems = this.displayedItems.filter(item => item.selected);
+      this.displayedItems = this.displayedItems.filter((item) => item.selected);
     }
 
     this.changeDetector.detectChanges();
@@ -79,7 +81,10 @@ export class DataViewRepeaterComponent implements OnInit {
         let property: any;
 
         for (property in item) {
-          if (item.hasOwnProperty(property) && (property === 'name' || property === 'description')) {
+          if (
+            item.hasOwnProperty(property) &&
+            (property === 'name' || property === 'description')
+          ) {
             const propertyText = item[property].toLowerCase();
             if (propertyText.indexOf(searchText) > -1) {
               return true;
@@ -100,10 +105,15 @@ export class DataViewRepeaterComponent implements OnInit {
     if (filterData && filterData.filters) {
       let filters = filterData.filters;
       filteredItems = items.filter((item: any) => {
-        if (((filters.hideOrange && item.color !== 'orange') || !filters.hideOrange) &&
-            ((filters.type !== 'any' && item.type === filters.type) || (!filters.type || filters.type === 'any'))) {
-              return true;
-            }
+        if (
+          ((filters.hideOrange && item.color !== 'orange') ||
+            !filters.hideOrange) &&
+          ((filters.type !== 'any' && item.type === filters.type) ||
+            !filters.type ||
+            filters.type === 'any')
+        ) {
+          return true;
+        }
         return false;
       });
     }
@@ -114,7 +124,7 @@ export class DataViewRepeaterComponent implements OnInit {
   public selectAll(): void {
     let selectedIds = this.dataState.selectedIds || [];
 
-    this.displayedItems.forEach(item => {
+    this.displayedItems.forEach((item) => {
       if (!item.selected) {
         item.selected = true;
         selectedIds.push(item.id);
@@ -129,7 +139,7 @@ export class DataViewRepeaterComponent implements OnInit {
   public clearAll(): void {
     let selectedIds = this.dataState.selectedIds || [];
 
-    this.displayedItems.forEach(item => {
+    this.displayedItems.forEach((item) => {
       if (item.selected) {
         let itemIndex = selectedIds.indexOf(item.id);
         item.selected = false;

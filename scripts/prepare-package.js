@@ -5,8 +5,11 @@ const path = require('path');
 
 function copyScss() {
   const result = sass.renderSync({
-    file: path.resolve(__dirname, '../projects/ag-grid/src/styles/ag-grid-styles.scss'),
-    importer: tildeImporter
+    file: path.resolve(
+      __dirname,
+      '../projects/ag-grid/src/styles/ag-grid-styles.scss'
+    ),
+    importer: tildeImporter,
   });
 
   const target = path.resolve(__dirname, '../dist/ag-grid/css/sky-ag-grid.css');

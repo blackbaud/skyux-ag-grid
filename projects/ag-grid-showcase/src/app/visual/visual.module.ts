@@ -38,7 +38,7 @@ import { VisualComponent } from './visual.component';
     SkyAgGridDemoComponent,
     SkyAgGridEditModalComponent,
     SkyDataManagerFiltersModalVisualComponent,
-    VisualComponent
+    VisualComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +54,7 @@ import { VisualComponent } from './visual.component';
     SkyToolbarModule,
     SkySearchModule,
     SkyInfiniteScrollModule,
-    SkyDropdownModule
-  ]
+    SkyDropdownModule,
+  ],
 })
-export class VisualModule { }
+export class VisualModule {}

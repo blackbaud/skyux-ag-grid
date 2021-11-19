@@ -2,8 +2,10 @@
 
 <ng-container
   *ngIf="
-    (themeSvc?.settingsChange | async)?.currentSettings?.theme?.name === 'modern';
-    then grid else grid
+    (themeSvc?.settingsChange | async)?.currentSettings?.theme?.name ===
+      'modern';
+    then grid;
+    else grid
   "
 >
 </ng-container>
@@ -32,10 +34,7 @@
       </sky-toolbar-item>
     </sky-toolbar>
     <sky-ag-grid-wrapper>
-      <ag-grid-angular
-        [gridOptions]="gridOptions"
-        [rowData]="gridData"
-      >
+      <ag-grid-angular [gridOptions]="gridOptions" [rowData]="gridData">
       </ag-grid-angular>
     </sky-ag-grid-wrapper>
   </div>

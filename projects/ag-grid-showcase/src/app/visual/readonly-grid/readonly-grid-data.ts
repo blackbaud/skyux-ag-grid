@@ -23,7 +23,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('1/1/2019'),
     endDate: new Date('12/31/2019'),
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '1',
@@ -33,7 +33,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     endDate: new Date('12/31/2019'),
     comment: `Priorities changed and we had to shift resources away from this goal.`,
     status: RowStatusNames.BEHIND,
-    selected: true
+    selected: true,
   },
   {
     id: '2',
@@ -42,7 +42,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('1/1/2019'),
     endDate: new Date('12/31/2019'),
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '3',
@@ -51,7 +51,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('1/1/2019'),
     endDate: new Date('3/31/2019'),
     status: RowStatusNames.COMPLETE,
-    selected: false
+    selected: false,
   },
   {
     id: '4',
@@ -62,7 +62,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     comment: `We completed this goal one month early. For the next quarter,
     we are going to double our target to further challenge ourselves.`,
     status: RowStatusNames.COMPLETE,
-    selected: false
+    selected: false,
   },
   {
     id: '5',
@@ -71,7 +71,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('4/1/2019'),
     endDate: new Date('6/30/2019'),
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '6',
@@ -80,7 +80,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('4/1/2019'),
     endDate: new Date('6/30/2019'),
     status: RowStatusNames.CURRENT,
-    selected: true
+    selected: true,
   },
   {
     id: '7',
@@ -90,7 +90,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     endDate: new Date('9/30/2019'),
     comment: 'Not yet started',
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '8',
@@ -100,7 +100,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     endDate: new Date('9/30/2019'),
     comment: 'Not yet started',
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '9',
@@ -110,7 +110,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     endDate: new Date('12/31/2019'),
     comment: 'Not yet started',
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '10',
@@ -119,7 +119,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('1/1/2019'),
     endDate: new Date('12/31/2019'),
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '11',
@@ -130,7 +130,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     comment: `We completed this goal one month early. For the next quarter,
     we are going to double our target to further challenge ourselves.`,
     status: RowStatusNames.COMPLETE,
-    selected: false
+    selected: false,
   },
   {
     id: '12',
@@ -139,7 +139,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('1/1/2019'),
     endDate: new Date('3/31/2019'),
     status: RowStatusNames.COMPLETE,
-    selected: false
+    selected: false,
   },
   {
     id: '13',
@@ -149,7 +149,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     endDate: new Date('12/31/2019'),
     comment: `Priorities changed and we had to shift resources away from this goal.`,
     status: RowStatusNames.BEHIND,
-    selected: true
+    selected: true,
   },
   {
     id: '14',
@@ -158,7 +158,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('1/1/2019'),
     endDate: new Date('12/31/2019'),
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '15',
@@ -167,7 +167,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('4/1/2019'),
     endDate: new Date('6/30/2019'),
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '16',
@@ -176,7 +176,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     startDate: new Date('4/1/2019'),
     endDate: new Date('6/30/2019'),
     status: RowStatusNames.CURRENT,
-    selected: true
+    selected: true,
   },
   {
     id: '17',
@@ -186,7 +186,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     endDate: new Date('9/30/2019'),
     comment: 'Not yet started',
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '18',
@@ -196,7 +196,7 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     endDate: new Date('9/30/2019'),
     comment: 'Not yet started',
     status: RowStatusNames.CURRENT,
-    selected: false
+    selected: false,
   },
   {
     id: '19',
@@ -206,6 +206,6 @@ export const READONLY_GRID_DATA: ReadonlyGridRow[] = [
     endDate: new Date('12/31/2019'),
     comment: 'Not yet started',
     status: RowStatusNames.CURRENT,
-    selected: false
-  }
+    selected: false,
+  },
 ];
