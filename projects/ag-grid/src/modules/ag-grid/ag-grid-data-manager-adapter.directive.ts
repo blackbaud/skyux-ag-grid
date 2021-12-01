@@ -14,7 +14,13 @@ import { takeUntil, filter } from 'rxjs/operators';
 
 import { AgGridAngular } from 'ag-grid-angular';
 
-import { ColumnMovedEvent, RowSelectedEvent } from 'ag-grid-community';
+import {
+  ColumnApi,
+  ColumnMovedEvent,
+  DragStartedEvent,
+  DragStoppedEvent,
+  RowSelectedEvent,
+} from 'ag-grid-community';
 
 import {
   SkyDataManagerService,
@@ -174,20 +180,26 @@ export class SkyAgGridDataManagerAdapterDirective
             ].includes(event.source)
         )
       )
-      .subscribe(() => this.updateColumnsInCurrentDataState());
+      .subscribe((value: ColumnMovedEvent) => {
+        this.updateColumnsInCurrentDataState(value.columnApi);
+      });
     let currentColumns: string[];
-    agGrid.dragStarted.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-      currentColumns = this.getColumnOrder();
-    });
-    agGrid.dragStopped.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-      const newColumns = this.getColumnOrder();
-      const hasChanged = currentColumns.findIndex(
-        (colId, i) => colId !== newColumns[i]
-      );
-      if (hasChanged > -1) {
-        this.updateColumnsInCurrentDataState();
-      }
-    });
+    agGrid.dragStarted
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((value: DragStartedEvent) => {
+        currentColumns = this.getColumnOrder(value.columnApi);
+      });
+    agGrid.dragStopped
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((value: DragStoppedEvent) => {
+        const newColumns = this.getColumnOrder(value.columnApi);
+        const hasChanged = currentColumns.findIndex(
+          (colId, i) => colId !== newColumns[i]
+        );
+        if (hasChanged > -1) {
+          this.updateColumnsInCurrentDataState(value.columnApi);
+        }
+      });
 
     agGrid.rowSelected
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -245,8 +257,8 @@ export class SkyAgGridDataManagerAdapterDirective
     });
   }
 
-  private updateColumnsInCurrentDataState() {
-    const columnOrder = this.getColumnOrder();
+  private updateColumnsInCurrentDataState(columnApi: ColumnApi) {
+    const columnOrder = this.getColumnOrder(columnApi);
 
     const viewState = this.currentDataState.getViewStateById(
       this.viewConfig.id
@@ -259,8 +271,8 @@ export class SkyAgGridDataManagerAdapterDirective
     );
   }
 
-  private getColumnOrder(): string[] {
-    return this.currentAgGrid.columnApi
+  private getColumnOrder(columnApi: ColumnApi): string[] {
+    return columnApi
       .getAllDisplayedVirtualColumns()
       .map((col) => col.getColDef().colId);
   }
