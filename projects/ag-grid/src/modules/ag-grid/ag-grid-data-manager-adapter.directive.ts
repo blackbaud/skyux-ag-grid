@@ -10,7 +10,7 @@ import {
 
 import { Subject, Subscription } from 'rxjs';
 
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 
 import { AgGridAngular } from 'ag-grid-angular';
 
@@ -162,27 +162,32 @@ export class SkyAgGridDataManagerAdapterDirective
     });
 
     agGrid.columnMoved
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((event: ColumnMovedEvent) => {
-        let columnOrder = agGrid.columnApi
-          .getAllDisplayedVirtualColumns()
-          .map((col) => col.getColDef().colId);
-
-        if (event.source !== 'api') {
-          const viewState = this.currentDataState.getViewStateById(
-            this.viewConfig.id
-          );
-          viewState.displayedColumnIds = columnOrder;
-
-          this.dataManagerSvc.updateDataState(
-            this.currentDataState.addOrUpdateView(
-              this.viewConfig.id,
-              viewState
-            ),
-            this.viewConfig.id
-          );
-        }
-      });
+      .pipe(
+        takeUntil(this.ngUnsubscribe),
+        filter(
+          (event: ColumnMovedEvent) =>
+            ![
+              'gridInitializing',
+              'uiColumnResized',
+              'uiColumnDragged',
+              'api',
+            ].includes(event.source)
+        )
+      )
+      .subscribe(() => this.updateColumnsInCurrentDataState());
+    let currentColumns: string[];
+    agGrid.dragStarted.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+      currentColumns = this.getColumnOrder();
+    });
+    agGrid.dragStopped.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+      const newColumns = this.getColumnOrder();
+      const hasChanged = currentColumns.findIndex(
+        (colId, i) => colId !== newColumns[i]
+      );
+      if (hasChanged > -1) {
+        this.updateColumnsInCurrentDataState();
+      }
+    });
 
     agGrid.rowSelected
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -238,6 +243,26 @@ export class SkyAgGridDataManagerAdapterDirective
         this.viewConfig.id
       );
     });
+  }
+
+  private updateColumnsInCurrentDataState() {
+    const columnOrder = this.getColumnOrder();
+
+    const viewState = this.currentDataState.getViewStateById(
+      this.viewConfig.id
+    );
+    viewState.displayedColumnIds = columnOrder;
+
+    this.dataManagerSvc.updateDataState(
+      this.currentDataState.addOrUpdateView(this.viewConfig.id, viewState),
+      this.viewConfig.id
+    );
+  }
+
+  private getColumnOrder(): string[] {
+    return this.currentAgGrid.columnApi
+      .getAllDisplayedVirtualColumns()
+      .map((col) => col.getColDef().colId);
   }
 
   private displayColumns(dataState: SkyDataManagerState): void {
