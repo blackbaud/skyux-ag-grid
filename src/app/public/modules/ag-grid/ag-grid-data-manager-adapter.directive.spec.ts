@@ -18,6 +18,8 @@ import {
 import {
   Column,
   ColumnMovedEvent,
+  DragStartedEvent,
+  DragStoppedEvent,
   RowNode,
   RowSelectedEvent
 } from 'ag-grid-community';
@@ -136,7 +138,8 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
     spyOn(dataManagerService, 'updateDataState');
 
     const columnMoved = {
-      source: 'uiColumnMoved'
+      source: 'uiColumnMoved',
+      columnApi: agGridComponent.columnApi
     } as ColumnMovedEvent;
 
     const viewState = dataState.views[0];
@@ -145,6 +148,63 @@ describe('SkyAgGridDataManagerAdapterDirective', () => {
     agGridComponent.columnMoved.emit(columnMoved);
 
     expect(dataManagerService.updateDataState).toHaveBeenCalledWith(dataState, agGridDataManagerFixtureComponent.viewConfig.id);
+  });
+
+  it('should update the data state when a column is dragged', async () => {
+    await agGridDataManagerFixture.whenStable();
+
+    let colIds = ['col1', 'col2'];
+    const columnApi = {
+      getAllDisplayedVirtualColumns: () => {
+        return colIds.map((colId) => {
+          return {
+            getColDef: () => {
+              return { colId };
+            }
+          };
+        });
+      }
+    };
+
+    spyOn(dataManagerService, 'updateDataState');
+
+    const columnDragged = {
+      columnApi
+    } as DragStartedEvent | DragStoppedEvent;
+
+    agGridComponent.dragStarted.emit(columnDragged);
+    colIds = colIds.reverse();
+    agGridComponent.dragStopped.emit(columnDragged);
+
+    expect(dataManagerService.updateDataState).toHaveBeenCalled();
+  });
+
+  it('should not update the data state when a column is dragged and released in the same spot', async () => {
+    await agGridDataManagerFixture.whenStable();
+
+    let colIds = ['col1', 'col2'];
+    const columnApi = {
+      getAllDisplayedVirtualColumns: () => {
+        return colIds.map((colId) => {
+          return {
+            getColDef: () => {
+              return { colId };
+            }
+          };
+        });
+      }
+    };
+
+    spyOn(dataManagerService, 'updateDataState');
+
+    const columnDragged = {
+      columnApi
+    } as DragStartedEvent | DragStoppedEvent;
+
+    agGridComponent.dragStarted.emit(columnDragged);
+    agGridComponent.dragStopped.emit(columnDragged);
+
+    expect(dataManagerService.updateDataState).not.toHaveBeenCalled();
   });
 
   it('should update the data state when the sort changes', async () => {
