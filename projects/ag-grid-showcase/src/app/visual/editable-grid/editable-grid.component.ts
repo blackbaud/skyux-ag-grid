@@ -1,8 +1,4 @@
-import {
-  Component,
-  HostListener,
-  OnInit
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { SkyThemeService } from '@skyux/theme';
 
 import {
@@ -11,24 +7,21 @@ import {
   ColDef,
   GridApi,
   GridReadyEvent,
-  GridOptions
+  GridOptions,
 } from 'ag-grid-community';
 
 import {
   EDITABLE_GRID_AUTOCOMPLETE_OPTIONS,
   EDITABLE_GRID_DATA,
-  EditableGridRow
+  EditableGridRow,
 } from './editable-grid-data';
 
-import {
-  SkyAgGridService,
-  SkyCellType
-} from '@skyux/ag-grid';
+import { SkyAgGridService, SkyCellType } from '@skyux/ag-grid';
 
 @Component({
-  selector: 'editable-grid-visual',
+  selector: 'app-editable-grid-visual',
   templateUrl: './editable-grid.component.html',
-  styleUrls: ['./editable-grid.component.scss']
+  styleUrls: ['./editable-grid.component.scss'],
 })
 export class EditableGridComponent implements OnInit {
   @HostListener('window:resize')
@@ -46,7 +39,7 @@ export class EditableGridComponent implements OnInit {
   constructor(
     private agGridService: SkyAgGridService,
     public themeSvc: SkyThemeService
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     this.setColumnDefs();
@@ -57,7 +50,7 @@ export class EditableGridComponent implements OnInit {
       this.getGridOptions();
     });
 
-    this.gridData.forEach(row => {
+    this.gridData.forEach((row) => {
       row.total = this.calculateRowTotal(row);
     });
 
@@ -72,7 +65,7 @@ export class EditableGridComponent implements OnInit {
         headerName: 'Goal Name',
         minWidth: 220,
         editable: this.editMode,
-        type: SkyCellType.Text
+        type: SkyCellType.Text,
       },
       {
         colId: 'completedDate',
@@ -82,46 +75,49 @@ export class EditableGridComponent implements OnInit {
         type: SkyCellType.Date,
         cellEditorParams: {
           skyComponentProperties: {
-            startingDay: 1
-          }
-        }
+            startingDay: 1,
+          },
+        },
       },
       {
         colId: 'value1',
         field: 'value1',
         headerName: 'Update 1',
         editable: this.editMode,
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        type: SkyCellType.Number
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) =>
+          this.onUpdateCellValueChanged(changeEvent),
+        type: SkyCellType.Number,
       },
       {
         colId: 'value2',
         field: 'value2',
         headerName: 'Update 2',
         editable: this.editMode,
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        type: SkyCellType.Number
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) =>
+          this.onUpdateCellValueChanged(changeEvent),
+        type: SkyCellType.Number,
       },
       {
         colId: 'value3',
         field: 'value3',
         headerName: 'Update 3',
         editable: this.editMode,
-        onCellValueChanged: (changeEvent: CellValueChangedEvent) => this.onUpdateCellValueChanged(changeEvent),
-        type: SkyCellType.Number
+        onCellValueChanged: (changeEvent: CellValueChangedEvent) =>
+          this.onUpdateCellValueChanged(changeEvent),
+        type: SkyCellType.Number,
       },
       {
         colId: 'total',
         field: 'total',
         headerName: 'Current Total',
         type: SkyCellType.Number,
-        cellClass: this.totalCellClass
+        cellClass: this.totalCellClass,
       },
       {
         colId: 'target',
         field: 'target',
         headerName: 'Target Value',
-        type: SkyCellType.Number
+        type: SkyCellType.Number,
       },
       {
         colId: 'primaryContact',
@@ -131,9 +127,9 @@ export class EditableGridComponent implements OnInit {
         type: SkyCellType.Autocomplete,
         cellEditorParams: {
           skyComponentProperties: {
-            data: EDITABLE_GRID_AUTOCOMPLETE_OPTIONS
-          }
-        }
+            data: EDITABLE_GRID_AUTOCOMPLETE_OPTIONS,
+          },
+        },
       },
       {
         colId: 'dueDate',
@@ -141,7 +137,7 @@ export class EditableGridComponent implements OnInit {
         headerName: 'Due Date',
         type: SkyCellType.Date,
         sort: 'asc',
-        minWidth: 160
+        minWidth: 160,
       },
       {
         colId: 'currencyAmount',
@@ -150,14 +146,14 @@ export class EditableGridComponent implements OnInit {
         type: SkyCellType.Currency,
         editable: this.editMode,
         cellRendererParams: {},
-        cellEditorParams: {}
-      }
+        cellEditorParams: {},
+      },
     ];
   }
 
   public cloneGridData(data: EditableGridRow[]): EditableGridRow[] {
     let clonedData: EditableGridRow[] = [];
-    data.forEach(row => {
+    data.forEach((row) => {
       clonedData.push({ ...row });
     });
 
@@ -195,9 +191,13 @@ export class EditableGridComponent implements OnInit {
     }
   }
 
-  public onUpdateCellValueChanged(cellValueChangedData: CellValueChangedEvent): void {
+  public onUpdateCellValueChanged(
+    cellValueChangedData: CellValueChangedEvent
+  ): void {
     if (cellValueChangedData.newValue !== cellValueChangedData.oldValue) {
-      cellValueChangedData.data.total = this.calculateRowTotal(cellValueChangedData.data);
+      cellValueChangedData.data.total = this.calculateRowTotal(
+        cellValueChangedData.data
+      );
       this.gridApi.refreshCells({ rowNodes: [cellValueChangedData.node] });
     }
   }
@@ -232,9 +232,13 @@ export class EditableGridComponent implements OnInit {
   private getGridOptions(): void {
     this.gridOptions = {
       columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
-      onGridSizeChanged: () => { this.sizeGrid(); }
+      onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),
+      onGridSizeChanged: () => {
+        this.sizeGrid();
+      },
     };
-    this.gridOptions = this.agGridService.getEditableGridOptions({ gridOptions: this.gridOptions });
+    this.gridOptions = this.agGridService.getEditableGridOptions({
+      gridOptions: this.gridOptions,
+    });
   }
 }

@@ -1,43 +1,31 @@
-import {
-  Component,
-  HostListener,
-  OnInit
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { SkyThemeService } from '@skyux/theme';
 
 import {
   GridApi,
   GridOptions,
   GridReadyEvent,
-  ICellRendererParams
+  ICellRendererParams,
 } from 'ag-grid-community';
 
-import {
-  Observable,
-  Subject
-} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
-import {
-  ReadonlyGridContextMenuComponent
-} from './readonly-grid-context-menu.component';
+import { ReadonlyGridContextMenuComponent } from './readonly-grid-context-menu.component';
 
-import {
-  READONLY_GRID_DATA,
-  RowStatusNames
-} from './readonly-grid-data';
+import { READONLY_GRID_DATA, RowStatusNames } from './readonly-grid-data';
 
 import {
   SkyAgGridRowDeleteConfirmArgs,
   SkyAgGridService,
-  SkyCellType
+  SkyCellType,
 } from '@skyux/ag-grid';
 
 let nextId = 0;
 
 @Component({
-  selector: 'readonly-grid-visual',
+  selector: 'app-readonly-grid-visual',
   templateUrl: './readonly-grid.component.html',
-  styleUrls: ['./readonly-grid.component.scss']
+  styleUrls: ['./readonly-grid.component.scss'],
 })
 export class ReadonlyGridComponent implements OnInit {
   @HostListener('window:resize')
@@ -57,55 +45,56 @@ export class ReadonlyGridComponent implements OnInit {
     {
       field: 'selected',
       colId: 'selected',
-      type: SkyCellType.RowSelector
+      type: SkyCellType.RowSelector,
     },
     {
       colId: 'contextMenu',
       headerName: '',
       sortable: false,
       cellRendererFramework: ReadonlyGridContextMenuComponent,
-      maxWidth: 55
+      maxWidth: 55,
     },
     {
       field: 'name',
       headerName: 'Goal Name',
-      autoHeight: true
+      autoHeight: true,
     },
     {
       field: 'value',
       headerName: 'Current Value',
       type: SkyCellType.Number,
-      maxWidth: 200
+      maxWidth: 200,
     },
     {
       field: 'startDate',
       headerName: 'Start Date',
-      type: SkyCellType.Date
+      type: SkyCellType.Date,
     },
     {
       field: 'endDate',
       headerName: 'End Date',
-      type: SkyCellType.Date
+      type: SkyCellType.Date,
     },
     {
       field: 'comment',
       headerName: 'Comment',
       maxWidth: 500,
       autoHeight: true,
-      wrapText: true
+      wrapText: true,
     },
     {
       field: 'status',
       headerName: 'Status',
       sortable: false,
       cellRenderer: this.statusRenderer,
-      minWidth: 300
-    }];
+      minWidth: 300,
+    },
+  ];
 
   constructor(
     private agGridService: SkyAgGridService,
     public themeSvc: SkyThemeService
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     this.getGridOptions();
@@ -113,19 +102,22 @@ export class ReadonlyGridComponent implements OnInit {
 
   public deleteConfirm(confirmArgs: SkyAgGridRowDeleteConfirmArgs): void {
     setTimeout(() => {
-      this.gridData = this.gridData.filter(data => data.id !== confirmArgs.id);
+      this.gridData = this.gridData.filter(
+        (data) => data.id !== confirmArgs.id
+      );
     }, 3000);
   }
 
   public mockRemote(): Observable<any> {
-    const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis a cras semper auctor neque vitae tempus quam. Tempor orci eu lobortis elementum nibh tellus molestie. Tempus imperdiet nulla malesuada pellentesque elit.';
+    const lorem =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis a cras semper auctor neque vitae tempus quam. Tempor orci eu lobortis elementum nibh tellus molestie. Tempus imperdiet nulla malesuada pellentesque elit.';
     const data: any[] = [];
 
     for (let i = 0; i < 8; i++) {
       data.push({
         id: `9${++nextId}`,
         name: `Item #` + nextId,
-        comment: i % 3 === 0 ? lorem : ''
+        comment: i % 3 === 0 ? lorem : '',
       });
     }
 
@@ -134,7 +126,7 @@ export class ReadonlyGridComponent implements OnInit {
     setTimeout(() => {
       results.next({
         data,
-        hasMore: (nextId < 50)
+        hasMore: nextId < 50,
       });
     }, 1000);
 
@@ -162,11 +154,13 @@ export class ReadonlyGridComponent implements OnInit {
     const iconClassMap = {
       [RowStatusNames.BEHIND]: 'fa-warning',
       [RowStatusNames.CURRENT]: 'fa-clock-o',
-      [RowStatusNames.COMPLETE]: 'fa-check'
+      [RowStatusNames.COMPLETE]: 'fa-check',
     };
     if (cellRendererParams.value) {
       return `<div class="status ${cellRendererParams.value.toLowerCase()}">
-              <i class="fa ${iconClassMap[cellRendererParams.value]}"></i> ${cellRendererParams.value}
+              <i class="fa ${iconClassMap[cellRendererParams.value]}"></i> ${
+        cellRendererParams.value
+      }
             </div>`;
     } else {
       return '';
@@ -176,11 +170,13 @@ export class ReadonlyGridComponent implements OnInit {
   private getGridOptions(): void {
     this.gridOptions = {
       columnDefs: this.columnDefs,
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
+      onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),
       context: {
-        rowDeleteIds: []
-      }
+        rowDeleteIds: [],
+      },
     };
-    this.gridOptions = this.agGridService.getGridOptions({ gridOptions: this.gridOptions });
+    this.gridOptions = this.agGridService.getGridOptions({
+      gridOptions: this.gridOptions,
+    });
   }
 }

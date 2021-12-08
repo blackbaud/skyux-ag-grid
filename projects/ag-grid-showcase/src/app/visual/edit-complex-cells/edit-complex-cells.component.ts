@@ -1,8 +1,4 @@
-import {
-  Component,
-  HostListener,
-  OnInit
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 import { SkyThemeService } from '@skyux/theme';
 
@@ -13,7 +9,7 @@ import {
   GridOptions,
   IGetRowsParams,
   RowNode,
-  RowSelectedEvent
+  RowSelectedEvent,
 } from 'ag-grid-community';
 import { BehaviorSubject } from 'rxjs';
 import { skip } from 'rxjs/operators';
@@ -24,20 +20,20 @@ import {
   EDITABLE_GRID_LOOKUP,
   EDITABLE_GRID_OPTIONS,
   EditableGridOption,
-  EditableGridRow
+  EditableGridRow,
 } from './edit-complex-cells-data';
 
 import {
   SkyAgGridRowDeleteCancelArgs,
   SkyAgGridRowDeleteConfirmArgs,
   SkyAgGridService,
-  SkyCellType
+  SkyCellType,
 } from '@skyux/ag-grid';
 
 @Component({
-  selector: 'edit-complex-cells-visual',
+  selector: 'app-edit-complex-cells-visual',
   templateUrl: './edit-complex-cells.component.html',
-  styleUrls: ['./edit-complex-cells.component.scss']
+  styleUrls: ['./edit-complex-cells.component.scss'],
 })
 export class EditComplexCellsComponent implements OnInit {
   @HostListener('window:resize')
@@ -60,19 +56,17 @@ export class EditComplexCellsComponent implements OnInit {
   constructor(
     private agGridService: SkyAgGridService,
     public themeSvc: SkyThemeService
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     this.setColumnDefs();
 
     this.getGridOptions();
 
-    this.themeSvc.settingsChange
-      .pipe(skip(1))
-      .subscribe(() => {
-        this.getGridOptions();
-        this.refresh.next(!this.refresh.getValue());
-      });
+    this.themeSvc.settingsChange.pipe(skip(1)).subscribe(() => {
+      this.getGridOptions();
+      this.refresh.next(!this.refresh.getValue());
+    });
 
     this.uneditedGridData = this.cloneGridData(this.gridData);
   }
@@ -82,7 +76,7 @@ export class EditComplexCellsComponent implements OnInit {
       {
         field: 'selected',
         colId: 'selected',
-        type: SkyCellType.RowSelector
+        type: SkyCellType.RowSelector,
       },
       {
         colId: 'name',
@@ -90,7 +84,7 @@ export class EditComplexCellsComponent implements OnInit {
         headerName: 'Name',
         minWidth: 220,
         editable: this.editMode,
-        type: SkyCellType.Text
+        type: SkyCellType.Text,
       },
       {
         colId: 'language',
@@ -99,9 +93,9 @@ export class EditComplexCellsComponent implements OnInit {
         maxWidth: 235,
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
-          values: ['English', 'Spanish', 'French', 'Portuguese', '(other)']
+          values: ['English', 'Spanish', 'French', 'Portuguese', '(other)'],
         },
-        editable: this.editMode
+        editable: this.editMode,
       },
       {
         colId: 'validationAutocomplete',
@@ -112,15 +106,15 @@ export class EditComplexCellsComponent implements OnInit {
         type: [SkyCellType.Autocomplete, SkyCellType.Validator],
         cellEditorParams: {
           skyComponentProperties: {
-            data: EDITABLE_GRID_OPTIONS
-          }
+            data: EDITABLE_GRID_OPTIONS,
+          },
         },
         cellRendererParams: {
           skyComponentProperties: {
             validator: (value: EditableGridOption) => !!value?.validOption,
-            validatorMessage: 'Please choose an odd number option'
-          }
-        }
+            validatorMessage: 'Please choose an odd number option',
+          },
+        },
       },
       {
         colId: 'validationCurrency',
@@ -128,7 +122,7 @@ export class EditComplexCellsComponent implements OnInit {
         minWidth: 185,
         maxWidth: 235,
         editable: this.editMode,
-        type: [SkyCellType.CurrencyValidator]
+        type: [SkyCellType.CurrencyValidator],
       },
       {
         colId: 'validationDate',
@@ -139,10 +133,11 @@ export class EditComplexCellsComponent implements OnInit {
         type: [SkyCellType.Date, SkyCellType.Validator],
         cellRendererParams: {
           skyComponentProperties: {
-            validator: (value: Date) => !!value && value > new Date(1985, 9, 26),
-            validatorMessage: 'Please enter a future date'
-          }
-        }
+            validator: (value: Date) =>
+              !!value && value > new Date(1985, 9, 26),
+            validatorMessage: 'Please enter a future date',
+          },
+        },
       },
       {
         colId: 'lookupSingle',
@@ -156,14 +151,14 @@ export class EditComplexCellsComponent implements OnInit {
             data: EDITABLE_GRID_LOOKUP,
             idProperty: 'id',
             descriptorProperty: 'name',
-            selectMode: 'single'
-          }
+            selectMode: 'single',
+          },
         },
         cellRendererParams: {
           skyComponentProperties: {
-            descriptorProperty: 'name'
-          }
-        }
+            descriptorProperty: 'name',
+          },
+        },
       },
       {
         colId: 'lookupMultiple',
@@ -178,21 +173,21 @@ export class EditComplexCellsComponent implements OnInit {
             idProperty: 'id',
             descriptorProperty: 'name',
             selectMode: 'multiple',
-            enableShowMore: true
-          }
+            enableShowMore: true,
+          },
         },
         cellRendererParams: {
           skyComponentProperties: {
-            descriptorProperty: 'name'
-          }
-        }
-      }
+            descriptorProperty: 'name',
+          },
+        },
+      },
     ];
   }
 
   public cloneGridData(data: EditableGridRow[]): EditableGridRow[] {
     let clonedData: EditableGridRow[] = [];
-    data.forEach(row => {
+    data.forEach((row) => {
       clonedData.push({ ...row });
     });
 
@@ -220,13 +215,18 @@ export class EditComplexCellsComponent implements OnInit {
   public onGridReady(gridReadyEvent: GridReadyEvent): void {
     this.gridApi = gridReadyEvent.api;
 
-    this.gridApi.addEventListener(RowNode.EVENT_ROW_SELECTED, ($event: RowSelectedEvent) => {
-      if (this.editMode && $event.node.isSelected()) {
-        this.rowDeleteIds = this.rowDeleteIds.concat([$event.node.id]);
-      } else {
-        this.rowDeleteIds = this.rowDeleteIds.filter((id) => id !== $event.node.id);
+    this.gridApi.addEventListener(
+      RowNode.EVENT_ROW_SELECTED,
+      ($event: RowSelectedEvent) => {
+        if (this.editMode && $event.node.isSelected()) {
+          this.rowDeleteIds = this.rowDeleteIds.concat([$event.node.id]);
+        } else {
+          this.rowDeleteIds = this.rowDeleteIds.filter(
+            (id) => id !== $event.node.id
+          );
+        }
       }
-    });
+    );
 
     this.sizeGrid();
   }
@@ -269,14 +269,18 @@ export class EditComplexCellsComponent implements OnInit {
             params.successCallback(rowsThisBlock, 300);
           });
         },
-        rowCount: 300
+        rowCount: 300,
       },
       domLayout: 'normal',
-      onGridReady: gridReadyEvent => this.onGridReady(gridReadyEvent),
-      onGridSizeChanged: () => { this.sizeGrid(); },
-      suppressColumnVirtualisation: true
+      onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),
+      onGridSizeChanged: () => {
+        this.sizeGrid();
+      },
+      suppressColumnVirtualisation: true,
     };
-    this.gridOptions = this.agGridService.getEditableGridOptions({ gridOptions: this.gridOptions });
+    this.gridOptions = this.agGridService.getEditableGridOptions({
+      gridOptions: this.gridOptions,
+    });
     this.gridOptions.stopEditingWhenCellsLoseFocus = true;
   }
 }

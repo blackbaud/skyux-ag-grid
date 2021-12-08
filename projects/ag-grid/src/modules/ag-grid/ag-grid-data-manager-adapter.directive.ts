@@ -5,46 +5,41 @@ import {
   Directive,
   Input,
   OnDestroy,
-  QueryList
+  QueryList,
 } from '@angular/core';
 
-import {
-  Subject,
-  Subscription
-} from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+
+import { takeUntil, filter } from 'rxjs/operators';
+
+import { AgGridAngular } from 'ag-grid-angular';
 
 import {
-  takeUntil
-} from 'rxjs/operators';
-
-import {
-  AgGridAngular
-} from 'ag-grid-angular';
-
-import {
+  ColumnApi,
   ColumnMovedEvent,
-  RowSelectedEvent
+  DragStartedEvent,
+  DragStoppedEvent,
+  RowSelectedEvent,
 } from 'ag-grid-community';
 
 import {
   SkyDataManagerService,
   SkyDataManagerSortOption,
   SkyDataManagerState,
-  SkyDataViewConfig
+  SkyDataViewConfig,
 } from '@skyux/data-manager';
 
-import {
-  SkyAgGridWrapperComponent
-} from './ag-grid-wrapper.component';
+import { SkyAgGridWrapperComponent } from './ag-grid-wrapper.component';
 
 /**
  * @internal
  */
 @Directive({
-  selector: '[skyAgGridDataManagerAdapter]'
+  selector: '[skyAgGridDataManagerAdapter]',
 })
-export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, OnDestroy {
-
+export class SkyAgGridDataManagerAdapterDirective
+  implements AfterContentInit, OnDestroy
+{
   @Input()
   public viewId: string;
 
@@ -63,7 +58,8 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private dataManagerSvc: SkyDataManagerService) { }
+    private dataManagerSvc: SkyDataManagerService
+  ) {}
 
   public ngAfterContentInit(): void {
     this.dataManagerSvc.setViewkeeperClasses(this.viewId, ['.ag-header']);
@@ -109,7 +105,9 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
     /* istanbul ignore else */
     if (skyAgGridWrapperCount === 0) {
       this.unregisterSkyAgGridWrapper();
-    } else if (this.skyAgGridWrapperList.first !== this.currentSkyAgGridWrapper) {
+    } else if (
+      this.skyAgGridWrapperList.first !== this.currentSkyAgGridWrapper
+    ) {
       this.registerSkyAgGridWrapper();
     }
 
@@ -152,39 +150,54 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
 
     this.currentAgGrid = agGrid;
 
-    agGrid.gridReady
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(() => {
-        this.viewConfig.onSelectAllClick = this.selectAll.bind(this);
-        this.viewConfig.onClearAllClick = this.clearAll.bind(this);
+    agGrid.gridReady.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+      this.viewConfig.onSelectAllClick = this.selectAll.bind(this);
+      this.viewConfig.onClearAllClick = this.clearAll.bind(this);
 
-        this.dataManagerSvc.updateViewConfig(this.viewConfig);
+      this.dataManagerSvc.updateViewConfig(this.viewConfig);
 
-        this.dataStateSub = this.dataManagerSvc.getDataStateUpdates(this.viewConfig.id)
-          .pipe(takeUntil(this.ngUnsubscribe))
-          .subscribe((dataState: SkyDataManagerState) => {
-            this.currentDataState = dataState;
-            this.displayColumns(dataState);
-          });
+      this.dataStateSub = this.dataManagerSvc
+        .getDataStateUpdates(this.viewConfig.id)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((dataState: SkyDataManagerState) => {
+          this.currentDataState = dataState;
+          this.displayColumns(dataState);
+        });
 
-        agGrid.api.sizeColumnsToFit();
-      });
+      agGrid.api.sizeColumnsToFit();
+    });
 
     agGrid.columnMoved
+      .pipe(
+        takeUntil(this.ngUnsubscribe),
+        filter(
+          (event: ColumnMovedEvent) =>
+            ![
+              'gridInitializing',
+              'uiColumnResized',
+              'uiColumnDragged',
+              'api',
+            ].includes(event.source)
+        )
+      )
+      .subscribe((value: ColumnMovedEvent) => {
+        this.updateColumnsInCurrentDataState(value.columnApi);
+      });
+    let currentColumns: string[];
+    agGrid.dragStarted
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((event: ColumnMovedEvent) => {
-        let columnOrder = agGrid.columnApi.getAllDisplayedVirtualColumns().map(
-          col => col.getColDef().colId
+      .subscribe((value: DragStartedEvent) => {
+        currentColumns = this.getColumnOrder(value.columnApi);
+      });
+    agGrid.dragStopped
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((value: DragStoppedEvent) => {
+        const newColumns = this.getColumnOrder(value.columnApi);
+        const hasChanged = currentColumns.findIndex(
+          (colId, i) => colId !== newColumns[i]
         );
-
-        if (event.source !== 'api') {
-          const viewState = this.currentDataState.getViewStateById(this.viewConfig.id);
-          viewState.displayedColumnIds = columnOrder;
-
-          this.dataManagerSvc.updateDataState(
-            this.currentDataState.addOrUpdateView(this.viewConfig.id, viewState),
-            this.viewConfig.id
-          );
+        if (hasChanged > -1) {
+          this.updateColumnsInCurrentDataState(value.columnApi);
         }
       });
 
@@ -202,35 +215,66 @@ export class SkyAgGridDataManagerAdapterDirective implements AfterContentInit, O
         }
 
         this.currentDataState.selectedIds = selectedIds;
-        this.dataManagerSvc.updateDataState(this.currentDataState, this.viewConfig.id);
+        this.dataManagerSvc.updateDataState(
+          this.currentDataState,
+          this.viewConfig.id
+        );
         this.changeDetector.markForCheck();
       });
 
-    agGrid.sortChanged
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(() => {
-        const gridSortModel = agGrid.api.getSortModel();
-        let sortOption: SkyDataManagerSortOption;
+    agGrid.sortChanged.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+      const gridSortModel = agGrid.api.getSortModel();
+      let sortOption: SkyDataManagerSortOption;
+
+      /* istanbul ignore else */
+      if (gridSortModel.length) {
+        const activeSortModel = gridSortModel[0];
+        const activeSortColumn = agGrid.columnApi.getColumn(
+          activeSortModel.colId
+        );
+        const dataManagerConfig =
+          this.dataManagerSvc.getCurrentDataManagerConfig();
 
         /* istanbul ignore else */
-        if (gridSortModel.length) {
-          const activeSortModel = gridSortModel[0];
-          const activeSortColumn = agGrid.columnApi.getColumn(activeSortModel.colId);
-          const dataManagerConfig = this.dataManagerSvc.getCurrentDataManagerConfig();
-
-          /* istanbul ignore else */
-          if (dataManagerConfig.sortOptions) {
-            sortOption = dataManagerConfig.sortOptions.find((option: SkyDataManagerSortOption) => {
-              return option.propertyName === activeSortColumn.getColDef().field &&
-                option.descending === (activeSortModel.sort === 'desc');
-            });
-          } else {
-            sortOption = undefined;
-          }
+        if (dataManagerConfig.sortOptions) {
+          sortOption = dataManagerConfig.sortOptions.find(
+            (option: SkyDataManagerSortOption) => {
+              return (
+                option.propertyName === activeSortColumn.getColDef().field &&
+                option.descending === (activeSortModel.sort === 'desc')
+              );
+            }
+          );
+        } else {
+          sortOption = undefined;
         }
-        this.currentDataState.activeSortOption = sortOption;
-        this.dataManagerSvc.updateDataState(this.currentDataState, this.viewConfig.id);
-      });
+      }
+      this.currentDataState.activeSortOption = sortOption;
+      this.dataManagerSvc.updateDataState(
+        this.currentDataState,
+        this.viewConfig.id
+      );
+    });
+  }
+
+  private updateColumnsInCurrentDataState(columnApi: ColumnApi) {
+    const columnOrder = this.getColumnOrder(columnApi);
+
+    const viewState = this.currentDataState.getViewStateById(
+      this.viewConfig.id
+    );
+    viewState.displayedColumnIds = columnOrder;
+
+    this.dataManagerSvc.updateDataState(
+      this.currentDataState.addOrUpdateView(this.viewConfig.id, viewState),
+      this.viewConfig.id
+    );
+  }
+
+  private getColumnOrder(columnApi: ColumnApi): string[] {
+    return columnApi
+      .getAllDisplayedVirtualColumns()
+      .map((col) => col.getColDef().colId);
   }
 
   private displayColumns(dataState: SkyDataManagerState): void {

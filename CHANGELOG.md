@@ -1,6 +1,14 @@
+# 5.1.4 (2021-12-02)
+
+- Updated column reorder handling to address performance for drag and drop. [#170](https://github.com/blackbaud/skyux-ag-grid/pull/170)
+
+# 5.1.3 (2021-11-19)
+
+- Added support for Prettier code formatting and updated the builder to support StackBlitz. [#169](https://github.com/blackbaud/skyux-ag-grid/pull/169)
+
 # 5.1.2 (2021-11-19)
 
-- Added  AG Grid component documentation. [#167](https://github.com/blackbaud/skyux-ag-grid/pull/167)
+- Added AG Grid component documentation. [#167](https://github.com/blackbaud/skyux-ag-grid/pull/167)
 
 # 5.1.1 (2021-11-10)
 
@@ -58,7 +66,7 @@
 
 - Added bug fixes and features from the `master` branch. [#136](https://github.com/blackbaud/skyux-ag-grid/pull/136)
 
-# 4.10.0  (2021-09-08)
+# 4.10.0 (2021-09-08)
 
 - Added a validator option for cells. [#134](https://github.com/blackbaud/skyux-ag-grid/pull/134)
 
@@ -118,9 +126,11 @@
 - Added the currency cell type. [#94](https://github.com/blackbaud/skyux-ag-grid/pull/94) (Thanks @[brianbianchi](https://github.com/brianbianchi)!)
 
 # 4.4.0 (2020-12-16)
+
 - Added the row delete directive to support showing inline deletes on grid rows. [#85](https://github.com/blackbaud/skyux-ag-grid/pull/85)
 
 # 4.3.0 (2020-12-02)
+
 - Added modern theme styling for data entry grid. [#83](https://github.com/blackbaud/skyux-ag-grid/pull/83)
 - Updated the peer dependencies to support the latest versions of `ag-grid-angular` and `ag-grid-community`. [#90](https://github.com/blackbaud/skyux-ag-grid/pull/90)
 

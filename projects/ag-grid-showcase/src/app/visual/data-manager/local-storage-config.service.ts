@@ -1,16 +1,10 @@
-import {
-  SkyUIConfigService
-} from '@skyux/core';
+import { SkyUIConfigService } from '@skyux/core';
 
-import {
-  Observable,
-  of
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 const SETTINGS_KEY_PREFIX = 'data-manager-test-';
 
 export class LocalStorageConfigService extends SkyUIConfigService {
-
   public getConfig(key: string, defaultConfig?: any): Observable<any> {
     let settingsJSON = localStorage.getItem(`${SETTINGS_KEY_PREFIX}${key}`);
     if (settingsJSON) {
