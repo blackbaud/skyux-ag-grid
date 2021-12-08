@@ -18,26 +18,6 @@ import { SKY_AG_GRID_DEMO_DATA } from './data-grid-docs-demo-data';
   templateUrl: './data-grid-docs-demo.component.html',
 })
 export class SkyDataGridDemoComponent {
-  @Input()
-  public set includeSelectableRows(includeSelectableRows: boolean) {
-    //   this.gridOptions.rowMultiSelectWithClick = enableMultiselect;
-    //   this.gridOptions.rowSelection = enableMultiselect ? 'multiple' : 'none';
-    // if (includeSelectableRows) {
-    //   if (this.gridOptions.columnDefs) {
-    //     this.gridOptions.columnDefs.unshift({
-    //       field: 'selected',
-    //       type: SkyCellType.RowSelector,
-    //     });
-    //   }
-    //   console.log('put me in!', this.gridOptions);
-    // } else {
-    //   if (this.gridOptions.columnDefs) {
-    //     this.gridOptions.columnDefs.shift();
-    //   }
-    //   console.log('pull me out!', this.gridOptions);
-    // }
-  }
-
   public columnDefs = [
     {
       field: 'selected',
