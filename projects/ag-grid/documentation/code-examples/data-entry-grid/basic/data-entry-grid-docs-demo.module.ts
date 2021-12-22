@@ -27,7 +27,9 @@ import { SkyDataEntryGridDemoComponent } from './data-entry-grid-docs-demo.compo
     SkyDropdownModule,
   ],
   exports: [
-    SkyDataEntryGridDemoComponent
+    SkyDataEntryGridContextMenuComponent,
+    SkyDataEntryGridDemoComponent,
+    SkyDataEntryGridEditModalComponent,
   ],
   entryComponents: [SkyDataEntryGridEditModalComponent],
 })

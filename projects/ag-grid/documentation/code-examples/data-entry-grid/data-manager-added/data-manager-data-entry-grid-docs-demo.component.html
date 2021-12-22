@@ -1,6 +1,6 @@
 <div>
-  <sky-toolbar>
-    <sky-toolbar-item>
+  <sky-data-manager-toolbar>
+    <sky-data-manager-toolbar-left-item>
       <button
         class="sky-btn sky-btn-primary"
         id="edit-btn"
@@ -8,18 +8,8 @@
       >
         Edit
       </button>
-    </sky-toolbar-item>
-    <sky-toolbar-item>
-      <sky-search
-        [searchText]="dataState.searchText"
-        [debounceTime]="250"
-        (searchApply)="searchApplied($event)"
-        (searchChange)="searchApplied($event)"
-        (searchClear)="searchApplied($event)"
-      >
-      </sky-search>
-    </sky-toolbar-item>
-  </sky-toolbar>
+    </sky-data-manager-toolbar-left-item>
+  </sky-data-manager-toolbar>
   <sky-data-view skyAgGridDataManagerAdapter [viewId]="viewConfig.id">
     <sky-ag-grid-wrapper *ngIf="isActive && gridInitialized">
       <ag-grid-angular [gridOptions]="gridOptions" [rowData]="gridData">

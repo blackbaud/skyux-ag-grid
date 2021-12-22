@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import {
   SkyAgGridService,
   SkyAutocompleteProperties,
@@ -23,14 +27,16 @@ import {
   SkyAgGridDemoRow,
   SKY_DEPARTMENTS,
   SKY_JOB_TITLES,
-} from './data-entry-grid-docs-demo-data';
-import { SkyDataEntryGridEditModalContext } from './data-entry-grid-docs-demo-edit-modal-context';
+} from './data-manager-data-entry-grid-docs-demo-data';
+import { SkyDataEntryGridEditModalContext } from './data-manager-data-entry-grid-docs-demo-edit-modal-context';
 
 @Component({
-  selector: 'app-data-entry-grid-docs-demo-edit-modal',
-  templateUrl: './data-entry-grid-docs-demo-edit-modal.component.html',
+  selector: 'app-data-manager-data-entry-grid-docs-demo-edit-modal',
+  templateUrl:
+    './data-manager-data-entry-grid-docs-demo-edit-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SkyDataEntryGridEditModalComponent {
+export class SkyDataManagerDataEntryGridEditModalComponent {
   public columnDefs: ColDef[];
   private gridApi: GridApi | undefined;
   public gridData: SkyAgGridDemoRow[];
@@ -39,7 +45,8 @@ export class SkyDataEntryGridEditModalComponent {
   constructor(
     private agGridService: SkyAgGridService,
     public context: SkyDataEntryGridEditModalContext,
-    public instance: SkyModalInstance
+    public instance: SkyModalInstance,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.columnDefs = [
       {
@@ -127,12 +134,14 @@ export class SkyDataEntryGridEditModalComponent {
     this.gridOptions = this.agGridService.getEditableGridOptions({
       gridOptions: this.gridOptions,
     });
+    this.changeDetector.markForCheck();
   }
 
   public onGridReady(gridReadyEvent: GridReadyEvent): void {
     this.gridApi = gridReadyEvent.api;
 
     this.gridApi.sizeColumnsToFit();
+    this.changeDetector.markForCheck();
   }
 
   private departmentSelectionChange(
@@ -151,5 +160,6 @@ export class SkyDataEntryGridEditModalComponent {
         this.gridApi.refreshCells({ rowNodes: [node] });
       }
     }
+    this.changeDetector.markForCheck();
   }
 }

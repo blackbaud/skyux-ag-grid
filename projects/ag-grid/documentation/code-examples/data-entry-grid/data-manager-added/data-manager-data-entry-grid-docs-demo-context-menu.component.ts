@@ -4,11 +4,12 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
-  selector: 'app-data-entry-grid-docs-demo-context-menu',
-  templateUrl: './data-entry-grid-docs-demo-context-menu.component.html',
+  selector: 'app-data-manager-data-entry-grid-docs-demo-context-menu',
+  templateUrl:
+    './data-manager-data-entry-grid-docs-demo-context-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SkyDataEntryGridContextMenuComponent
+export class SkyDataManagerDataEntryGridContextMenuComponent
   implements ICellRendererAngularComp
 {
   private name: string = '';

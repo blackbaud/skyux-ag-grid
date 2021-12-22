@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { SkyCellType, SkyAgGridService } from '@skyux/ag-grid';
-import { SkyDataViewConfig } from '@skyux/data-manager';
-import { SkyDocsDemoControlPanelChange } from '@skyux/docs-tools';
-import { SkyModalService, SkyModalCloseArgs } from '@skyux/modals';
 
 import {
   GridApi,
@@ -11,33 +12,14 @@ import {
   ValueFormatterParams,
 } from 'ag-grid-community';
 
-import { SKY_AG_GRID_DEMO_DATA } from './data-grid-docs-demo-data';
+import { SKY_AG_GRID_DEMO_DATA } from './basic-data-grid-docs-demo-data';
 
 @Component({
-  selector: 'app-data-grid-docs-demo',
-  templateUrl: './data-grid-docs-demo.component.html',
+  selector: 'app-basic-data-grid-docs-demo',
+  templateUrl: './basic-data-grid-docs-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SkyDataGridDemoComponent {
-  @Input()
-  public set includeSelectableRows(includeSelectableRows: boolean) {
-    //   this.gridOptions.rowMultiSelectWithClick = enableMultiselect;
-    //   this.gridOptions.rowSelection = enableMultiselect ? 'multiple' : 'none';
-    // if (includeSelectableRows) {
-    //   if (this.gridOptions.columnDefs) {
-    //     this.gridOptions.columnDefs.unshift({
-    //       field: 'selected',
-    //       type: SkyCellType.RowSelector,
-    //     });
-    //   }
-    //   console.log('put me in!', this.gridOptions);
-    // } else {
-    //   if (this.gridOptions.columnDefs) {
-    //     this.gridOptions.columnDefs.shift();
-    //   }
-    //   console.log('pull me out!', this.gridOptions);
-    // }
-  }
-
+export class SkyBasicDataGridDemoComponent {
   public columnDefs = [
     {
       field: 'selected',
@@ -97,54 +79,24 @@ export class SkyDataGridDemoComponent {
   public gridData = SKY_AG_GRID_DEMO_DATA;
   public gridOptions: GridOptions;
   public searchText: string = '';
-  public viewConfig: SkyDataViewConfig;
-  public viewId = 'gridView';
 
   constructor(
     private agGridService: SkyAgGridService,
-    private changeRef: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef
   ) {
-    this.viewConfig = {
-      id: this.viewId,
-      name: 'Grid View',
-      icon: 'table',
-      searchEnabled: true,
-      sortEnabled: true,
-      multiselectToolbarEnabled: true,
-      columnPickerEnabled: true,
-      filterButtonEnabled: true,
-      columnOptions: [
-        {
-          id: 'selected',
-          alwaysDisplayed: true,
-          label: 'selected',
-        },
-        {
-          id: 'name',
-          label: 'Fruit name',
-          description: 'The name of the fruit.',
-        },
-        {
-          id: 'description',
-          label: 'Description',
-          description: 'Some information about the fruit.',
-        },
-      ],
-    };
-
-    this.gridOptions = {
-      columnDefs: this.columnDefs,
-      onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),
-    };
     this.gridOptions = this.agGridService.getGridOptions({
-      gridOptions: this.gridOptions,
+      gridOptions: {
+        columnDefs: this.columnDefs,
+        onGridReady: this.onGridReady.bind(this),
+      },
     });
+    this.changeDetector.markForCheck();
   }
 
   public onGridReady(gridReadyEvent: GridReadyEvent): void {
     this.gridApi = gridReadyEvent.api;
-
     this.gridApi.sizeColumnsToFit();
+    this.changeDetector.markForCheck();
   }
 
   public searchApplied(searchText: string | void): void {

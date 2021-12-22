@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import {
   SkyAgGridService,
   SkyAutocompleteProperties,
@@ -29,6 +33,7 @@ import { SkyDataEntryGridEditModalContext } from './data-entry-grid-docs-demo-ed
 @Component({
   selector: 'app-data-entry-grid-docs-demo-edit-modal',
   templateUrl: './data-entry-grid-docs-demo-edit-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkyDataEntryGridEditModalComponent {
   public columnDefs: ColDef[];
@@ -39,7 +44,8 @@ export class SkyDataEntryGridEditModalComponent {
   constructor(
     private agGridService: SkyAgGridService,
     public context: SkyDataEntryGridEditModalContext,
-    public instance: SkyModalInstance
+    public instance: SkyModalInstance,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.columnDefs = [
       {
@@ -127,12 +133,13 @@ export class SkyDataEntryGridEditModalComponent {
     this.gridOptions = this.agGridService.getEditableGridOptions({
       gridOptions: this.gridOptions,
     });
+    this.changeDetector.markForCheck();
   }
 
   public onGridReady(gridReadyEvent: GridReadyEvent): void {
     this.gridApi = gridReadyEvent.api;
-
     this.gridApi.sizeColumnsToFit();
+    this.changeDetector.markForCheck();
   }
 
   private departmentSelectionChange(
@@ -147,6 +154,7 @@ export class SkyDataEntryGridEditModalComponent {
   private clearJobTitle(node: RowNode | null): void {
     if (node) {
       node.data.jobTitle = undefined;
+      this.changeDetector.markForCheck();
       if (this.gridApi) {
         this.gridApi.refreshCells({ rowNodes: [node] });
       }

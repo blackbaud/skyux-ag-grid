@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { SkyCellType, SkyAgGridService } from '@skyux/ag-grid';
 import { SkyModalService, SkyModalCloseArgs } from '@skyux/modals';
 
@@ -17,6 +21,7 @@ import { SkyDataEntryGridEditModalComponent } from './data-entry-grid-docs-demo-
 @Component({
   selector: 'app-data-entry-grid-docs-demo',
   templateUrl: './data-entry-grid-docs-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkyDataEntryGridDemoComponent {
   public gridData = SKY_AG_GRID_DEMO_DATA;
@@ -88,7 +93,8 @@ export class SkyDataEntryGridDemoComponent {
 
   constructor(
     private agGridService: SkyAgGridService,
-    private modalService: SkyModalService
+    private modalService: SkyModalService,
+    private changeDetection: ChangeDetectorRef
   ) {
     this.gridOptions = {
       columnDefs: this.columnDefs,
@@ -97,12 +103,13 @@ export class SkyDataEntryGridDemoComponent {
     this.gridOptions = this.agGridService.getGridOptions({
       gridOptions: this.gridOptions,
     });
+    this.changeDetection.markForCheck();
   }
 
   public onGridReady(gridReadyEvent: GridReadyEvent): void {
     this.gridApi = gridReadyEvent.api;
-
     this.gridApi.sizeColumnsToFit();
+    this.changeDetection.markForCheck();
   }
 
   public openModal(): void {
