@@ -22,10 +22,7 @@ import { SkyDataManagerDataGridDemoComponent } from './data-manager-data-grid-do
     DataManagerDataGridDocsDemoFiltersModalComponent,
   ],
   entryComponents: [DataManagerDataGridDocsDemoFiltersModalComponent],
-  exports: [
-    SkyDataManagerDataGridDemoComponent,
-    DataManagerDataGridDocsDemoFiltersModalComponent,
-  ],
+  exports: [SkyDataManagerDataGridDemoComponent],
   imports: [
     CommonModule,
     FormsModule,

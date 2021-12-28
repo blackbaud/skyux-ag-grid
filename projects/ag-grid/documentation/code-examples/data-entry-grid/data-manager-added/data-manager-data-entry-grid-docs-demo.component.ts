@@ -213,6 +213,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
   public gridApi?: GridApi;
   public gridInitialized = false;
   public gridOptions!: GridOptions;
+  public noRowsTemplate;
 
   constructor(
     private agGridService: SkyAgGridService,
@@ -220,6 +221,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
     private dataManagerService: SkyDataManagerService,
     private modalService: SkyModalService
   ) {
+    this.noRowsTemplate = `No results found`;
     this.dataManagerService
       .getDataStateUpdates(this.viewId)
       .subscribe((state) => {
@@ -257,6 +259,13 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
     if (this.dataState.onlyShowSelected) {
       this.displayedItems = this.displayedItems.filter((item) => item.selected);
     }
+
+    if (this.displayedItems.length > 0) {
+      this.gridApi?.hideOverlay();
+    } else {
+      this.gridApi?.showNoRowsOverlay();
+    }
+
     this.changeDetector.markForCheck();
   }
 
