@@ -90,12 +90,14 @@ export class SkyDataEntryGridDemoComponent {
   public gridApi: GridApi | undefined;
   public gridOptions: GridOptions;
   public searchText: string = '';
+  public noRowsTemplate;
 
   constructor(
     private agGridService: SkyAgGridService,
     private modalService: SkyModalService,
     private changeDetection: ChangeDetectorRef
   ) {
+    this.noRowsTemplate = `No results found`;
     this.gridOptions = {
       columnDefs: this.columnDefs,
       onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),
@@ -150,6 +152,12 @@ export class SkyDataEntryGridDemoComponent {
     }
     if (this.gridApi) {
       this.gridApi.setQuickFilter(searchText);
+      let displayedRowCount = this.gridApi.getDisplayedRowCount();
+      if (displayedRowCount > 0) {
+        this.gridApi.hideOverlay();
+      } else {
+        this.gridApi.showNoRowsOverlay();
+      }
     }
   }
 
