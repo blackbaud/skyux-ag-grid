@@ -15,18 +15,12 @@ $sky-cell-wrap-text-padding-modern: 16px;
 $sky-cell-wrap-text-line-height-modern: $sky-theme-modern-font-paragraph-line-height;
 
 @mixin skyux-cell-wrap-text($padding, $line-height) {
-  .ag-cell.ag-cell-wrap-text {
-    span.ag-cell-value {
-      display: block;
-    }
-
-    &,
-    & span.ag-cell-value {
-      min-height: ag-param(row-height) - 2px;
-      line-height: $line-height;
-      padding-top: $padding;
-      padding-bottom: $padding;
-    }
+  .ag-cell.ag-cell-wrap-text span.ag-cell-value {
+    display: block;
+    min-height: ag-param(row-height) - 2px;
+    line-height: $line-height;
+    padding-top: $padding;
+    padding-bottom: $padding;
   }
 }
 
@@ -61,7 +55,10 @@ ag-grid-angular:not(.sky-ag-grid-editable) {
     align-items: flex-start;
   }
 
-  @include skyux-cell-wrap-text(0, $sky-cell-wrap-text-line-height-default);
+  @include skyux-cell-wrap-text(
+    $sky-cell-wrap-text-padding-default,
+    $sky-cell-wrap-text-line-height-default
+  );
 
   .ag-cell.sky-ag-grid-cell-invalid {
     border: 1px solid $sky-highlight-color-danger;
@@ -239,6 +236,11 @@ ag-grid-angular.sky-ag-grid-editable {
     align-items: flex-start;
   }
 
+  @include skyux-cell-wrap-text(
+    $sky-cell-wrap-text-padding-modern,
+    $sky-cell-wrap-text-line-height-modern
+  );
+
   // set 1px of top and bottom padding when a cell is not focused and remove it when it is focused to prevent the 2px border causing contents to shift
   .ag-cell {
     padding-top: 1px;
@@ -257,8 +259,6 @@ ag-grid-angular.sky-ag-grid-editable {
   .ag-cell.sky-ag-grid-cell-invalid {
     border: 1px solid $sky-highlight-color-danger;
   }
-
-  @include skyux-cell-wrap-text(0, $sky-cell-wrap-text-line-height-modern);
 
   .ag-row:not(.ag-row-first) {
     border-top: none;
@@ -416,11 +416,14 @@ ag-grid-angular.sky-ag-grid-editable {
     text-transform: uppercase;
   }
 
+  @include skyux-cell-wrap-text(
+      $sky-cell-wrap-text-padding-modern,
+      $sky-cell-wrap-text-line-height-modern
+  );
+
   .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
     align-items: flex-start;
   }
-
-  @include skyux-cell-wrap-text(0, $sky-cell-wrap-text-line-height-modern);
 
   // set 1px of top and bottom padding when a cell is not focused and remove it when it is focused to prevent the 2px border causing contents to shift
   .ag-cell {
@@ -484,6 +487,11 @@ ag-grid-angular.sky-ag-grid-editable {
   .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
     align-items: flex-start;
   }
+
+  @include skyux-cell-wrap-text(
+    $sky-cell-wrap-text-padding-modern,
+    $sky-cell-wrap-text-line-height-modern
+  );
 
   // set 1px of top and bottom padding when a cell is not focused and remove it when it is focused to prevent the 2px border causing contents to shift
   .ag-cell {
