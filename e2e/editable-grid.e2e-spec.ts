@@ -402,7 +402,6 @@ describe('Editable grid, complex cells', () => {
         it('should match previous screenshot on large screens', async (done) => {
           const screenSize = 'lg';
           await SkyHostBrowser.setWindowBreakpoint(screenSize);
-          await SkyHostBrowser.moveCursorOffScreen();
 
           await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css(editButton))));
           await element(by.css(editButton)).click();
@@ -410,12 +409,36 @@ describe('Editable grid, complex cells', () => {
           await scrollIntoView(scenario.selector);
           await element(by.css(scenario.selector)).click();
           await browserPause();
+          await SkyHostBrowser.moveCursorOffScreen();
           expect(popupEditor).toMatchBaselineScreenshot(done, {
             screenshotName: getScreenshotName(
               `editable-grid-edit-lookup-${scenario.summary}-value`,
               screenSize
             )
           });
+        });
+      });
+    });
+
+    describe(`custom multiline`, () => {
+      it('should match previous screenshot on large screens', async (done) => {
+        const screenSize = 'lg';
+        const selector = 'div[row-index="4"] div[col-id="custom-multiline"]';
+        await SkyHostBrowser.setWindowBreakpoint(screenSize);
+
+        await browser.wait(
+          ExpectedConditions.elementToBeClickable(element(by.css(editButton)))
+        );
+        await element(by.css(editButton)).click();
+
+        await scrollIntoView(selector);
+        await SkyHostBrowser.moveCursorOffScreen();
+        await browserPause();
+        expect(selector).toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName(
+            `editable-grid-custom-multiline-value`,
+            screenSize
+          )
         });
       });
     });
