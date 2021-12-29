@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkyAgGridModule } from '@skyux/ag-grid';
 import {
   SkyDataManagerModule,
@@ -22,6 +23,7 @@ import { SkyBasicDataGridDemoComponent } from './basic-data-grid-docs-demo.compo
     SkyDataManagerModule,
     SkyAgGridModule,
     AgGridModule,
+    BrowserAnimationsModule,
   ],
   providers: [SkyDataManagerService],
 })
