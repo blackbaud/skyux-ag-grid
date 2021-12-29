@@ -416,11 +416,6 @@ ag-grid-angular.sky-ag-grid-editable {
     text-transform: uppercase;
   }
 
-  @include skyux-cell-wrap-text(
-      $sky-cell-wrap-text-padding-modern,
-      $sky-cell-wrap-text-line-height-modern
-  );
-
   .ag-cell:not(.ag-cell-wrap-text) .ag-cell-wrapper {
     align-items: flex-start;
   }
@@ -445,6 +440,11 @@ ag-grid-angular.sky-ag-grid-editable {
   .ag-cell.sky-ag-grid-cell-invalid {
     border: 1px solid $sky-highlight-color-danger;
   }
+
+  @include skyux-cell-wrap-text(
+      $sky-cell-wrap-text-padding-modern,
+      $sky-cell-wrap-text-line-height-modern
+  );
 
   .ag-row:not(.ag-row-first) {
     border-top: none;
