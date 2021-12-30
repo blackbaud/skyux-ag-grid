@@ -63,7 +63,7 @@ export class SkyAgGridCellValidatorTooltipComponent {
   public hideIndicator(): void {
     this.zone.run(() => {
       this.indicatorShouldShow = false;
-      this.changeDetector.markForCheck();
+      this.changeDetector.detectChanges();
     });
   }
 
@@ -74,7 +74,7 @@ export class SkyAgGridCellValidatorTooltipComponent {
   public showIndicator(): void {
     this.zone.run(() => {
       this.indicatorShouldShow = true;
-      this.changeDetector.markForCheck();
+      this.changeDetector.detectChanges();
     });
   }
 
