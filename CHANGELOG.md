@@ -1,6 +1,7 @@
 # 5.1.5 (2022-01-03)
 
 - Added support for wrapped text in custom components. [#176](https://github.com/blackbaud/skyux-ag-grid/pull/176)
+- Fixed an error with the validator popover change detection. [#180](https://github.com/blackbaud/skyux-ag-grid/pull/180)
 
 # 5.1.4 (2021-12-02)
 
