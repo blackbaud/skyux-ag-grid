@@ -52,6 +52,7 @@ import {
 import {
   SkyAgGridModule
 } from './public/public_api';
+import { CustomMultilineComponent } from './visual/edit-complex-cells/custom-multiline/custom-multiline.component';
 
 import {
   SkyAgGridEditModalComponent
@@ -96,6 +97,7 @@ import {
     }
   ],
   entryComponents: [
+    CustomMultilineComponent,
     SkyAgGridEditModalComponent,
     SkyDataManagerFiltersModalVisualComponent
   ]
