@@ -1,18 +1,31 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+
+import {
+  SkyAgGridRowDeleteCancelArgs,
+  SkyAgGridRowDeleteConfirmArgs,
+  SkyAgGridService,
+  SkyCellType,
+} from '@skyux/ag-grid';
 
 import { SkyThemeService } from '@skyux/theme';
 
 import {
   ColDef,
   GridApi,
-  GridReadyEvent,
   GridOptions,
+  GridReadyEvent,
   IGetRowsParams,
   RowNode,
   RowSelectedEvent,
 } from 'ag-grid-community';
 import { BehaviorSubject } from 'rxjs';
 import { skip } from 'rxjs/operators';
+import { CustomMultilineComponent } from './custom-multiline/custom-multiline.component';
 
 import {
   EDITABLE_GRID_DATA,
@@ -23,17 +36,11 @@ import {
   EditableGridRow,
 } from './edit-complex-cells-data';
 
-import {
-  SkyAgGridRowDeleteCancelArgs,
-  SkyAgGridRowDeleteConfirmArgs,
-  SkyAgGridService,
-  SkyCellType,
-} from '@skyux/ag-grid';
-
 @Component({
   selector: 'app-edit-complex-cells-visual',
   templateUrl: './edit-complex-cells.component.html',
   styleUrls: ['./edit-complex-cells.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditComplexCellsComponent implements OnInit {
   @HostListener('window:resize')
@@ -181,6 +188,17 @@ export class EditComplexCellsComponent implements OnInit {
             descriptorProperty: 'name',
           },
         },
+      },
+      {
+        colId: 'custom-multiline',
+        field: 'custom-multiline',
+        minWidth: 235,
+        maxWidth: 285,
+        editable: false,
+        cellRendererFramework: CustomMultilineComponent,
+        autoHeight: true,
+        wrapText: true,
+        cellClass: 'custom-multiline',
       },
     ];
   }

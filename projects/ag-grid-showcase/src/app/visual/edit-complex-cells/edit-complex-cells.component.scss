@@ -30,7 +30,17 @@
   }
 }
 
+.editable-grid {
+  max-width: 100%;
+}
+
 ag-grid-angular {
-  height: calc(100vh - 100px);
-  width: 100vw;
+  height: calc(100vh - 85px);
+  width: 100%;
+}
+
+.sky-theme-modern {
+  ag-grid-angular {
+    height: calc(100vh - 105px);
+  }
 }
