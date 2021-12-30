@@ -1,3 +1,7 @@
+# 4.12.3 (2022-01-03)
+
+- Added support for wrapped text in custom components. [#177](https://github.com/blackbaud/skyux-ag-grid/pull/177)
+
 # 4.12.2 (2021-12-02)
 
 - Added bug fixes and features from the `master` branch. [#173](https://github.com/blackbaud/skyux-ag-grid/pull/173)
