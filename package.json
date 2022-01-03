@@ -1,6 +1,6 @@
 {
   "name": "@skyux/ag-grid",
-  "version": "4.12.2",
+  "version": "4.12.3",
   "description": "SKY UX styles and utilities to be used with ag-grid.",
   "scripts": {
     "build": "skyux build-public-library && node ./scripts/prepare-package.js",
@@ -44,7 +44,7 @@
     "@angular/router": "9.1.13",
     "@blackbaud/auth-client": "2.54.0",
     "@blackbaud/skyux-lib-clipboard": "4.0.0",
-    "@blackbaud/skyux-lib-code-block": "4.0.3",
+    "@blackbaud/skyux-lib-code-block": "4.0.4",
     "@blackbaud/skyux-lib-media": "4.0.0",
     "@blackbaud/skyux-lib-restricted-view": "4.2.1",
     "@blackbaud/skyux-lib-stache": "4.2.3",
@@ -73,7 +73,7 @@
     "@skyux/modals": "4.6.1",
     "@skyux/navbar": "4.0.0",
     "@skyux/omnibar-interop": "4.0.1",
-    "@skyux/popovers": "4.7.0",
+    "@skyux/popovers": "4.7.1",
     "@skyux/router": "4.3.0",
     "@skyux/tabs": "4.7.0",
     "@skyux/theme": "4.22.1",
