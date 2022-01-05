@@ -146,7 +146,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       },
       {
         id: 'validationDate',
-        label: 'Validation Date',
+        label: 'Validation date',
         description: 'An example column for date validation.',
       },
     ],
