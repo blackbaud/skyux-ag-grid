@@ -164,7 +164,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       },
       {
         id: 'za',
-        label: 'Name (Z - A)',
+        label: 'Name (Z-A)',
         descending: true,
         propertyName: 'name',
       },
