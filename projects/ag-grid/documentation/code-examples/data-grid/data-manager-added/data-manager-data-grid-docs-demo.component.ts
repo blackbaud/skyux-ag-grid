@@ -141,7 +141,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       },
       {
         id: 'validationCurrency',
-        label: 'Validation Currency',
+        label: 'Validation currency',
         description: 'An example column for currency validation.',
       },
       {
