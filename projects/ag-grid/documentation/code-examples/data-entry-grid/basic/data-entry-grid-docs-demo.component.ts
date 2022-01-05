@@ -49,7 +49,7 @@ export class SkyDataEntryGridDemoComponent {
     },
     {
       field: 'startDate',
-      headerName: 'Start Date',
+      headerName: 'Start date',
       type: SkyCellType.Date,
       sort: 'asc',
     },
