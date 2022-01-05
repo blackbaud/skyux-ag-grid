@@ -158,7 +158,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     sortOptions: [
       {
         id: 'az',
-        label: 'Name (A - Z)',
+        label: 'Name (A-Z)',
         descending: false,
         propertyName: 'name',
       },
