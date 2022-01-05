@@ -67,7 +67,7 @@ export class SkyDataEntryGridEditModalComponent {
       },
       {
         field: 'endDate',
-        headerName: 'End Date',
+        headerName: 'End date',
         type: SkyCellType.Date,
         editable: true,
         cellEditorParams: (
