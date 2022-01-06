@@ -157,7 +157,7 @@ function getValidatorCellRendererSelector(component: string, fallback?: any) {
   };
 }
 
-let rowNodeId = 1;
+let rowNodeId = -1;
 
 /**
  * A service that provides default styling and behavior for agGrids in SKY UX SPAs.
@@ -366,10 +366,10 @@ export class SkyAgGridService implements OnDestroy {
         'sky-ag-grid-cell-renderer-validator-tooltip': SkyAgGridCellRendererValidatorTooltipComponent
       },
       getRowNodeId(data: any): string {
-        if ('id' in data && data.id) {
+        if ('id' in data && data.id !== undefined) {
           return `${data.id}`;
         }
-        return `${rowNodeId++}`;
+        return `${rowNodeId--}`;
       },
       getRowClass: (params: any) => {
         if (params.node.id) {
