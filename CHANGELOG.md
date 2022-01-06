@@ -1,3 +1,7 @@
+# 4.12.4 (2022-01-04)
+
+- Fixed an issue where the first row would not render. [#182](https://github.com/blackbaud/skyux-ag-grid/pull/182)
+
 # 4.12.3 (2022-01-03)
 
 - Added support for wrapped text in custom components. [#177](https://github.com/blackbaud/skyux-ag-grid/pull/177)
