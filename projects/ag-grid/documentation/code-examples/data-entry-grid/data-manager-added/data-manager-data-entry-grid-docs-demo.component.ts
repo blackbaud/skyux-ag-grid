@@ -33,6 +33,7 @@ import { DataManagerDataEntryGridDocsDemoFiltersModalComponent } from './data-ma
   selector: 'app-data-manager-data-entry-grid-docs-demo',
   templateUrl: './data-manager-data-entry-grid-docs-demo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [SkyDataManagerService],
 })
 export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
   public columnDefs: ColDef[] = [

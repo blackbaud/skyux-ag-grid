@@ -27,6 +27,7 @@ import { DataManagerDataGridDocsDemoFiltersModalComponent } from './data-manager
   selector: 'app-data-manager-data-grid-docs-demo',
   templateUrl: './data-manager-data-grid-docs-demo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [SkyDataManagerService],
 })
 export class SkyDataManagerDataGridDemoComponent implements OnInit {
   public columnDefs: ColDef[] = [
