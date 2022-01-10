@@ -127,7 +127,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       },
       {
         id: 'endDate',
-        label: 'End Date',
+        label: 'End date',
         description: 'The end date of the employee.',
       },
       {
@@ -142,12 +142,12 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       },
       {
         id: 'validationCurrency',
-        label: 'Validation Currency',
+        label: 'Validation currency',
         description: 'An example column for currency validation.',
       },
       {
         id: 'validationDate',
-        label: 'Validation Date',
+        label: 'Validation date',
         description: 'An example column for date validation.',
       },
     ],
@@ -159,13 +159,13 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     sortOptions: [
       {
         id: 'az',
-        label: 'Name (A - Z)',
+        label: 'Name (A-Z)',
         descending: false,
         propertyName: 'name',
       },
       {
         id: 'za',
-        label: 'Name (Z - A)',
+        label: 'Name (Z-A)',
         descending: true,
         propertyName: 'name',
       },
