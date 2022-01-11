@@ -1,4 +1,4 @@
-<div>
+<sky-data-manager>
   <sky-data-manager-toolbar>
     <sky-data-manager-toolbar-left-item>
       <button
@@ -12,8 +12,8 @@
   </sky-data-manager-toolbar>
   <sky-data-view skyAgGridDataManagerAdapter [viewId]="viewConfig.id">
     <sky-ag-grid-wrapper *ngIf="gridInitialized">
-      <ag-grid-angular [gridOptions]="gridOptions" [rowData]="gridData">
+      <ag-grid-angular [gridOptions]="gridOptions" [rowData]="displayedItems">
       </ag-grid-angular>
     </sky-ag-grid-wrapper>
   </sky-data-view>
-</div>
+</sky-data-manager>
