@@ -11,7 +11,7 @@
     </sky-data-manager-toolbar-left-item>
   </sky-data-manager-toolbar>
   <sky-data-view skyAgGridDataManagerAdapter [viewId]="viewConfig.id">
-    <sky-ag-grid-wrapper *ngIf="isActive && gridInitialized">
+    <sky-ag-grid-wrapper *ngIf="gridInitialized">
       <ag-grid-angular [gridOptions]="gridOptions" [rowData]="gridData">
       </ag-grid-angular>
     </sky-ag-grid-wrapper>
