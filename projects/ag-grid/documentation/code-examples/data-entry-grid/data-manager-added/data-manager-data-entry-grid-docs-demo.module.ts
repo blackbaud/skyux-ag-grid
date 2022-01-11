@@ -13,6 +13,8 @@ import { DataManagerDataEntryGridDocsDemoFiltersModalComponent } from './data-ma
 import { SkyDataManagerDataEntryGridContextMenuComponent } from './data-manager-data-entry-grid-docs-demo-context-menu.component';
 import { SkyDataManagerDataEntryGridEditModalComponent } from './data-manager-data-entry-grid-docs-demo-edit-modal.component';
 import { SkyDataManagerDataEntryGridDemoComponent } from './data-manager-data-entry-grid-docs-demo.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { SkyDataManagerDataEntryGridDemoComponent } from './data-manager-data-en
     AgGridModule.withComponents([
       SkyDataManagerDataEntryGridContextMenuComponent,
     ]),
+    CommonModule,
+    FormsModule,
     SkyToolbarModule,
     SkySearchModule,
     AgGridModule,
