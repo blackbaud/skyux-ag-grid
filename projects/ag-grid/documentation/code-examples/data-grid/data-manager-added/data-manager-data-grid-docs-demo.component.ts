@@ -107,7 +107,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     columnOptions: [
       {
         id: 'selected',
-        label: 'selected',
+        label: 'Selected',
         alwaysDisplayed: true,
       },
       {
