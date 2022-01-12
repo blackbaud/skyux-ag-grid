@@ -43,7 +43,7 @@ export class SkyBasicDataGridDemoComponent {
     },
     {
       field: 'endDate',
-      headerName: 'End Date',
+      headerName: 'End date',
       type: SkyCellType.Date,
       valueFormatter: this.endDateFormatter,
     },
