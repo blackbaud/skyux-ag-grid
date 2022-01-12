@@ -53,7 +53,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     },
     {
       field: 'endDate',
-      headerName: 'End Date',
+      headerName: 'End date',
       type: SkyCellType.Date,
       valueFormatter: this.endDateFormatter,
     },
