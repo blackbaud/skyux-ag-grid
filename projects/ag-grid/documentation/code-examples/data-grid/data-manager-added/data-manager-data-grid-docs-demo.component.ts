@@ -47,13 +47,13 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     },
     {
       field: 'startDate',
-      headerName: 'Start Date',
+      headerName: 'Start date',
       type: SkyCellType.Date,
       sort: 'asc',
     },
     {
       field: 'endDate',
-      headerName: 'End Date',
+      headerName: 'End date',
       type: SkyCellType.Date,
       valueFormatter: this.endDateFormatter,
     },
@@ -107,7 +107,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     columnOptions: [
       {
         id: 'selected',
-        label: 'selected',
+        label: 'Selected',
         alwaysDisplayed: true,
       },
       {
@@ -122,7 +122,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       },
       {
         id: 'startDate',
-        label: 'Start Date',
+        label: 'Start date',
         description: 'The start date of the employee.',
       },
       {
