@@ -122,7 +122,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       },
       {
         id: 'startDate',
-        label: 'Start Date',
+        label: 'Start date',
         description: 'The start date of the employee.',
       },
       {
