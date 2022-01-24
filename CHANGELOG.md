@@ -1,6 +1,6 @@
 # 5.1.9 (2022-01-24)
 
-- fix link in Data Grid Development Enumerations section. [#191](https://github.com/blackbaud/skyux-ag-grid/pull/191)
+- Fixed the link in the Data Grid Development Enumerations section. [#191](https://github.com/blackbaud/skyux-ag-grid/pull/191)
 
 # 5.1.8 (2022-01-20)
 
