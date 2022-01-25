@@ -308,14 +308,13 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
   public sortItems(): void {
     let sortOption = this.dataState.activeSortOption;
     if (this.columnApi && sortOption) {
-      const allColumns = this.columnApi.getAllColumns() || [];
-      allColumns.forEach((column) => {
-        if (column.getColId() === sortOption.propertyName) {
-          column.setSort(sortOption.descending ? 'desc' : 'asc');
-        } else {
-          column.setSort('none');
-        }
-      });
+      const sort = [
+        {
+          colId: sortOption.propertyName,
+          sort: sortOption.descending ? 'desc' : 'asc',
+        },
+      ];
+      this.gridApi?.setSortModel(sort);
     }
   }
 
