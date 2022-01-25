@@ -14,7 +14,7 @@
     <sky-ag-grid-wrapper *ngIf="gridInitialized">
       <ag-grid-angular
         [gridOptions]="gridOptions"
-        [rowData]="gridData"
+        [rowData]="displayedItems"
         [overlayNoRowsTemplate]="noRowsTemplate"
       >
       </ag-grid-angular>
