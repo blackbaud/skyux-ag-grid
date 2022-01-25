@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkyAgGridModule } from '@skyux/ag-grid';
 import { SkyToolbarModule } from '@skyux/layout';
 import { SkySearchModule } from '@skyux/lookup';
@@ -26,7 +25,6 @@ import { SkyDataEntryGridDemoComponent } from './data-entry-grid-docs-demo.compo
     SkyAgGridModule,
     SkyModalModule,
     SkyDropdownModule,
-    BrowserAnimationsModule,
   ],
   exports: [SkyDataEntryGridDemoComponent],
   entryComponents: [SkyDataEntryGridEditModalComponent],

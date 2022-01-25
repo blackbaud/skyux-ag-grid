@@ -13,7 +13,6 @@ import { SkyAutocompleteSelectionChange } from '@skyux/lookup';
 import { SkyModalInstance } from '@skyux/modals';
 
 import {
-  CellValueChangedEvent,
   ColDef,
   GridApi,
   GridOptions,
@@ -61,13 +60,13 @@ export class SkyDataEntryGridEditModalComponent {
       },
       {
         field: 'startDate',
-        headerName: 'Start Date',
+        headerName: 'Start date',
         type: SkyCellType.Date,
         sort: 'asc',
       },
       {
         field: 'endDate',
-        headerName: 'End Date',
+        headerName: 'End date',
         type: SkyCellType.Date,
         editable: true,
         cellEditorParams: (

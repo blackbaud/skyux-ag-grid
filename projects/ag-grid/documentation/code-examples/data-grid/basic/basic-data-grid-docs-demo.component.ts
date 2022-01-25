@@ -37,13 +37,13 @@ export class SkyBasicDataGridDemoComponent {
     },
     {
       field: 'startDate',
-      headerName: 'Start Date',
+      headerName: 'Start date',
       type: SkyCellType.Date,
       sort: 'asc',
     },
     {
       field: 'endDate',
-      headerName: 'End Date',
+      headerName: 'End date',
       type: SkyCellType.Date,
       valueFormatter: this.endDateFormatter,
     },
@@ -56,22 +56,6 @@ export class SkyBasicDataGridDemoComponent {
       field: 'jobTitle',
       headerName: 'Title',
       type: SkyCellType.Autocomplete,
-    },
-    {
-      colId: 'validationCurrency',
-      field: 'validationCurrency',
-      type: [SkyCellType.CurrencyValidator],
-    },
-    {
-      colId: 'validationDate',
-      field: 'validationDate',
-      type: [SkyCellType.Date, SkyCellType.Validator],
-      cellRendererParams: {
-        skyComponentProperties: {
-          validator: (value: Date) => !!value && value > new Date(1985, 9, 26),
-          validatorMessage: 'Please enter a future date',
-        },
-      },
     },
   ];
 

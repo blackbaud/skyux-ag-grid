@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkyAgGridModule } from '@skyux/ag-grid';
-import {
-  SkyDataManagerModule,
-  SkyDataManagerService,
-} from '@skyux/data-manager';
+import { SkyDataManagerModule } from '@skyux/data-manager';
 import { SkyCheckboxModule } from '@skyux/forms';
 import { SkyToolbarModule } from '@skyux/layout';
 import { SkySearchModule } from '@skyux/lookup';
@@ -36,8 +32,6 @@ import { SkyDataManagerDataGridDemoComponent } from './data-manager-data-grid-do
     SkyDataManagerModule,
     SkyModalModule,
     SkyCheckboxModule,
-    BrowserAnimationsModule,
   ],
-  providers: [SkyDataManagerService],
 })
 export class SkyDataManagerDataGridDocsDemoModule {}

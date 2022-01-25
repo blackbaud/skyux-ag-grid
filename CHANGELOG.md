@@ -1,3 +1,24 @@
+# 5.1.9 (2022-01-24)
+
+- Fixed the link in the Data Grid Development Enumerations section. [#191](https://github.com/blackbaud/skyux-ag-grid/pull/191)
+
+# 5.1.8 (2022-01-20)
+
+- Remove validation columns from Data Grid code examples. [#187](https://github.com/blackbaud/skyux-ag-grid/pull/187)
+
+# 5.1.7 (2022-01-12)
+
+- Add code examples for v5 docs spa. [#175](https://github.com/blackbaud/skyux-ag-grid/pull/175)
+
+# 5.1.6 (2022-01-04)
+
+- Fixed an issue where the first row would not render. [#181](https://github.com/blackbaud/skyux-ag-grid/pull/181)
+
+# 5.1.5 (2022-01-03)
+
+- Added support for wrapped text in custom components. [#176](https://github.com/blackbaud/skyux-ag-grid/pull/176)
+- Fixed an error with the validator popover change detection. [#180](https://github.com/blackbaud/skyux-ag-grid/pull/180)
+
 # 5.1.4 (2021-12-02)
 
 - Updated column reorder handling to address performance for drag and drop. [#170](https://github.com/blackbaud/skyux-ag-grid/pull/170)

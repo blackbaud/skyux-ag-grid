@@ -27,6 +27,7 @@ import { DataManagerDataGridDocsDemoFiltersModalComponent } from './data-manager
   selector: 'app-data-manager-data-grid-docs-demo',
   templateUrl: './data-manager-data-grid-docs-demo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [SkyDataManagerService],
 })
 export class SkyDataManagerDataGridDemoComponent implements OnInit {
   public columnDefs: ColDef[] = [
@@ -46,13 +47,13 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     },
     {
       field: 'startDate',
-      headerName: 'Start Date',
+      headerName: 'Start date',
       type: SkyCellType.Date,
       sort: 'asc',
     },
     {
       field: 'endDate',
-      headerName: 'End Date',
+      headerName: 'End date',
       type: SkyCellType.Date,
       valueFormatter: this.endDateFormatter,
     },
@@ -65,22 +66,6 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       field: 'jobTitle',
       headerName: 'Title',
       type: SkyCellType.Autocomplete,
-    },
-    {
-      colId: 'validationCurrency',
-      field: 'validationCurrency',
-      type: [SkyCellType.CurrencyValidator],
-    },
-    {
-      colId: 'validationDate',
-      field: 'validationDate',
-      type: [SkyCellType.Date, SkyCellType.Validator],
-      cellRendererParams: {
-        skyComponentProperties: {
-          validator: (value: Date) => !!value && value > new Date(1985, 9, 26),
-          validatorMessage: 'Please enter a future date',
-        },
-      },
     },
   ];
 
@@ -107,7 +92,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     columnOptions: [
       {
         id: 'selected',
-        label: 'selected',
+        label: 'Selected',
         alwaysDisplayed: true,
       },
       {
@@ -122,12 +107,12 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
       },
       {
         id: 'startDate',
-        label: 'Start Date',
+        label: 'Start date',
         description: 'The start date of the employee.',
       },
       {
         id: 'endDate',
-        label: 'End Date',
+        label: 'End date',
         description: 'The end date of the employee.',
       },
       {
@@ -140,16 +125,6 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
         label: 'Title',
         description: 'The job title of the employee.',
       },
-      {
-        id: 'validationCurrency',
-        label: 'Validation Currency',
-        description: 'An example column for currency validation.',
-      },
-      {
-        id: 'validationDate',
-        label: 'Validation Date',
-        description: 'An example column for date validation.',
-      },
     ],
   };
   public dataState = new SkyDataManagerState({});
@@ -159,13 +134,13 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     sortOptions: [
       {
         id: 'az',
-        label: 'Name (A - Z)',
+        label: 'Name (A-Z)',
         descending: false,
         propertyName: 'name',
       },
       {
         id: 'za',
-        label: 'Name (Z - A)',
+        label: 'Name (Z-A)',
         descending: true,
         propertyName: 'name',
       },
@@ -189,8 +164,6 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
           'endDate',
           'department',
           'jobTitle',
-          'validationCurrency',
-          'validationDate',
         ],
       },
     ],

@@ -33,6 +33,7 @@ import { DataManagerDataEntryGridDocsDemoFiltersModalComponent } from './data-ma
   selector: 'app-data-manager-data-entry-grid-docs-demo',
   templateUrl: './data-manager-data-entry-grid-docs-demo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [SkyDataManagerService],
 })
 export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
   public columnDefs: ColDef[] = [
@@ -96,7 +97,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
   ];
   public columnApi?: ColumnApi;
   public displayedItems: any[] = [];
-  public items = SKY_AG_GRID_DEMO_DATA;
+  public gridData = SKY_AG_GRID_DEMO_DATA;
 
   public viewId = 'gridView';
   public activeViewId = 'gridView';
@@ -233,7 +234,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.displayedItems = this.items;
+    this.displayedItems = this.gridData;
 
     this.dataManagerService.initDataManager({
       activeViewId: this.activeViewId,
@@ -254,7 +255,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
 
   public updateData(): void {
     this.sortItems();
-    this.displayedItems = this.filterItems(this.searchItems(this.items));
+    this.displayedItems = this.filterItems(this.searchItems(this.gridData));
 
     if (this.dataState.onlyShowSelected) {
       this.displayedItems = this.displayedItems.filter((item) => item.selected);
@@ -398,7 +399,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
 
   public openModal(): void {
     const context = new SkyDataEntryGridEditModalContext();
-    context.gridData = this.items;
+    context.gridData = this.gridData;
     this.changeDetector.markForCheck();
 
     const options = {
@@ -418,7 +419,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
       if (result.reason === 'cancel' || result.reason === 'close') {
         alert('Edits canceled!');
       } else {
-        this.items = result.data;
+        this.gridData = result.data;
         if (this.gridApi) {
           this.gridApi.refreshCells();
         }

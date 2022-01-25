@@ -49,13 +49,13 @@ export class SkyDataEntryGridDemoComponent {
     },
     {
       field: 'startDate',
-      headerName: 'Start Date',
+      headerName: 'Start date',
       type: SkyCellType.Date,
       sort: 'asc',
     },
     {
       field: 'endDate',
-      headerName: 'End Date',
+      headerName: 'End date',
       type: SkyCellType.Date,
       valueFormatter: this.endDateFormatter,
     },

@@ -12,7 +12,6 @@ import { DataManagerDataEntryGridDocsDemoFiltersModalComponent } from './data-ma
 import { SkyDataManagerDataEntryGridContextMenuComponent } from './data-manager-data-entry-grid-docs-demo-context-menu.component';
 import { SkyDataManagerDataEntryGridEditModalComponent } from './data-manager-data-entry-grid-docs-demo-edit-modal.component';
 import { SkyDataManagerDataEntryGridDemoComponent } from './data-manager-data-entry-grid-docs-demo.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SkyDropdownModule,
     SkyDataManagerModule,
     SkyCheckboxModule,
-    BrowserAnimationsModule,
   ],
   exports: [SkyDataManagerDataEntryGridDemoComponent],
   entryComponents: [

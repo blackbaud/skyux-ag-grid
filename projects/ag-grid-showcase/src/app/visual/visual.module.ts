@@ -16,6 +16,7 @@ import { SkyDataManagerFiltersModalVisualComponent } from './data-manager/data-f
 import { DataManagerVisualComponent } from './data-manager/data-manager-visual.component';
 import { DataViewGridComponent } from './data-manager/data-view-grid.component';
 import { DataViewRepeaterComponent } from './data-manager/data-view-repeater.component';
+import { CustomMultilineModule } from './edit-complex-cells/custom-multiline/custom-multiline.module';
 import { EditComplexCellsComponent } from './edit-complex-cells/edit-complex-cells.component';
 import { SkyAgGridDemoComponent } from './edit-in-modal-grid/ag-grid-demo.component';
 import { SkyAgGridEditModalComponent } from './edit-in-modal-grid/ag-grid-edit-modal.component';
@@ -55,6 +56,7 @@ import { VisualComponent } from './visual.component';
     SkySearchModule,
     SkyInfiniteScrollModule,
     SkyDropdownModule,
+    CustomMultilineModule,
   ],
 })
 export class VisualModule {}
