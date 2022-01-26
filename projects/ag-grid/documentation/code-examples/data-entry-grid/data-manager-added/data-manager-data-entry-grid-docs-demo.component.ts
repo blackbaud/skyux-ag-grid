@@ -214,7 +214,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
   public gridApi?: GridApi;
   public gridInitialized = false;
   public gridOptions!: GridOptions;
-  public noRowsTemplate;
+  public noRowsTemplate: string;
 
   constructor(
     private agGridService: SkyAgGridService,
@@ -222,7 +222,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
     private dataManagerService: SkyDataManagerService,
     private modalService: SkyModalService
   ) {
-    this.noRowsTemplate = `No results found.`;
+    this.noRowsTemplate = `<div class="sky-deemphasized">No results found.</div>`;
     this.dataManagerService
       .getDataStateUpdates(this.viewId)
       .subscribe((state) => {

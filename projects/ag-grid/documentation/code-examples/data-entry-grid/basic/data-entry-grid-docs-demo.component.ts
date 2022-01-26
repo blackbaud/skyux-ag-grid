@@ -90,14 +90,14 @@ export class SkyDataEntryGridDemoComponent {
   public gridApi: GridApi | undefined;
   public gridOptions: GridOptions;
   public searchText: string = '';
-  public noRowsTemplate;
+  public noRowsTemplate: string;
 
   constructor(
     private agGridService: SkyAgGridService,
     private modalService: SkyModalService,
     private changeDetection: ChangeDetectorRef
   ) {
-    this.noRowsTemplate = `No results found.`;
+    this.noRowsTemplate = `<div class="sky-deemphasized">No results found.</div>`;
     this.gridOptions = {
       columnDefs: this.columnDefs,
       onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),

@@ -75,7 +75,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
   public gridInitialized = false;
   public items = SKY_AG_GRID_DEMO_DATA;
   public gridOptions!: GridOptions;
-  public noRowsTemplate;
+  public noRowsTemplate: string;
 
   public searchText: string = '';
   public activeViewId = 'dataManagerGridView';
@@ -174,7 +174,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private dataManagerService: SkyDataManagerService
   ) {
-    this.noRowsTemplate = `No results found.`;
+    this.noRowsTemplate = `<div class="sky-deemphasized">No results found.</div>`;
     this.dataManagerService
       .getDataStateUpdates(this.viewId)
       .subscribe((state) => {
