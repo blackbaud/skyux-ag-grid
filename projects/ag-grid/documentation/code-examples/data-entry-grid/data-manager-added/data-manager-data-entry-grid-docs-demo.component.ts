@@ -82,10 +82,12 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
     },
     {
       field: 'validationCurrency',
+      headerName: 'Validation currency',
       type: [SkyCellType.CurrencyValidator],
     },
     {
       field: 'validationDate',
+      headerName: 'Validation date',
       type: [SkyCellType.Date, SkyCellType.Validator],
       cellRendererParams: {
         skyComponentProperties: {

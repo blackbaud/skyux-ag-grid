@@ -72,11 +72,13 @@ export class SkyDataEntryGridDemoComponent {
     {
       colId: 'validationCurrency',
       field: 'validationCurrency',
+      headerName: 'Validation currency',
       type: [SkyCellType.CurrencyValidator],
     },
     {
       colId: 'validationDate',
       field: 'validationDate',
+      headerName: 'Validation date',
       type: [SkyCellType.Date, SkyCellType.Validator],
       cellRendererParams: {
         skyComponentProperties: {
