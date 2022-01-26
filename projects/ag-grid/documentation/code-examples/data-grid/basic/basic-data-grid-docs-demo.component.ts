@@ -69,7 +69,7 @@ export class SkyBasicDataGridDemoComponent {
     private agGridService: SkyAgGridService,
     private changeDetector: ChangeDetectorRef
   ) {
-    this.noRowsTemplate = `No results found`;
+    this.noRowsTemplate = `No results found.`;
     this.gridOptions = this.agGridService.getGridOptions({
       gridOptions: {
         columnDefs: this.columnDefs,

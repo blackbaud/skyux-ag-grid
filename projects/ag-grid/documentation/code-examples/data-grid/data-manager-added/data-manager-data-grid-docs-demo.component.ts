@@ -174,7 +174,7 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private dataManagerService: SkyDataManagerService
   ) {
-    this.noRowsTemplate = `No results found`;
+    this.noRowsTemplate = `No results found.`;
     this.dataManagerService
       .getDataStateUpdates(this.viewId)
       .subscribe((state) => {

@@ -97,7 +97,7 @@ export class SkyDataEntryGridDemoComponent {
     private modalService: SkyModalService,
     private changeDetection: ChangeDetectorRef
   ) {
-    this.noRowsTemplate = `No results found`;
+    this.noRowsTemplate = `No results found.`;
     this.gridOptions = {
       columnDefs: this.columnDefs,
       onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),

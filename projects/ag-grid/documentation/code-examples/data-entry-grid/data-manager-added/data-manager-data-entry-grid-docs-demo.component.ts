@@ -222,7 +222,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
     private dataManagerService: SkyDataManagerService,
     private modalService: SkyModalService
   ) {
-    this.noRowsTemplate = `No results found`;
+    this.noRowsTemplate = `No results found.`;
     this.dataManagerService
       .getDataStateUpdates(this.viewId)
       .subscribe((state) => {
