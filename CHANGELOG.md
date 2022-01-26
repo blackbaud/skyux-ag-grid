@@ -1,3 +1,7 @@
+# 5.1.10 (2022-01-26)
+
+- Updated VSCode settings.json. Removed unused imports. Corrected code style. Added de-emphasized 'No results found.' message to code examples. Fixed broken aria labels in code examples that come from resource strings. [#193](https://github.com/blackbaud/skyux-ag-grid/pull/193)
+
 # 5.1.9 (2022-01-24)
 
 - Fixed the link in the Data Grid Development Enumerations section. [#191](https://github.com/blackbaud/skyux-ag-grid/pull/191)
