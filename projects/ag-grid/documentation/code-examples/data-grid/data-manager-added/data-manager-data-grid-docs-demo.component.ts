@@ -77,7 +77,6 @@ export class SkyDataManagerDataGridDemoComponent implements OnInit {
   public gridOptions!: GridOptions;
   public noRowsTemplate: string;
 
-  public searchText: string = '';
   public activeViewId = 'dataManagerGridView';
   public viewId = 'dataManagerGridView';
   public viewConfig: SkyDataViewConfig = {
