@@ -72,11 +72,13 @@ export class SkyDataEntryGridDemoComponent {
     {
       colId: 'validationCurrency',
       field: 'validationCurrency',
+      headerName: 'Validation currency',
       type: [SkyCellType.CurrencyValidator],
     },
     {
       colId: 'validationDate',
       field: 'validationDate',
+      headerName: 'Validation date',
       type: [SkyCellType.Date, SkyCellType.Validator],
       cellRendererParams: {
         skyComponentProperties: {
@@ -90,14 +92,14 @@ export class SkyDataEntryGridDemoComponent {
   public gridApi: GridApi | undefined;
   public gridOptions: GridOptions;
   public searchText: string = '';
-  public noRowsTemplate;
+  public noRowsTemplate: string;
 
   constructor(
     private agGridService: SkyAgGridService,
     private modalService: SkyModalService,
     private changeDetection: ChangeDetectorRef
   ) {
-    this.noRowsTemplate = `No results found`;
+    this.noRowsTemplate = `<div class="sky-deemphasized">No results found.</div>`;
     this.gridOptions = {
       columnDefs: this.columnDefs,
       onGridReady: (gridReadyEvent) => this.onGridReady(gridReadyEvent),

@@ -63,13 +63,13 @@ export class SkyBasicDataGridDemoComponent {
   public gridData = SKY_AG_GRID_DEMO_DATA;
   public gridOptions: GridOptions;
   public searchText: string = '';
-  public noRowsTemplate;
+  public noRowsTemplate: string;
 
   constructor(
     private agGridService: SkyAgGridService,
     private changeDetector: ChangeDetectorRef
   ) {
-    this.noRowsTemplate = `No results found`;
+    this.noRowsTemplate = `<div class="sky-deemphasized">No results found.</div>`;
     this.gridOptions = this.agGridService.getGridOptions({
       gridOptions: {
         columnDefs: this.columnDefs,

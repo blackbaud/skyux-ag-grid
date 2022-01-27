@@ -60,13 +60,13 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
     },
     {
       field: 'startDate',
-      headerName: 'Start Date',
+      headerName: 'Start date',
       type: SkyCellType.Date,
       sort: 'asc',
     },
     {
       field: 'endDate',
-      headerName: 'End Date',
+      headerName: 'End date',
       type: SkyCellType.Date,
       valueFormatter: this.endDateFormatter,
     },
@@ -82,10 +82,12 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
     },
     {
       field: 'validationCurrency',
+      headerName: 'Validation currency',
       type: [SkyCellType.CurrencyValidator],
     },
     {
       field: 'validationDate',
+      headerName: 'Validation date',
       type: [SkyCellType.Date, SkyCellType.Validator],
       cellRendererParams: {
         skyComponentProperties: {
@@ -137,12 +139,12 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
       },
       {
         id: 'startDate',
-        label: 'Start Date',
+        label: 'Start date',
         description: 'The start date of the employee.',
       },
       {
         id: 'endDate',
-        label: 'End Date',
+        label: 'End date',
         description: 'The end date of the employee.',
       },
       {
@@ -157,12 +159,12 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
       },
       {
         id: 'validationCurrency',
-        label: 'Validation Currency',
+        label: 'Validation currency',
         description: 'An example column for currency validation.',
       },
       {
         id: 'validationDate',
-        label: 'Validation Date',
+        label: 'Validation date',
         description: 'An example column for date validation.',
       },
     ],
@@ -214,7 +216,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
   public gridApi?: GridApi;
   public gridInitialized = false;
   public gridOptions!: GridOptions;
-  public noRowsTemplate;
+  public noRowsTemplate: string;
 
   constructor(
     private agGridService: SkyAgGridService,
@@ -222,7 +224,7 @@ export class SkyDataManagerDataEntryGridDemoComponent implements OnInit {
     private dataManagerService: SkyDataManagerService,
     private modalService: SkyModalService
   ) {
-    this.noRowsTemplate = `No results found`;
+    this.noRowsTemplate = `<div class="sky-deemphasized">No results found.</div>`;
     this.dataManagerService
       .getDataStateUpdates(this.viewId)
       .subscribe((state) => {
