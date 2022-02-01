@@ -18,6 +18,7 @@ import {
   GridApi,
   GridOptions,
   GridReadyEvent,
+  RowSelectedEvent,
   ValueFormatterParams,
 } from 'ag-grid-community';
 
@@ -251,6 +252,12 @@ export class DataManagerDataEntryGridDocsDemoViewGridComponent
     this.columnApi = gridReadyEvent.columnApi;
     this.updateData();
     this.changeDetector.markForCheck();
+  }
+
+  public onRowSelected(rowSelectedEvent: RowSelectedEvent): void {
+    if (!rowSelectedEvent.data.selected) {
+      this.updateData();
+    }
   }
 
   public sortItems(): void {
