@@ -2,8 +2,9 @@
   <sky-ag-grid-wrapper *ngIf="isActive && gridInitialized">
     <ag-grid-angular
       [gridOptions]="gridOptions"
-      [rowData]="displayedItems"
       [overlayNoRowsTemplate]="noRowsTemplate"
+      [rowData]="displayedItems"
+      (rowSelected)="onRowSelected($event)"
     >
     </ag-grid-angular>
   </sky-ag-grid-wrapper>
