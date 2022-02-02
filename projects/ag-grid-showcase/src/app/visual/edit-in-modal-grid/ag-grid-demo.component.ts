@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SkyThemeService, SkyThemeSettings } from '@skyux/theme';
+import { SkyThemeService } from '@skyux/theme';
 
 import {
   GridApi,
