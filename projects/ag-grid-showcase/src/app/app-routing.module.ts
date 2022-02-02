@@ -1,11 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DataManagerVisualComponent } from './visual/data-manager/data-manager-visual.component';
-import { EditComplexCellsComponent } from './visual/edit-complex-cells/edit-complex-cells.component';
-import { SkyAgGridDemoComponent } from './visual/edit-in-modal-grid/ag-grid-demo.component';
-import { EditStopWhenLosesFocusComponent } from './visual/edit-stop-when-loses-focus/edit-stop-when-loses-focus.component';
-import { EditableGridComponent } from './visual/editable-grid/editable-grid.component';
-import { ReadonlyGridComponent } from './visual/readonly-grid/readonly-grid.component';
 import { VisualComponent } from './visual/visual.component';
 
 const routes: Routes = [
@@ -20,27 +14,45 @@ const routes: Routes = [
   },
   {
     path: 'visual/data-manager',
-    component: DataManagerVisualComponent,
+    loadChildren: () =>
+      import('./visual/data-manager/data-manager.module').then(
+        (m) => m.DataManagerModule
+      ),
   },
   {
     path: 'visual/edit-complex-cells',
-    component: EditComplexCellsComponent,
+    loadChildren: () =>
+      import('./visual/edit-complex-cells/edit-complex-cells.module').then(
+        (m) => m.EditComplexCellsModule
+      ),
   },
   {
     path: 'visual/edit-in-modal-grid',
-    component: SkyAgGridDemoComponent,
+    loadChildren: () =>
+      import('./visual/edit-in-modal-grid/edit-in-modal-grid.module').then(
+        (m) => m.EditInModalGridModule
+      ),
   },
   {
     path: 'visual/edit-stop-when-loses-focus',
-    component: EditStopWhenLosesFocusComponent,
+    loadChildren: () =>
+      import(
+        './visual/edit-stop-when-loses-focus/edit-stop-when-loses-focus.module'
+      ).then((m) => m.EditStopWhenLosesFocusModule),
   },
   {
     path: 'visual/editable-grid',
-    component: EditableGridComponent,
+    loadChildren: () =>
+      import('./visual/editable-grid/editable-grid.module').then(
+        (m) => m.EditableGridModule
+      ),
   },
   {
     path: 'visual/readonly-grid',
-    component: ReadonlyGridComponent,
+    loadChildren: () =>
+      import('./visual/readonly-grid/readonly-grid.module').then(
+        (m) => m.ReadonlyGridModule
+      ),
   },
 ];
 
