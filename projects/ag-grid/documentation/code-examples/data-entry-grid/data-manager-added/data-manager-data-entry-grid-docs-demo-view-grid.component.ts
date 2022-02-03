@@ -263,13 +263,14 @@ export class DataManagerDataEntryGridDocsDemoViewGridComponent
   public sortItems(): void {
     let sortOption = this.dataState.activeSortOption;
     if (this.columnApi && sortOption) {
-      const sort = [
-        {
-          colId: sortOption.propertyName,
-          sort: sortOption.descending ? 'desc' : 'asc',
-        },
-      ];
-      this.gridApi?.setSortModel(sort);
+      this.columnApi.applyColumnState({
+        state: [
+          {
+            colId: sortOption.propertyName,
+            sort: sortOption.descending ? 'desc' : 'asc',
+          },
+        ],
+      });
     }
   }
 
