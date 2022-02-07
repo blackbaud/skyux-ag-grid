@@ -1,6 +1,6 @@
 # 5.2.1 (2022-02-07)
 
-- Updated code structure for Data grid with data manager & Data entry grid with data manager's code examples and behavioral demos. Made sorts not be segemented by selection. Remove unnecessary variable 'searchText' from code examples. Make shown items update dynamically based on selection. [#194](https://github.com/blackbaud/skyux-ag-grid/pull/194)
+- Updated the code structure for data grid and data entry grid code examples and behavioral demos to not segment by selection, remove the unnecessary `searchText` variable, and update the shown items dynamically based on selection. [#194](https://github.com/blackbaud/skyux-ag-grid/pull/194)
 
 # 5.2.0 (2022-02-02)
 
