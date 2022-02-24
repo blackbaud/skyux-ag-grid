@@ -17,6 +17,10 @@ export class EditableGridRow {
     name: string;
     interestingFact: string;
   }[];
+  public lookupAsync: {
+    id: string;
+    name: string;
+  }[];
 }
 
 function getDay(i: number) {
@@ -55,6 +59,18 @@ export const EDITABLE_GRID_LOOKUP = Array.from(Array(50).keys()).map((i) => {
   };
 });
 
+export const EDITABLE_GRID_LOOKUP_ASYNC = Array.from(Array(120).keys()).map((i) => {
+  const clusterSize = 3 + Math.floor(i / 26);
+  const cycleOffset = clusterSize * i % Math.ceil(26 - clusterSize);
+  const offset = (65 + cycleOffset);
+  const characters = Array.from(Array(clusterSize).keys())
+    .map((j) => String.fromCharCode(offset + j));
+  return {
+    id: `async_${i + 1}`,
+    name: `${characters.join('')}`,
+  };
+});
+
 export const EDITABLE_GRID_DATA_FACTORY = function (
   startAt: number,
   numberOfRows: number,
@@ -87,6 +103,9 @@ export const EDITABLE_GRID_DATA_FACTORY = function (
           `record_${lookupKey * 3 + 3}`,
           `record_${lookupKey * 3 + 4}`,
         ].includes(value.id);
+      }),
+      lookupAsync: EDITABLE_GRID_LOOKUP_ASYNC.filter((value) => {
+        return `async_${1 + i % EDITABLE_GRID_LOOKUP_ASYNC.length}` === value.id;
       }),
     };
   });

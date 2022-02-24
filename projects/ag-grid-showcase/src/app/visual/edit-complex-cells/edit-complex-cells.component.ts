@@ -11,6 +11,7 @@ import {
   SkyAgGridService,
   SkyCellType,
 } from '@skyux/ag-grid';
+import { SkyAutocompleteSearchAsyncArgs } from '@skyux/lookup';
 
 import { SkyThemeService } from '@skyux/theme';
 
@@ -23,14 +24,14 @@ import {
   RowNode,
   RowSelectedEvent,
 } from 'ag-grid-community';
-import { BehaviorSubject } from 'rxjs';
-import { skip } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
+import { delay, filter, skip } from 'rxjs/operators';
 import { CustomMultilineComponent } from './custom-multiline/custom-multiline.component';
 
 import {
   EDITABLE_GRID_DATA,
   EDITABLE_GRID_DATA_FACTORY,
-  EDITABLE_GRID_LOOKUP,
+  EDITABLE_GRID_LOOKUP, EDITABLE_GRID_LOOKUP_ASYNC,
   EDITABLE_GRID_OPTIONS,
   EditableGridOption,
   EditableGridRow,
@@ -181,6 +182,36 @@ export class EditComplexCellsComponent implements OnInit {
             descriptorProperty: 'name',
             selectMode: 'multiple',
             enableShowMore: true,
+          },
+        },
+        cellRendererParams: {
+          skyComponentProperties: {
+            descriptorProperty: 'name',
+          },
+        },
+      },
+      {
+        colId: 'lookupAsync',
+        field: 'lookupAsync',
+        minWidth: 235,
+        maxWidth: 285,
+        editable: this.editMode,
+        type: SkyCellType.Lookup,
+        cellEditorParams: {
+          skyComponentProperties: {
+            data: EDITABLE_GRID_LOOKUP,
+            idProperty: 'id',
+            descriptorProperty: 'name',
+            selectMode: 'single',
+            searchAsync: (search: SkyAutocompleteSearchAsyncArgs) => {
+              const items = EDITABLE_GRID_LOOKUP_ASYNC
+                .filter((value) => value.name.startsWith(search.searchText.toUpperCase()));
+              search.result = of({
+                hasMore: false,
+                items,
+                totalCount: items.length,
+              }).pipe(delay(600))
+            }
           },
         },
         cellRendererParams: {
