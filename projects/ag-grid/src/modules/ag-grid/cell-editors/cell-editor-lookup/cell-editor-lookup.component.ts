@@ -59,7 +59,8 @@ export class SkyAgGridCellEditorLookupComponent
       control.disable();
     }
     this.skyComponentProperties = this.updateComponentProperties(this.params);
-    this.useAsyncSearch = typeof this.skyComponentProperties.searchAsync === 'function';
+    this.useAsyncSearch =
+      typeof this.skyComponentProperties.searchAsync === 'function';
     this.isAlive = true;
     this.changeDetector.markForCheck();
   }

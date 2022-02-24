@@ -59,17 +59,20 @@ export const EDITABLE_GRID_LOOKUP = Array.from(Array(50).keys()).map((i) => {
   };
 });
 
-export const EDITABLE_GRID_LOOKUP_ASYNC = Array.from(Array(120).keys()).map((i) => {
-  const clusterSize = 3 + Math.floor(i / 26);
-  const cycleOffset = clusterSize * i % Math.ceil(26 - clusterSize);
-  const offset = (65 + cycleOffset);
-  const characters = Array.from(Array(clusterSize).keys())
-    .map((j) => String.fromCharCode(offset + j));
-  return {
-    id: `async_${i + 1}`,
-    name: `${characters.join('')}`,
-  };
-});
+export const EDITABLE_GRID_LOOKUP_ASYNC = Array.from(Array(120).keys()).map(
+  (i) => {
+    const clusterSize = 3 + Math.floor(i / 26);
+    const cycleOffset = (clusterSize * i) % Math.ceil(26 - clusterSize);
+    const offset = 65 + cycleOffset;
+    const characters = Array.from(Array(clusterSize).keys()).map((j) =>
+      String.fromCharCode(offset + j)
+    );
+    return {
+      id: `async_${i + 1}`,
+      name: `${characters.join('')}`,
+    };
+  }
+);
 
 export const EDITABLE_GRID_DATA_FACTORY = function (
   startAt: number,
@@ -105,7 +108,9 @@ export const EDITABLE_GRID_DATA_FACTORY = function (
         ].includes(value.id);
       }),
       lookupAsync: EDITABLE_GRID_LOOKUP_ASYNC.filter((value) => {
-        return `async_${1 + i % EDITABLE_GRID_LOOKUP_ASYNC.length}` === value.id;
+        return (
+          `async_${1 + (i % EDITABLE_GRID_LOOKUP_ASYNC.length)}` === value.id
+        );
       }),
     };
   });

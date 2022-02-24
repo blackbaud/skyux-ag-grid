@@ -31,7 +31,8 @@ import { CustomMultilineComponent } from './custom-multiline/custom-multiline.co
 import {
   EDITABLE_GRID_DATA,
   EDITABLE_GRID_DATA_FACTORY,
-  EDITABLE_GRID_LOOKUP, EDITABLE_GRID_LOOKUP_ASYNC,
+  EDITABLE_GRID_LOOKUP,
+  EDITABLE_GRID_LOOKUP_ASYNC,
   EDITABLE_GRID_OPTIONS,
   EditableGridOption,
   EditableGridRow,
@@ -204,14 +205,15 @@ export class EditComplexCellsComponent implements OnInit {
             descriptorProperty: 'name',
             selectMode: 'single',
             searchAsync: (search: SkyAutocompleteSearchAsyncArgs) => {
-              const items = EDITABLE_GRID_LOOKUP_ASYNC
-                .filter((value) => value.name.startsWith(search.searchText.toUpperCase()));
+              const items = EDITABLE_GRID_LOOKUP_ASYNC.filter((value) =>
+                value.name.startsWith(search.searchText.toUpperCase())
+              );
               search.result = of({
                 hasMore: false,
                 items,
                 totalCount: items.length,
-              }).pipe(delay(600))
-            }
+              }).pipe(delay(600));
+            },
           },
         },
         cellRendererParams: {
