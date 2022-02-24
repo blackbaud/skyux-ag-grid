@@ -25,7 +25,7 @@ import {
   RowSelectedEvent,
 } from 'ag-grid-community';
 import { BehaviorSubject, of } from 'rxjs';
-import { delay, filter, skip } from 'rxjs/operators';
+import { delay, skip } from 'rxjs/operators';
 import { CustomMultilineComponent } from './custom-multiline/custom-multiline.component';
 
 import {

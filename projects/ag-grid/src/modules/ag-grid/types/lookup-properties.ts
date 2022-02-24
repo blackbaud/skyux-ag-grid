@@ -36,6 +36,7 @@ export function applySkyLookupPropertiesDefaults(
   skyLookupProperties: SkyLookupProperties
 ) {
   return {
+    addClick: skyLookupProperties.addClick || undefined,
     ariaLabel: skyLookupProperties.ariaLabel || '',
     autocompleteAttribute: skyLookupProperties.autocompleteAttribute || 'off',
     data: skyLookupProperties.data || [],
