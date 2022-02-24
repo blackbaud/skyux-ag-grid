@@ -3,13 +3,10 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  OnDestroy,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { SkyAutocompleteSearchAsyncArgs } from '@skyux/lookup';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { IPopupComponent } from 'ag-grid-community/dist/lib/interfaces/iPopupComponent';
-import { Subject } from 'rxjs';
 import { SkyCellEditorLookupParams } from '../../types/cell-editor-lookup-params';
 import {
   applySkyLookupPropertiesDefaults,
@@ -23,7 +20,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkyAgGridCellEditorLookupComponent
-  implements ICellEditorAngularComp, IPopupComponent<any>, OnDestroy
+  implements ICellEditorAngularComp, IPopupComponent<any>
 {
   public skyComponentProperties?: SkyLookupProperties;
   public isAlive = false;
@@ -35,18 +32,12 @@ export class SkyAgGridCellEditorLookupComponent
   });
   public useAsyncSearch: boolean = false;
 
-  private ngDestroy = new Subject<void>();
   private params: SkyCellEditorLookupParams;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
     private elementRef: ElementRef
   ) {}
-
-  public ngOnDestroy(): void {
-    this.ngDestroy.next();
-    this.ngDestroy.complete();
-  }
 
   public agInit(params: SkyCellEditorLookupParams): void {
     this.params = params;
